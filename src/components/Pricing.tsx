@@ -110,18 +110,17 @@ export function Pricing() {
             for everyone.
           </h2>
           <p className="mt-4 text-lg text-slate-400">
-            It doesn’t matter what size your business is, our software won’t
-            work well for you.
+            It doesn’t matter what size your blog is, we have a plan that fits your needs.
           </p>
         </div>
         <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
           <Plan
-            name="Starter"
-            price="$9"
+            name="Basic"
+            price="free"
             description="Good for anyone who is self-employed and just getting started."
             href="/register"
             features={[
-              'Send 10 quotes and invoices',
+              'Archive up to 50 posts per year',
               'Connect up to 2 bank accounts',
               'Track up to 15 expenses per month',
               'Manual payroll support',
@@ -131,17 +130,12 @@ export function Pricing() {
           <Plan
             featured
             name="Small business"
-            price="$15"
+            price="$1 per post"
             description="Perfect for small / medium sized businesses."
             href="/register"
             features={[
-              'Send 25 quotes and invoices',
-              'Connect up to 5 bank accounts',
-              'Track up to 50 expenses per month',
-              'Automated payroll support',
-              'Export up to 12 reports',
-              'Bulk reconcile transactions',
-              'Track in multiple currencies',
+              'Everything in starter',
+              'Archive an unlimited number of posts',
             ]}
           />
           <Plan
