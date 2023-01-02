@@ -92,7 +92,7 @@ function MobileNavigation() {
 export function Header() {
   return (
     <header className="py-10">
-      <Container>
+      <Container className="relative">
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
             <Link href="#" aria-label="Home">
@@ -107,7 +107,7 @@ export function Header() {
             <div className="hidden md:block">
               <NavLink href="/login">Sign in</NavLink>
             </div>
-            <Button href="/register" color="blue">
+            <Button href="/register" color="blue" className=''>
               <span>
                 Get started <span className="hidden lg:inline">today</span>
               </span>

@@ -77,6 +77,7 @@ export default function Register() {
               variant="solid"
               color="blue"
               className="w-full"
+              href=""
             >
               <span>
                 Sign up <span aria-hidden="true">&rarr;</span>
