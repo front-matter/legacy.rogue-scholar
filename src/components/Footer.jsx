@@ -23,7 +23,7 @@ export function Footer() {
             <Link
               href="https://twitter.com"
               className="group"
-              aria-label="TaxPal on Twitter"
+              aria-label="Rouge Scholar on Mastodon"
             >
               <svg
                 aria-hidden="true"
@@ -35,7 +35,7 @@ export function Footer() {
             <Link
               href="https://github.com"
               className="group"
-              aria-label="TaxPal on GitHub"
+              aria-label="Rouge Scholar on GitHub"
             >
               <svg
                 aria-hidden="true"
@@ -46,7 +46,7 @@ export function Footer() {
             </Link>
           </div>
           <p className="mt-6 text-sm text-slate-500 sm:mt-0">
-            Copyright &copy; {new Date().getFullYear()} TaxPal. All rights
+            Copyright &copy; {new Date().getFullYear()} Rouge Scholar. All rights
             reserved.
           </p>
         </div>
