@@ -14,6 +14,7 @@ export function Footer() {
             <div className="-my-1 flex justify-center gap-x-6">
               <NavLink href="#features">Features</NavLink>
               <NavLink href="#pricing">Pricing</NavLink>
+              <NavLink href="#faq">FAQ</NavLink>
             </div>
           </nav>
         </div>
@@ -22,7 +23,7 @@ export function Footer() {
             <Link
               href="https://github.com/front-matter/rouge-scholar"
               className="group"
-              aria-label="Rouge Scholar on GitHub"
+              aria-label="The Rouge Scholar on GitHub"
             >
               <svg
                 aria-hidden="true"
@@ -33,7 +34,7 @@ export function Footer() {
             </Link>
           </div>
           <p className="mt-6 text-sm text-slate-500 sm:mt-0">
-            Copyright &copy; {new Date().getFullYear()} Rouge Scholar. All rights
+            Copyright &copy; {new Date().getFullYear()} The Rouge Scholar. All rights
             reserved.
           </p>
         </div>

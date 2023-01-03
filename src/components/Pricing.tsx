@@ -85,9 +85,9 @@ function Plan({ name, price, description, href, features, featured = false }) {
         variant={featured ? 'solid' : 'outline'}
         color="white"
         className="mt-8"
-        aria-label={`Get started with the ${name} plan for ${price}`}
+        aria-label={`Sign up for the waitlist with the ${name} plan for ${price}`}
       >
-        Get started
+        Sign up for the waitlist
       </Button>
     </section>
   )
@@ -105,7 +105,7 @@ export function Pricing() {
           <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
             <span className="relative whitespace-nowrap">
               <SwirlyDoodle className="absolute top-1/2 left-0 h-[1em] w-full fill-blue-400" />
-              <span className="relative">Simple pricing,</span>
+              <span className="relative">Simple pricing</span>
             </span>{' '}
             for everyone.
           </h2>
@@ -118,7 +118,7 @@ export function Pricing() {
             name="Starter"
             price="Free"
             description="For most blogs."
-            href="/register"
+            href="https://jvinjjenjik.typeform.com/to/uxgAsHPlSign"
             features={[
               'Archive up to 50 posts per year',
               'Register DOIs with metadata',
@@ -130,7 +130,7 @@ export function Pricing() {
             name="Team"
             price="$1 per post"
             description="Perfect for bigger blogs."
-            href="/register"
+            href="https://jvinjjenjik.typeform.com/to/uxgAsHPlSign"
             features={[
               'Everything in starter',
               'Archive an unlimited number of posts',
@@ -140,8 +140,9 @@ export function Pricing() {
             name="Enterprise"
             price="Contact us"
             description="For special requirements."
-            href="/register"
+            href="https://jvinjjenjik.typeform.com/to/uxgAsHPlSign"
             features={[
+              'Everything in team',
               'Archive a blog without active RSS feed',
               'Extended language support',
               'Custom feature development',
