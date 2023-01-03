@@ -10,7 +10,7 @@ export default function Register() {
   return (
     <>
       <Head>
-        <title>Sign Up - Rouge Scholar</title>
+        <title>Sign Up - Rogue Scholar</title>
       </Head>
       <AuthLayout>
         <div className="flex flex-col">

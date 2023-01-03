@@ -10,7 +10,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>Sign In - Rouge Scholar</title>
+        <title>Sign In - Rogue Scholar</title>
       </Head>
       <AuthLayout>
         <div className="flex flex-col">
