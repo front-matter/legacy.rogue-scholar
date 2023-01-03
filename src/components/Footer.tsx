@@ -1,15 +1,19 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 import { Container } from '@/components/Container'
-import { Logo } from '@/components/Logo'
 import { NavLink } from '@/components/NavLink'
+
+import Icon from '@/images/icon.png'
 
 export function Footer() {
   return (
     <footer className="bg-slate-50">
       <Container className="relative">
         <div className="py-16">
-          <Logo className="mx-auto h-10 w-auto" />
+          <div className="text-blue-600 text-lg font-semibold">
+            <Image src={Icon} alt="Icon" width={24} /> The Rogue Scholar
+          </div>
           <nav className="mt-10 text-sm" aria-label="quick links">
             <div className="-my-1 flex justify-center gap-x-6">
               <NavLink href="#features">Features</NavLink>

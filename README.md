@@ -1,2 +1,2 @@
-# rouge-scholar
+# rogue-scholar
  

@@ -9,7 +9,7 @@ export default function Document(props) {
       lang="en"
     >
       <Head>
-        
+
       </Head>
       <body className="flex h-full flex-col">
         <Main />
