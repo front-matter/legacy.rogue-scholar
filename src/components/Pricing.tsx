@@ -110,28 +110,26 @@ export function Pricing() {
             for everyone.
           </h2>
           <p className="mt-4 text-lg text-slate-400">
-            It doesn’t matter what size your blog is, we have a plan that fits your needs.
+            It doesn’t matter what size your blog is, and whether it is active or retired.
           </p>
         </div>
         <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
           <Plan
-            name="Basic"
-            price="free"
-            description="Good for anyone who is self-employed and just getting started."
+            name="Starter"
+            price="Free"
+            description="For most blogs."
             href="/register"
             features={[
               'Archive up to 50 posts per year',
-              'Connect up to 2 bank accounts',
-              'Track up to 15 expenses per month',
-              'Manual payroll support',
-              'Export up to 3 reports',
+              'Register DOIs with metadata',
+              'Full-text search',
             ]}
           />
           <Plan
             featured
-            name="Small business"
+            name="Team"
             price="$1 per post"
-            description="Perfect for small / medium sized businesses."
+            description="Perfect for bigger blogs."
             href="/register"
             features={[
               'Everything in starter',
@@ -140,15 +138,13 @@ export function Pricing() {
           />
           <Plan
             name="Enterprise"
-            price="$39"
-            description="For even the biggest enterprise companies."
+            price="Contact us"
+            description="For special requirements."
             href="/register"
             features={[
-              'Send unlimited quotes and invoices',
-              'Connect up to 15 bank accounts',
-              'Track up to 200 expenses per month',
-              'Automated payroll support',
-              'Export up to 25 reports, including TPS',
+              'Archive a blog without active RSS feed',
+              'Extended language support',
+              'Custom feature development',
             ]}
           />
         </div>
