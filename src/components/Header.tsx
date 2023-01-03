@@ -104,7 +104,7 @@ export function Header() {
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
-            <Button href="https://jvinjjenjik.typeform.com/to/uxgAsHPlSign" color="blue" className=''>
+            <Button href="https://jvinjjenjik.typeform.com/to/uxgAsHPl" color="blue" className=''>
               <span>
                 Sign up <span className="hidden lg:inline">for the waitlist</span>
               </span>

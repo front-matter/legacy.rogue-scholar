@@ -27,7 +27,7 @@ export function Hero() {
         including full-text search, analytics, and a modern, mobile-friendly interface.
       </p>
       <div className="mt-10 flex justify-center gap-x-6">
-        <Button href="https://jvinjjenjik.typeform.com/to/uxgAsHPlSign" className="">Sign up for the waitlist</Button>
+        <Button href="https://jvinjjenjik.typeform.com/to/uxgAsHPl" className="">Sign up for the waitlist</Button>
         <Button
           href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
           variant="outline"
