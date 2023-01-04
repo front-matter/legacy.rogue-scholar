@@ -139,7 +139,7 @@ export function Pricing() {
           <Plan
             name="Enterprise"
             price="Contact us"
-            description="For special requirements."
+            description="Have special requirements."
             href="https://jvinjjenjik.typeform.com/to/uxgAsHPl"
             features={[
               'Everything in team',

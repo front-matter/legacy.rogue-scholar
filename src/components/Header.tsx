@@ -8,7 +8,7 @@ import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { NavLink } from '@/components/NavLink'
 
-import Logo from '@/images/logo.png'
+import Icon from '@/images/icon.png'
 
 function MobileNavLink({ href, children }) {
   return (
@@ -97,7 +97,9 @@ export function Header() {
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
             <Link href="#" aria-label="Home">
-              <Image src={Logo} alt="Logo" />
+              <div className="text-blue-600 text-3xl font-semibold flex justify-center">
+                <Image src={Icon} alt="Icon" width={24} className="mr-3" /> The Rogue Scholar
+             </div>
             </Link>
             <div className="hidden md:flex md:gap-x-6">
               <NavLink href="#features">Features</NavLink>
