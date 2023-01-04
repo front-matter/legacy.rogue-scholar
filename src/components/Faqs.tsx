@@ -6,9 +6,9 @@ import backgroundImage from '@/images/background-faqs.jpg'
 const faqs = [
   [
     {
-      question: 'Does Rogue Scholar handle VAT?',
+      question: 'When does The Rogue Scholar launch?',
       answer:
-        'Well no, but if you move your company offshore you can probably ignore it.',
+        'The Rogue Scholar launches in Q2 2003. The exact date will be announced at a later time.',
     },
     {
       question: 'Can I pay for my subscription via purchase order?',

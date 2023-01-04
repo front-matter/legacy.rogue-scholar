@@ -1,3 +1,4 @@
+import PlausibleProvider from 'next-plausible'
 import 'focus-visible'
 import '@/styles/tailwind.css'
 import { Inter } from '@next/font/google'
@@ -7,8 +8,10 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function App({ Component, pageProps }) {
   return(
-    <main className={inter.className}>
-      <Component {...pageProps} />
-    </main>
+    <PlausibleProvider domain='rogue-scholar.org'>
+      <main className={inter.className}>
+        <Component {...pageProps} />
+      </main>
+    </PlausibleProvider>
   )
 }
