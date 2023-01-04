@@ -97,7 +97,7 @@ export function Header() {
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">
             <Link href="#" aria-label="Home">
-              <div className="text-blue-600 text-3xl font-semibold flex justify-center">
+              <div className="text-blue-600 text-3xl font-bold flex justify-center">
                 <Image src={Icon} alt="Icon" width={24} className="mr-3" /> The Rogue Scholar
              </div>
             </Link>
