@@ -9,7 +9,7 @@ const faqs = [
     {
       question: 'When does The Rogue Scholar launch?',
       answer:
-        'The Rogue Scholar launches in Q2 2003. The exact date will be announced at a later time.',
+        'The Rogue Scholar launches in Q2 2023. The exact date will be announced at a later time.',
     },
     {
       question: 'How can I sign up for the Rogue Scholar?',
