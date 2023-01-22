@@ -145,6 +145,7 @@ export function Pricing() {
               'Everything in team',
               'Archive a blog without active RSS feed',
               'Support other languages',
+              'Support podcasts and vlogs',
               'Custom feature development',
             ]}
           />
