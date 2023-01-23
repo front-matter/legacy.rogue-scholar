@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { useSession } from '@supabase/auth-helpers-react'
 
 import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
@@ -47,6 +48,8 @@ function CheckIcon({ className }) {
 }
 
 function Plan({ name, price, description, href, features, featured = false }) {
+  const session = useSession()
+
   return (
     <section
       className={clsx(
@@ -80,15 +83,17 @@ function Plan({ name, price, description, href, features, featured = false }) {
           </li>
         ))}
       </ul>
-      <Button
-        href={href}
-        variant={featured ? 'solid' : 'outline'}
-        color="white"
-        className="mt-8"
-        aria-label={`Sign up for the waitlist with the ${name} plan for ${price}`}
-      >
-        Sign up for the waitlist
-      </Button>
+      {!session && (
+        <Button
+          href={href}
+          variant={featured ? 'solid' : 'outline'}
+          color="white"
+          className="mt-8"
+          aria-label={`Register for the waitlist with the ${name} plan for ${price}`}
+        >
+          Sign up the waitlist
+        </Button>
+      )}
     </section>
   )
 }
@@ -98,7 +103,7 @@ export function Pricing() {
     <section
       id="pricing"
       aria-label="Pricing"
-      className="bg-slate-900 py-20 sm:py-32"
+      className="bg-slate-900 py-10 sm:py-16"
     >
       <Container className="">
         <div className="md:text-center">

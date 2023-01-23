@@ -17,7 +17,7 @@ export function Footer() {
   return (
     <footer className="bg-slate-50">
       <Container className="relative">
-        <div className="py-16">
+        <div className="py-8">
           <div className="text-blue-600 text-2xl font-semibold flex justify-center">
             <Image src={Icon} alt="Icon" width={18} className="mr-2" /> The Rogue Scholar
           </div>
