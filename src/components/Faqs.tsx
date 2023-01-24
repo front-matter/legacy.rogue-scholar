@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { Container } from '@/components/Container'
-import backgroundImage from '@/images/background-faqs.jpg'
 
 const faqs = [
   [

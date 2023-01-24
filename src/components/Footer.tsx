@@ -15,7 +15,7 @@ import Icon from '@/images/icon.png'
 
 export function Footer() {
   return (
-    <footer className="bg-slate-50">
+    <footer className="bg-slate-100">
       <Container className="relative">
         <div className="py-8">
           <div className="text-blue-600 text-2xl font-semibold flex justify-center">
