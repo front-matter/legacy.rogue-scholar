@@ -80,7 +80,8 @@ export function Faqs() {
             Frequently asked questions
           </h2>
           <p className="mt-2 text-lg tracking-tight text-slate-700">
-            If you can’t find what you’re looking for, reach out to support via the{' '}
+            If you can’t find what you’re looking for, go to our 
+            <Link href="https://docs.rogue-scholar.org" className="font-semibold border-b-0 text-gray-700 hover:text-gray-400 whitespace-nowrap">Documentation</Link>{' '}or reach out to support via the{' '}
             <Link href="https://discord.gg/HvbD4dNPFh" className="font-semibold border-b-0 text-gray-700 hover:text-gray-400 whitespace-nowrap">Rogue Scholar Discord Forum</Link>.
           </p>
         </div>
