@@ -25,6 +25,7 @@ export function Footer() {
             <div className="-my-1 flex justify-center gap-x-6">
               <NavLink href="#pricing">Pricing</NavLink>
               <NavLink href="#faq">FAQ</NavLink>
+              <NavLink href="https://docs.rogue-scholar.orq">Docs</NavLink>
               <NavLink href="https://plausible.io/rogue-scholar.org">Usage Stats</NavLink>
             </div>
           </nav>
