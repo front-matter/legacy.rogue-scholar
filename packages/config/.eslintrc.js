@@ -15,7 +15,7 @@ module.exports = {
     "prefer-const": "error",
     "no-irregular-whitespace": "error",
     "no-trailing-spaces": "error",
-    semi: "error",
+    semi: "off",
     "no-empty-function": "error",
     "no-duplicate-imports": "error",
     "newline-after-var": "error",

@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import Icon from '../images/icon.png'
 import { supabase } from '../utils/SupabaseClient'
@@ -50,7 +50,10 @@ export default async function SignUp({ email }) {
 
               <div className="flex items-center justify-between">
                 <div className="text-sm">
-                  <a href="/signin" className="font-medium text-blue-600 hover:text-blue-500">
+                  <a
+                    href="/signin"
+                    className="font-medium text-blue-600 hover:text-blue-500"
+                  >
                     Already have an account?
                   </a>
                 </div>

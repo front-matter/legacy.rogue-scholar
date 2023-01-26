@@ -1,6 +1,6 @@
-import React from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
+import Link from 'next/link'
+import React from 'react'
 
 import Icon from '../images/icon.png'
 import { supabase } from '../utils/SupabaseClient'
@@ -58,12 +58,14 @@ export default async function signInWithEmail({ email }) {
 
               <div className="flex items-center justify-between">
                 <div className="text-sm">
-                  <a href="/signup" className="font-medium text-blue-600 hover:text-blue-500">
+                  <a
+                    href="/signup"
+                    className="font-medium text-blue-600 hover:text-blue-500"
+                  >
                     Need an account?
                   </a>
                 </div>
               </div>
-
 
               <div>
                 <button
