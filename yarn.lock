@@ -5082,6 +5082,11 @@ turbo-darwin-arm64@1.7.0:
   resolved "https://registry.yarnpkg.com/turbo-darwin-arm64/-/turbo-darwin-arm64-1.7.0.tgz#d5fdeccb38f1092b5c888f83a2dcd9ae97068dad"
   integrity sha512-BLLOW5W6VZxk5+0ZOj5AO1qjM0P5isIgjbEuyAl8lHZ4s9antUbY4CtFrspT32XxPTYoDl4UjviPMcSsbcl3WQ==
 
+turbo-ignore@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/turbo-ignore/-/turbo-ignore-0.5.0.tgz#c0305ed25f771ca9188b5f8fe36fb1b6ef6091e3"
+  integrity sha512-93VCzUdCBCCDVje06jia/lKep4vYbpL2pBNnvxK1+LdrYu5Sug+WN1ybBZ2pwlJ04RQ6wjoejetZDreui3nDYw==
+
 turbo-linux-64@1.7.0:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/turbo-linux-64/-/turbo-linux-64-1.7.0.tgz#48cf63aa51cde67d5a56eb70df6d7a93548376fa"
