@@ -104,7 +104,7 @@ export function Header() {
             <div className="hidden md:flex md:gap-x-6">
               <NavLink href="#pricing">Pricing</NavLink>
               <NavLink href="#faq">FAQ</NavLink>
-              <NavLink href="https://docs.front-matter.io">Docs</NavLink>
+              <NavLink href="https://docs.rogue-scholar.org">Docs</NavLink>
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
