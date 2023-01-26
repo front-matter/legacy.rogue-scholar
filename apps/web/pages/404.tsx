@@ -2,11 +2,9 @@ import { usePlausible } from 'next-plausible'
 import React from 'react'
 
 const ErrorPage = () => {
-  if (typeof window !== 'undefined') {
-    const plausible = usePlausible()
+  const plausible = usePlausible()
 
-    plausible('404')
-  }
+  plausible('404')
 
   return (
     <main

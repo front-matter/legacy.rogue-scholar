@@ -15,7 +15,7 @@ export default function Account({ session }: { session: Session }) {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState<Profiles['username']>(null)
   const [website, setWebsite] = useState<Profiles['website']>(null)
-  const [avatar_url, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
+  const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
 
   useEffect(() => {
     getProfile()
@@ -52,11 +52,11 @@ export default function Account({ session }: { session: Session }) {
   async function updateProfile({
     username,
     website,
-    avatar_url,
+    avatarUrl,
   }: {
     username: Profiles['username']
     website: Profiles['website']
-    avatar_url: Profiles['avatar_url']
+    avatarUrl: Profiles['avatar_url']
   }) {
     try {
       setLoading(true)
@@ -66,8 +66,8 @@ export default function Account({ session }: { session: Session }) {
         id: user.id,
         username,
         website,
-        avatar_url,
-        updated_at: new Date().toISOString(),
+        avatarUrl,
+        updatedAt: new Date().toISOString(),
       }
 
       const { error } = await supabase.from('profiles').upsert(updates)
@@ -86,11 +86,11 @@ export default function Account({ session }: { session: Session }) {
     <div className="form-widget">
       <Avatar
         uid={user!.id}
-        url={avatar_url}
+        url={avatarUrl}
         size={150}
         onUpload={(url) => {
           setAvatarUrl(url)
-          updateProfile({ username, website, avatar_url: url })
+          updateProfile({ username, website, avatarUrl: url })
         }}
       />
       <div>
@@ -119,7 +119,7 @@ export default function Account({ session }: { session: Session }) {
       <div>
         <button
           className="button primary block"
-          onClick={() => updateProfile({ username, website, avatar_url })}
+          onClick={() => updateProfile({ username, website, avatarUrl })}
           disabled={loading}
         >
           {loading ? 'Loading ...' : 'Update'}
