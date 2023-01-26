@@ -1,7 +1,10 @@
 {
-  "name": "eslint-config-custom",
+  "name": "config",
   "version": "0.0.0",
   "main": "index.js",
+  "files": [
+    "eslint-preset.js"
+  ],
   "license": "MIT",
   "dependencies": {
     "eslint-config-next": "latest",
