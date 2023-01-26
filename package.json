@@ -5,7 +5,8 @@
     "build": "next build",
     "test": "turbo run test",
     "lint": "turbo run lint",
-    "dev": "turbo run dev"
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "dev": "turbo run dev --parallel"
   },
   "devDependencies": {
     "turbo": "latest",
