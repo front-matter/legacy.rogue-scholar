@@ -17,28 +17,29 @@ const faqs = [
     },
     {
       question: 'Why would the Rogue Scholar not accept my blog?',
-      answer: 'We only cover blogs that write about science, and where the full-text content is made available via RSS feed with a Creative Commons Attribution (CC-BY) license.',
+      answer:
+        'We only cover blogs that write about science, and where the full-text content is made available via RSS feed with a Creative Commons Attribution (CC-BY) license.',
     },
     {
       question: 'What languages does the Rogue Scholar support?',
-      answer: 'The initial release will support English and German. Additional languages will be added based on user requests.',
+      answer:
+        'The initial release will support English and German. Additional languages will be added based on user requests.',
     },
   ],
   [
     {
       question: 'How does the Rogue Scholar archive my blog?',
-      answer:
-        'We will harvest your content and metadata using your RSS feed.',
+      answer: 'We will harvest your content and metadata using your RSS feed.',
     },
     {
-      question:
-        'My RSS feed only contains summaries of blog posts.',
+      question: 'My RSS feed only contains summaries of blog posts.',
       answer:
         'You need to provide all content via RSS feed, but this can also be a private feed.',
     },
     {
       question: 'Does the Rogue Scholar support podcasts and vlogs?',
-      answer: 'Podcasts and vlogs are supported, but at an additional cost. Reach out to us via email.',
+      answer:
+        'Podcasts and vlogs are supported, but at an additional cost. Reach out to us via email.',
     },
   ],
   [
@@ -49,17 +50,18 @@ const faqs = [
     },
     {
       question: 'When do I pay for my posts?',
-      answer: 'We will send you annual invoices for the posts we have archived in the previous year if there are more than 50 posts.',
+      answer:
+        'We will send you annual invoices for the posts we have archived in the previous year if there are more than 50 posts.',
     },
     {
-      question:
-        'What costs are there for users of the Rogue Scholar?',
+      question: 'What costs are there for users of the Rogue Scholar?',
       answer:
         'The Rogue Scholar is and will always be free to use and reuse, all content is distributed under the terms of the Creative Commons Attribution (CC-BY) license.',
     },
     {
       question: 'Can I sponsor or otherwise support the Rogue Scholar?',
-      answer: 'We appreciate donations and other forms of support. Reach out to us via email.',
+      answer:
+        'We appreciate donations and other forms of support. Reach out to us via email.',
     },
   ],
 ]
@@ -80,9 +82,21 @@ export function Faqs() {
             Frequently asked questions
           </h2>
           <p className="mt-2 text-lg tracking-tight text-slate-700">
-            If you can’t find what you’re looking for, go to our{' '} 
-            <Link href="https://docs.rogue-scholar.org" className="font-semibold border-b-0 text-gray-700 hover:text-gray-400 whitespace-nowrap">Documentation</Link>{' '}or reach out to support via the{' '}
-            <Link href="https://discord.gg/HvbD4dNPFh" className="font-semibold border-b-0 text-gray-700 hover:text-gray-400 whitespace-nowrap">Rogue Scholar Discord Forum</Link>.
+            If you can’t find what you’re looking for, go to our{' '}
+            <Link
+              href="https://docs.rogue-scholar.org"
+              className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
+            >
+              Documentation
+            </Link>{' '}
+            or reach out to support via the{' '}
+            <Link
+              href="https://discord.gg/HvbD4dNPFh"
+              className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
+            >
+              Rogue Scholar Discord Forum
+            </Link>
+            .
           </p>
         </div>
         <ul

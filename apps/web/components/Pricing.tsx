@@ -1,5 +1,5 @@
-import clsx from 'clsx'
 import { useSession } from '@supabase/auth-helpers-react'
+import clsx from 'clsx'
 
 import { Button } from '../components/Button'
 import { Container } from '../components/Container'
@@ -53,11 +53,11 @@ function Plan({ name, price, description, href, features, featured = false }) {
   return (
     <section
       className={clsx(
-        'flex flex-col rounded-3xl px-6 sm:px-8 mb-10',
+        'mb-10 flex flex-col rounded-3xl px-6 sm:px-8',
         featured ? 'order-first bg-blue-600 py-8 lg:order-none' : 'lg:py-8'
       )}
     >
-      <h3 className="mt-5 font-display text-lg text-white">{name}</h3>
+      <h3 className="font-display mt-5 text-lg text-white">{name}</h3>
       <p
         className={clsx(
           'mt-2 text-base',
@@ -66,7 +66,7 @@ function Plan({ name, price, description, href, features, featured = false }) {
       >
         {description}
       </p>
-      <p className="order-first font-display text-5xl font-light tracking-tight text-white">
+      <p className="font-display order-first text-5xl font-light tracking-tight text-white">
         {price}
       </p>
       <ul
@@ -115,7 +115,8 @@ export function Pricing() {
             for everyone.
           </h2>
           <p className="mt-4 text-lg text-slate-400">
-            Support all kinds of science blogs, from personal blog to organizational newsletters.
+            Support all kinds of science blogs, from personal blog to
+            organizational newsletters.
           </p>
         </div>
         <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">

@@ -24,8 +24,8 @@ export function CallToAction() {
             Get started today
           </h2>
           <p className="mt-4 text-lg tracking-tight text-white">
-            It’s time to take full control of your blog. Enhance it by integrating
-            with Rogue Scholar.
+            It’s time to take full control of your blog. Enhance it by
+            integrating with Rogue Scholar.
           </p>
           <Button href="/register" color="white" className="mt-10">
             Get started for free

@@ -21,10 +21,10 @@ const ErrorPage = () => {
           404
         </p>
         <h1 className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-          Uh oh! I think you’re lost.
+          Uh oh! I think you&apos;re lost.
         </h1>
         <p className="mt-2 text-lg font-medium text-black text-opacity-50">
-          It looks like the page you’re looking for doesn't exist.
+          It looks like the page you&apos;re looking for doesn&apos;t exist.
         </p>
         <div className="mt-6">
           <a

@@ -1,13 +1,12 @@
-import { Fragment } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
 import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Fragment } from 'react'
 
 import { Button } from '../components/Button'
 import { Container } from '../components/Container'
 import { NavLink } from '../components/NavLink'
-
 import Icon from '../images/icon.png'
 
 function MobileNavLink({ href, children }) {
@@ -109,9 +108,14 @@ export function Header() {
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
-            <Button href="https://jvinjjenjik.typeform.com/to/uxgAsHPl" color="blue" className=''>
+            <Button
+              href="https://jvinjjenjik.typeform.com/to/uxgAsHPl"
+              color="blue"
+              className=""
+            >
               <span>
-                Sign up <span className="hidden lg:inline">for the waitlist</span>
+                Sign up{' '}
+                <span className="hidden lg:inline">for the waitlist</span>
               </span>
             </Button>
             <div className="-mr-1 md:hidden">

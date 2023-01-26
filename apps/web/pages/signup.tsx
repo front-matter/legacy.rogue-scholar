@@ -2,15 +2,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import Icon from '../images/icon.png'
-import { supabase } from '../utils/SupabaseClient'
+// import { supabase } from '../utils/SupabaseClient'
 
-export default async function SignUp({ email }) {
-  const { data, error } = await supabase.auth.signInWithOtp({
-    email: email,
-    options: {
-      emailRedirectTo: 'http://localhost:3000',
-    },
-  })
+export default async function SignUp() {
+  // const { data, error } = await supabase.auth.signInWithOtp({
+  //   email: email,
+  //   options: {
+  //     emailRedirectTo: 'http://localhost:3000',
+  //   },
+  // })
 
   return (
     <section

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { Tab } from '@headlessui/react'
 import clsx from 'clsx'
+import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 import { Container } from '../components/Container'
 import backgroundImage from '../images/background-features.jpg'
@@ -38,10 +38,10 @@ const features = [
 ]
 
 export function PrimaryFeatures() {
-  let [tabOrientation, setTabOrientation] = useState('horizontal')
+  const [tabOrientation, setTabOrientation] = useState('horizontal')
 
   useEffect(() => {
-    let lgMediaQuery = window.matchMedia('(min-width: 1024px)')
+    const lgMediaQuery = window.matchMedia('(min-width: 1024px)')
 
     function onMediaQueryChange({ matches }) {
       setTabOrientation(matches ? 'vertical' : 'horizontal')
