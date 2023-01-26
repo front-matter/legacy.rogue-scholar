@@ -13,7 +13,7 @@ export default function Avatar({
   uid: string
   url: Profiles['avatar_url']
   size: number
-  onUpload: string //(url: string) => void
+  onUpload: any //(url: string) => void
 }) {
   const supabase = useSupabaseClient<Database>()
   const [avatarUrl, setAvatarUrl] = useState<Profiles['avatar_url']>(null)
