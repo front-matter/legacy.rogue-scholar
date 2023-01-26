@@ -2,8 +2,8 @@ import React from 'react'
 import { usePlausible } from 'next-plausible'
 
 const ErrorPage = () => {
-  const plausible = usePlausible()
-  if (process.browser) {
+  if (typeof window !== "undefined") {
+    const plausible = usePlausible()
     plausible('404')
   }
 

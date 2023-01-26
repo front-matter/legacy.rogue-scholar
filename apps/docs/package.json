@@ -1,31 +1,26 @@
 {
-  "name": "nextra-docs-template",
-  "version": "0.0.1",
-  "description": "Nextra docs template",
+  "name": "rogue-scholar-docs",
+  "version": "0.2.0",
+  "description": "Rogue Scholar Documentation",
+  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shuding/nextra-docs-template.git"
-  },
-  "author": "Shu Ding <g@shud.in>",
+  "author": "Martin Fenner <martin@front-matter.io>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/shuding/nextra-docs-template/issues"
-  },
-  "homepage": "https://github.com/shuding/nextra-docs-template#readme",
-  "dependencies": {
+ "dependencies": {
     "next": "^13.0.6",
     "nextra": "2.0.1",
     "nextra-theme-docs": "2.0.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "ui": "*"
   },
   "devDependencies": {
     "@types/node": "18.11.10",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.3",
+    "tsconfig": "*"
   }
 }
