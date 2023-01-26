@@ -3,7 +3,7 @@ import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs'
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react'
 import { useState } from 'react'
 import 'focus-visible'
-import '@/styles/tailwind.css'
+import '../styles/tailwind.css'
 import { Inter } from '@next/font/google'
 
 // If loading a variable font, you don't need to specify the font weight
