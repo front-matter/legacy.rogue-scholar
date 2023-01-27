@@ -6,11 +6,12 @@ import Icon from './public/icon.png'
 
 const config: DocsThemeConfig = {
   logo: (
-    <div className="nx-flex nx-justify-center nx-text-2xl nx-font-bold">
-      <Image src={Icon} alt="Icon" width={18} className="mr-3" />
+    <div className="nx-flex nx-justify-center nx-text-2xl">
+      <Image src={Icon} alt="Icon" width={18} />
       <span style={{ marginLeft: '.4em', marginRight: '.2em', fontWeight: 700, color: 'rgb(37, 99, 235)' }}>The Rogue Scholar</span>Documentation
     </div>
   ),
+  logoLink: 'https://rogue-scholar.org',
   chat: {
     link: 'https://discord.gg/wJAxWjWU',
   },
