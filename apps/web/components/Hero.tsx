@@ -1,9 +1,7 @@
 import { useSession } from '@supabase/auth-helpers-react'
-import Image from 'next/image'
 
 import { Button } from '../components/Button'
 import { Container } from '../components/Container'
-import logoFrontMatter from '../images/logos/front-matter.png'
 
 export function Hero() {
   const session = useSession()
