@@ -54,7 +54,7 @@ export function Hero() {
       <div className="mt-10 lg:mt-16">
         <p className="font-display text-lg text-slate-900">
           <span className="font-bold">Twenty-two</span> blogs have been approved
-          on the waitlist (as of February 6, 2023).
+          on the waitlist (as of February 6, 2023). The Rogue Scholar launches in Q2 2023.
         </p>
       </div>
     </Container>
