@@ -1,0 +1,50 @@
+import React from "react";
+import Head from "next/head"
+import path from 'path'
+import { readFileSync } from 'fs'
+import * as jsonify from 'jsonify-that-feed'
+
+import { Header } from "../components/Header"
+import { Footer } from "../components/Footer"
+import { Blogs } from "../components/Blogs"
+
+export async function getStaticProps() {
+  const data = readFileSync(
+    path.resolve(process.cwd(), 'public/rogue-scholar.opml'),
+    { encoding: 'utf8', flag: 'r' }
+  )
+  const blogs = jsonify.opmlToJson(data).body.outline
+
+  if (!blogs) {
+    return {
+      props: { notFound: true },
+    };
+  }
+
+  return {
+    props: { blogs },
+  };
+}
+
+const BlogsPage = ({ blogs }) => {
+  return (
+    <>
+      <Head>
+        <meta name="og:title" content="Upstream" />
+        <meta
+          name="og:description"
+          content="Upstream is a new space for open enthusiasts to discuss open approaches to scholarly communication."
+        />
+        <meta
+          name="og:image"
+          content="https://upstream.force11.org/img/hero.jpg"
+        />
+      </Head>
+      <Header tag={{}} tags={{}} />
+      <Blogs blogs={blogs} />
+      <Footer />
+    </>
+  );
+};
+
+export default BlogsPage;

@@ -135,7 +135,7 @@ export function Pricing() {
           <Plan
             name="Team"
             price="$1 per post"
-            description="Perfect for bigger blogs."
+            description="Perfect for larger blogs."
             href="https://jvinjjenjik.typeform.com/to/uxgAsHPl"
             features={[
               'Everything in starter',
@@ -145,7 +145,7 @@ export function Pricing() {
           <Plan
             name="Enterprise"
             price="Contact us"
-            description="Have special requirements."
+            description="Having special requirements."
             href="https://jvinjjenjik.typeform.com/to/uxgAsHPl"
             features={[
               'Everything in team',

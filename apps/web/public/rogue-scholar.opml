@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml version="1.1">
+	<head>
+		<title>rogue-scholar.opml</title>
+	</head>
+	<body>
+		<outline text="Engineering and Technology" title="Engineering and Technology">
+			<outline text="Daniel S. Katz's blog" title="Daniel S. Katz's blog" description="" type="rss" version="RSS" htmlUrl="https://danielskatzblog.wordpress.com/" xmlUrl="https://danielskatzblog.wordpress.com/feed/"/>
+			<outline text="Front Matter" title="Front Matter" description="" type="rss" version="RSS" htmlUrl="https://blog.front-matter.io/" xmlUrl="https://blog.front-matter.io/news/rss/"/>
+			<outline text="OA.Works Blog" title="OA.Works Blog" description="" type="rss" version="RSS" htmlUrl="https://blog.oa.works/" xmlUrl="https://blog.oa.works/rss/"/>
+			<outline text="wisspub.net" title="wisspub.net" description="" type="rss" version="RSS" htmlUrl="https://wisspub.net/" xmlUrl="https://wisspub.net/feed/"/>
+		</outline>
+		<outline text="Humanities" title="Humanities">
+			<outline text="Flavours of Open" title="Flavours of Open" description="" type="rss" version="RSS" htmlUrl="https://flavoursofopen.science/" xmlUrl="https://flavoursofopen.science/feed/"/>
+			<outline text="Upstream" title="Upstream" description="" type="rss" version="RSS" htmlUrl="https://upstream.force11.org/" xmlUrl="https://upstream.force11.org/latest/rss/"/>
+			<outline text="Syldavia Gazette" title="Syldavia Gazette" description="" type="rss" version="RSS" htmlUrl="https://syldavia-gazette.org/" xmlUrl="https://syldavia-gazette.org/atom/"/>
+		</outline>
+		<outline text="Medical and Health Sciences" title="Medical and Health Sciences">
+			<outline text="I.D.E.A.S." title="I.D.E.A.S." description="" type="rss" version="RSS" htmlUrl="https://www.ideasurg.pub/" xmlUrl="https://www.ideasurg.pub/rss/"/>
+		</outline>
+		<outline text="Natural Sciences" title="Natural Sciences">
+			<outline text="Donny Winston" title="Donny Winston" description="" type="rss" version="RSS" htmlUrl="https://donnywinston.com/" xmlUrl="https://donnywinston.com/index.xml"/>
+			<outline text="iPhylo" title="iPhylo" description="" type="rss" version="RSS" htmlUrl="https://iphylo.blogspot.com/" xmlUrl="https://iphylo.blogspot.com/feeds/posts/default?alt=rss"/>
+			<outline text="Irish Plants" title="Irish Plants" description="" type="rss" version="RSS" htmlUrl="https://irishplants.org/blog" xmlUrl="http://irishplants.org/blog/feed/"/>
+			<outline text="Jabberwocky Ecology" title="Jabberwocky Ecology" description="" type="rss" version="RSS" htmlUrl="https://jabberwocky.weecology.org/" xmlUrl="https://jabberwocky.weecology.org/feed/"/>
+			<outline text="quantixed" title="quantixed" description="" type="rss" version="RSS" htmlUrl="https://quantixed.org/" xmlUrl="https://quantixed.org/feed/"/>
+			<outline text="Sauropod Vertebra Picture of the Week" title="Sauropod Vertebra Picture of the Week" description="" type="rss" version="RSS" htmlUrl="https://svpow.com/" xmlUrl="https://svpow.com/feed/"/>
+		</outline>
+		<outline text="Social Sciences" title="Social Sciences">
+			<outline text="Chris Hartgerink" title="Chris Hartgerink" description="" type="rss" version="RSS" htmlUrl="https://www.chjh.nl/" xmlUrl="https://www.chjh.nl/rss/"/>
+			<outline text="Liberate Science" title="Liberate Science" description="" type="rss" version="RSS" htmlUrl="https://libscie.org/" xmlUrl="https://libscie.org/rss/"/>
+			<outline text="Samuel Moore" title="Samuel Moore" description="" type="rss" version="RSS" htmlUrl="https://www.samuelmoore.org/" xmlUrl="https://www.samuelmoore.org/feed/"/>
+			<outline text="Stories by Mark Rubin on Medium" title="Stories by Mark Rubin on Medium" description="" type="rss" version="RSS" htmlUrl="https://medium.com/@rubinpsyc?source=rss-c222612e11a4------2" xmlUrl="https://medium.com/feed/@rubinpsyc"/>
+			<outline text="Technology and language" title="Technology and language" description="" type="rss" version="RSS" htmlUrl="https://grieve-smith.com/blog" xmlUrl="https://grieve-smith.com/blog/feed/"/>
+		</outline>
+	</body>
+</opml>
