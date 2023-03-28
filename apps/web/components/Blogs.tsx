@@ -98,7 +98,7 @@ export function Blogs({ blogs }) {
                               <Link
                                 target="_blank"
                                 href={blog.htmlUrl}
-                                className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
+                                className="whitespace-nowrap border-b-0 text-gray-700 hover:text-gray-400"
                               >
                                 {blog.htmlUrl}
                               </Link>
@@ -107,7 +107,7 @@ export function Blogs({ blogs }) {
                               <Link
                                 target="_blank"
                                 href={blog.xmlUrl}
-                                className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
+                                className="whitespace-nowrap border-b-0 text-gray-700 hover:text-gray-400"
                               >
                                 {blog.xmlUrl}
                               </Link>
