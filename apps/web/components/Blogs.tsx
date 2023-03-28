@@ -1,5 +1,5 @@
-import { Fragment } from 'react'
 import Link from 'next/link'
+import { Fragment } from 'react'
 
 import { Container } from '../components/Container'
 
@@ -27,8 +27,8 @@ export function Blogs({ blogs }) {
                 >
                   OPML file
                 </Link>{' '}
-                and imported into your RSS reader. Sign up for the waitlist if you want your blog included in the
-                Rogue Scholar.
+                and imported into your RSS reader. Sign up for the waitlist if
+                you want your blog included in the Rogue Scholar.
               </p>
             </div>
           </div>

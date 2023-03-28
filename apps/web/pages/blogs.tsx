@@ -1,12 +1,12 @@
-import React from "react";
-import Head from "next/head"
-import path from 'path'
 import { readFileSync } from 'fs'
 import * as jsonify from 'jsonify-that-feed'
+import Head from 'next/head'
+import path from 'path'
+import React from 'react'
 
-import { Header } from "../components/Header"
-import { Footer } from "../components/Footer"
-import { Blogs } from "../components/Blogs"
+import { Blogs } from '../components/Blogs'
+import { Footer } from '../components/Footer'
+import { Header } from '../components/Header'
 
 export async function getStaticProps() {
   const data = readFileSync(
@@ -18,12 +18,12 @@ export async function getStaticProps() {
   if (!blogs) {
     return {
       props: { notFound: true },
-    };
+    }
   }
 
   return {
     props: { blogs },
-  };
+  }
 }
 
 export default function BlogsPage({ blogs }) {
@@ -44,5 +44,5 @@ export default function BlogsPage({ blogs }) {
       <Blogs blogs={blogs} />
       <Footer />
     </>
-  );
-};
+  )
+}

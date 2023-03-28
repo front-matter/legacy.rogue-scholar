@@ -81,7 +81,9 @@ function MobileNavigation() {
             <MobileNavLink href="/#pricing">Pricing</MobileNavLink>
             <MobileNavLink href="/#features">Features</MobileNavLink>
             <MobileNavLink href="/blogs">Blogs</MobileNavLink>
-            <MobileNavLink href="https://docs.rogue-scholar.org">Docs</MobileNavLink>
+            <MobileNavLink href="https://docs.rogue-scholar.org">
+              Docs
+            </MobileNavLink>
             <hr className="m-2 border-slate-300/40" />
           </Popover.Panel>
         </Transition.Child>

@@ -1,7 +1,6 @@
-import path from 'path'
 import { readFileSync } from 'fs'
 import * as jsonify from 'jsonify-that-feed'
-import { Lexend_Peta } from '@next/font/google'
+import path from 'path'
 
 export default function handler(req, res) {
   if (req.method === 'GET') {
@@ -10,6 +9,7 @@ export default function handler(req, res) {
       { encoding: 'utf8', flag: 'r' }
     )
     const json = jsonify.opmlToJson(data)
+
     res.status(200).json(json)
   }
 }
