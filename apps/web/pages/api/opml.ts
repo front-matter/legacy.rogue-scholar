@@ -8,8 +8,7 @@ export default function handler(req, res) {
       path.resolve(process.cwd(), 'public/rogue-scholar.opml'),
       { encoding: 'utf8', flag: 'r' }
     )
-    const json = jsonify.opmlToJson(data)
-
+    const json = [].concat(jsonify.opmlToJson(data).body.outline)
     res.status(200).json(json)
   }
 }

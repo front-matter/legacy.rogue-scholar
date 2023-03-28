@@ -27,7 +27,13 @@ export function Blogs({ blogs }) {
                 >
                   OPML file
                 </Link>{' '}
-                and imported into your RSS reader. Sign up for the waitlist if
+                and imported into your RSS reader. Or fetch the information via the <Link
+                  target="_blank"
+                  href="/api/opml"
+                  className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
+                >
+                  JSON API
+                </Link>{' '}. Sign up for the waitlist if
                 you want your blog included in the Rogue Scholar.
               </p>
             </div>
