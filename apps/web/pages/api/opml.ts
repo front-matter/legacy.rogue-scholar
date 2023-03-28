@@ -9,6 +9,7 @@ export default function handler(req, res) {
       { encoding: 'utf8', flag: 'r' }
     )
     const json = [].concat(jsonify.opmlToJson(data).body.outline)
+
     res.status(200).json(json)
   }
 }
