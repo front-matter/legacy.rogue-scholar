@@ -26,7 +26,7 @@ export async function getStaticProps() {
   };
 }
 
-const BlogsPage = ({ blogs }) => {
+export default function BlogsPage({ blogs }) {
   return (
     <>
       <Head>
@@ -40,11 +40,9 @@ const BlogsPage = ({ blogs }) => {
           content="https://upstream.force11.org/img/hero.jpg"
         />
       </Head>
-      <Header tag={{}} tags={{}} />
+      <Header />
       <Blogs blogs={blogs} />
       <Footer />
     </>
   );
 };
-
-export default BlogsPage;
