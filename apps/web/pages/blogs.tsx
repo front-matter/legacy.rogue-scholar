@@ -13,7 +13,13 @@ export async function getStaticProps() {
     path.resolve(process.cwd(), 'public/rogue-scholar.opml'),
     { encoding: 'utf8', flag: 'r' }
   )
-  const blogs = jsonify.opmlToJson(data).body.outline
+  const opml = jsonify.opmlToJson(data)
+  // remove unused keys and flatten the array of blogs
+  const blogs = opml.body.outline.map((category) => {
+    return [].concat(category['outline']).map((blog) => {
+      return { category: category.title, title: blog.title, htmlUrl: blog.htmlUrl, xmlUrl: blog.xmlUrl }}) }
+  ).flat()
+  // blogs = blogs.sort((a,b) => a.title - b.title); 
 
   if (!blogs) {
     return {

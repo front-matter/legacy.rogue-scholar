@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Fragment } from 'react'
+import { RssIcon, HomeIcon } from '@heroicons/react/20/solid'
 
 import { Container } from '../components/Container'
 
@@ -8,112 +9,93 @@ function classNames(...classes) {
 }
 
 export function Blogs({ blogs }) {
-  console.log(blogs.outline)
   return (
-    <Container className="relative">
-      <div className="bg-white">
-        <div className="mx-auto max-w-7xl py-2 px-4 text-center sm:px-6 md:py-12 lg:px-8 lg:py-8">
-          <div className="space-y-8 sm:space-y-12">
-            <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
-              <h2 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-4xl">
-                The Rogue Scholar blogs
-              </h2>
-              <p className="text-xl text-gray-500">
-                This list of blogs can be downloaded as{' '}
-                <Link
-                  target="_blank"
-                  href="/rogue-scholar.opml"
-                  className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
-                >
-                  OPML file
-                </Link>{' '}
-                and imported into your RSS reader. Sign up for the waitlist if
-                you want your blog included in the Rogue Scholar.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="my-8 flow-root">
-            <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-              <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                <table className="min-w-full">
-                  <thead className="bg-white">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-medium uppercase text-gray-500 sm:pl-3"
-                      >
-                        Name
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-medium uppercase text-gray-500"
-                      >
-                        Home Page URL
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-medium uppercase text-gray-500"
-                      >
-                        Feed URL
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white">
-                    {blogs.map((category) => (
-                      <Fragment key={category.text}>
-                        <tr className="border-t border-gray-200">
-                          <th
-                            colSpan={4}
-                            scope="colgroup"
-                            className="bg-gray-50 py-2 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3"
-                          >
-                            {category.text}
-                          </th>
-                        </tr>
-                        {[].concat(category.outline).map((blog, blogIdx) => (
-                          <tr
-                            key={blog.text}
-                            className={classNames(
-                              blogIdx === 0
-                                ? 'border-gray-300'
-                                : 'border-gray-200',
-                              'border-t'
-                            )}
-                          >
-                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
-                              {blog.text}
-                            </td>
-                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                              <Link
-                                target="_blank"
-                                href={blog.htmlUrl}
-                                className="whitespace-nowrap border-b-0 text-gray-700 hover:text-gray-400"
-                              >
-                                {blog.htmlUrl}
-                              </Link>
-                            </td>
-                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                              <Link
-                                target="_blank"
-                                href={blog.xmlUrl}
-                                className="whitespace-nowrap border-b-0 text-gray-700 hover:text-gray-400"
-                              >
-                                {blog.xmlUrl}
-                              </Link>
-                            </td>
-                          </tr>
-                        ))}
-                      </Fragment>
-                    ))}
-                  </tbody>
-                </table>
+    <>
+      <section className="bg-white">
+        <Container className="relative">
+          <div className="mx-auto max-w-7xl py-2 px-4 text-center sm:px-6 md:py-12 lg:px-8 lg:py-8">
+            <div className="space-y-8 sm:space-y-12">
+              <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
+                <h2 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-4xl">
+                  The Rogue Scholar Blogs
+                </h2>
+                <p className="text-xl text-gray-500">
+                  This list of blogs can be downloaded as{' '}
+                  <Link
+                    target="_blank"
+                    href="/rogue-scholar.opml"
+                    className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
+                  >
+                    OPML file
+                  </Link>{' '}
+                  and imported into your RSS reader. Sign up for the waitlist if
+                  you want your blog included in the Rogue Scholar.
+                </p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </Container>
+        </Container>
+      </section>
+      <section
+        id="blogs"
+        aria-label="blog listing"
+        className="bg-slate-50 py-10 sm:py-16"
+      >
+        <Container className="relative">
+          <ul
+            role="list"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          >
+            {blogs.map((blog) => (
+              <li
+                key={blog.title}
+                className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
+              >
+                <div className="flex w-full items-center justify-between space-x-6 p-6">
+                  <div className="flex-1 truncate">
+                    <div className="flex items-center space-x-3">
+                      <h3 className="truncate text-medium font-medium text-gray-900">
+                        {blog.title}
+                      </h3>
+                    </div>
+                    <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+                      {blog.category}
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <div className="-mt-px flex divide-x divide-gray-200">
+                    <div className="flex w-0 flex-1">
+                      <a
+                        href={blog.htmlUrl}
+                        className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                      >
+                        <HomeIcon
+                          className="h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
+                        Home Page URL
+                      </a>
+                    </div>
+                    <div className="-ml-px flex w-0 flex-1">
+                      <a
+                        href={blog.xmlUrl}
+                        className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                      >
+                        <RssIcon
+                          className="h-5 w-5 text-gray-400"
+                          aria-hidden="true"
+                        />
+                        Feed URL
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+    </>
   )
 }
