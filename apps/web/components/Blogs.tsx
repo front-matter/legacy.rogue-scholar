@@ -1,12 +1,7 @@
+import { HomeIcon, RssIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import { Fragment } from 'react'
-import { RssIcon, HomeIcon } from '@heroicons/react/20/solid'
 
 import { Container } from '../components/Container'
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export function Blogs({ blogs }) {
   return (
@@ -39,7 +34,7 @@ export function Blogs({ blogs }) {
       <section
         id="blogs"
         aria-label="blog listing"
-        className="bg-slate-50 py-10 sm:py-16"
+        className="bg-slate-50 py-8 sm:py-12"
       >
         <Container className="relative">
           <ul
@@ -54,7 +49,7 @@ export function Blogs({ blogs }) {
                 <div className="flex w-full items-center justify-between space-x-6 p-6">
                   <div className="flex-1 truncate">
                     <div className="flex items-center space-x-3">
-                      <h3 className="truncate text-medium font-medium text-gray-900">
+                      <h3 className="text-semibold truncate font-medium text-gray-900">
                         {blog.title}
                       </h3>
                     </div>
@@ -68,7 +63,7 @@ export function Blogs({ blogs }) {
                     <div className="flex w-0 flex-1">
                       <a
                         href={blog.htmlUrl}
-                        className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                        className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-900"
                       >
                         <HomeIcon
                           className="h-5 w-5 text-gray-400"
@@ -80,7 +75,7 @@ export function Blogs({ blogs }) {
                     <div className="-ml-px flex w-0 flex-1">
                       <a
                         href={blog.xmlUrl}
-                        className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-semibold text-gray-900"
+                        className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-900"
                       >
                         <RssIcon
                           className="h-5 w-5 text-gray-400"

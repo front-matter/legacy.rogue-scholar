@@ -15,11 +15,19 @@ export async function getStaticProps() {
   )
   const opml = jsonify.opmlToJson(data)
   // remove unused keys and flatten the array of blogs
-  const blogs = opml.body.outline.map((category) => {
-    return [].concat(category['outline']).map((blog) => {
-      return { category: category.title, title: blog.title, htmlUrl: blog.htmlUrl, xmlUrl: blog.xmlUrl }}) }
-  ).flat()
-  // blogs = blogs.sort((a,b) => a.title - b.title); 
+  const blogs = opml.body.outline
+    .map((category) => {
+      return [].concat(category['outline']).map((blog) => {
+        return {
+          category: category.title,
+          title: blog.title,
+          htmlUrl: blog.htmlUrl,
+          xmlUrl: blog.xmlUrl,
+        }
+      })
+    })
+    .flat()
+  // blogs = blogs.sort((a,b) => a.title - b.title);
 
   if (!blogs) {
     return {
