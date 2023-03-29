@@ -6,7 +6,7 @@
 	<body>
 		<outline text="Engineering and Technology" title="Engineering and Technology">
 			<outline text="Daniel S. Katz's blog" title="Daniel S. Katz's blog" description="" type="rss" version="RSS" htmlUrl="https://danielskatzblog.wordpress.com/" xmlUrl="https://danielskatzblog.wordpress.com/feed/"/>
-			<outline text="Front Matter" title="Front Matter" description="" type="rss" version="RSS" htmlUrl="https://blog.front-matter.io/" xmlUrl="https://blog.front-matter.io/news/rss/"/>
+			<outline text="Front Matter" title="Front Matter" description="" type="rss" version="RSS" htmlUrl="https://blog.front-matter.io/" xmlUrl="https://blog.front-matter.io/atom/"/>
 			<outline text="OA.Works Blog" title="OA.Works Blog" description="" type="rss" version="RSS" htmlUrl="https://blog.oa.works/" xmlUrl="https://blog.oa.works/rss/"/>
 			<outline text="wisspub.net" title="wisspub.net" description="" type="rss" version="RSS" htmlUrl="https://wisspub.net/" xmlUrl="https://wisspub.net/feed/"/>
 		</outline>
