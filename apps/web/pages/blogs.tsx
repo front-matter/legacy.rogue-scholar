@@ -1,6 +1,6 @@
-import { readFileSync, writeFile } from 'fs'
+import { readFileSync } from 'fs'
 import * as hcl from 'hcl2-parser'
-import * as jsonify from 'jsonify-that-feed'
+// import * as jsonify from 'jsonify-that-feed'
 import Head from 'next/head'
 import path from 'path'
 import React from 'react'
@@ -25,11 +25,11 @@ export async function getStaticProps() {
     })
 
   // generate OPML file
-  const opml = jsonify.jsonToOpml(blogs)
+  // const opml = jsonify.jsonToOpml(blogs)
 
-  writeFile('rogue-scholar.opml', opml, (err) => {
-    if (err) throw err
-  })
+  // writeFile('rogue-scholar.opml', opml, (err) => {
+  //   if (err) throw err
+  // })
 
   if (!blogs) {
     return {
