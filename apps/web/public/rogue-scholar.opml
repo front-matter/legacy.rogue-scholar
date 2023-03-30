@@ -25,6 +25,7 @@
 			<outline text="Jabberwocky Ecology" title="Jabberwocky Ecology" description="" type="rss" version="RSS" htmlUrl="https://jabberwocky.weecology.org/" xmlUrl="https://jabberwocky.weecology.org/feed/"/>
 			<outline text="quantixed" title="quantixed" description="" type="rss" version="RSS" htmlUrl="https://quantixed.org/" xmlUrl="https://quantixed.org/feed/"/>
 			<outline text="Sauropod Vertebra Picture of the Week" title="Sauropod Vertebra Picture of the Week" description="" type="rss" version="RSS" htmlUrl="https://svpow.com/" xmlUrl="https://svpow.com/feed/"/>
+		  <outline text="Publisherad.medium.com" title="Publisherad.medium.com" description="" type="rss" version="RSS" htmlUrl="https://medium.com/@publisherad" xmlUrl="https://medium.com/feed/@publisherad"/>
 		</outline>
 		<outline text="Social Sciences" title="Social Sciences">
 			<outline text="Chris Hartgerink" title="Chris Hartgerink" description="" type="rss" version="RSS" htmlUrl="https://www.chjh.nl/" xmlUrl="https://www.chjh.nl/rss/"/>

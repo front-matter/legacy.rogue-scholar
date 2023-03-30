@@ -1,9 +1,24 @@
 import { HomeIcon, RssIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
+import { pascalCase } from 'pascal-case'
 
 import { Container } from '../components/Container'
 
 export function Blogs({ blogs }) {
+  const languages = {
+    en: 'English',
+    de: 'Deutsch',
+    es: 'Español',
+    fr: 'Français',
+    it: 'Italiano',
+    ja: '日本語',
+    ko: '한국어',
+    nl: 'Nederlands',
+    pt: 'Português',
+    ru: 'Русский',
+    zh: '中文',
+  }
+
   return (
     <>
       <section className="bg-white">
@@ -43,18 +58,24 @@ export function Blogs({ blogs }) {
           >
             {blogs.map((blog) => (
               <li
-                key={blog.title}
+                key={blog.id}
                 className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
               >
                 <div className="flex w-full items-center justify-between space-x-6 p-6">
                   <div className="flex-1 truncate">
                     <div className="flex items-center space-x-3">
                       <h3 className="text-semibold truncate font-medium text-gray-900">
-                        {blog.title}
+                        {blog.name}
                       </h3>
                     </div>
                     <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
                       {blog.category}
+                    </span>
+                    <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+                      {languages[blog.language]}
+                    </span>
+                    <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+                      {pascalCase(blog.platform)}
                     </span>
                   </div>
                 </div>
@@ -62,7 +83,7 @@ export function Blogs({ blogs }) {
                   <div className="-mt-px flex divide-x divide-gray-200">
                     <div className="flex w-0 flex-1">
                       <Link
-                        href={blog.htmlUrl}
+                        href={blog.homepage_url}
                         target="_blank"
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
@@ -75,7 +96,7 @@ export function Blogs({ blogs }) {
                     </div>
                     <div className="-ml-px flex w-0 flex-1">
                       <Link
-                        href={blog.xmlUrl}
+                        href={blog.feed_url}
                         target="_blank"
                         className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >

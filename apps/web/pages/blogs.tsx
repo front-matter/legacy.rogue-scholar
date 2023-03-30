@@ -1,4 +1,5 @@
-import { readFileSync } from 'fs'
+import { readFileSync, writeFile } from 'fs'
+import * as hcl from 'hcl2-parser'
 import * as jsonify from 'jsonify-that-feed'
 import Head from 'next/head'
 import path from 'path'
@@ -9,25 +10,26 @@ import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 
 export async function getStaticProps() {
-  const data = readFileSync(
-    path.resolve(process.cwd(), 'public/rogue-scholar.opml'),
+  // read HCL file and reformat the JSON. Sort blogs by name.
+  const hclString = readFileSync(
+    path.resolve(process.cwd(), 'rogue-scholar.hcl'),
     { encoding: 'utf8', flag: 'r' }
   )
-  const opml = jsonify.opmlToJson(data)
-  // remove unused keys and flatten the array of blogs
-  const blogs = opml.body.outline
-    .map((category) => {
-      return [].concat(category['outline']).map((blog) => {
-        return {
-          category: category.title,
-          title: blog.title,
-          htmlUrl: blog.htmlUrl,
-          xmlUrl: blog.xmlUrl,
-        }
-      })
+  const hclObject = hcl.parseToObject(hclString)[0].blog
+  const blogs = Object.values(hclObject)
+    .map((blog) => {
+      return blog[0]
     })
-    .flat()
-  // blogs = blogs.sort((a,b) => a.title - b.title);
+    .sort((a, b) => {
+      return a.name - b.name
+    })
+
+  // generate OPML file
+  const opml = jsonify.jsonToOpml(blogs)
+
+  writeFile('rogue-scholar.opml', opml, (err) => {
+    if (err) throw err
+  })
 
   if (!blogs) {
     return {

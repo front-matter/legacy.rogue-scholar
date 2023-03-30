@@ -54,8 +54,8 @@ export function Hero() {
       )}
       <div className="mt-10 lg:mt-16">
         <p className="font-display text-lg text-slate-900">
-          <span className="font-bold">Nineteen</span> blogs have been approved
-          on the waitlist (as of March 28, 2023) and are listed{' '}
+          <span className="font-bold">Twenty</span> blogs have been approved on
+          the waitlist (as of March 29, 2023) and are listed{' '}
           <Link
             href="/blogs"
             className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
