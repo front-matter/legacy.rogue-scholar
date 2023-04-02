@@ -72,7 +72,9 @@ export async function getStaticProps(context) {
       const authors = [].concat(author).map((author) => {
         return {
           name: get(author, 'name', null) || author,
-          url: isOrcid(get(author, 'uri', null)) ? get(author, 'uri', null) : null,
+          url: isOrcid(get(author, 'uri', null))
+            ? get(author, 'uri', null)
+            : null,
         }
       })
       const id =
@@ -152,13 +154,13 @@ export default function Blog({ blog, posts }) {
       <>
         {url ? (
           <span>
-            <Link href={url} className="text-gray-500 whitespace-normal">
+            <Link href={url} className="text-gray-500">
               <FontAwesomeIcon icon={faOrcid} /> {name}
             </Link>
             {isLast ? '' : ', '}
           </span>
         ) : (
-          <span className="text-gray-500 whitespace-normal">
+          <span className="text-gray-500">
             {name}
             {isLast ? '' : ', '}
           </span>
