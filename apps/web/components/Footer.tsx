@@ -1,3 +1,10 @@
+import {
+  faDiscord,
+  faGithub,
+  faMastodon,
+} from '@fortawesome/free-brands-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -33,28 +40,28 @@ export function Footer() {
               className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">Mail</span>
-              <i className="fa-regular fa-envelope"></i>
+              <FontAwesomeIcon icon={faEnvelope} />
             </Link>
             <Link
               href="https://discord.gg/HvbD4dNPFh"
               className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">Discord</span>
-              <i className="fa-brands fa-discord"></i>
+              <FontAwesomeIcon icon={faDiscord} />
             </Link>
             <Link
               href="https://hachyderm.io/..mfenner"
               className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">Mastodon</span>
-              <i className="fa-brands fa-mastodon"></i>
+              <FontAwesomeIcon icon={faMastodon} />
             </Link>
             <Link
               href="https://github.com/front-matter/rogue-scholar"
               className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">GitHub</span>
-              <i className="fa-brands fa-github"></i>
+              <FontAwesomeIcon icon={faGithub} />
             </Link>
           </div>
           <p className="mt-6 text-sm text-slate-500 sm:mt-0">

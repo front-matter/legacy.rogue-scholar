@@ -8,7 +8,9 @@ import Head from 'next/head'
 import Link from 'next/link'
 import path from 'path'
 import React from 'react'
-import ReactHtmlParser from 'react-html-parser'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faOrcid } from '@fortawesome/free-brands-svg-icons'
+import parse from 'html-react-parser'
 
 import { languages } from '../../components/Blogs'
 import { Footer } from '../../components/Footer'
@@ -153,7 +155,7 @@ export default function Blog({ blog, posts }) {
         {url ? (
           <span>
             <Link href={url} className="text-gray-500">
-              <i className="fa-brands fa-orcid"></i> {name}
+            <FontAwesomeIcon icon={faOrcid} /> {name}
             </Link>
             {isLast ? '' : ', '}
           </span>
@@ -166,7 +168,7 @@ export default function Blog({ blog, posts }) {
       </>
     )
   }
-
+  
   return (
     <>
       <Head>
@@ -187,9 +189,11 @@ export default function Blog({ blog, posts }) {
               {blog.title}
             </h2>
 
-            <p className="mt-2 text-lg leading-8 text-gray-600">
-              {ReactHtmlParser(blog.description)}
-            </p>
+            {blog.description && (
+              <p className="mt-2 text-lg leading-8 text-gray-600">
+                {parse(String(blog.description))}
+              </p>
+            )}
             <div className="-mt-px flex">
               <div className="flex w-0 flex-1">
                 <Link
@@ -287,7 +291,7 @@ export default function Blog({ blog, posts }) {
                       </span>
                       {post.description && (
                         <p className="text-medium mt-2 leading-6 text-gray-900">
-                          {ReactHtmlParser(post.description)}
+                          {parse(String(post.description))}
                         </p>
                       )}
                     </div>
