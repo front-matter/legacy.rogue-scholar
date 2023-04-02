@@ -1,24 +1,26 @@
 import { HomeIcon, RssIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
-import { pascalCase } from 'pascal-case'
 
 import { Container } from '../components/Container'
 
-export function Blogs({ blogs }) {
-  const languages = {
-    en: 'English',
-    de: 'Deutsch',
-    es: 'Español',
-    fr: 'Français',
-    it: 'Italiano',
-    ja: '日本語',
-    ko: '한국어',
-    nl: 'Nederlands',
-    pt: 'Português',
-    ru: 'Русский',
-    zh: '中文',
-  }
+export const languages = {
+  en: 'English',
+  'en-US': 'English',
+  'en-GB': 'English',
+  de: 'Deutsch',
+  'de-DE': 'Deutsch',
+  es: 'Español',
+  fr: 'Français',
+  it: 'Italiano',
+  ja: '日本語',
+  ko: '한국어',
+  nl: 'Nederlands',
+  pt: 'Português',
+  ru: 'Русский',
+  zh: '中文',
+}
 
+export function Blogs({ blogs }) {
   return (
     <>
       <section className="bg-white">
@@ -65,7 +67,12 @@ export function Blogs({ blogs }) {
                   <div className="flex-1 truncate">
                     <div className="flex items-center space-x-3">
                       <h3 className="text-semibold truncate font-medium text-gray-900">
-                        {blog.name}
+                        <Link
+                          href={'/blogs/' + blog.id}
+                          className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
+                        >
+                          {blog.title}
+                        </Link>
                       </h3>
                     </div>
                     <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
@@ -74,16 +81,20 @@ export function Blogs({ blogs }) {
                     <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
                       {languages[blog.language]}
                     </span>
-                    <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-                      {pascalCase(blog.platform)}
-                    </span>
                   </div>
+                  {blog.favicon && (
+                    <img
+                      className="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300"
+                      src={blog.favicon}
+                      alt=""
+                    />
+                  )}
                 </div>
                 <div>
                   <div className="-mt-px flex divide-x divide-gray-200">
                     <div className="flex w-0 flex-1">
                       <Link
-                        href={blog.homepage_url}
+                        href={blog.home_page_url}
                         target="_blank"
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
