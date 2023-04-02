@@ -1,16 +1,16 @@
 import { extract } from '@extractus/feed-extractor'
+import { faOrcid } from '@fortawesome/free-brands-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { HomeIcon, RssIcon } from '@heroicons/react/20/solid'
 import { readFileSync } from 'fs'
 import * as hcl from 'hcl2-parser'
+import parse from 'html-react-parser'
 import { get, omit } from 'lodash'
 import { GetStaticPaths } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import path from 'path'
 import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faOrcid } from '@fortawesome/free-brands-svg-icons'
-import parse from 'html-react-parser'
 
 import { languages } from '../../components/Blogs'
 import { Footer } from '../../components/Footer'
@@ -155,7 +155,7 @@ export default function Blog({ blog, posts }) {
         {url ? (
           <span>
             <Link href={url} className="text-gray-500">
-            <FontAwesomeIcon icon={faOrcid} /> {name}
+              <FontAwesomeIcon icon={faOrcid} /> {name}
             </Link>
             {isLast ? '' : ', '}
           </span>
@@ -168,7 +168,7 @@ export default function Blog({ blog, posts }) {
       </>
     )
   }
-  
+
   return (
     <>
       <Head>
