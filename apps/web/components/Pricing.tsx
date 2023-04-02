@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 
-import { Button } from '../components/Button'
 import { Container } from '../components/Container'
 
 function SwirlyDoodle({ className }) {
@@ -46,7 +45,7 @@ function CheckIcon({ className }) {
   )
 }
 
-function Plan({ name, price, description, href, features, featured = false }) {
+function Plan({ name, price, description, features, featured = false }) {
   return (
     <section
       className={clsx(
