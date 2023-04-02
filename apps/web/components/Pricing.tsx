@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 
+import { Button } from '../components/Button'
 import { Container } from '../components/Container'
 
 function SwirlyDoodle({ className }) {
@@ -45,7 +46,8 @@ function CheckIcon({ className }) {
   )
 }
 
-function Plan({ name, price, description, features, featured = false }) {
+function Plan({ name, price, description, href, features, featured = false }) {
+  href = href || '#'
   return (
     <section
       className={clsx(
@@ -79,6 +81,15 @@ function Plan({ name, price, description, features, featured = false }) {
           </li>
         ))}
       </ul>
+      <Button
+        href={href}
+        variant={featured ? 'solid' : 'outline'}
+        color="white"
+        className="mt-8"
+        aria-label={`Register for the waitlist with the ${name} plan for ${price}`}
+      >
+        Sign up for the waitlist
+      </Button>
     </section>
   )
 }

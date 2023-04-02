@@ -11,7 +11,7 @@ const faqs = [
         'The Rogue Scholar launches in Q2 2023. The exact date will be announced at a later time.',
     },
     {
-      question: 'How can I sign up the Rogue Scholar?',
+      question: 'How can I sign up for the Rogue Scholar?',
       answer:
         'Fill out the form on this page to be added to the waitlist. We will notify you when your blog is accepted to be archived on the Rogue Scholar.',
     },
