@@ -1,6 +1,4 @@
 import { extract } from '@extractus/feed-extractor'
-import { faOrcid } from '@fortawesome/free-brands-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { HomeIcon, RssIcon } from '@heroicons/react/20/solid'
 import { readFileSync } from 'fs'
 import * as hcl from 'hcl2-parser'
@@ -155,7 +153,7 @@ export default function Blog({ blog, posts }) {
         {url ? (
           <span>
             <Link href={url} className="text-gray-500">
-              <FontAwesomeIcon icon={faOrcid} /> {name}
+              <i className="fa-brands fa-orcid"></i> {name}
             </Link>
             {isLast ? '' : ', '}
           </span>
