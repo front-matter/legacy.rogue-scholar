@@ -2,7 +2,16 @@ import 'focus-visible'
 import '../styles/tailwind.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
-import { config } from '@fortawesome/fontawesome-svg-core'
+import { config, library } from '@fortawesome/fontawesome-svg-core'
+import {
+  fab,
+  faDiscord,
+  faGithub,
+  faMastodon,
+  faOrcid,
+} from '@fortawesome/free-brands-svg-icons'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+library.add(fab, faOrcid, faGithub, faMastodon, faDiscord, faEnvelope)
 config.autoAddCss = false
 
 import { Inter } from '@next/font/google'
