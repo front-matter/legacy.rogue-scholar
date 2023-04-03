@@ -81,7 +81,7 @@ function Plan({ name, price, description, href, features, featured = false }) {
           </li>
         ))}
       </ul>
-      {price == "Free" && (
+      {price == 'Free' && (
         <Button
           href={href}
           variant={featured ? 'solid' : 'outline'}
@@ -92,7 +92,7 @@ function Plan({ name, price, description, href, features, featured = false }) {
           Sign up
         </Button>
       )}
-      {price != "Free" && <div className="my-9"></div>}
+      {price != 'Free' && <div className="my-9"></div>}
     </section>
   )
 }
