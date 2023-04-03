@@ -81,15 +81,18 @@ function Plan({ name, price, description, href, features, featured = false }) {
           </li>
         ))}
       </ul>
-      <Button
-        href={href}
-        variant={featured ? 'solid' : 'outline'}
-        color="white"
-        className="mt-8"
-        aria-label={`Register with the ${name} plan for ${price}`}
-      >
-        Sign up
-      </Button>
+      {price == "Free" && (
+        <Button
+          href={href}
+          variant={featured ? 'solid' : 'outline'}
+          color="white"
+          className="mt-8"
+          aria-label={`Register with the ${name} plan for ${price}`}
+        >
+          Sign up
+        </Button>
+      )}
+      {price != "Free" && <div className="my-9"></div>}
     </section>
   )
 }
