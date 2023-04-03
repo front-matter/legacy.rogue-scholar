@@ -93,20 +93,23 @@ export default async function handler(req, res) {
         )
         .slice(0, 5)
       const image = get(feedEntry, 'media:content.@_url', null)
+      const published =
+        get(feedEntry, 'pubDate', null) || get(feedEntry, 'published', null)
       const modified = get(feedEntry, 'updated', null)
       const contentHtml =
         get(feedEntry, 'content:encoded', null) ||
         get(feedEntry, 'content.#text', null)
 
       return {
-        id: id,
-        link: link,
+        id,
+        link,
         isPermalink: Boolean(isPermalink),
-        tags: tags,
-        authors: authors,
-        image: image,
-        modified: modified,
-        contentHtml: contentHtml,
+        tags,
+        authors,
+        image,
+        published,
+        modified,
+        contentHtml,
       }
     },
   })
