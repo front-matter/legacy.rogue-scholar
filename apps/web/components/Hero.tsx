@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { Container } from '../components/Container'
@@ -24,18 +25,129 @@ export function Hero() {
         <br />
         including full-text search, DOIs and metadata, and long-term archiving.
       </p>
-      <div className="mt-10 lg:mt-16">
-        <p className="font-display text-lg text-slate-900">
-          <span className="font-bold">Twenty</span> blogs have been approved on
-          the waitlist (as of March 29, 2023) and are listed{' '}
-          <Link
-            href="/blogs"
-            className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
-          >
-            here
+      <div className="mx-auto mt-10 max-w-7xl px-6 lg:px-8">
+        <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">
+          Trusted by some of the most interesting science blogs
+        </h2>
+        <div className="mx-auto mt-6 grid max-w-lg grid-cols-6 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6">
+          <Link href="/blogs/n6x4a73">
+            <Image
+              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+              src="/logos/chris-hartgerink.png"
+              alt="Chris Hartgerink"
+              width={64}
+              height={64}
+            />
           </Link>
-          . The Rogue Scholar launches in Q2 2023.
-        </p>
+          <Link href="/blogs/hjkgw43">
+            <Image
+              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+              src="/logos/flavours-openscience.png"
+              alt="Flavours of Open Science"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/f0m0e38">
+            <Image
+              className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+              src="/logos/front-matter.png"
+              alt="Front Matter"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/3cxcm20">
+            <Image
+              className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
+              src="/logos/ideas.png"
+              alt="I.D.E.A.S."
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/2bzkh64">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/irish-plants.png"
+              alt="Irish Plants"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/h56tk29">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/jabberwocky-ecology.png"
+              alt="Jabberwocky Ecology"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/h49ct36">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/liberate-science.png"
+              alt="Liberate Science"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/h7bpg11">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/oa-works.png"
+              alt="OA Works"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/ez7c883">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/publisherad.png"
+              alt="Publisherad.medium.com"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/s1e9w75">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/quantixed.png"
+              alt="quantixed"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/gr1by89">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/samuel-moore.png"
+              alt="Samuel Moore"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/f4wdg32">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/syldavia-gazette.png"
+              alt="Syldavia Gazette"
+              width={64}
+              height={64}
+            />
+          </Link>
+          <Link href="/blogs/pm0p222">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/upstream.png"
+              alt="Upstream"
+              width={64}
+              height={64}
+            />
+          </Link>
+        </div>
       </div>
     </Container>
   )

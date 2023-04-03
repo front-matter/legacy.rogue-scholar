@@ -20,7 +20,11 @@ export const languages = {
   zh: '中文',
 }
 
-export function Blogs({ blogs }) {
+type Props = {
+  blogs: any
+}
+
+export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
   return (
     <>
       <section className="bg-white">
@@ -40,8 +44,8 @@ export function Blogs({ blogs }) {
                   >
                     OPML file
                   </Link>{' '}
-                  and imported into your RSS reader. Sign up for the waitlist if
-                  you want your blog included in the Rogue Scholar.
+                  and imported into your RSS reader. Sign up for the Rogue
+                  Scholar if you want your blog included in the Rogue Scholar.
                 </p>
               </div>
             </div>

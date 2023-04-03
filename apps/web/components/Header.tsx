@@ -117,10 +117,7 @@ export function Header() {
               color="blue"
               className=""
             >
-              <span>
-                Sign up{' '}
-                <span className="hidden lg:inline">for the waitlist</span>
-              </span>
+              <span>Sign up</span>
             </Button>
             <div className="-mr-1 md:hidden">
               <MobileNavigation />

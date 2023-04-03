@@ -86,9 +86,9 @@ function Plan({ name, price, description, href, features, featured = false }) {
         variant={featured ? 'solid' : 'outline'}
         color="white"
         className="mt-8"
-        aria-label={`Register for the waitlist with the ${name} plan for ${price}`}
+        aria-label={`Register with the ${name} plan for ${price}`}
       >
-        Sign up for the waitlist
+        Sign up
       </Button>
     </section>
   )

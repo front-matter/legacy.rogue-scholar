@@ -34,7 +34,7 @@ export function Footer() {
               className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">Mail</span>
-              <FontAwesomeIcon icon={['fas', 'envelope']} />
+              <FontAwesomeIcon icon="envelope" />
             </Link>
             <Link
               href="https://discord.gg/HvbD4dNPFh"

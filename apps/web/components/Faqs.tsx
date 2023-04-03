@@ -6,14 +6,20 @@ import { Container } from '../components/Container'
 const faqs = [
   [
     {
-      question: 'When does The Rogue Scholar launch?',
+      question: 'When does the Rogue Scholar launch?',
       answer:
-        'The Rogue Scholar launches in Q2 2023. The exact date will be announced at a later time.',
+        'The Rogue Scholar is available with limited functionality since April 1, 2023.',
+    },
+    {
+      question:
+        'When will the full functionality of the Rogue Scholar become available?',
+      answer:
+        'The full functionality (DOI and metadata registration, archiving of full-text content, and full-text search) will become available during the second quarter of 2023.',
     },
     {
       question: 'How can I sign up for the Rogue Scholar?',
       answer:
-        'Fill out the form on this page to be added to the waitlist. We will notify you when your blog is accepted to be archived on the Rogue Scholar.',
+        'Fill out the form on this page. We will add your blog to the Rogue Scholar and notify you within two business days.',
     },
     {
       question: 'Why would the Rogue Scholar not accept my blog?',
@@ -30,6 +36,11 @@ const faqs = [
     {
       question: 'How does the Rogue Scholar archive my blog?',
       answer: 'We will harvest your content and metadata using your RSS feed.',
+    },
+    {
+      question: 'What feed formats does the Rogue Scholar support?',
+      answer:
+        'We support feeds using RSS, Atom or JSON Feed. Contact us for support of custom extensions.',
     },
     {
       question: 'My RSS feed only contains summaries of blog posts.',
