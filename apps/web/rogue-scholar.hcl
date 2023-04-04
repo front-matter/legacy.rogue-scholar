@@ -257,11 +257,12 @@ blog {
   language      = "en"
 }
 
-// blog {
-//   title         = "Make Data Count"
-//   category      = "Social Sciences"
-//   home_page_url = "https://makedatacount.org/"
-//   feed_url      = "https://makedatacount.org/feed/"
-//   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
-//   language      = "en"
-// }
+blog {
+  id            = "xv2a235"
+  title         = "Make Data Count"
+  category      = "Social Sciences"
+  home_page_url = "https://makedatacount.org/"
+  feed_url      = "https://makedatacount.org/feed/"
+  favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
+  language      = "en"
+}
