@@ -138,6 +138,15 @@ export function Hero() {
               height={64}
             />
           </Link>
+          <Link href="/blogs/y55kq35">
+            <Image
+              className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+              src="/logos/syntaxus-baccata.png"
+              alt="Syntaxus baccata"
+              width={64}
+              height={64}
+            />
+          </Link>
           <Link href="/blogs/pm0p222">
             <Image
               className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"

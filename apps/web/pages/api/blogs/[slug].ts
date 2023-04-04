@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   }
 
   const presence = (str: string) => {
-    if (str.trim() === '') {
+    if (str === null || str.trim() === '') {
       return null
     } else {
       return str
@@ -45,11 +45,15 @@ export default async function handler(req, res) {
         get(feedData, 'generator.#text', null) ||
         get(feedData, 'generator', null)
       const description = presence(
-        get(feedData, 'subtitle', '') ||
-          get(feedData, 'description', '') ||
+        get(feedData, 'description.#text', null) ||
+          get(feedData, 'description', null) ||
+          get(feedData, 'subtitle.#text', null) ||
+          get(feedData, 'subtitle', null) ||
           blog.description
       )
-      const language = presence(get(feedData, 'language', '')) || blog.language
+      const language = presence(
+        get(feedData, 'language', null) || blog.language
+      )
       const favicon = get(feedData, 'image.url', null) || blog.favicon
       const license = get(feedData, 'rights.#text', null) || blog.license
       const category = blog.category
@@ -80,10 +84,15 @@ export default async function handler(req, res) {
         get(feedEntry, 'id.#text', null) ||
         get(feedEntry, 'guid.#text', null) ||
         get(feedEntry, 'id', null)
-      const link =
+      let link =
+        []
+          .concat(get(feedEntry, 'link', null))
+          .find((link) => get(link, '@_rel', null) === 'alternate') ||
         get(feedEntry, 'link.@_href', null) ||
         get(feedEntry, 'link', null) ||
         id
+
+      link = get(link, '@_href', null)
       const isPermalink =
         isDoi(id) ||
         get(feedEntry, 'guid.@_isPermalink', null) ||

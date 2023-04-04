@@ -236,8 +236,18 @@ blog {
   language      = "en"
 }
 
+blog {
+  id            = "y55kq35"
+  title         = "Syntaxus baccata"
+  category      = "Engineering and Technology"
+  home_page_url = "https://larsgw.blogspot.com/"
+  feed_url      = "https://larsgw.blogspot.com/feeds/posts/default"
+  favicon       = "https://blogger.googleusercontent.com/img/a/AVvXsEjHdUshBRlHAgurlZYYubJ9yfTRkteSS8hwgor7bpsdHNByrUXglmpVcCS2McVehJLgWZPyr61hB2Nq8iXql2-0qLFfZZHWdMn8wuKGz5UO1vZXWQkRKn_4EelUV6NneQW6fN1wlggv7skzUBri-T7bJZnlzXkKj6FjF8p0wLDR8DXwO7oN8QSwcN9-=s64"
+  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  language      = "en"
+}
+
 // blog {
-//   id            = "8q8xh52"
 //   title         = "Make Data Count"
 //   category      = "Social Sciences"
 //   home_page_url = "https://makedatacount.org/"
