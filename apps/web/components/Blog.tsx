@@ -54,7 +54,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </div>
             )}
           </div>
-          <div className="">
+          <div className="mt-2">
             <span className="">
               <Link
                 href={blog.homePageUrl}
