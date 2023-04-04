@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   }
 
   const presence = (str: string) => {
-    if (str === null || str.trim() === '') {
+    if (str == null || str.trim() === '') {
       return null
     } else {
       return str
@@ -70,6 +70,7 @@ export default async function handler(req, res) {
       }
     },
     getExtraEntryFields: (feedEntry) => {
+      // console.log(feedEntry)
       const author =
         get(feedEntry, 'author', null) || get(feedEntry, 'dc:creator', null)
       const authors = [].concat(author).map((author) => {
@@ -84,15 +85,15 @@ export default async function handler(req, res) {
         get(feedEntry, 'id.#text', null) ||
         get(feedEntry, 'guid.#text', null) ||
         get(feedEntry, 'id', null)
-      let link =
-        []
-          .concat(get(feedEntry, 'link', null))
-          .find((link) => get(link, '@_rel', null) === 'alternate') ||
-        get(feedEntry, 'link.@_href', null) ||
-        get(feedEntry, 'link', null) ||
-        id
+      // let link =
+      //   []
+      //     .concat(get(feedEntry, 'link', null))
+      //     .find((link) => get(link, '@_rel', null) === 'alternate') ||
+      //   get(feedEntry, 'link.@_href', null) ||
+      //   get(feedEntry, 'link', null) ||
+      //   id
 
-      link = get(link, '@_href', null)
+      // link = get(link, '@_href', null)
       const isPermalink =
         isDoi(id) ||
         get(feedEntry, 'guid.@_isPermalink', null) ||
@@ -113,7 +114,7 @@ export default async function handler(req, res) {
 
       return {
         id,
-        link,
+        // link,
         isPermalink: Boolean(isPermalink),
         tags,
         authors,

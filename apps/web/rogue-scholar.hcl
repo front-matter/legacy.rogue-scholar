@@ -247,33 +247,21 @@ blog {
   language      = "en"
 }
 
+blog {
+  id            = "3ffcd46"
+  title         = "GigaBlog"
+  category      = "Natural Sciences"
+  home_page_url = "http://gigasciencejournal.com/blog/"
+  feed_url      = "http://gigasciencejournal.com/blog/feed/"
+  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  language      = "en"
+}
+
 // blog {
 //   title         = "Make Data Count"
 //   category      = "Social Sciences"
 //   home_page_url = "https://makedatacount.org/"
 //   feed_url      = "https://makedatacount.org/feed/"
 //   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
-//   language      = "en"
-// }
-
-// blog {
-//   version       = "https://jsonfeed.org/version/1"
-//   id            = "y55kq35"
-//   title         = "Manton Reece"
-//   category      = "Engineering and Technology"
-//   home_page_url = "https://www.manton.org/"
-//   feed_url      = "https://www.manton.org/feed.json"
-//   favicon       = "https://micro.blog/manton/avatar.jpg"
-//   language      = "en"
-// }
-
-// blog {
-//   version       = "https://jsonfeed.org/version/1.1"
-//   id            = "3ffcd46"
-//   title         = "Daring Fireball"
-//   category      = "Engineering and Technology"
-//   home_page_url = "https://daringfireball.net/"
-//   feed_url      = "https://daringfireball.net/feeds/json"
-//   favicon       = "https://daringfireball.net/graphics/favicon-64.png"
 //   language      = "en"
 // }
