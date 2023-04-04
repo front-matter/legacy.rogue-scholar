@@ -9,9 +9,23 @@ import {
   faGithub,
   faMastodon,
   faOrcid,
+  faCreativeCommons,
+  faCreativeCommonsBy,
 } from '@fortawesome/free-brands-svg-icons'
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
-library.add(fab, faOrcid, faGithub, faMastodon, faDiscord, faEnvelope)
+import { faEnvelope, faRss, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons'
+library.add(
+  fab,
+  faOrcid,
+  faGithub,
+  faMastodon,
+  faDiscord,
+  faCreativeCommons,
+  faCreativeCommonsBy,
+  faEnvelope,
+  faRss,
+  faHouse,
+  faRocket
+)
 config.autoAddCss = false
 
 import { Inter } from 'next/font/google'

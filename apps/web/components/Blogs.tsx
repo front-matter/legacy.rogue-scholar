@@ -1,4 +1,4 @@
-import { HomeIcon, RssIcon } from '@heroicons/react/20/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 import { Container } from '../components/Container'
@@ -102,10 +102,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         target="_blank"
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
-                        <HomeIcon
-                          className="h-5 w-5 text-gray-500"
-                          aria-hidden="true"
-                        />
+                        <FontAwesomeIcon icon="house" className="text-gray-500" />
                         Home Page
                       </Link>
                     </div>
@@ -115,10 +112,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         target="_blank"
                         className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
-                        <RssIcon
-                          className="h-5 w-5 text-gray-500"
-                          aria-hidden="true"
-                        />
+                        <FontAwesomeIcon icon="rss" className="text-gray-500" />
                         RSS Feed
                       </Link>
                     </div>
