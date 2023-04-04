@@ -12,13 +12,13 @@ export default function BlogsPage() {
   const { data } = useSWR('/api/blogs', fetcher)
 
   if (!data)
-  return (
-    <>
-      <Header />
-      <Loader />
-      <Footer />
-    </>
-  )
+    return (
+      <>
+        <Header />
+        <Loader />
+        <Footer />
+      </>
+    )
 
   return (
     <>
