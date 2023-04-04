@@ -45,10 +45,12 @@ export default async function handler(req, res) {
         get(feedData, 'generator.#text', null) ||
         get(feedData, 'generator', null)
       const description = presence(
-        get(feedData, 'subtitle', '') || get(feedData, 'description', '')
+        get(feedData, 'subtitle', '') ||
+          get(feedData, 'description', '') ||
+          blog.description
       )
       const language = presence(get(feedData, 'language', '')) || blog.language
-      const favicon = get(feedData, 'image.url', null)
+      const favicon = get(feedData, 'image.url', null) || blog.favicon
       const license = get(feedData, 'rights.#text', null) || blog.license
       const category = blog.category
 

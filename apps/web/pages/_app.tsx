@@ -5,14 +5,19 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import {
   fab,
+  faCreativeCommons,
+  faCreativeCommonsBy,
   faDiscord,
   faGithub,
   faMastodon,
   faOrcid,
-  faCreativeCommons,
-  faCreativeCommonsBy,
 } from '@fortawesome/free-brands-svg-icons'
-import { faEnvelope, faRss, faHouse, faRocket } from '@fortawesome/free-solid-svg-icons'
+import {
+  faEnvelope,
+  faHouse,
+  faRocket,
+  faRss,
+} from '@fortawesome/free-solid-svg-icons'
 library.add(
   fab,
   faOrcid,

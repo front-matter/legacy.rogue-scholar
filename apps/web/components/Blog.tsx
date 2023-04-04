@@ -27,10 +27,21 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
     <div className="bg-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              {blog.title}
-            </h2>
+          <div className="relative flex items-center gap-x-12">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                {blog.title}
+              </h2>
+            </div>
+            {blog.favicon && (
+              <img
+                className="h-10 w-10 rounded-full bg-transparent"
+                src={blog.favicon}
+                alt={blog.title}
+              />
+            )}
+          </div>
+          <div className="-mt-px">
             <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
               {blog.category}
             </span>
@@ -38,18 +49,11 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               {languages[blog.language]}
             </span>
             {blog.description && (
-              <p className="mt-2 text-lg leading-8 text-gray-600">
+              <div className="text-lg leading-8 text-gray-600">
                 {parse(String(blog.description))}
-              </p>
+              </div>
             )}
           </div>
-          {blog.favicon && (
-            <img
-              className="h-10 w-10 flex-shrink-0 rounded-full bg-transparent"
-              src={blog.favicon}
-              alt={blog.title}
-            />
-          )}
           <div className="">
             <span className="">
               <Link

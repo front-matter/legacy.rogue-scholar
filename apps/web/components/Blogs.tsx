@@ -102,7 +102,10 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         target="_blank"
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
-                        <FontAwesomeIcon icon="house" className="text-gray-500" />
+                        <FontAwesomeIcon
+                          icon="house"
+                          className="text-gray-500"
+                        />
                         Home Page
                       </Link>
                     </div>
