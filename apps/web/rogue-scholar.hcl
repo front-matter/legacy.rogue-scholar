@@ -72,7 +72,7 @@ blog {
   category      = "Humanities"
   home_page_url = "https://syldavia-gazette.org/"
   feed_url      = "https://syldavia-gazette.org/atom/"
-  favicon       = "https://rogue-scholar.org/logos/syldavia-gazette.png
+  favicon       = "https://rogue-scholar.org/logos/syldavia-gazette.png"
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
@@ -225,6 +225,16 @@ blog {
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
+
+// blog {
+//   id            = "8q8xh52"
+//   title         = "Make Data Count"
+//   category      = "Social Sciences"
+//   home_page_url = "https://makedatacount.org/"
+//   feed_url      = "https://makedatacount.org/feed/"
+//   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
+//   language      = "en"
+// }
 
 // blog {
 //   version       = "https://jsonfeed.org/version/1"
