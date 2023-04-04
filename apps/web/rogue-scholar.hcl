@@ -226,6 +226,16 @@ blog {
   language      = "en"
 }
 
+blog {
+  id            = "8q8xh52"
+  title         = "bjoern.brembs.blog"
+  category      = "Natural Sciences"
+  home_page_url = "http://bjoern.brembs.net/"
+  feed_url      = "http://bjoern.brembs.net/feed/"
+  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  language      = "en"
+}
+
 // blog {
 //   id            = "8q8xh52"
 //   title         = "Make Data Count"
