@@ -4,7 +4,7 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://blog.front-matter.io/"
   feed_url      = "https://blog.front-matter.io/atom/"
-  favicon       = "https://rogue-scholar.org/logos/front-matter.png"
+  favicon       = "https://blog.front-matter.io/favicon.png"
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
@@ -72,7 +72,7 @@ blog {
   category      = "Humanities"
   home_page_url = "https://syldavia-gazette.org/"
   feed_url      = "https://syldavia-gazette.org/atom/"
-  favicon       = "https://rogue-scholar.org/logos/syldavia-gazette.png"
+  favicon       = "https://syldavia-gazette.org/favicon.png"
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
