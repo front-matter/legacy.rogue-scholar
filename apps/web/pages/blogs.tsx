@@ -11,7 +11,14 @@ export default function BlogsPage() {
   const fetcher = (url) => fetch(url).then((res) => res.json())
   const { data } = useSWR('/api/blogs', fetcher)
 
-  if (!data) return <Loader />
+  if (!data)
+  return (
+    <>
+      <Header />
+      <Loader />
+      <Footer />
+    </>
+  )
 
   return (
     <>
