@@ -104,7 +104,9 @@ export default async function handler(req, res) {
           (tag) => get(tag, '@_term', null) || get(tag, '#text', null) || tag
         )
         .slice(0, 5)
-      const image = get(feedEntry, 'media:content.@_url', null) || get(feedEntry, 'enclosure.@_url', null)
+      const image =
+        get(feedEntry, 'media:content.@_url', null) ||
+        get(feedEntry, 'enclosure.@_url', null)
       const published =
         get(feedEntry, 'pubDate', null) || get(feedEntry, 'published', null)
       const modified = get(feedEntry, 'updated', null)
