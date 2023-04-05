@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { numberToWords } from "@humanwhocodes/number-to-words"
 
 import { Container } from '../components/Container'
 
@@ -32,8 +33,8 @@ export const Hero: React.FunctionComponent<Props> = ({ blogs }) => {
         including full-text search, DOIs and metadata, and long-term archiving.
       </p>
       <div className="mx-auto mt-10 max-w-7xl px-6 lg:px-8">
-        <h2 className="text-center text-lg font-semibold leading-8 text-gray-900">
-          Trusted by {blogNumber} science blogs, including
+        <h2 className="text-center text-xl font-medium leading-8 text-gray-900">
+          Trusted by {numberToWords(blogNumber)} science blogs so far, including
         </h2>
         <div className="mx-auto mt-6 grid max-w-lg grid-cols-6 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6">
           {blogsWithIimages.map((blog) => (
