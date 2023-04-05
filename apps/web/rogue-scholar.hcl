@@ -307,3 +307,12 @@ blog {
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
+
+blog {
+  id            = "1senr81"
+  title         = "JSC Accelerating Devices Lab"
+  category      = "Engineering and Technology"
+  home_page_url = "https://x-dev.pages.jsc.fz-juelich.de/"
+  feed_url      = "https://x-dev.pages.jsc.fz-juelich.de//feed.xml"
+  language      = "en"
+}
