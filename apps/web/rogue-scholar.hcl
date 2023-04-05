@@ -288,3 +288,12 @@ blog {
   favicon       = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
   language      = "en"
 }
+
+blog {
+  id            = "8epr274"
+  title         = "Journal of Open Source Software Blog"
+  category      = "Engineering and Technology"
+  home_page_url = "https://blog.joss.theoj.org/"
+  feed_url      = "https://blog.joss.theoj.org/feed.xml"
+  language      = "en"
+}
