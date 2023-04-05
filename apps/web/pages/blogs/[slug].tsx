@@ -15,9 +15,12 @@ import { Loader } from '../../components/Loader'
 import { Posts } from '../../components/Posts'
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const env = process.env.NEXT_PUBLIC_VERCEL_ENV || 'development'
   const filePath = path.resolve('rogue-scholar.hcl')
   const hclString = fs.readFileSync(filePath)
-  const json = hcl.parseToObject(hclString)[0].blog
+  const json = hcl.parseToObject(hclString)[0].blog.filter((blog) => {
+    return env != 'production' || blog.environment != 'preview'
+  })
   const paths = json.map((blog) => ({
     params: { slug: blog.id },
   }))
