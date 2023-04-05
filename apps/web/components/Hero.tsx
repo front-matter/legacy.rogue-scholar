@@ -1,5 +1,5 @@
+import { numberToWords } from '@humanwhocodes/number-to-words'
 import Link from 'next/link'
-import { numberToWords } from "@humanwhocodes/number-to-words"
 
 import { Container } from '../components/Container'
 
