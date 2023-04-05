@@ -264,6 +264,7 @@ blog {
   home_page_url = "https://makedatacount.org/"
   feed_url      = "https://makedatacount.org/feed/"
   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
+  environment   = "staging"
   language      = "en"
 }
 
@@ -275,6 +276,7 @@ blog {
   feed_url      = "https://blogs.tib.eu/wp/dini-ag-blog/feed/"
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   favicon       = "https://blogs.tib.eu/wp/dini-ag-blog/wp-content/uploads/sites/25/2018/03/cropped-DINI-AG-FIS-3-1-32x32.png"
+  environment   = "staging"
   language      = "de"
 }
 
@@ -286,6 +288,7 @@ blog {
   feed_url      = "https://opencitations.hypotheses.org/feed"
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   favicon       = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
+  environment   = "staging"
   language      = "en"
 }
 
@@ -295,6 +298,7 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://blog.joss.theoj.org/"
   feed_url      = "https://blog.joss.theoj.org/feed.xml"
+  environment   = "staging"
   language      = "en"
 }
 
@@ -305,6 +309,7 @@ blog {
   home_page_url = "https://www.leidenmadtrics.nl/"
   feed_url      = "https://www.leidenmadtrics.nl/feed/"
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  environment   = "staging"
   language      = "en"
 }
 
@@ -314,5 +319,6 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://x-dev.pages.jsc.fz-juelich.de/"
   feed_url      = "https://x-dev.pages.jsc.fz-juelich.de//feed.xml"
+  environment   = "staging"
   language      = "en"
 }
