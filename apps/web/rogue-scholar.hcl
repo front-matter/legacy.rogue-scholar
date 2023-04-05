@@ -297,3 +297,13 @@ blog {
   feed_url      = "https://blog.joss.theoj.org/feed.xml"
   language      = "en"
 }
+
+blog {
+  id            = "yzgx124"
+  title         = "Leiden Madtrics"
+  category      = "Social Sciences"
+  home_page_url = "https://www.leidenmadtrics.nl/"
+  feed_url      = "https://www.leidenmadtrics.nl/feed/"
+  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  language      = "en"
+}
