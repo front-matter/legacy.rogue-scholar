@@ -57,6 +57,7 @@ export default async function handler(req, res) {
       const favicon = get(feedData, 'image.url', null) || blog.favicon
       const license = get(feedData, 'rights.#text', null) || blog.license
       const category = blog.category
+      const environment = blog.environment || 'production'
 
       return {
         feedUrl,
@@ -67,6 +68,7 @@ export default async function handler(req, res) {
         language,
         license,
         category,
+        environment,
       }
     },
     getExtraEntryFields: (feedEntry) => {

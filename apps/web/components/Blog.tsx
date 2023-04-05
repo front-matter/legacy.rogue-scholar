@@ -16,6 +16,7 @@ interface BlogType {
   favicon?: string
   generator?: string
   license: string
+  environment?: string
 }
 
 type Props = {
@@ -55,23 +56,23 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             )}
           </div>
           <div className="mt-2">
-            <span className="">
+            <span className="text-gray-500">
               <Link
                 href={blog.homePageUrl}
                 target="_blank"
-                className="relative mr-10 w-0 py-2 text-base font-medium text-gray-500"
+                className="relative mr-10 w-0 py-2 text-base font-medium"
               >
-                <FontAwesomeIcon icon="house" className="text-gray-500" />
+                <FontAwesomeIcon icon="house" />
                 <span className="ml-2">Home Page</span>
               </Link>
             </span>
-            <span className="-ml-px">
+            <span className="-ml-px text-gray-500">
               <Link
                 href={blog.feedUrl}
                 target="_blank"
-                className="relative mr-10 w-0 py-2 text-base font-medium text-gray-500"
+                className="relative mr-10 w-0 py-2 text-base font-medium"
               >
-                <FontAwesomeIcon icon="rss" className="text-gray-500" />
+                <FontAwesomeIcon icon="rss" />
                 <span className="ml-2">RSS Feed</span>
               </Link>
             </span>
@@ -80,7 +81,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 <Link
                   href={blog.license}
                   target="_blank"
-                  className="relative py-2 text-base font-medium text-gray-500"
+                  className="relative mr-10 py-2 text-base font-medium text-gray-500"
                 >
                   <FontAwesomeIcon
                     icon={['fab', 'creative-commons']}
@@ -92,6 +93,12 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                   />
                   <span className="ml-2">License</span>
                 </Link>
+              </span>
+            )}
+            {blog.environment == 'preview' && (
+              <span className="text-gray-500">
+                <FontAwesomeIcon icon="lock" className="" />
+                <span className="ml-2">Preview</span>
               </span>
             )}
           </div>
