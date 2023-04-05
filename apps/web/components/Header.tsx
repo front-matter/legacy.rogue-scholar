@@ -112,11 +112,7 @@ export function Header() {
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
-            <Button
-              href="https://jvinjjenjik.typeform.com/to/uxgAsHPl"
-              color="blue"
-              className=""
-            >
+            <Button href="/signup" color="blue" className="">
               <span>Sign up</span>
             </Button>
             <div className="-mr-1 md:hidden">

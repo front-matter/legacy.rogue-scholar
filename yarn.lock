@@ -4132,6 +4132,11 @@ next@^13.2.4:
     "@next/swc-win32-ia32-msvc" "13.2.4"
     "@next/swc-win32-x64-msvc" "13.2.4"
 
+nextjs-redirect@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/nextjs-redirect/-/nextjs-redirect-6.0.1.tgz#29416d11f130511e12dbe93ca0c4fa0778bfbae6"
+  integrity sha512-SScRdqhGwbD9HbATM+6KMoRyW5QdsPtBBknPPUBxeItnv3wOrhII4pW+0TrvglWNxeRUwI2GsnrDHCV/6juBtQ==
+
 nextra-theme-docs@2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/nextra-theme-docs/-/nextra-theme-docs-2.0.1.tgz"
