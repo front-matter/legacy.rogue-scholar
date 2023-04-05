@@ -266,3 +266,13 @@ blog {
   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
   language      = "en"
 }
+
+blog {
+  id            = "r25t930"
+  title         = "FIS & EPub"
+  category      = "Engineering and Technology"
+  home_page_url = "https://blogs.tib.eu/wp/dini-ag-blog"
+  feed_url      = "https://blogs.tib.eu/wp/dini-ag-blog/feed/"
+  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  language      = "de"
+}
