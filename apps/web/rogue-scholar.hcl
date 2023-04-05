@@ -274,5 +274,6 @@ blog {
   home_page_url = "https://blogs.tib.eu/wp/dini-ag-blog"
   feed_url      = "https://blogs.tib.eu/wp/dini-ag-blog/feed/"
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  favicon       = "https://blogs.tib.eu/wp/dini-ag-blog/wp-content/uploads/sites/25/2018/03/cropped-DINI-AG-FIS-3-1-32x32.png"
   language      = "de"
 }
