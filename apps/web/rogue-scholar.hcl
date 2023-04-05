@@ -277,3 +277,14 @@ blog {
   favicon       = "https://blogs.tib.eu/wp/dini-ag-blog/wp-content/uploads/sites/25/2018/03/cropped-DINI-AG-FIS-3-1-32x32.png"
   language      = "de"
 }
+
+blog {
+  id            ="gzqej46"
+  title         ="OpenCitations blog"
+  category      = "Engineering and Technology"
+  home_page_url = "https://opencitations.hypotheses.org/"
+  feed_url      = "https://opencitations.hypotheses.org/feed"
+  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  favicon       = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
+  language      = "en"
+}
