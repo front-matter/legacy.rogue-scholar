@@ -318,7 +318,7 @@ blog {
   title         = "JSC Accelerating Devices Lab"
   category      = "Engineering and Technology"
   home_page_url = "https://x-dev.pages.jsc.fz-juelich.de/"
-  feed_url      = "https://x-dev.pages.jsc.fz-juelich.de//feed.xml"
+  feed_url      = "https://x-dev.pages.jsc.fz-juelich.de/feed.xml"
   environment   = "preview"
   language      = "en"
 }
