@@ -271,7 +271,7 @@ blog {
   title         = "Make Data Count"
   category      = "Social Sciences"
   home_page_url = "https://makedatacount.org/"
-  license       = null
+  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   feed_url      = "https://makedatacount.org/feed/"
   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
   environment   = "preview"
@@ -308,7 +308,7 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://blog.joss.theoj.org/"
   feed_url      = "https://blog.joss.theoj.org/feed.xml"
-  license       = null
+  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   favicon       = null
   environment   = "preview"
   language      = "en"
