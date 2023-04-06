@@ -6,10 +6,10 @@ import { getAllBlogs } from 'pages/api/blogs'
 import { getSingleBlog } from 'pages/api/blogs/[slug]'
 import React from 'react'
 
-import { Blog } from '../../components/Blog'
+import { Blog, BlogType } from '../../components/Blog'
 import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
-import { Posts } from '../../components/Posts'
+import { Post, Posts } from '../../components/Posts'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const blogs = await getAllBlogs()
@@ -29,8 +29,8 @@ export async function getStaticProps({ params }) {
 }
 
 type Props = {
-  blog: any
-  posts: any
+  blog: BlogType
+  posts: Post[]
 }
 
 const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {

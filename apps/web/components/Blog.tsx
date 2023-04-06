@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 import { languages } from '../components/Blogs'
 
-interface BlogType {
+export type BlogType = {
   id: string
   title: string
   category: string[]
@@ -15,7 +15,7 @@ interface BlogType {
   icon?: string
   favicon?: string
   generator?: string
-  license: string
+  license?: string
   environment?: string
 }
 
