@@ -3,6 +3,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Fragment } from 'react'
+import { useTranslation } from 'next-i18next'
 
 import { Button } from '../components/Button'
 import { Container } from '../components/Container'
@@ -45,6 +46,8 @@ function MobileNavIcon({ open }) {
 }
 
 function MobileNavigation() {
+  const { t } = useTranslation('components')
+
   return (
     <Popover>
       <Popover.Button
@@ -78,11 +81,10 @@ function MobileNavigation() {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
           >
-            <MobileNavLink href="/#pricing">Pricing</MobileNavLink>
-            <MobileNavLink href="/#features">Features</MobileNavLink>
+            <MobileNavLink href="/#pricing">{t('pricing', 'Pricing')}</MobileNavLink>
             <MobileNavLink href="/blogs">Blogs</MobileNavLink>
             <MobileNavLink href="https://docs.rogue-scholar.org">
-              Docs
+              {t('docs', 'Docs')}
             </MobileNavLink>
             <hr className="m-2 border-slate-300/40" />
           </Popover.Panel>
@@ -93,6 +95,8 @@ function MobileNavigation() {
 }
 
 export function Header() {
+  const { t } = useTranslation('components')
+
   return (
     <header className="py-10">
       <Container className="relative">
@@ -105,15 +109,15 @@ export function Header() {
               </div>
             </Link>
             <div className="hidden md:flex md:gap-x-6">
-              <NavLink href="/#pricing">Pricing</NavLink>
+              <NavLink href="/#pricing">{t('pricing', 'Pricing')}</NavLink>
               <NavLink href="/#faq">FAQ</NavLink>
               <NavLink href="/blogs">Blogs</NavLink>
-              <NavLink href="https://docs.rogue-scholar.org">Docs</NavLink>
+              <NavLink href="https://docs.rogue-scholar.org">{t('docs', 'Docs')}</NavLink>
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
             <Button href="/signup" color="blue" className="">
-              <span>Sign up</span>
+              <span>{t('signup', 'Sign Up')}</span>
             </Button>
             <div className="-mr-1 md:hidden">
               <MobileNavigation />

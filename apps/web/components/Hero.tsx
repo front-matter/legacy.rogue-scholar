@@ -1,5 +1,6 @@
 import { numberToWords } from '@humanwhocodes/number-to-words'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 import { Container } from '../components/Container'
 
@@ -8,13 +9,14 @@ type Props = {
 }
 
 export const Hero: React.FunctionComponent<Props> = ({ blogs }) => {
-  const blogNumber = blogs.length
+  const { t } = useTranslation('components')
+  const blogNumber = numberToWords(blogs.length)
   const blogsWithIimages = blogs.filter((blog) => blog.favicon)
 
   return (
     <Container className="pt-10 pb-16 text-center lg:pt-16">
       <h1 className="font-display mx-auto max-w-4xl text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
-        Science blogging{' '}
+        Science Blogging{' '}
         <span className="relative whitespace-nowrap text-blue-600">
           <svg
             aria-hidden="true"
@@ -34,7 +36,7 @@ export const Hero: React.FunctionComponent<Props> = ({ blogs }) => {
       </p>
       <div className="mx-auto mt-10 max-w-7xl px-6 lg:px-8">
         <h2 className="text-center text-xl font-medium leading-8 text-gray-900">
-          Trusted by {numberToWords(blogNumber)} science blogs so far, including
+          Trusted by {blogNumber} science blogs so far, including
         </h2>
         <div className="mx-auto mt-6 grid max-w-lg grid-cols-6 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6">
           {blogsWithIimages.map((blog) => (

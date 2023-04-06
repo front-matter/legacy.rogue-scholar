@@ -1,12 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
 
 import { Container } from '../components/Container'
 import { NavLink } from '../components/NavLink'
 import Icon from '../images/icon.png'
 
 export function Footer() {
+  const { t } = useTranslation('components')
+
   return (
     <footer className="bg-slate-100">
       <Container className="relative">
@@ -17,12 +20,12 @@ export function Footer() {
           </div>
           <nav className="mt-10 text-sm" aria-label="quick links">
             <div className="-my-1 flex justify-center gap-x-6">
-              <NavLink href="/#pricing">Pricing</NavLink>
+              <NavLink href="/#pricing">{t('pricing', 'Pricing')}</NavLink>
               <NavLink href="/#faq">FAQ</NavLink>
               <NavLink href="/blogs">Blogs</NavLink>
-              <NavLink href="https://docs.rogue-scholar.org">Docs</NavLink>
+              <NavLink href="https://docs.rogue-scholar.org">{t('docs', 'Docs')}</NavLink>
               <NavLink href="https://plausible.io/rogue-scholar.org">
-                Usage Stats
+                {t('usage_stats', 'Usage Stats')}
               </NavLink>
             </div>
           </nav>
