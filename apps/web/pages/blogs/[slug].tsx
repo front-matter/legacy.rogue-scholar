@@ -1,10 +1,9 @@
-import fs from 'fs'
-import * as hcl from 'hcl2-parser'
 import { omit } from 'lodash'
 import { GetStaticPaths } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import path from 'path'
+import { getAllBlogs } from 'pages/api/blogs'
+import { getSingleBlog } from 'pages/api/blogs/[slug]'
 import React from 'react'
 
 import { Blog } from '../../components/Blog'
@@ -13,13 +12,8 @@ import { Header } from '../../components/Header'
 import { Posts } from '../../components/Posts'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const env = process.env.NEXT_PUBLIC_VERCEL_ENV || 'development'
-  const filePath = path.resolve('rogue-scholar.hcl')
-  const hclString = fs.readFileSync(filePath)
-  const json = hcl.parseToObject(hclString)[0].blog.filter((blog) => {
-    return env != 'production' || blog.environment != 'preview'
-  })
-  const paths = json.map((blog) => ({
+  const blogs = await getAllBlogs()
+  const paths = blogs.map((blog) => ({
     params: { slug: blog.id },
   }))
 
@@ -27,17 +21,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export async function getStaticProps({ params }) {
-  const protocol = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https' : 'http'
-  const domain = process.env.NEXT_PUBLIC_VERCEL_URL || 'localhost:3000'
-  const id = params.slug
-  const res = await fetch(`${protocol}://${domain}/api/blogs/${id}`).then(
-    (res) => res.json()
-  )
-  const blog = omit(res, ['entries'])
-  const posts = res.entries
+  const blog = await getSingleBlog(params.slug)
 
   return {
-    props: { blog, posts },
+    props: { blog: omit(blog, ['entries']), posts: blog.entries },
   }
 }
 

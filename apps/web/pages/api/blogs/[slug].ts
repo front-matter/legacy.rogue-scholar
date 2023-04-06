@@ -1,7 +1,9 @@
 import { extract } from '@extractus/feed-extractor'
 import { get } from 'lodash'
 
-export default async function handler(req, res) {
+import { getAllBlogs } from '../blogs'
+
+export async function getSingleBlog(blogSlug) {
   const isDoi = (doi: string) => {
     try {
       return new URL(doi).hostname === 'doi.org'
@@ -26,12 +28,8 @@ export default async function handler(req, res) {
     }
   }
 
-  const protocol = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https' : 'http'
-  const domain = process.env.NEXT_PUBLIC_VERCEL_URL || 'localhost:3000'
-  const blogs = await fetch(`${protocol}://${domain}/api/blogs`).then((res) =>
-    res.json()
-  )
-  const blog = blogs.find((blog) => blog.id === req.query.slug)
+  const blogs = await getAllBlogs()
+  const blog = blogs.find((blog) => blog.id === blogSlug)
   const feed = await extract(blog.feed_url, {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
@@ -131,5 +129,13 @@ export default async function handler(req, res) {
     },
   })
 
-  res.status(200).json(feed)
+  console.log(feed)
+
+  return feed
+}
+
+export default async function handler(req, res) {
+  const blog = await getSingleBlog(req.query.slug)
+
+  res.status(200).json(blog)
 }
