@@ -6,12 +6,10 @@ import Head from 'next/head'
 import Link from 'next/link'
 import path from 'path'
 import React from 'react'
-import useSWR from 'swr'
 
 import { Blog } from '../../components/Blog'
 import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
-import { Loader } from '../../components/Loader'
 import { Posts } from '../../components/Posts'
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -29,37 +27,30 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export async function getStaticProps({ params }) {
+  const protocol = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https' : 'http'
+  const domain = process.env.NEXT_PUBLIC_VERCEL_URL || 'localhost:3000'
   const id = params.slug
+  const res = await fetch(`${protocol}://${domain}/api/blogs/${id}`).then(
+    (res) => res.json()
+  )
+  const blog = omit(res, ['entries'])
+  const posts = res.entries
 
   return {
-    props: { id },
+    props: { blog, posts },
   }
 }
 
 type Props = {
-  id: string
+  blog: any
+  posts: any
 }
 
-const BlogPage: React.FunctionComponent<Props> = ({ id }) => {
-  const fetcher = (url) => fetch(url).then((res) => res.json())
-  const { data } = useSWR(`/api/blogs/${id}`, fetcher)
-
-  if (!data)
-    return (
-      <>
-        <Header />
-        <Loader />
-        <Footer />
-      </>
-    )
-
-  const blog = omit(data, ['entries'])
-  const posts = data.entries
-
+const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
   return (
     <>
       <Head>
-        <title>{data.title}</title>
+        <title>{blog.title}</title>
         <meta name="og:title" content="Rogue Scholar - {data.title}" />
       </Head>
       <Header />

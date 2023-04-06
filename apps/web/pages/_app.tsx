@@ -36,8 +36,8 @@ library.add(
 config.autoAddCss = false
 
 import { Inter } from 'next/font/google'
-import PlausibleProvider from 'next-plausible'
 import { appWithTranslation } from 'next-i18next'
+import PlausibleProvider from 'next-plausible'
 
 // If loading a variable font, you don't need to specify the font weight
 const inter = Inter({ subsets: ['latin'] })

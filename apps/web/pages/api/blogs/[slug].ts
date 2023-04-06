@@ -1,6 +1,5 @@
 import { extract } from '@extractus/feed-extractor'
 import { get } from 'lodash'
-import absoluteUrl from 'next-absolute-url'
 
 export default async function handler(req, res) {
   const isDoi = (doi: string) => {
@@ -27,9 +26,11 @@ export default async function handler(req, res) {
     }
   }
 
-  const { origin } = absoluteUrl(req)
-  const apiURL = `${origin}/api/blogs`
-  const blogs = await fetch(apiURL).then((res) => res.json())
+  const protocol = process.env.NEXT_PUBLIC_VERCEL_URL ? 'https' : 'http'
+  const domain = process.env.NEXT_PUBLIC_VERCEL_URL || 'localhost:3000'
+  const blogs = await fetch(`${protocol}://${domain}/api/blogs`).then((res) =>
+    res.json()
+  )
   const blog = blogs.find((blog) => blog.id === req.query.slug)
   const feed = await extract(blog.feed_url, {
     useISODateFormat: true,

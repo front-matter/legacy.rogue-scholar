@@ -2,8 +2,8 @@ import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Fragment } from 'react'
 import { useTranslation } from 'next-i18next'
+import { Fragment } from 'react'
 
 import { Button } from '../components/Button'
 import { Container } from '../components/Container'
@@ -81,7 +81,9 @@ function MobileNavigation() {
             as="div"
             className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5"
           >
-            <MobileNavLink href="/#pricing">{t('pricing', 'Pricing')}</MobileNavLink>
+            <MobileNavLink href="/#pricing">
+              {t('pricing', 'Pricing')}
+            </MobileNavLink>
             <MobileNavLink href="/blogs">Blogs</MobileNavLink>
             <MobileNavLink href="https://docs.rogue-scholar.org">
               {t('docs', 'Docs')}
@@ -112,7 +114,9 @@ export function Header() {
               <NavLink href="/#pricing">{t('pricing', 'Pricing')}</NavLink>
               <NavLink href="/#faq">FAQ</NavLink>
               <NavLink href="/blogs">Blogs</NavLink>
-              <NavLink href="https://docs.rogue-scholar.org">{t('docs', 'Docs')}</NavLink>
+              <NavLink href="https://docs.rogue-scholar.org">
+                {t('docs', 'Docs')}
+              </NavLink>
             </div>
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">

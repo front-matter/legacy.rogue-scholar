@@ -1,6 +1,5 @@
 import { numberToWords } from '@humanwhocodes/number-to-words'
 import Link from 'next/link'
-import { useTranslation } from 'next-i18next'
 
 import { Container } from '../components/Container'
 
@@ -9,7 +8,6 @@ type Props = {
 }
 
 export const Hero: React.FunctionComponent<Props> = ({ blogs }) => {
-  const { t } = useTranslation('components')
   const blogNumber = numberToWords(blogs.length)
   const blogsWithIimages = blogs.filter((blog) => blog.favicon)
 

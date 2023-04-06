@@ -23,7 +23,9 @@ export function Footer() {
               <NavLink href="/#pricing">{t('pricing', 'Pricing')}</NavLink>
               <NavLink href="/#faq">FAQ</NavLink>
               <NavLink href="/blogs">Blogs</NavLink>
-              <NavLink href="https://docs.rogue-scholar.org">{t('docs', 'Docs')}</NavLink>
+              <NavLink href="https://docs.rogue-scholar.org">
+                {t('docs', 'Docs')}
+              </NavLink>
               <NavLink href="https://plausible.io/rogue-scholar.org">
                 {t('usage_stats', 'Usage Stats')}
               </NavLink>
