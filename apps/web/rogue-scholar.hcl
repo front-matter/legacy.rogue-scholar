@@ -15,6 +15,7 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://danielskatzblog.wordpress.com/"
   feed_url      = "https://danielskatzblog.wordpress.com/feed/"
+  favicon       = null
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
@@ -38,6 +39,7 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://wisspub.net/"
   feed_url      = "https://wisspub.net/feed/"
+  favicon       = null
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "de-DE"
 }
@@ -96,6 +98,7 @@ blog {
   category      = "Natural Sciences"
   home_page_url = "https://donnywinston.com/"
   feed_url      = "https://donnywinston.com/index.xml"
+  favicon       = null
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
@@ -107,6 +110,7 @@ blog {
   category      = "Natural Sciences"
   home_page_url = "https://iphylo.blogspot.com/"
   feed_url      = "https://iphylo.blogspot.com/feeds/posts/default?alt=rss"
+  favicon       = null
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
@@ -143,6 +147,7 @@ blog {
   home_page_url = "https://quantixed.org/"
   feed_url      = "https://quantixed.org/feed/"
   icon          = "https://i0.wp.com/quantixed.org/wp-content/uploads/2017/12/cropped-qlogo512x512-01.png?fit=32%2C32&#038;ssl=1"
+  favicon       = null
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en-GB"
 }
@@ -154,6 +159,7 @@ blog {
   category      = "Natural Sciences"
   home_page_url = "https://svpow.com/"
   feed_url      = "https://svpow.com/feed/"
+  favicon       = null
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
@@ -211,6 +217,7 @@ blog {
   category      = "Social Sciences"
   home_page_url = "https://grieve-smith.com/blog"
   feed_url      = "https://grieve-smith.com/blog/feed/"
+  favicon       = null
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en-US"
 }
@@ -232,6 +239,7 @@ blog {
   category      = "Natural Sciences"
   home_page_url = "http://bjoern.brembs.net/"
   feed_url      = "http://bjoern.brembs.net/feed/"
+  favicon       = null
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
   language      = "en"
 }
@@ -254,6 +262,7 @@ blog {
   home_page_url = "http://gigasciencejournal.com/blog/"
   feed_url      = "http://gigasciencejournal.com/blog/feed/"
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  favicon       = null
   language      = "en"
 }
 
@@ -262,6 +271,7 @@ blog {
   title         = "Make Data Count"
   category      = "Social Sciences"
   home_page_url = "https://makedatacount.org/"
+  license       = null
   feed_url      = "https://makedatacount.org/feed/"
   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
   environment   = "preview"
@@ -298,6 +308,8 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://blog.joss.theoj.org/"
   feed_url      = "https://blog.joss.theoj.org/feed.xml"
+  license       = null
+  favicon       = null
   environment   = "preview"
   language      = "en"
 }
@@ -309,6 +321,7 @@ blog {
   home_page_url = "https://www.leidenmadtrics.nl/"
   feed_url      = "https://www.leidenmadtrics.nl/feed/"
   license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  favicon       = null
   environment   = "preview"
   language      = "en"
 }
@@ -318,7 +331,9 @@ blog {
   title         = "JSC Accelerating Devices Lab"
   category      = "Engineering and Technology"
   home_page_url = "https://x-dev.pages.jsc.fz-juelich.de/"
-  feed_url      = "https://x-dev.pages.jsc.fz-juelich.de//feed.xml"
+  feed_url      = "https://x-dev.pages.jsc.fz-juelich.de/feed.xml"
+  license       = null
+  favicon       = null
   environment   = "preview"
   language      = "en"
 }

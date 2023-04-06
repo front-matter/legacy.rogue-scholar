@@ -1,8 +1,9 @@
 import { extract } from '@extractus/feed-extractor'
 import { get } from 'lodash'
-import absoluteUrl from 'next-absolute-url'
 
-export default async function handler(req, res) {
+import { getAllBlogs } from '../blogs'
+
+export async function getSingleBlog(blogSlug) {
   const isDoi = (doi: string) => {
     try {
       return new URL(doi).hostname === 'doi.org'
@@ -27,10 +28,8 @@ export default async function handler(req, res) {
     }
   }
 
-  const { origin } = absoluteUrl(req)
-  const apiURL = `${origin}/api/blogs`
-  const blogs = await fetch(apiURL).then((res) => res.json())
-  const blog = blogs.find((blog) => blog.id === req.query.slug)
+  const blogs = await getAllBlogs()
+  const blog = blogs.find((blog) => blog.id === blogSlug)
   const feed = await extract(blog.feed_url, {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
@@ -130,5 +129,13 @@ export default async function handler(req, res) {
     },
   })
 
-  res.status(200).json(feed)
+  console.log(feed)
+
+  return feed
+}
+
+export default async function handler(req, res) {
+  const blog = await getSingleBlog(req.query.slug)
+
+  res.status(200).json(blog)
 }

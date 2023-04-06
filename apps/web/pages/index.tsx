@@ -1,28 +1,27 @@
 import Head from 'next/head'
 import React from 'react'
-import useSWR from 'swr'
 
 // import { CallToAction } from '../components/CallToAction'
 import { Faqs } from '../components/Faqs'
 import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { Hero } from '../components/Hero'
-import { Loader } from '../components/Loader'
 import { Pricing } from '../components/Pricing'
+import { getAllBlogs } from './api/blogs'
 
-export default function Home() {
-  const fetcher = (url) => fetch(url).then((res) => res.json())
-  const { data } = useSWR('/api/blogs', fetcher)
+export async function getStaticProps() {
+  const blogs = await getAllBlogs()
 
-  if (!data)
-    return (
-      <>
-        <Header />
-        <Loader />
-        <Footer />
-      </>
-    )
+  return {
+    props: { blogs },
+  }
+}
 
+type Props = {
+  blogs: any
+}
+
+const Home: React.FunctionComponent<Props> = ({ blogs }) => {
   return (
     <>
       <Head>
@@ -34,7 +33,7 @@ export default function Home() {
       </Head>
       <Header />
       <main>
-        <Hero blogs={data} />
+        <Hero blogs={blogs} />
         <Pricing />
         <Faqs />
       </main>
@@ -42,3 +41,5 @@ export default function Home() {
     </>
   )
 }
+
+export default Home

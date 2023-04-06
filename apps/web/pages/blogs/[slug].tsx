@@ -1,27 +1,19 @@
-import fs from 'fs'
-import * as hcl from 'hcl2-parser'
 import { omit } from 'lodash'
 import { GetStaticPaths } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import path from 'path'
+import { getAllBlogs } from 'pages/api/blogs'
+import { getSingleBlog } from 'pages/api/blogs/[slug]'
 import React from 'react'
-import useSWR from 'swr'
 
-import { Blog } from '../../components/Blog'
+import { Blog, BlogType } from '../../components/Blog'
 import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
-import { Loader } from '../../components/Loader'
-import { Posts } from '../../components/Posts'
+import { Post, Posts } from '../../components/Posts'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const env = process.env.NEXT_PUBLIC_VERCEL_ENV || 'development'
-  const filePath = path.resolve('rogue-scholar.hcl')
-  const hclString = fs.readFileSync(filePath)
-  const json = hcl.parseToObject(hclString)[0].blog.filter((blog) => {
-    return env != 'production' || blog.environment != 'preview'
-  })
-  const paths = json.map((blog) => ({
+  const blogs = await getAllBlogs()
+  const paths = blogs.map((blog) => ({
     params: { slug: blog.id },
   }))
 
@@ -29,37 +21,23 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export async function getStaticProps({ params }) {
-  const id = params.slug
+  const blog = await getSingleBlog(params.slug)
 
   return {
-    props: { id },
+    props: { blog: omit(blog, ['entries']), posts: blog.entries },
   }
 }
 
 type Props = {
-  id: string
+  blog: BlogType
+  posts: Post[]
 }
 
-const BlogPage: React.FunctionComponent<Props> = ({ id }) => {
-  const fetcher = (url) => fetch(url).then((res) => res.json())
-  const { data } = useSWR(`/api/blogs/${id}`, fetcher)
-
-  if (!data)
-    return (
-      <>
-        <Header />
-        <Loader />
-        <Footer />
-      </>
-    )
-
-  const blog = omit(data, ['entries'])
-  const posts = data.entries
-
+const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
   return (
     <>
       <Head>
-        <title>{data.title}</title>
+        <title>{blog.title}</title>
         <meta name="og:title" content="Rogue Scholar - {data.title}" />
       </Head>
       <Header />

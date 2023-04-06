@@ -8,7 +8,7 @@ type Author = {
   url?: string
 }
 
-type Post = {
+export type Post = {
   id: string
   link: string
   isPermalink: boolean
