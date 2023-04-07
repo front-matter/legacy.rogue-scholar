@@ -55,7 +55,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               {languages[blog.language]}
             </span>
             {blog.description && (
-              <div className="text-lg leading-8 text-gray-600">
+              <div className="text-lg leading-normal text-gray-600">
                 {parse(String(blog.description))}
               </div>
             )}

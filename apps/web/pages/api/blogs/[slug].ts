@@ -20,19 +20,20 @@ export async function getSingleBlog(blogSlug) {
     }
   }
 
-  const presence = (str: string) => {
-    if (str == null || str.trim() === '') {
-      return null
-    } else {
-      return str
-    }
-  }
+  // const presence = (str: string) => {
+  //   if (str == null || str.trim() === '') {
+  //     return null
+  //   } else {
+  //     return str
+  //   }
+  // }
 
   const blogs = await getAllBlogs()
   const blog = blogs.find((blog) => blog.id === blogSlug)
   const feed = await extract(blog.feed_url, {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
+      // console.log(feedData)
       const feedUrl = blog.feed_url
       let homePageUrl = []
         .concat(get(feedData, 'link', null))
@@ -43,16 +44,12 @@ export async function getSingleBlog(blogSlug) {
       const generator =
         get(feedData, 'generator.#text', null) ||
         get(feedData, 'generator', null)
-      const description = presence(
+      const description =
         get(feedData, 'description.#text', null) ||
-          get(feedData, 'description', null) ||
-          get(feedData, 'subtitle.#text', null) ||
-          get(feedData, 'subtitle', null) ||
-          blog.description
-      )
-      const language = presence(
-        get(feedData, 'language', null) || blog.language
-      )
+        get(feedData, 'description', null) ||
+        get(feedData, 'subtitle.#text', null)
+      // get(feedData, 'subtitle', null)
+      const language = get(feedData, 'language', null) || blog.language
       const favicon = get(feedData, 'image.url', null) || blog.favicon
       const license = get(feedData, 'rights.#text', null) || blog.license
       const category = blog.category

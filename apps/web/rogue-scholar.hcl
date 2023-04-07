@@ -23,7 +23,6 @@ blog {
 blog {
   id            = "h7bpg11"
   title         = "OA Works Blog"
-  description   = "In the Works"
   category      = "Engineering and Technology"
   home_page_url = "https://blog.oa.works/"
   feed_url      = "https://blog.oa.works/rss/"
@@ -35,7 +34,6 @@ blog {
 blog {
   id            = "34zkv26"
   title         = "wisspub.net"
-  description   = "Gemeinschaftsblog zu wissenschaftlicher Kommunikation im Netz."
   category      = "Engineering and Technology"
   home_page_url = "https://wisspub.net/"
   feed_url      = "https://wisspub.net/feed/"
@@ -58,7 +56,6 @@ blog {
 blog {
   id            = "pm0p222"
   title         = "Upstream"
-  description   = "The community blog for all things Open Research."
   category      = "Humanities"
   home_page_url = "https://upstream.force11.org/"
   feed_url      = "https://upstream.force11.org/atom/"
@@ -70,7 +67,6 @@ blog {
 blog {
   id            = "f4wdg32"
   title         = "Syldavia Gazette"
-  description   = "The Syldavia Gazette is a weekly newsletter that highlights interesting science stories from around the web."
   category      = "Humanities"
   home_page_url = "https://syldavia-gazette.org/"
   feed_url      = "https://syldavia-gazette.org/atom/"
@@ -82,7 +78,6 @@ blog {
 blog {
   id            = "3cxcm20"
   title         = "I.D.E.A.S."
-  description   = "Innovation and Design Experiments in Academic Surgery (I.D.E.A.S.)"
   category      = "Medical and Health Sciences"
   home_page_url = "https://www.ideasurg.pub/"
   feed_url      = "https://www.ideasurg.pub/rss/"
@@ -94,7 +89,6 @@ blog {
 blog {
   id            = "k0zyf54"
   title         = "Donny Winston"
-  description   = "Recent content on Donny Winston"
   category      = "Natural Sciences"
   home_page_url = "https://donnywinston.com/"
   feed_url      = "https://donnywinston.com/index.xml"
@@ -106,7 +100,6 @@ blog {
 blog {
   id            = "tyfqw20"
   title         = "iPhylo"
-  description   = "Rants, raves (and occasionally considered opinions) on phyloinformatics, taxonomy, and biodiversity informatics."
   category      = "Natural Sciences"
   home_page_url = "https://iphylo.blogspot.com/"
   feed_url      = "https://iphylo.blogspot.com/feeds/posts/default?alt=rss"
@@ -118,7 +111,6 @@ blog {
 blog {
   id            = "2bzkh64"
   title         = "Irish Plants"
-  description   = "Jake’s blog"
   category      = "Natural Sciences"
   home_page_url = "https://irishplants.org/blog"
   feed_url      = "http://irishplants.org/blog/feed/"
@@ -130,7 +122,6 @@ blog {
 blog {
   id            = "h56tk29"
   title         = "Jabberwocky Ecology"
-  description   = "Ethan White and Morgan Ernest’s blog for discussing issues and ideas related to ecology and academia."
   category      = "Natural Sciences"
   home_page_url = "https://jabberwocky.weecology.org/"
   feed_url      = "https://jabberwocky.weecology.org/feed/"
@@ -142,7 +133,6 @@ blog {
 blog {
   id            = "s1e9w75"
   title         = "quantixed"
-  description   = "x == (s &#124;&#124; z). You say it kwontized"
   category      = "Natural Sciences"
   home_page_url = "https://quantixed.org/"
   feed_url      = "https://quantixed.org/feed/"
@@ -155,7 +145,6 @@ blog {
 blog {
   id            = "dkvra02"
   title         = "Sauropod Vertebra Picture of the Week"
-  description   = "SV-POW!  ...  All sauropod vertebrae, except when we’re talking about Open Access"
   category      = "Natural Sciences"
   home_page_url = "https://svpow.com/"
   feed_url      = "https://svpow.com/feed/"
@@ -178,7 +167,6 @@ blog {
 blog {
   id            = "h49ct36"
   title         = "Liberate Science"
-  description   = "Research as a commons"
   category      = "Social Sciences"
   home_page_url = "https://libscie.org/"
   feed_url      = "https://libscie.org/rss/"
@@ -190,7 +178,6 @@ blog {
 blog {
   id            = "gr1by89"
   title         = "Samuel Moore"
-  description   = "publishing, technology, commons"
   category      = "Social Sciences"
   home_page_url = "https://www.samuelmoore.org/"
   feed_url      = "https://www.samuelmoore.org/feed/"
@@ -213,7 +200,6 @@ blog {
 blog {
   id            = "4425y27"
   title         = "Technology and language"
-  description   = "by Angus Grieve-Smith"
   category      = "Social Sciences"
   home_page_url = "https://grieve-smith.com/blog"
   feed_url      = "https://grieve-smith.com/blog/feed/"
@@ -332,6 +318,18 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://x-dev.pages.jsc.fz-juelich.de/"
   feed_url      = "https://x-dev.pages.jsc.fz-juelich.de/feed.xml"
+  license       = null
+  favicon       = null
+  environment   = "preview"
+  language      = "en"
+}
+
+blog {
+  id            = "4bamy94"
+  title         = "Blog - Europe PMC"
+  category      = "Health and Medical Sciences"
+  home_page_url = "http://blog.europepmc.org/"
+  feed_url      = "http://blog.europepmc.org/feeds/posts/default"
   license       = null
   favicon       = null
   environment   = "preview"
