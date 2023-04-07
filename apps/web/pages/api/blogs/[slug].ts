@@ -28,7 +28,7 @@ export async function getSingleBlog(blogSlug) {
   //   }
   // }
 
-  const isString = (str: string) => {
+  const isString = (str: any) => {
     return typeof str === 'string' || str instanceof String ? true : false
   }
 
