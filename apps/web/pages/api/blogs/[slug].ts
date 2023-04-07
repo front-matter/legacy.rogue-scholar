@@ -8,7 +8,6 @@ import { getAllBlogs } from '../blogs'
 export async function writeOneBlog(blogSlug) {
   let blog = await getSingleBlog(blogSlug)
   // reformat feed into JSON Feed format
-
   blog['version'] = 'https://jsonfeed.org/version/1.1'
   blog['items'] = blog['entries']
   blog = pick(blog, [
