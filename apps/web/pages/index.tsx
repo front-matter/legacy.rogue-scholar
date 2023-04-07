@@ -7,10 +7,12 @@ import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { Hero } from '../components/Hero'
 import { Pricing } from '../components/Pricing'
-import { getAllBlogs } from './api/blogs'
+import { getAllBlogs, writeAllBlogs } from './api/blogs'
 
 export async function getStaticProps() {
   const blogs = await getAllBlogs()
+
+  await writeAllBlogs(blogs)
 
   return {
     props: { blogs },

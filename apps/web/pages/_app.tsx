@@ -14,6 +14,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import {
   faCopyright,
+  faDownload,
   faEnvelope,
   faEyeSlash,
   faHouse,
@@ -31,7 +32,8 @@ library.add(
   faRss,
   faHouse,
   faCopyright,
-  faEyeSlash
+  faEyeSlash,
+  faDownload
 )
 config.autoAddCss = false
 

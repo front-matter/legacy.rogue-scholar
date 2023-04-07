@@ -1,7 +1,30 @@
 import { extract } from '@extractus/feed-extractor'
-import { get } from 'lodash'
+import fs from 'fs'
+import { get, pick } from 'lodash'
+import path from 'path'
 
 import { getAllBlogs } from '../blogs'
+
+export async function writeOneBlog(blogSlug) {
+  let blog = await getSingleBlog(blogSlug)
+  // reformat feed into JSON Feed format
+
+  blog['version'] = 'https://jsonfeed.org/version/1.1'
+  blog['items'] = blog['entries']
+  blog = pick(blog, [
+    'version',
+    'id',
+    'title',
+    'description',
+    'homePageUrl',
+    'feedUrl',
+    'favicon',
+    'items',
+  ])
+  const filePath = path.resolve(process.cwd(), `public/${blog.id}.json`)
+
+  fs.writeFileSync(filePath, JSON.stringify(blog))
+}
 
 export async function getSingleBlog(blogSlug) {
   const isDoi = (doi: string) => {
@@ -38,6 +61,7 @@ export async function getSingleBlog(blogSlug) {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
       // console.log(feedData)
+      const id = blog.id
       const feedUrl = blog.feed_url
       let homePageUrl = []
         .concat(get(feedData, 'link', null))
@@ -62,6 +86,7 @@ export async function getSingleBlog(blogSlug) {
       const environment = blog.environment || 'production'
 
       return {
+        id,
         feedUrl,
         homePageUrl,
         generator,

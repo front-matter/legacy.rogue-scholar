@@ -2,6 +2,8 @@ import fs from 'fs'
 import * as hcl from 'hcl2-parser'
 import path from 'path'
 
+import { writeOneBlog } from './blogs/[slug]'
+
 export async function getAllBlogs() {
   const env = process.env.NEXT_PUBLIC_VERCEL_ENV || 'development'
   const filePath = path.resolve('rogue-scholar.hcl')
@@ -22,6 +24,12 @@ export async function getAllBlogs() {
     })
 
   return json
+}
+
+export async function writeAllBlogs(blogs) {
+  for (const blog of blogs) {
+    await writeOneBlog(blog.id)
+  }
 }
 
 export default async (_req, res) => {

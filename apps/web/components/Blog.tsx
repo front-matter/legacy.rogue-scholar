@@ -81,6 +81,16 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 <span className="ml-2">RSS Feed</span>
               </Link>
             </span>
+            <span className="-ml-px text-gray-500">
+              <Link
+                href={'/' + blog.id + '.json'}
+                target="_blank"
+                className="relative mr-10 w-0 py-2 text-base font-medium"
+              >
+                <FontAwesomeIcon icon="download" />
+                <span className="ml-2">Download</span>
+              </Link>
+            </span>
             {blog.license && (
               <span className="">
                 <Link
