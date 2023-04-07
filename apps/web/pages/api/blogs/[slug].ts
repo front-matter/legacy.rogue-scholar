@@ -1,4 +1,4 @@
-import { extract } from '@extractus/feed-extractor'
+import { extract, FeedData } from '@extractus/feed-extractor'
 import fs from 'fs'
 import { get, pick } from 'lodash'
 import path from 'path'
@@ -8,6 +8,7 @@ import { getAllBlogs } from '../blogs'
 export async function writeOneBlog(blogSlug) {
   let blog = await getSingleBlog(blogSlug)
   // reformat feed into JSON Feed format
+
   blog['version'] = 'https://jsonfeed.org/version/1.1'
   blog['items'] = blog['entries']
   blog = pick(blog, [
@@ -56,7 +57,16 @@ export async function getSingleBlog(blogSlug) {
 
   const blogs = await getAllBlogs()
   const blog = blogs.find((blog) => blog.id === blogSlug)
-  const feed = await extract(blog.feed_url, {
+
+  interface Feed extends FeedData {
+    id?: string
+    description?: string
+    feedUrl?: string
+    homePageUrl?: string
+    generator?: string
+  }
+
+  const feed: Feed = await extract(blog.feed_url, {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
       // console.log(feedData)
