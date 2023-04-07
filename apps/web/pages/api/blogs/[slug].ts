@@ -26,9 +26,9 @@ const isString = (str: any) => {
   return typeof str === 'string' || str instanceof String ? true : false
 }
 
-const idAsSlug = (id: string) => {
-  return id.replace(/https?:\/\/doi\.org\//, '').replace(/\//g, '-')
-}
+// const idAsSlug = (id: string) => {
+//   return id.replace(/https?:\/\/doi\.org\//, '').replace(/\//g, '-')
+// }
 
 export async function writeOneBlog(blogSlug) {
   // create blog directory if it doesn't exist
@@ -45,8 +45,7 @@ export async function writeOneBlog(blogSlug) {
   blog['version'] = 'https://jsonfeed.org/version/1.1'
 
   // filter entries to only include DOIs
-  blog['items'] = blog.entries
-  .filter((blog) => {
+  blog['items'] = blog.entries.filter((blog) => {
     return isDoi(blog.id)
   })
   // .map((post) => {
@@ -70,10 +69,11 @@ export async function writeOneBlog(blogSlug) {
     'feedUrl',
     'favicon',
     'generator',
-    'items'
+    'items',
   ])
 
   const blogPath = path.resolve(process.cwd(), `public/${blog.id}/blog.json`)
+
   fs.writeFileSync(blogPath, JSON.stringify(blog))
 }
 
