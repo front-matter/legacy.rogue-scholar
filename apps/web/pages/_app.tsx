@@ -15,6 +15,7 @@ import {
 import {
   faCopyright,
   faEnvelope,
+  faEyeSlash,
   faHouse,
   faRss,
 } from '@fortawesome/free-solid-svg-icons'
@@ -29,7 +30,8 @@ library.add(
   faEnvelope,
   faRss,
   faHouse,
-  faCopyright
+  faCopyright,
+  faEyeSlash
 )
 config.autoAddCss = false
 
