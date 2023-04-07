@@ -13,12 +13,12 @@ import {
   faOrcid,
 } from '@fortawesome/free-brands-svg-icons'
 import {
+  faCopyright,
   faEnvelope,
-  faHouse,
   faEyeSlash,
+  faHouse,
   faRocket,
   faRss,
-  faCopyright,
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   fab,
