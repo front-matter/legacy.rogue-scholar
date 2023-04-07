@@ -28,6 +28,10 @@ export async function getSingleBlog(blogSlug) {
   //   }
   // }
 
+  const isString = (str: string) => {
+    return typeof str === 'string' || str instanceof String ? true : false
+  }
+
   const blogs = await getAllBlogs()
   const blog = blogs.find((blog) => blog.id === blogSlug)
   const feed = await extract(blog.feed_url, {
@@ -44,11 +48,13 @@ export async function getSingleBlog(blogSlug) {
       const generator =
         get(feedData, 'generator.#text', null) ||
         get(feedData, 'generator', null)
-      const description =
+      let description =
         get(feedData, 'description.#text', null) ||
         get(feedData, 'description', null) ||
-        get(feedData, 'subtitle.#text', null)
-      // get(feedData, 'subtitle', null)
+        get(feedData, 'subtitle.#text', null) ||
+        get(feedData, 'subtitle', null)
+
+      description = isString(description) ? description : null
       const language = get(feedData, 'language', null) || blog.language
       const favicon = get(feedData, 'image.url', null) || blog.favicon
       const license = get(feedData, 'rights.#text', null) || blog.license
