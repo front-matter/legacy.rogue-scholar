@@ -16,6 +16,9 @@ export async function writeOneBlog(blogSlug) {
     'id',
     'title',
     'description',
+    'language',
+    'license',
+    'category',
     'homePageUrl',
     'feedUrl',
     'favicon',
@@ -63,6 +66,10 @@ export async function getSingleBlog(blogSlug) {
     description?: string
     feedUrl?: string
     homePageUrl?: string
+    favicon?: string
+    language?: string
+    license?: string
+    category?: string
     generator?: string
   }
 
