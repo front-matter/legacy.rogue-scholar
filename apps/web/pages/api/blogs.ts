@@ -28,6 +28,5 @@ export default async (_req, res) => {
   const blogs = await getAllBlogs()
 
   res.statusCode = 200
-  console.log(blogs)
   res.json(blogs)
 }

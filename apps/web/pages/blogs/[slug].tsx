@@ -41,17 +41,19 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
         <meta name="og:title" content="Rogue Scholar - {data.title}" />
       </Head>
       <Header />
-      <Blog blog={blog} />
-      <Posts posts={posts} />
-      <div className="mx-auto max-w-2xl lg:max-w-4xl">
-        <div className="my-5 lg:my-8">
-          <Link
-            href={blog.homePageUrl}
-            target="_blank"
-            className="mb-3 text-xl font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
-          >
-            More posts via the {blog.title} Home Page …
-          </Link>
+      <div className={blog.environment == 'preview' ? "bg-blue-50" : "bg-white"}>
+        <Blog blog={blog} />
+        <Posts posts={posts} />
+        <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
+          <div className="my-5 lg:my-8">
+            <Link
+              href={blog.homePageUrl}
+              target="_blank"
+              className="text-xl font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
+            >
+              More posts via the {blog.title} Home Page …
+            </Link>
+          </div>
         </div>
       </div>
       <Footer />

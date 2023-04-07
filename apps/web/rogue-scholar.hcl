@@ -284,7 +284,7 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://blogs.tib.eu/wp/dini-ag-blog"
   feed_url      = "https://blogs.tib.eu/wp/dini-ag-blog/feed/"
-  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  license       = null
   favicon       = "https://blogs.tib.eu/wp/dini-ag-blog/wp-content/uploads/sites/25/2018/03/cropped-DINI-AG-FIS-3-1-32x32.png"
   environment   = "preview"
   language      = "de"
@@ -296,7 +296,7 @@ blog {
   category      = "Engineering and Technology"
   home_page_url = "https://opencitations.hypotheses.org/"
   feed_url      = "https://opencitations.hypotheses.org/feed"
-  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  license       = null
   favicon       = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
   environment   = "preview"
   language      = "en"
@@ -320,7 +320,7 @@ blog {
   category      = "Social Sciences"
   home_page_url = "https://www.leidenmadtrics.nl/"
   feed_url      = "https://www.leidenmadtrics.nl/feed/"
-  license       = "https://creativecommons.org/licenses/by/4.0/legalcode"
+  license       = null
   favicon       = null
   environment   = "preview"
   language      = "en"

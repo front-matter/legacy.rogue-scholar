@@ -25,8 +25,11 @@ type Props = {
 
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
   return (
-    <div className="bg-white">
+    <div className="bg-inherit pt-2">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* <div className="top-0 right-0 rotate-45 bg-blue-200 text-center font-semibold">
+          <div className="py-2">Preview only</div>
+        </div> */}
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="relative flex items-center gap-x-12">
             <div>
@@ -95,10 +98,16 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 </Link>
               </span>
             )}
+            {!blog.license && (
+              <span className="text-gray-500">
+                <FontAwesomeIcon icon="copyright" />
+                <span className="mr-10 ml-2">License not confirmed</span>
+              </span>
+            )}
             {blog.environment == 'preview' && (
               <span className="text-gray-500">
-                <FontAwesomeIcon icon="lock" className="" />
-                <span className="ml-2">Preview</span>
+                <FontAwesomeIcon icon="eye-slash" />
+                <span className="ml-2">Preview only</span>
               </span>
             )}
           </div>

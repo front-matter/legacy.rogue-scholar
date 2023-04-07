@@ -100,7 +100,7 @@ export function Header() {
   const { t } = useTranslation('components')
 
   return (
-    <header className="py-10">
+    <header className="py-6">
       <Container className="relative">
         <nav className="relative z-50 flex justify-between">
           <div className="flex items-center md:gap-x-12">

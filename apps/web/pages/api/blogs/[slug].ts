@@ -129,8 +129,6 @@ export async function getSingleBlog(blogSlug) {
     },
   })
 
-  console.log(feed)
-
   return feed
 }
 

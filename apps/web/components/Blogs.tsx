@@ -65,7 +65,8 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
             {blogs.map((blog) => (
               <li
                 key={blog.id}
-                className="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow"
+                className={
+                  "col-span-1 divide-y divide-gray-200 rounded-lg shadow" + (blog.environment == 'preview' ? " bg-blue-50" : " bg-white")}
               >
                 <div className="flex w-full items-center justify-between space-x-6 p-6">
                   <div className="flex-1 truncate">
