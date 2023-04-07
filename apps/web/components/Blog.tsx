@@ -83,7 +83,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             </span>
             <span className="-ml-px text-gray-500">
               <Link
-                href={'/' + blog.id + '.json'}
+                href={'/' + blog.id + '/blog.json'}
                 target="_blank"
                 className="relative mr-10 w-0 py-2 text-base font-medium"
               >

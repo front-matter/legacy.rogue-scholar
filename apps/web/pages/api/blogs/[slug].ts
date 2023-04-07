@@ -3,14 +3,61 @@ import fs from 'fs'
 import { get, pick } from 'lodash'
 import path from 'path'
 
+// const archiver = require('archiver')
 import { getAllBlogs } from '../blogs'
 
-export async function writeOneBlog(blogSlug) {
-  let blog = await getSingleBlog(blogSlug)
-  // reformat feed into JSON Feed format
+const isDoi = (doi: string) => {
+  try {
+    return new URL(doi).hostname === 'doi.org'
+  } catch (error) {
+    return false
+  }
+}
 
+const isOrcid = (orcid: string) => {
+  try {
+    return new URL(orcid).hostname === 'orcid.org'
+  } catch (error) {
+    return false
+  }
+}
+
+const isString = (str: any) => {
+  return typeof str === 'string' || str instanceof String ? true : false
+}
+
+const idAsSlug = (id: string) => {
+  return id.replace(/https?:\/\/doi\.org\//, '').replace(/\//g, '-')
+}
+
+export async function writeOneBlog(blogSlug) {
+  // create blog directory if it doesn't exist
+  const folderPath = path.resolve(process.cwd(), `public/${blogSlug}`)
+
+  if (!fs.existsSync(folderPath)) {
+    console.log(folderPath)
+    fs.mkdirSync(folderPath)
+  }
+
+  let blog = await getSingleBlog(blogSlug)
+
+  // reformat feed into JSON Feed format
   blog['version'] = 'https://jsonfeed.org/version/1.1'
-  blog['items'] = blog['entries']
+
+  // filter entries to only include DOIs
+  blog['items'] = blog.entries
+  .filter((blog) => {
+    return isDoi(blog.id)
+  })
+  // .map((post) => {
+  //   const postId = idAsSlug(post.id)
+  //   const postPath = path.resolve(
+  //     process.cwd(),
+  //     `public/${blog.id}/${postId}.json`
+  //   )
+
+  //   fs.writeFileSync(postPath, JSON.stringify(post))
+  // })
   blog = pick(blog, [
     'version',
     'id',
@@ -22,11 +69,12 @@ export async function writeOneBlog(blogSlug) {
     'homePageUrl',
     'feedUrl',
     'favicon',
-    'items',
+    'generator',
+    'items'
   ])
-  const filePath = path.resolve(process.cwd(), `public/${blog.id}.json`)
 
-  fs.writeFileSync(filePath, JSON.stringify(blog))
+  const blogPath = path.resolve(process.cwd(), `public/${blog.id}/blog.json`)
+  fs.writeFileSync(blogPath, JSON.stringify(blog))
 }
 
 export async function getSingleBlog(blogSlug) {
@@ -36,26 +84,6 @@ export async function getSingleBlog(blogSlug) {
     } catch (error) {
       return false
     }
-  }
-
-  const isOrcid = (orcid: string) => {
-    try {
-      return new URL(orcid).hostname === 'orcid.org'
-    } catch (error) {
-      return false
-    }
-  }
-
-  // const presence = (str: string) => {
-  //   if (str == null || str.trim() === '') {
-  //     return null
-  //   } else {
-  //     return str
-  //   }
-  // }
-
-  const isString = (str: any) => {
-    return typeof str === 'string' || str instanceof String ? true : false
   }
 
   const blogs = await getAllBlogs()
@@ -157,7 +185,8 @@ export async function getSingleBlog(blogSlug) {
       const modified = get(feedEntry, 'updated', null)
       const contentHtml =
         get(feedEntry, 'content:encoded', null) ||
-        get(feedEntry, 'content.#text', null)
+        get(feedEntry, 'content.#text', null) ||
+        get(feedEntry, 'description', null)
 
       return {
         id,
