@@ -25,7 +25,7 @@ type Props = {
 
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
   return (
-    <div className="bg-inherit pt-2">
+    <div className="bg-inherit pt-4">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* {blog.environment === 'preview' && (
           <div className="top-0 right-0 translate-x-1/2 rotate-45 bg-blue-200 text-center font-semibold">

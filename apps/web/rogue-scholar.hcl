@@ -335,3 +335,15 @@ blog {
   environment   = "preview"
   language      = "en"
 }
+
+blog {
+  id            = "hkxgp47"
+  title         = "Blog on Crossref"
+  category      = "Engineering and Technology"
+  home_page_url = "https://www.crossref.org/blog/"
+  feed_url      = "https://www.crossref.org/blog/index.xml"
+  license       = null
+  favicon       = null
+  environment   = "preview"
+  language      = "en"
+}
