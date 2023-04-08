@@ -43,11 +43,11 @@ export async function writeOneBlog(blogSlug) {
 
   // reformat feed into JSON Feed format
   blog['version'] = 'https://jsonfeed.org/version/1.1'
-
+  blog['items'] = blog.entries
   // filter entries to only include DOIs
-  blog['items'] = blog.entries.filter((blog) => {
-    return isDoi(blog.id)
-  })
+  // blog['items'] = blog.entries.filter((blog) => {
+  //   return isDoi(blog.id)
+  // })
   // .map((post) => {
   //   const postId = idAsSlug(post.id)
   //   const postPath = path.resolve(
@@ -78,14 +78,6 @@ export async function writeOneBlog(blogSlug) {
 }
 
 export async function getSingleBlog(blogSlug) {
-  const isDoi = (doi: string) => {
-    try {
-      return new URL(doi).hostname === 'doi.org'
-    } catch (error) {
-      return false
-    }
-  }
-
   const blogs = await getAllBlogs()
   const blog = blogs.find((blog) => blog.id === blogSlug)
 
