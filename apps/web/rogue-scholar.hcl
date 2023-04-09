@@ -3,6 +3,7 @@ blog {
   title         = "Front Matter"
   category      = "Engineering and Technology"
   feedUrl       = "https://blog.front-matter.io/atom/"
+  homePageUrl   = "https://blog.front-matter.io/"
   favicon       = "https://blog.front-matter.io/favicon.png"
 }
 
@@ -11,6 +12,7 @@ blog {
   title         = "Daniel S. Katz's blog"
   category      = "Engineering and Technology"
   feedUrl       = "https://danielskatzblog.wordpress.com/feed/"
+  homePageUrl   = "https://danielskatzblog.wordpress.com/"
 }
 
 blog {
@@ -18,6 +20,7 @@ blog {
   title         = "OA Works Blog"
   category      = "Engineering and Technology"
   feedUrl       = "https://blog.oa.works/rss/"
+  homePageUrl   = "https://blog.oa.works/"
   favicon       = "https://blog.oa.works/favicon.png"
 }
 
@@ -26,6 +29,7 @@ blog {
   title         = "wisspub.net"
   category      = "Engineering and Technology"
   feedUrl       = "https://wisspub.net/feed/"
+  homePageUrl   = "https://wisspub.net/"
 }
 
 blog {
@@ -33,6 +37,7 @@ blog {
   title         = "Flavours of Open"
   category      = "Humanities"
   feedUrl       = "https://flavoursofopen.science/feed/"
+  homePageUrl   = "https://flavoursofopen.science/"
   favicon       = "https://flavoursofopen.science/wp-content/uploads/2022/05/cropped-open-padlock-32x32.png"
 }
 
@@ -41,6 +46,7 @@ blog {
   title         = "Upstream"
   category      = "Humanities"
   feedUrl       = "https://upstream.force11.org/atom/"
+  homePageUrl   = "https://upstream.force11.org/"
   favicon       = "https://upstream.force11.org/favicon.png"
 }
 
@@ -49,6 +55,7 @@ blog {
   title         = "Syldavia Gazette"
   category      = "Humanities"
   feedUrl       = "https://syldavia-gazette.org/atom/"
+  homePageUrl   = "https://syldavia-gazette.org/"
   favicon       = "https://syldavia-gazette.org/favicon.png"
 }
 
@@ -57,6 +64,7 @@ blog {
   title         = "I.D.E.A.S."
   category      = "Medical and Health Sciences"
   feedUrl       = "https://www.ideasurg.pub/rss/"
+  homePageUrl   = "https://www.ideasurg.pub/"
   favicon       = "https://www.ideasurg.pub/favicon.png"
 }
 
@@ -65,6 +73,7 @@ blog {
   title         = "Donny Winston"
   category      = "Natural Sciences"
   feedUrl       = "https://donnywinston.com/index.xml"
+  homePageUrl   = "https://donnywinston.com/"
 }
 
 blog {
@@ -72,6 +81,7 @@ blog {
   title         = "iPhylo"
   category      = "Natural Sciences"
   feedUrl       = "https://iphylo.blogspot.com/feeds/posts/default?alt=rss"
+  homePageUrl   = "https://iphylo.blogspot.com/"
 }
 
 blog {
@@ -79,6 +89,7 @@ blog {
   title         = "Irish Plants"
   category      = "Natural Sciences"
   feedUrl       = "http://irishplants.org/blog/feed/"
+  homePageUrl   = "http://irishplants.org/blog/"
   favicon       = "https://irishplants.org/blog/wp-content/uploads/2022/08/favicon32.png"
 }
 
@@ -87,6 +98,7 @@ blog {
   title         = "Jabberwocky Ecology"
   category      = "Natural Sciences"
   feedUrl       = "https://jabberwocky.weecology.org/feed/"
+  homePageUrl   = "https://jabberwocky.weecology.org/"
   favicon       = "https://secure.gravatar.com/blavatar/805953466a80fcabef50a73dfb96d52b?s=96&#038;d=https%3A%2F%2Fs0.wp.com%2Fi%2Fbuttonw-com.png"
 }
 
@@ -95,6 +107,7 @@ blog {
   title         = "quantixed"
   category      = "Natural Sciences"
   feedUrl       = "https://quantixed.org/feed/"
+  homePageUrl   = "https://quantixed.org/"
   favicon       = "https://i0.wp.com/quantixed.org/wp-content/uploads/2017/12/cropped-qlogo512x512-01.png?fit=32%2C32&#038;ssl=1"
 }
 
@@ -103,6 +116,7 @@ blog {
   title         = "Sauropod Vertebra Picture of the Week"
   category      = "Natural Sciences"
   feedUrl       = "https://svpow.com/feed/"
+  homePageUrl   = "https://svpow.com/"
 }
 
 blog {
@@ -110,6 +124,7 @@ blog {
   title         = "Chris Hartgerink"
   category      = "Social Sciences"
   feedUrl       = "https://www.chjh.nl/rss/"
+  homePageUrl   = "https://www.chjh.nl/"
 }
 
 blog {
@@ -117,6 +132,7 @@ blog {
   title         = "Liberate Science"
   category      = "Social Sciences"
   feedUrl       = "https://libscie.org/rss/"
+  homePageUrl   = "https://libscie.org/"
 }
 
 blog {
@@ -124,6 +140,7 @@ blog {
   title         = "Samuel Moore"
   category      = "Social Sciences"
   feedUrl       = "https://www.samuelmoore.org/feed/"
+  homePageUrl   = "https://www.samuelmoore.org/"
   favicon       = "https://www.samuelmoore.org/wp-content/uploads/2019/02/cropped-cropped-cropped-roAorange-icon-2-32x32.png"
 }
 
@@ -132,6 +149,7 @@ blog {
   title         = "Stories by Mark Rubin on Medium"
   category      = "Social Sciences"
   feedUrl       = "https://medium.com/feed/@rubinpsyc"
+  homePageUrl   = "https://medium.com/@rubinpsyc"
   favicon       = "https://cdn-images-1.medium.com/fit/c/150/150/0*uCUPpslzlmB4BHIe.jpg"
 }
 
@@ -140,6 +158,7 @@ blog {
   title         = "Technology and language"
   category      = "Social Sciences"
   feedUrl       = "https://grieve-smith.com/blog/feed/"
+  homePageUrl   = "https://grieve-smith.com/blog/"
 }
 
 blog {
@@ -147,6 +166,7 @@ blog {
   title         = "Publisherad.medium.com"
   category      = "Natural Sciences"
   feedUrl       = "https://medium.com/feed/@publisherad"
+  homePageUrl   = "https://medium.com/@publisherad"
   favicon       = "https://cdn-images-1.medium.com/fit/c/150/150/1*DJGPkBv9iJDmlE836eaoig.jpeg"
 }
 
@@ -155,6 +175,7 @@ blog {
   title         = "bjoern.brembs.blog"
   category      = "Natural Sciences"
   feedUrl       = "http://bjoern.brembs.net/feed/"
+  homePageUrl   = "http://bjoern.brembs.net/"
 }
 
 blog {
@@ -162,6 +183,7 @@ blog {
   title         = "Syntaxus baccata"
   category      = "Engineering and Technology"
   feedUrl       = "https://larsgw.blogspot.com/feeds/posts/default"
+  homePageUrl   = "https://larsgw.blogspot.com/"
   favicon       = "https://blogger.googleusercontent.com/img/a/AVvXsEjHdUshBRlHAgurlZYYubJ9yfTRkteSS8hwgor7bpsdHNByrUXglmpVcCS2McVehJLgWZPyr61hB2Nq8iXql2-0qLFfZZHWdMn8wuKGz5UO1vZXWQkRKn_4EelUV6NneQW6fN1wlggv7skzUBri-T7bJZnlzXkKj6FjF8p0wLDR8DXwO7oN8QSwcN9-=s64"
 }
 
@@ -170,6 +192,7 @@ blog {
   title         = "GigaBlog"
   category      = "Natural Sciences"
   feedUrl       = "http://gigasciencejournal.com/blog/feed/"
+  homePageUrl   = "http://gigasciencejournal.com/blog/"
 }
 
 blog {
@@ -177,6 +200,7 @@ blog {
   title         = "Make Data Count"
   category      = "Social Sciences"
   feedUrl       = "https://makedatacount.org/feed/"
+  homePageUrl   = "https://makedatacount.org/"
   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
   preview       = true
 }
@@ -186,6 +210,7 @@ blog {
   title         = "FIS & EPub"
   category      = "Engineering and Technology"
   feedUrl       = "https://blogs.tib.eu/wp/dini-ag-blog/feed/"
+  homePageUrl   = "https://blogs.tib.eu/wp/dini-ag-blog/"
   favicon       = "https://blogs.tib.eu/wp/dini-ag-blog/wp-content/uploads/sites/25/2018/03/cropped-DINI-AG-FIS-3-1-32x32.png"
   license       = false
   preview       = true
@@ -196,6 +221,7 @@ blog {
   title         = "OpenCitations blog"
   category      = "Engineering and Technology"
   feedUrl       = "https://opencitations.hypotheses.org/feed"
+  homePageUrl   = "https://opencitations.hypotheses.org/"
   favicon       = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
   preview       = true
 }
@@ -205,6 +231,7 @@ blog {
   title         = "Journal of Open Source Software Blog"
   category      = "Engineering and Technology"
   feedUrl       = "https://blog.joss.theoj.org/feed.xml"
+  homePageUrl   = "https://blog.joss.theoj.org/"
   preview       = true
 }
 
@@ -213,6 +240,7 @@ blog {
   title         = "Leiden Madtrics"
   category      = "Social Sciences"
   feedUrl       = "https://www.leidenmadtrics.nl/feed/"
+  homePageUrl   = "https://www.leidenmadtrics.nl/"
   license       = false
   preview       = true
 }
@@ -222,6 +250,7 @@ blog {
   title         = "JSC Accelerating Devices Lab"
   category      = "Engineering and Technology"
   feedUrl       = "https://x-dev.pages.jsc.fz-juelich.de/feed.xml"
+  homePageUrl   = "https://x-dev.pages.jsc.fz-juelich.de/"
   license       = false
   preview       = true
 }
@@ -231,6 +260,7 @@ blog {
   title         = "Blog - Europe PMC"
   category      = "Medical and Health Sciences"
   feedUrl       = "http://blog.europepmc.org/feeds/posts/default"
+  homePageUrl   = "http://blog.europepmc.org/"
   license       = false
   preview       = true
 }
@@ -240,6 +270,7 @@ blog {
   title         = "Blog on Crossref"
   category      = "Engineering and Technology"
   feedUrl       = "https://www.crossref.org/blog/index.xml"
+  homePageUrl   = "https://www.crossref.org/blog/"
   license       = false
   preview       = true
 }
