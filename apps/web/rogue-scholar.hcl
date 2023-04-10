@@ -322,14 +322,14 @@ blog {
   preview          = true
 }
 
-blog {
-  id               = "d95vj95"
-  title            = "Retraction Watch"
-  feedUrl          = "https://retractionwatch.com/feed/"
-  category         = "Social Sciences"
-  license          = false
-  preview          = true
-}
+// blog {
+//   id               = "d95vj95"
+//   title            = "Retraction Watch"
+//   feedUrl          = "https://retractionwatch.com/feed/"
+//   category         = "Social Sciences"
+//   license          = false
+//   preview          = true
+// }
 
 blog {
   id               = "98vgh33"
