@@ -1,37 +1,44 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import parse from 'html-react-parser'
 import Link from 'next/link'
-
-import { languages } from '../components/Blogs'
-
-export type BlogType = {
-  id: string
-  title: string
-  category: string[]
-  description?: string
-  language: string
-  homePageUrl: string
-  feedUrl: string
-  icon?: string
-  favicon?: string
-  generator?: string
-  license?: string
-  environment?: string
-}
+import { BlogType } from 'pages/api/blogs/[slug]'
 
 type Props = {
   blog: BlogType
 }
 
+export const generators = {
+  Wordpress: 'https://wordpress.org/',
+  Ghost: 'https://ghost.org/',
+  Jekyll: 'https://jekyllrb.com/',
+  Hugo: 'https://gohugo.io/',
+  Blogger: 'https://www.blogger.com/',
+  Medium: 'https://medium.com/',
+}
+
+export const languages = {
+  en: 'English',
+  'en-US': 'English',
+  'en-GB': 'English',
+  de: 'Deutsch',
+  'de-DE': 'Deutsch',
+  es: 'Español',
+  fr: 'Français',
+  it: 'Italiano',
+  ja: '日本語',
+  ko: '한국어',
+  nl: 'Nederlands',
+  pt: 'Português',
+  ru: 'Русский',
+  zh: '中文',
+}
+
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
+  const generator = blog.generator ? blog.generator.split(' ')[0] : null
+
   return (
     <div className="bg-inherit pt-4">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* {blog.environment === 'preview' && (
-          <div className="top-0 right-0 translate-x-1/2 rotate-45 bg-blue-200 text-center font-semibold">
-            <div className="py-2">Preview only</div>
-          </div>
-        )} */}
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="relative flex items-center gap-x-12">
             <div>
@@ -65,7 +72,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               <Link
                 href={blog.homePageUrl}
                 target="_blank"
-                className="relative mr-10 w-0 py-2 text-base font-medium"
+                className="relative mr-8 w-0 py-2 text-base font-medium"
               >
                 <FontAwesomeIcon icon="house" />
                 <span className="ml-2">Home Page</span>
@@ -75,7 +82,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               <Link
                 href={blog.feedUrl}
                 target="_blank"
-                className="relative mr-10 w-0 py-2 text-base font-medium"
+                className="relative mr-8 w-0 py-2 text-base font-medium"
               >
                 <FontAwesomeIcon icon="rss" />
                 <span className="ml-2">RSS Feed</span>
@@ -85,18 +92,30 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               <Link
                 href={'/' + blog.id + '/blog.json'}
                 target="_blank"
-                className="relative mr-10 w-0 py-2 text-base font-medium"
+                className="relative mr-8 w-0 py-2 text-base font-medium"
               >
                 <FontAwesomeIcon icon="download" />
                 <span className="ml-2">Download</span>
               </Link>
             </span>
-            {blog.license && (
-              <span className="">
+            {generator && (
+              <span className="text-gray-500">
                 <Link
-                  href={blog.license}
+                  href={generators[generator]}
                   target="_blank"
-                  className="relative mr-10 py-2 text-base font-medium text-gray-500"
+                  className="relative mr-8 py-2 text-base font-medium text-gray-500"
+                >
+                  <FontAwesomeIcon icon="rocket" />
+                  <span className="ml-2">{generator}</span>
+                </Link>
+              </span>
+            )}
+            {blog.license && (
+              <span className="text-gray-500">
+                <Link
+                  href="https://creativecommons.org/licenses/by/4.0/legalcode"
+                  target="_blank"
+                  className="relative mr-8 py-2 text-base font-medium"
                 >
                   <FontAwesomeIcon
                     icon={['fab', 'creative-commons']}
@@ -111,13 +130,13 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </span>
             )}
             {!blog.license && (
-              <span className="text-gray-500">
+              <span className="text-orange-600">
                 <FontAwesomeIcon icon="copyright" />
-                <span className="mr-10 ml-2">License not confirmed</span>
+                <span className="mr-8 ml-2">License not confirmed</span>
               </span>
             )}
-            {blog.environment == 'preview' && (
-              <span className="text-gray-500">
+            {blog.preview && (
+              <span className="text-orange-600">
                 <FontAwesomeIcon icon="eye-slash" />
                 <span className="ml-2">Preview only</span>
               </span>

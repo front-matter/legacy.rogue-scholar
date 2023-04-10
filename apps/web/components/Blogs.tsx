@@ -1,27 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
+import { BlogType } from 'pages/api/blogs/[slug]'
 
 import { Container } from '../components/Container'
-
-export const languages = {
-  en: 'English',
-  'en-US': 'English',
-  'en-GB': 'English',
-  de: 'Deutsch',
-  'de-DE': 'Deutsch',
-  es: 'Español',
-  fr: 'Français',
-  it: 'Italiano',
-  ja: '日本語',
-  ko: '한국어',
-  nl: 'Nederlands',
-  pt: 'Português',
-  ru: 'Русский',
-  zh: '中文',
-}
+import { languages } from './Blog'
 
 type Props = {
-  blogs: any
+  blogs: BlogType[]
 }
 
 export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
@@ -67,7 +52,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                 key={blog.id}
                 className={
                   'col-span-1 divide-y divide-gray-200 rounded-lg shadow' +
-                  (blog.environment == 'preview' ? ' bg-blue-50' : ' bg-white')
+                  (blog.preview ? ' bg-blue-50' : ' bg-white')
                 }
               >
                 <div className="flex w-full items-center justify-between space-x-6 p-6">
@@ -85,9 +70,11 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                     <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
                       {blog.category}
                     </span>
-                    <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-                      {languages[blog.language]}
-                    </span>
+                    {blog.language && (
+                      <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+                        {languages[blog.language]}
+                      </span>
+                    )}
                   </div>
                   {blog.favicon && (
                     <img
@@ -101,7 +88,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                   <div className="-mt-px flex divide-x divide-gray-200">
                     <div className="flex w-0 flex-1">
                       <Link
-                        href={blog.home_page_url}
+                        href={blog.homePageUrl ? blog.homePageUrl : '#'}
                         target="_blank"
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
@@ -114,7 +101,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                     </div>
                     <div className="-ml-px flex w-0 flex-1">
                       <Link
-                        href={blog.feed_url}
+                        href={blog.feedUrl}
                         target="_blank"
                         className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >

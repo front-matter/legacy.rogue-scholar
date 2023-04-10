@@ -3,6 +3,8 @@ import '../styles/tailwind.css'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
 import { config, library } from '@fortawesome/fontawesome-svg-core'
+config.autoAddCss = false
+
 import {
   fab,
   faCreativeCommons,
@@ -18,6 +20,7 @@ import {
   faEnvelope,
   faEyeSlash,
   faHouse,
+  faRocket,
   faRss,
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
@@ -33,7 +36,8 @@ library.add(
   faHouse,
   faCopyright,
   faEyeSlash,
-  faDownload
+  faDownload,
+  faRocket
 )
 config.autoAddCss = false
 

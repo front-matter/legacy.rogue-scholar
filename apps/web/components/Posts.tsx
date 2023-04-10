@@ -49,7 +49,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                       </Link>
                     </h3>
                     <div className="text-small mt-1 flex items-center gap-x-1 text-gray-500">
-                      <time dateTime={post.published}>
+                      <time dateTime={post.published.toString()}>
                         {new Date(post.published).toLocaleDateString('en-US', {
                           year: 'numeric',
                           month: 'long',

@@ -2,15 +2,32 @@ import fs from 'fs'
 import * as hcl from 'hcl2-parser'
 import path from 'path'
 
-import { writeOneBlog } from './blogs/[slug]'
+import { getSingleBlog, writeSingleBlog } from './blogs/[slug]'
 
-export async function getAllBlogs() {
+const optionalKeys = [
+  'title',
+  'description',
+  'language',
+  'license',
+  'category',
+  'favicon',
+  'preview',
+]
+
+export async function getAllConfigs() {
   const env = process.env.NEXT_PUBLIC_VERCEL_ENV || 'development'
   const filePath = path.resolve('rogue-scholar.hcl')
   const hclString = fs.readFileSync(filePath)
-  const json = hcl
+  const configs = hcl
     .parseToObject(hclString)[0]
-    .blog.sort(function (a, b) {
+    .blog.map((config) => {
+      // enforce optional keys exist
+      for (const key of optionalKeys) {
+        config[key] = config[key] == null ? null : config[key]
+      }
+      return config
+    })
+    .sort(function (a, b) {
       if (a.title.toUpperCase() < b.title.toUpperCase()) {
         return -1
       }
@@ -19,16 +36,26 @@ export async function getAllBlogs() {
       }
       return 0
     })
-    .filter((blog) => {
-      return env != 'production' || blog.environment != 'preview'
+    .filter((config) => {
+      return env != 'production' || !config.preview
     })
 
-  return json
+  return configs
+}
+
+export async function getAllBlogs() {
+  const configs = await getAllConfigs()
+
+  return Promise.all(
+    configs.map(async (blog) => {
+      return await getSingleBlog(blog.id, { includePosts: false })
+    })
+  )
 }
 
 export async function writeAllBlogs(blogs) {
   for (const blog of blogs) {
-    await writeOneBlog(blog.id)
+    await writeSingleBlog(blog.id)
   }
 }
 

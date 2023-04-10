@@ -7,12 +7,24 @@ import { Footer } from '../components/Footer'
 import { Header } from '../components/Header'
 import { Hero } from '../components/Hero'
 import { Pricing } from '../components/Pricing'
-import { getAllBlogs, writeAllBlogs } from './api/blogs'
+import { Stats } from '../components/Stats'
+import { getAllBlogs } from './api/blogs'
+
+const countBy = (arr, prop) =>
+  arr.reduce(function (obj, v) {
+    obj[v[prop]] = (obj[v[prop]] || 0) + 1
+    return obj
+  }, {})
+
+const languages = {
+  en: 'English',
+  de: 'Deutsch',
+}
 
 export async function getStaticProps() {
   const blogs = await getAllBlogs()
 
-  await writeAllBlogs(blogs)
+  // await writeAllBlogs(blogs)
 
   return {
     props: { blogs },
@@ -24,6 +36,34 @@ type Props = {
 }
 
 const Home: React.FunctionComponent<Props> = ({ blogs }) => {
+  // strip version from generator
+  // add language labels
+  blogs = blogs.map((blog) => {
+    if (blog.generator) {
+      blog.generator = blog.generator.split(' ')[0]
+    } else {
+      blog.generator = 'Unknown'
+    }
+    blog.language = languages[blog.language] || blog.language
+    return blog
+  })
+
+  const categoriesObject = countBy(blogs, 'category')
+  const categories = Object.keys(categoriesObject).map((key) => ({
+    title: key,
+    count: categoriesObject[key],
+  }))
+  const languagesObject = countBy(blogs, 'language')
+  const languagesList = Object.keys(languagesObject).map((key) => ({
+    title: key,
+    count: languagesObject[key],
+  }))
+  const platformsObject = countBy(blogs, 'generator')
+  const platforms = Object.keys(platformsObject).map((key) => ({
+    title: key,
+    count: platformsObject[key],
+  }))
+
   return (
     <>
       <Head>
@@ -38,6 +78,11 @@ const Home: React.FunctionComponent<Props> = ({ blogs }) => {
         <Hero blogs={blogs} />
         <Pricing />
         <Faqs />
+        <Stats
+          categories={categories}
+          languages={languagesList}
+          platforms={platforms}
+        />
       </main>
       <Footer />
     </>

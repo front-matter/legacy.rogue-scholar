@@ -2,35 +2,35 @@ import { omit } from 'lodash'
 import { GetStaticPaths } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { getAllBlogs } from 'pages/api/blogs'
-import { getSingleBlog } from 'pages/api/blogs/[slug]'
+import { getAllConfigs } from 'pages/api/blogs'
+import { BlogType, getSingleBlog, PostType } from 'pages/api/blogs/[slug]'
 import React from 'react'
 
-import { Blog, BlogType } from '../../components/Blog'
+import { Blog } from '../../components/Blog'
 import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
-import { Post, Posts } from '../../components/Posts'
+import { Posts } from '../../components/Posts'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const blogs = await getAllBlogs()
-  const paths = blogs.map((blog) => ({
-    params: { slug: blog.id },
+  const configs = await getAllConfigs()
+  const paths = configs.map((config) => ({
+    params: { slug: config.id },
   }))
 
   return { paths, fallback: false }
 }
 
 export async function getStaticProps({ params }) {
-  const blog = await getSingleBlog(params.slug)
+  const blog = await getSingleBlog(params.slug, { includePosts: true })
 
   return {
-    props: { blog: omit(blog, ['entries']), posts: blog.entries },
+    props: { blog: omit(blog, ['posts']), posts: blog.posts },
   }
 }
 
 type Props = {
   blog: BlogType
-  posts: Post[]
+  posts: PostType[]
 }
 
 const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
@@ -41,9 +41,7 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
         <meta name="og:title" content="Rogue Scholar - {data.title}" />
       </Head>
       <Header />
-      <div
-        className={blog.environment == 'preview' ? 'bg-blue-50' : 'bg-white'}
-      >
+      <div className={blog.preview ? 'bg-blue-50' : 'bg-white'}>
         <Blog blog={blog} />
         <Posts posts={posts} />
         <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
