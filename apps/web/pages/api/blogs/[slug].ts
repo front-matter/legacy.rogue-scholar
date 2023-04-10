@@ -153,6 +153,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
     blog = await extract(config.feedUrl, {
       useISODateFormat: true,
       getExtraFeedFields: (feedData) => {
+        // console.log(feedData)
         const id = config.id
         const feedUrl = config.feedUrl
         let homePageUrl = []
@@ -188,6 +189,12 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
             : 'https://creativecommons.org/licenses/by/4.0/legalcode'
         const category = config.category
         const preview = config.preview
+        const published =
+          get(feedData, 'pubDate', null) ||
+          get(feedData, 'updated', null) ||
+          get(feedData, 'modified', null) ||
+          get(feedData, 'published', null) ||
+          get(feedData, 'issued', null)
 
         return {
           id,
@@ -197,6 +204,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           description,
           favicon,
           language,
+          published,
           license,
           category,
           preview,

@@ -15,6 +15,7 @@ import {
   faOrcid,
 } from '@fortawesome/free-brands-svg-icons'
 import {
+  faClock,
   faCopyright,
   faDownload,
   faEnvelope,
@@ -33,6 +34,7 @@ library.add(
   faCreativeCommonsBy,
   faEnvelope,
   faRss,
+  faClock,
   faHouse,
   faCopyright,
   faEyeSlash,
