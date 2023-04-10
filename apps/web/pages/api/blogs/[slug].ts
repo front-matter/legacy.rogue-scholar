@@ -33,6 +33,7 @@ export interface BlogType extends FeedData {
   feedUrl?: string
   icon?: string
   favicon?: string
+  published?: Date
   generator?: string
   license?: boolean
   preview?: boolean
@@ -132,6 +133,7 @@ export async function writeSingleBlog(blogSlug) {
     'category',
     'homePageUrl',
     'feedUrl',
+    'published',
     'favicon',
     'generator',
     'items',
