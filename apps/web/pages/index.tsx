@@ -8,7 +8,7 @@ import { Header } from '../components/Header'
 import { Hero } from '../components/Hero'
 import { Pricing } from '../components/Pricing'
 import { Stats } from '../components/Stats'
-import { getAllBlogs } from './api/blogs'
+import { getAllBlogs, writeAllBlogs } from './api/blogs'
 
 const countBy = (arr, prop) =>
   arr.reduce(function (obj, v) {
@@ -24,7 +24,7 @@ const languages = {
 export async function getStaticProps() {
   const blogs = await getAllBlogs()
 
-  // await writeAllBlogs(blogs)
+  await writeAllBlogs(blogs)
 
   return {
     props: { blogs },
@@ -47,7 +47,7 @@ const Home: React.FunctionComponent<Props> = ({ blogs }) => {
     blog.language = languages[blog.language] || blog.language
     return blog
   })
-
+  const count = blogs.length
   const categoriesObject = countBy(blogs, 'category')
   const categories = Object.keys(categoriesObject).map((key) => ({
     title: key,
@@ -79,6 +79,7 @@ const Home: React.FunctionComponent<Props> = ({ blogs }) => {
         <Pricing />
         <Faqs />
         <Stats
+          count={count}
           categories={categories}
           languages={languagesList}
           platforms={platforms}

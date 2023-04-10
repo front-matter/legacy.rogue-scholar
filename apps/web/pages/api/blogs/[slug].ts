@@ -103,7 +103,7 @@ export async function writeSingleBlog(blogSlug) {
     fs.mkdirSync(folderPath)
   }
 
-  let blog = await getSingleBlog(blogSlug)
+  let blog = await getSingleBlog(blogSlug, { includePosts: true })
 
   // reformat feed into JSON Feed format
   blog['version'] = 'https://jsonfeed.org/version/1.1'

@@ -46,12 +46,14 @@ type Data = {
 }
 
 type Props = {
+  count: number
   categories: Data[]
   languages: Data[]
   platforms: Data[]
 }
 
 export const Stats: React.FunctionComponent<Props> = ({
+  count,
   categories,
   languages,
   platforms,
@@ -83,7 +85,7 @@ export const Stats: React.FunctionComponent<Props> = ({
               <DonutChart
                 data={categories}
                 legend={false}
-                count={categories.length}
+                count={count}
                 title="Category"
                 range={range}
                 domain={categoryDomain}
@@ -95,7 +97,7 @@ export const Stats: React.FunctionComponent<Props> = ({
               <DonutChart
                 data={languages}
                 legend={false}
-                count={languages.length}
+                count={count}
                 title="Language"
                 range={languageRange}
                 domain={languageDomain}
@@ -107,7 +109,7 @@ export const Stats: React.FunctionComponent<Props> = ({
               <DonutChart
                 data={platforms}
                 legend={false}
-                count={platforms.length}
+                count={count}
                 title="Platform"
                 range={range}
                 domain={platformDomain}
