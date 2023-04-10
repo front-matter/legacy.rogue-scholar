@@ -253,3 +253,54 @@ blog {
   license       = false
   preview       = true
 }
+
+blog {
+  id            = "5qtw267"
+  title         = "Public Knowledge Project"
+  feedUrl       = "https://pkp.sfu.ca/feed"
+  category      = "Engineering and Technology"
+  preview       = true
+}
+
+blog {
+  id            = "7gyq558"
+  title         = "tarleb"
+  feedUrl       = "https://tarleb.com/index.xml"
+  category      = "Engineering and Technology"
+  license       = false
+  preview       = true
+}
+
+blog {
+  id            = "187q468"
+  title         = "Verfassungsblog"
+  feedUrl       = "https://verfassungsblog.de/feed/"
+  category      = "Social Sciences"
+  license       = false
+  preview       = true
+}
+
+blog {
+  id            = "r2hfr67"
+  title         = "The political economy of academic publishing"
+  feedUrl       = "https://polecopub.hypotheses.org/feed"
+  category      = "Social Sciences"
+  preview       = true
+}
+
+blog  {
+  id            = "1v89348"
+  title         = "Trevor Owens"
+  feedUrl       = "http://feeds.feedburner.com/trevorowensblog"
+  category      = "Engineering and Technology"
+  license       = false
+  preview       = true
+}
+
+blog {
+  id            = "gwkwj61"
+  title         = "Blog posts | 2i2c"
+  feedUrl       = "https://2i2c.org/blog/index.xml"
+  category      = "Engineering and Technology"
+  preview       = true
+}
