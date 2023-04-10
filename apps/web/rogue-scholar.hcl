@@ -304,3 +304,20 @@ blog {
 //   category      = "Engineering and Technology"
 //   preview       = true
 // }
+
+blog {
+  id               = "h6apa40"
+  title            = "ASAPbio"
+  feedUrl          = "https://asapbio.org/feed"
+  category         = "Medical and Health Sciences"
+  preview          = true
+}
+
+blog {
+  id               = ""
+  title            = "Dryad news"
+  feedUrl          = "https://blog.datadryad.org/feed/"
+  category         = "Natural Sciences"
+  license          = false
+  preview          = true
+}
