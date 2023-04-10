@@ -22,6 +22,7 @@ export function Footer() {
             <div className="-my-1 flex justify-center gap-x-6">
               <NavLink href="/#pricing">{t('pricing', 'Pricing')}</NavLink>
               <NavLink href="/#faq">FAQ</NavLink>
+              <NavLink href="/#stats">Stats</NavLink>
               <NavLink href="/blogs">Blogs</NavLink>
               <NavLink href="https://docs.rogue-scholar.org">
                 {t('docs', 'Docs')}

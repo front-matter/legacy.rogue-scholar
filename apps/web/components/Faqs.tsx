@@ -19,20 +19,25 @@ const faqs = [
     {
       question: 'How can I sign up for the Rogue Scholar?',
       answer:
-        'Fill out the form on this page. We will add your blog to the Rogue Scholar and notify you within two business days.',
+        'Fill out the form linked from page. We will add your blog to the Rogue Scholar and notify you within two business days.',
     },
     {
       question: 'Why would the Rogue Scholar not accept my blog?',
       answer:
-        'We only cover blogs that write about science, and where the full-text content is made available via RSS feed with a Creative Commons Attribution (CC-BY) license.',
+        'We only cover blogs that write about science, and where the full-text content is made available via RSS feed and distributed under the terms of the Creative Commons Attribution (CC-BY) license.',
     },
+    {
+      question: 'Does the Rogue Scholar accept blogs about scholarship?',
+      answer:
+        'Yes. We accept blogs about all forms of scholarship. The term “science” is used in the broadest sense.',
+    },
+  ],
+  [
     {
       question: 'What languages does the Rogue Scholar support?',
       answer:
         'The initial release will support English and German. Additional languages will be added based on user requests.',
     },
-  ],
-  [
     {
       question: 'How does the Rogue Scholar archive my blog?',
       answer: 'We will harvest your content and metadata using your RSS feed.',

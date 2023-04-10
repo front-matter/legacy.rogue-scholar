@@ -15,11 +15,12 @@ export const blue = {
 }
 
 export const range = Object.values(blue)
-// .filter(function (_v, i) {
-//   return i % 2 == 0
-// })
 
-export const languageDomain = ['English', 'German']
+export const languageRange = Object.values(blue).filter(function (_v, i) {
+  return i % 5 == 0
+})
+
+export const languageDomain = ['English', 'Deutsch']
 
 export const categoryDomain = [
   'Natural Sciences',
@@ -30,11 +31,13 @@ export const categoryDomain = [
 ]
 
 export const platformDomain = [
-  'WordPress',
+  'Wordpress',
   'Ghost',
   'Blogger',
+  'Medium',
   'Hugo',
   'Jekyll',
+  'Unknown',
 ]
 
 type Data = {
@@ -43,14 +46,12 @@ type Data = {
 }
 
 type Props = {
-  count: number
   categories: Data[]
   languages: Data[]
   platforms: Data[]
 }
 
 export const Stats: React.FunctionComponent<Props> = ({
-  count,
   categories,
   languages,
   platforms,
@@ -65,9 +66,9 @@ export const Stats: React.FunctionComponent<Props> = ({
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2
             id="faq-title"
-            className="font-display text-3xl tracking-tight sm:text-4xl"
+            className="font-display text-3xl tracking-tight text-blue-600 sm:text-4xl"
           >
-            Stats
+            Statistics
           </h2>
           <p className="mt-2 text-lg tracking-tight text-slate-700">
             Fundamental numbers describing the included blogs.
@@ -82,7 +83,7 @@ export const Stats: React.FunctionComponent<Props> = ({
               <DonutChart
                 data={categories}
                 legend={false}
-                count={count}
+                count={categories.length}
                 title="Category"
                 range={range}
                 domain={categoryDomain}
@@ -94,9 +95,9 @@ export const Stats: React.FunctionComponent<Props> = ({
               <DonutChart
                 data={languages}
                 legend={false}
-                count={count}
+                count={languages.length}
                 title="Language"
-                range={range}
+                range={languageRange}
                 domain={languageDomain}
               ></DonutChart>
             </ul>
@@ -106,7 +107,7 @@ export const Stats: React.FunctionComponent<Props> = ({
               <DonutChart
                 data={platforms}
                 legend={false}
-                count={count}
+                count={platforms.length}
                 title="Platform"
                 range={range}
                 domain={platformDomain}

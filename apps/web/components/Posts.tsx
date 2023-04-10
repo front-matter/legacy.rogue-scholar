@@ -1,27 +1,11 @@
 import parse from 'html-react-parser'
 import Link from 'next/link'
+import { PostType } from 'pages/api/blogs/[slug]'
 
 import { Author } from '../components/Author'
 
-type Author = {
-  name: string
-  url?: string
-}
-
-export type Post = {
-  id: string
-  link: string
-  isPermalink: boolean
-  title: string
-  description: string
-  published: string
-  authors: Author[]
-  image: string
-  tags?: string[]
-}
-
 type Props = {
-  posts: Post[]
+  posts: PostType[]
 }
 
 export const Posts: React.FunctionComponent<Props> = ({ posts }) => {

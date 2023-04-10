@@ -113,6 +113,7 @@ export function Header() {
             <div className="hidden md:flex md:gap-x-6">
               <NavLink href="/#pricing">{t('pricing', 'Pricing')}</NavLink>
               <NavLink href="/#faq">FAQ</NavLink>
+              <NavLink href="/#stats">Stats</NavLink>
               <NavLink href="/blogs">Blogs</NavLink>
               <NavLink href="https://docs.rogue-scholar.org">
                 {t('docs', 'Docs')}

@@ -37,17 +37,19 @@ export const Hero: React.FunctionComponent<Props> = ({ blogs }) => {
           Trusted by {blogNumber} science blogs so far, including
         </h2>
         <div className="mx-auto mt-6 grid max-w-lg grid-cols-6 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6">
-          {blogsWithIimages.map((blog) => (
-            <Link key={blog.id} href={'/blogs/' + blog.id}>
-              <img
-                className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                src={blog.favicon}
-                alt={blog.title}
-                width={64}
-                height={64}
-              />
-            </Link>
-          ))}
+          {blogsWithIimages
+            .filter((blog) => blog.favicon)
+            .map((blog) => (
+              <Link key={blog.id} href={'/blogs/' + blog.id}>
+                <img
+                  className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                  src={blog.favicon}
+                  alt={blog.title}
+                  width={64}
+                  height={64}
+                />
+              </Link>
+            ))}
         </div>
       </div>
     </Container>
