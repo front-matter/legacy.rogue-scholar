@@ -314,7 +314,7 @@ blog {
 }
 
 blog {
-  id               = ""
+  id               = "bpcte98"
   title            = "Dryad news"
   feedUrl          = "https://blog.datadryad.org/feed/"
   category         = "Natural Sciences"
