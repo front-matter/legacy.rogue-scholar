@@ -36,7 +36,7 @@ export interface BlogType extends FeedData {
   generator?: string
   license?: boolean
   preview?: boolean
-  posts?: PostType[]
+  items?: PostType[]
 }
 
 const isDoi = (doi: string) => {
@@ -134,7 +134,7 @@ export async function writeSingleBlog(blogSlug) {
     'feedUrl',
     'favicon',
     'generator',
-    'posts',
+    'items',
   ])
 
   const blogPath = path.resolve(process.cwd(), `public/${blog.id}/blog.json`)
@@ -264,7 +264,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
   }
 
   if (includePosts) {
-    blog.posts = blog['entries']
+    blog.items = blog['entries']
   } else {
     blog = omit(blog, ['entries'])
   }

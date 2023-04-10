@@ -24,7 +24,7 @@ export async function getStaticProps({ params }) {
   const blog = await getSingleBlog(params.slug, { includePosts: true })
 
   return {
-    props: { blog: omit(blog, ['posts']), posts: blog.posts },
+    props: { blog: omit(blog, ['posts']), posts: blog.items },
   }
 }
 
