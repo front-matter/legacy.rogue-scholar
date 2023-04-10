@@ -244,3 +244,12 @@ blog {
   license       = false
   preview       = true
 }
+
+blog {
+  id            = "p0b8159"
+  title         = "John Hawks"
+  feedUrl       = "https://johnhawks.net/weblog/rss/"
+  category      = "Natural Sciences"
+  license       = false
+  preview       = true
+}
