@@ -191,6 +191,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         const preview = config.preview
         const published =
           get(feedData, 'pubDate', null) ||
+          get(feedData, 'lastBuildDate', null) ||
           get(feedData, 'updated', null) ||
           get(feedData, 'modified', null) ||
           get(feedData, 'published', null) ||
