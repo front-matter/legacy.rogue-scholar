@@ -330,3 +330,11 @@ blog {
   license          = false
   preview          = true
 }
+
+blog {
+  id               = "98vgh33"
+  title            = "SPARC"
+  feedUrl          = "http://sparcopen.org/feed/"
+  category         = "Social Sciences"
+  preview          = true
+}
