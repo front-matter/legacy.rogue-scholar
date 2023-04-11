@@ -70,7 +70,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
           <div className="mt-2">
             <span className="text-gray-500">
               <Link
-                href={blog.homePageUrl}
+                href={blog.homePageUrl ?? ''}
                 target="_blank"
                 className="relative mr-8 w-0 py-2 text-base font-medium"
               >
@@ -101,7 +101,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             {generator && (
               <span className="text-gray-500">
                 <Link
-                  href={generators[generator]}
+                  href={generators[generator] ?? ''}
                   target="_blank"
                   className="relative mr-8 py-2 text-base font-medium text-gray-500"
                 >

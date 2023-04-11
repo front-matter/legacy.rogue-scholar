@@ -10,7 +10,7 @@ blog {
   id            = "sxp4r07"
   title         = "Daniel S. Katz's blog"
   category      = "Engineering and Technology"
-  feedUrl       = "https://danielskatzblog.wordpress.com/feed/"
+  feedUrl       = "https://danielskatzblog.wordpress.com/feed/atom/"
 }
 
 blog {
@@ -25,7 +25,7 @@ blog {
   id            = "34zkv26"
   title         = "wisspub.net"
   category      = "Engineering and Technology"
-  feedUrl       = "https://wisspub.net/feed/"
+  feedUrl       = "https://wisspub.net/feed/atom/"
 }
 
 blog {
@@ -86,7 +86,7 @@ blog {
   id            = "h56tk29"
   title         = "Jabberwocky Ecology"
   category      = "Natural Sciences"
-  feedUrl       = "https://jabberwocky.weecology.org/feed/"
+  feedUrl       = "https://jabberwocky.weecology.org/feed/atom/"
   favicon       = "https://secure.gravatar.com/blavatar/805953466a80fcabef50a73dfb96d52b?s=96&#038;d=https%3A%2F%2Fs0.wp.com%2Fi%2Fbuttonw-com.png"
 }
 
@@ -176,7 +176,7 @@ blog {
   id            = "xv2a235"
   title         = "Make Data Count"
   category      = "Social Sciences"
-  feedUrl       = "https://makedatacount.org/feed/"
+  feedUrl       = "https://makedatacount.org/feed/atom/"
   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
   preview       = true
 }
@@ -223,8 +223,6 @@ blog {
   category      = "Engineering and Technology"
   feedUrl       = "https://x-dev.pages.jsc.fz-juelich.de/feed.xml"
   homePageUrl   = "https://x-dev.pages.jsc.fz-juelich.de/"
-  license       = false
-  preview       = true
 }
 
 blog {
