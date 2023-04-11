@@ -338,3 +338,11 @@ blog {
   category         = "Social Sciences"
   preview          = true
 }
+
+blog {
+  id               = "az6r062"
+  title            = "A Blog of Trial and Error"
+  feedUrl          = "https://blog.trialanderror.org/rss.xml"
+  category         = "Social Sciences"
+  preview          = true
+}
