@@ -173,7 +173,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         feedFormat =
           get(feedFormat, '@_type', null) ||
           get(feedData, 'atom:link.@_type', null)
-  
+
         let generator = get(feedData, 'generator', null)
 
         generator = parseGenerator(generator)
