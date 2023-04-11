@@ -33,6 +33,11 @@ export const languages = {
   zh: '中文',
 }
 
+export const feedFormats = {
+  'application/rss+xml': 'RSS',
+  'application/atom+xml': 'Atom',
+}
+
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
   const generator = blog.generator ? blog.generator.split(' ')[0] : null
 
@@ -84,8 +89,10 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 target="_blank"
                 className="relative mr-8 w-0 py-2 text-base font-medium"
               >
-                <FontAwesomeIcon icon="rss" />
-                <span className="ml-2">RSS Feed</span>
+                <FontAwesomeIcon icon="square-rss" />
+                <span className="ml-2">
+                  {(feedFormats[blog.feedFormat] || 'RSS') + ' Feed'}
+                </span>
               </Link>
             </span>
             <span className="-ml-px text-gray-500">

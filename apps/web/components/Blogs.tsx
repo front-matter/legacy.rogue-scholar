@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { BlogType } from 'pages/api/blogs/[slug]'
 
 import { Container } from '../components/Container'
-import { languages } from './Blog'
+import { feedFormats, languages } from './Blog'
 
 type Props = {
   blogs: BlogType[]
@@ -105,8 +105,11 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         target="_blank"
                         className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
-                        <FontAwesomeIcon icon="rss" className="text-gray-500" />
-                        RSS Feed
+                        <FontAwesomeIcon
+                          icon="square-rss"
+                          className="text-gray-500"
+                        />
+                        {(feedFormats[blog.feedFormat] || 'RSS') + ' Feed'}
                       </Link>
                     </div>
                   </div>

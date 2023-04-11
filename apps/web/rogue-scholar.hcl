@@ -32,7 +32,7 @@ blog {
   id            = "hjkgw43"
   title         = "Flavours of Open"
   category      = "Humanities"
-  feedUrl       = "https://flavoursofopen.science/feed/"
+  feedUrl       = "https://flavoursofopen.science/feed/atom/"
   favicon       = "https://flavoursofopen.science/wp-content/uploads/2022/05/cropped-open-padlock-32x32.png"
 }
 
@@ -78,7 +78,7 @@ blog {
   id            = "2bzkh64"
   title         = "Irish Plants"
   category      = "Natural Sciences"
-  feedUrl       = "http://irishplants.org/blog/feed/"
+  feedUrl       = "http://irishplants.org/blog/feed/atom/"
   favicon       = "https://irishplants.org/blog/wp-content/uploads/2022/08/favicon32.png"
 }
 
@@ -94,7 +94,7 @@ blog {
   id            = "s1e9w75"
   title         = "quantixed"
   category      = "Natural Sciences"
-  feedUrl       = "https://quantixed.org/feed/"
+  feedUrl       = "https://quantixed.org/feed/atom/"
   favicon       = "https://i0.wp.com/quantixed.org/wp-content/uploads/2017/12/cropped-qlogo512x512-01.png?fit=32%2C32&#038;ssl=1"
 }
 
@@ -102,7 +102,7 @@ blog {
   id            = "dkvra02"
   title         = "Sauropod Vertebra Picture of the Week"
   category      = "Natural Sciences"
-  feedUrl       = "https://svpow.com/feed/"
+  feedUrl       = "https://svpow.com/feed/atom/"
 }
 
 blog {
@@ -123,7 +123,7 @@ blog {
   id            = "gr1by89"
   title         = "Samuel Moore"
   category      = "Social Sciences"
-  feedUrl       = "https://www.samuelmoore.org/feed/"
+  feedUrl       = "https://www.samuelmoore.org/feed/atom/"
   favicon       = "https://www.samuelmoore.org/wp-content/uploads/2019/02/cropped-cropped-cropped-roAorange-icon-2-32x32.png"
 }
 
@@ -139,7 +139,7 @@ blog {
   id            = "4425y27"
   title         = "Technology and language"
   category      = "Social Sciences"
-  feedUrl       = "https://grieve-smith.com/blog/feed/"
+  feedUrl       = "https://grieve-smith.com/blog/feed/atom/"
 }
 
 blog {
@@ -154,7 +154,7 @@ blog {
   id            = "8q8xh52"
   title         = "bjoern.brembs.blog"
   category      = "Natural Sciences"
-  feedUrl       = "http://bjoern.brembs.net/feed/"
+  feedUrl       = "http://bjoern.brembs.net/feed/atom/"
 }
 
 blog {
@@ -169,7 +169,7 @@ blog {
   id            = "3ffcd46"
   title         = "GigaBlog"
   category      = "Natural Sciences"
-  feedUrl       = "http://gigasciencejournal.com/blog/feed/"
+  feedUrl       = "http://gigasciencejournal.com/blog/feed/atom/"
 }
 
 blog {
@@ -185,7 +185,7 @@ blog {
   id            = "r25t930"
   title         = "FIS & EPub"
   category      = "Engineering and Technology"
-  feedUrl       = "https://blogs.tib.eu/wp/dini-ag-blog/feed/"
+  feedUrl       = "https://blogs.tib.eu/wp/dini-ag-blog/feed/atom/"
   favicon       = "https://blogs.tib.eu/wp/dini-ag-blog/wp-content/uploads/sites/25/2018/03/cropped-DINI-AG-FIS-3-1-32x32.png"
   license       = false
   preview       = true
@@ -195,7 +195,7 @@ blog {
   id            = "gzqej46"
   title         = "OpenCitations blog"
   category      = "Engineering and Technology"
-  feedUrl       = "https://opencitations.hypotheses.org/feed"
+  feedUrl       = "https://opencitations.hypotheses.org/feed/atom/"
   favicon       = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
   preview       = true
 }
@@ -220,6 +220,7 @@ blog {
 blog {
   id            = "1senr81"
   title         = "JSC Accelerating Devices Lab"
+  description   = "Notes from the Accelerating Devices Lab, an ATML at Jülich Supercomputing Centre"
   category      = "Engineering and Technology"
   feedUrl       = "https://x-dev.pages.jsc.fz-juelich.de/feed.xml"
   homePageUrl   = "https://x-dev.pages.jsc.fz-juelich.de/"
@@ -255,7 +256,7 @@ blog {
 blog {
   id            = "5qtw267"
   title         = "Public Knowledge Project"
-  feedUrl       = "https://pkp.sfu.ca/feed"
+  feedUrl       = "https://pkp.sfu.ca/feed/atom/"
   category      = "Engineering and Technology"
   preview       = true
 }
@@ -272,7 +273,7 @@ blog {
 blog {
   id            = "187q468"
   title         = "Verfassungsblog"
-  feedUrl       = "https://verfassungsblog.de/feed/"
+  feedUrl       = "https://verfassungsblog.de/feed/atom/"
   category      = "Social Sciences"
   license       = false
   preview       = true
@@ -281,7 +282,7 @@ blog {
 blog {
   id            = "r2hfr67"
   title         = "The political economy of academic publishing"
-  feedUrl       = "https://polecopub.hypotheses.org/feed"
+  feedUrl       = "https://polecopub.hypotheses.org/feed/atom/"
   category      = "Social Sciences"
   preview       = true
 }
@@ -306,7 +307,7 @@ blog {
 blog {
   id               = "h6apa40"
   title            = "ASAPbio"
-  feedUrl          = "https://asapbio.org/feed"
+  feedUrl          = "https://asapbio.org/feed/atom/"
   category         = "Medical and Health Sciences"
   preview          = true
 }
@@ -314,7 +315,7 @@ blog {
 blog {
   id               = "bpcte98"
   title            = "Dryad news"
-  feedUrl          = "https://blog.datadryad.org/feed/"
+  feedUrl          = "https://blog.datadryad.org/feed/atom/"
   category         = "Natural Sciences"
   license          = false
   preview          = true
@@ -332,7 +333,7 @@ blog {
 blog {
   id               = "98vgh33"
   title            = "SPARC"
-  feedUrl          = "http://sparcopen.org/feed/"
+  feedUrl          = "http://sparcopen.org/feed/atom/"
   category         = "Social Sciences"
   preview          = true
 }

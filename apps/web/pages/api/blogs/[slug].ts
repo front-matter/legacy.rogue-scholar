@@ -31,6 +31,7 @@ export interface BlogType extends FeedData {
   language?: string
   homePageUrl?: string
   feedUrl?: string
+  feedFormat?: string
   icon?: string
   favicon?: string
   published?: Date
@@ -133,6 +134,7 @@ export async function writeSingleBlog(blogSlug) {
     'category',
     'homePageUrl',
     'feedUrl',
+    'feedFormat',
     'published',
     'favicon',
     'generator',
@@ -164,10 +166,19 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           config.homePageUrl ||
           get(homePageUrl, '@_href', null) ||
           get(feedData, 'link', null)
+        let feedFormat = []
+          .concat(get(feedData, 'link', null))
+          .find((link) => get(link, '@_rel', null) === 'self')
+
+        feedFormat =
+          get(feedFormat, '@_type', null) ||
+          get(feedData, 'atom:link.@_type', null)
+  
         let generator = get(feedData, 'generator', null)
 
         generator = parseGenerator(generator)
         let description =
+          config.description ||
           get(feedData, 'description.#text', null) ||
           get(feedData, 'description', null) ||
           get(feedData, 'subtitle.#text', null) ||
@@ -201,6 +212,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           id,
           feedUrl,
           homePageUrl,
+          feedFormat,
           generator,
           description,
           favicon,

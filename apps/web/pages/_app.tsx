@@ -22,7 +22,7 @@ import {
   faEyeSlash,
   faHouse,
   faRocket,
-  faRss,
+  faSquareRss,
 } from '@fortawesome/free-solid-svg-icons'
 library.add(
   fab,
@@ -33,7 +33,7 @@ library.add(
   faCreativeCommons,
   faCreativeCommonsBy,
   faEnvelope,
-  faRss,
+  faSquareRss,
   faClock,
   faHouse,
   faCopyright,
