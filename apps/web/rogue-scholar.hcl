@@ -378,6 +378,7 @@ blog {
   title            = "Science in the Open"
   feedUrl          = "https://cameronneylon.net/feed/atom/"
   category         = "Social Sciences"
+  license          = false
   preview          = true
 }
 
@@ -386,6 +387,7 @@ blog {
   title            = "Citation Style Language"
   feedUrl          = "https://citationstyles.org/feed.xml"
   category         = "Engineering and Technology"
+  license          = false
   preview          = true
 }
 
@@ -394,6 +396,7 @@ blog {
   title            = "Zotero"
   feedUrl          = "http://feeds.feedburner.com/zotero/"
   category         = "Humanities"
+  license          = false
   preview          = true
 }
 
