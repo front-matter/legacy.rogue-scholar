@@ -26,12 +26,13 @@ export const categoryDomain = [
   'Natural Sciences',
   'Engineering and Technology',
   'Medical and Health Sciences',
+  'Agricultural Sciences',
   'Social Sciences',
   'Humanities',
 ]
 
 export const platformDomain = [
-  'Wordpress',
+  'WordPress',
   'Ghost',
   'Blogger',
   'Medium',

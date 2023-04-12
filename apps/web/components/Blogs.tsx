@@ -109,7 +109,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                           icon="square-rss"
                           className="text-gray-500"
                         />
-                        {(feedFormats[blog.feedFormat] || 'RSS') + ' Feed'}
+                        {feedFormats[blog.feedFormat] + ' Feed'}
                       </Link>
                     </div>
                   </div>

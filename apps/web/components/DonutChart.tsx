@@ -77,7 +77,6 @@ const DonutChart: React.FunctionComponent<Props> = ({
           theta: {
             field: 'count',
             type: 'quantitative',
-            sort: 'descending',
           },
           color: {
             field: 'title',
@@ -89,7 +88,7 @@ const DonutChart: React.FunctionComponent<Props> = ({
               domain: domain,
             },
           },
-          order: { field: 'count', type: 'quantitative', sort: 'ascending' },
+          order: { field: 'count', type: 'quantitative', sort: 'descending' },
         },
       },
       {

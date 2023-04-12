@@ -36,6 +36,7 @@ export const languages = {
 export const feedFormats = {
   'application/rss+xml': 'RSS',
   'application/atom+xml': 'Atom',
+  'application/feed+json': 'JSON',
 }
 
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
@@ -77,7 +78,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               <Link
                 href={blog.homePageUrl ?? ''}
                 target="_blank"
-                className="relative mr-8 w-0 py-2 text-base font-medium"
+                className="relative mr-6 w-0 py-2 text-base font-medium"
               >
                 <FontAwesomeIcon icon="house" />
                 <span className="ml-2">Home Page</span>
@@ -87,11 +88,11 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               <Link
                 href={blog.feedUrl}
                 target="_blank"
-                className="relative mr-8 w-0 py-2 text-base font-medium"
+                className="relative mr-6 w-0 py-2 text-base font-medium"
               >
                 <FontAwesomeIcon icon="square-rss" />
                 <span className="ml-2">
-                  {(feedFormats[blog.feedFormat] || 'RSS') + ' Feed'}
+                  {feedFormats[blog.feedFormat] + ' Feed'}
                 </span>
               </Link>
             </span>
@@ -99,7 +100,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               <Link
                 href={'/' + blog.id + '/blog.json'}
                 target="_blank"
-                className="relative mr-8 w-0 py-2 text-base font-medium"
+                className="relative mr-6 w-0 py-2 text-base font-medium"
               >
                 <FontAwesomeIcon icon="download" />
                 <span className="ml-2">Download</span>
@@ -110,7 +111,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 <Link
                   href={generators[generator] ?? ''}
                   target="_blank"
-                  className="relative mr-8 py-2 text-base font-medium text-gray-500"
+                  className="relative mr-6 py-2 text-base font-medium text-gray-500"
                 >
                   <FontAwesomeIcon icon="rocket" />
                   <span className="ml-2">{generator}</span>
@@ -122,7 +123,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 <Link
                   href="https://creativecommons.org/licenses/by/4.0/legalcode"
                   target="_blank"
-                  className="relative mr-8 py-2 text-base font-medium"
+                  className="relative mr-6 py-2 text-base font-medium"
                 >
                   <FontAwesomeIcon
                     icon={['fab', 'creative-commons']}
@@ -139,7 +140,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             {!blog.license && (
               <span className="text-orange-600">
                 <FontAwesomeIcon icon="copyright" />
-                <span className="mr-8 ml-2">License not confirmed</span>
+                <span className="mr-6 ml-2">License not confirmed</span>
               </span>
             )}
             {blog.preview && (

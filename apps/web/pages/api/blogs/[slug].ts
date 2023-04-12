@@ -63,7 +63,14 @@ const isString = (str: any) => {
 
 const parseGenerator = (generator: any) => {
   if (isObject(generator)) {
-    const name = generator['#text']
+    let name = generator['#text']
+
+    if (name === 'WordPress.com') {
+      name = 'WordPress (.com)'
+    } else if (name === 'Wordpress') {
+      // versions prior to 6.1
+      name = 'WordPress'
+    }
     const version = generator['@_version']
 
     return name + (version ? ' ' + version : '')
@@ -72,12 +79,12 @@ const parseGenerator = (generator: any) => {
       const url = new URL(generator)
 
       if (url.hostname === 'wordpress.org') {
-        const name = 'Wordpress'
+        const name = 'WordPress'
         const version = url.searchParams.get('v')
 
         return name + (version ? ' ' + version : '')
       } else if (url.hostname === 'wordpress.com') {
-        const name = 'Wordpress (.com)'
+        const name = 'WordPress (.com)'
 
         return name
       }
@@ -172,7 +179,8 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
 
         feedFormat =
           get(feedFormat, '@_type', null) ||
-          get(feedData, 'atom:link.@_type', null)
+          get(feedData, 'atom:link.@_type', null) ||
+          'application/rss+xml'
 
         let generator = get(feedData, 'generator', null)
 
@@ -185,11 +193,15 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           get(feedData, 'subtitle', null)
 
         description = isString(description) ? description : null
-        let language = get(feedData, 'language', null) || config.language
+        let language =
+          get(feedData, 'language', null) ||
+          get(feedData, '@_xml:lang', null) ||
+          config.language
         // normalize language to ISO 639-1, e.g. en-US -> en
         // en is the default language
 
         language = language ? language.split('-')[0] : 'en'
+
         let favicon = get(feedData, 'image.url', null) || config.favicon
 
         favicon =
