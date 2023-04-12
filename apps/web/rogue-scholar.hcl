@@ -345,3 +345,74 @@ blog {
   category         = "Social Sciences"
   preview          = true
 }
+
+blog {
+  id               = "vayz464"
+  title            = "Software Sustainability Institute - Cultivating world-class research with software"
+  feedUrl          = "https://www.software.ac.uk/rss"
+  category         = "Engineering and Technology"
+  generator        = "Drupal"
+  preview          = true
+}
+
+blog {
+  id               = "25mb692"
+  title            = "Research Software Community Leiden"
+  feedUrl          = "https://researchsoftware.pubpub.org/rss.xml"
+  category         = "Engineering and Technology"
+  generator        = "PubPub"
+  preview          = true
+}
+
+blog {
+  id               = "ta2y555"
+  title            = "Quarto"
+  feedUrl          = "https://quarto.org/docs/blog/index.xml"
+  category         = "Engineering and Technology"
+  favicon          = null
+  preview          = true
+}
+
+blog {
+  id               = "e51yy88"
+  title            = "Science in the Open"
+  feedUrl          = "https://cameronneylon.net/feed/atom/"
+  category         = "Social Sciences"
+  license          = false
+  preview          = true
+}
+
+blog {
+  id               = "prmb582"
+  title            = "Citation Style Language"
+  feedUrl          = "https://citationstyles.org/feed.xml"
+  category         = "Engineering and Technology"
+  license          = false
+  preview          = true
+}
+
+blog {
+  id               = "snaee07"
+  title            = "Zotero"
+  feedUrl          = "http://feeds.feedburner.com/zotero/"
+  category         = "Humanities"
+  license          = false
+  preview          = true
+}
+
+blog {
+  id               = "wj8c931"
+  title            = "DORA"
+  feedUrl          = "https://sfdora.org/feed/atom/"
+  category         = "Social Sciences"
+  preview          = true
+}
+
+blog {
+  id               = "q3gnt10"
+  title            = "chem-bla-ics"
+  feedUrl          = "https://chem-bla-ics.blogspot.com/feeds/posts/default"
+  category         = "Natural Sciences"
+  license          = false
+  preview          = true
+}

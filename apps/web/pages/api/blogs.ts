@@ -11,6 +11,7 @@ const optionalKeys = [
   'license',
   'category',
   'favicon',
+  'generator',
   'preview',
 ]
 
