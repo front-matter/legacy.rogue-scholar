@@ -75,6 +75,9 @@ const parseGenerator = (generator: any) => {
 
     return name + (version ? ' ' + version : '')
   } else if (isString(generator)) {
+    if (generator === 'Wowchemy (https://wowchemy.com)') {
+      return 'Hugo'
+    }
     try {
       const url = new URL(generator)
 
@@ -92,7 +95,7 @@ const parseGenerator = (generator: any) => {
       // console.log(error)
     }
     return generator.replace(
-      /^(\w+)(.+)(v?\d{1,2}\.\d{1,2}\.\d{1,3})$/gm,
+      /^(\w+)(.+)(-?v?\d{1,2}\.\d{1,2}\.\d{1,3})$/gm,
       '$1 $3'
     )
   } else {
