@@ -345,3 +345,19 @@ blog {
   category         = "Social Sciences"
   preview          = true
 }
+
+blog {
+  id               = "jge1p51"
+  title            = "Mike Mahoney"
+  feedUrl          = "https://www.mm218.dev/blog.xml"
+  category         = "Engineering and Technology"
+  preview          = true
+}
+
+blog {
+  id               = "zqmwg44"
+  title            = "Matteo Courthoud"
+  feedUrl          = "https://matteocourthoud.github.io/index.xml"
+  category         = "Social Sciences"
+  preview          = true
+}
