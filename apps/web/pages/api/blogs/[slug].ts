@@ -1,6 +1,6 @@
 import { extract, FeedData } from '@extractus/feed-extractor'
 import fs from 'fs'
-import { get, isObject, omit, pick } from 'lodash'
+import { get, isObject, omit, pick, capitalize } from 'lodash'
 import path from 'path'
 
 // const archiver = require('archiver')
@@ -94,10 +94,11 @@ const parseGenerator = (generator: any) => {
     } catch (error) {
       // console.log(error)
     }
-    return generator.replace(
+    generator = generator.replace(
       /^(\w+)(.+)(-?v?\d{1,2}\.\d{1,2}\.\d{1,3})$/gm,
       '$1 $3'
     )
+    return capitalize(generator)
   } else {
     return null
   }
