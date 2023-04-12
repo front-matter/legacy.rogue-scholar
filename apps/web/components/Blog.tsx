@@ -14,8 +14,7 @@ export const generators = {
   Hugo: 'https://gohugo.io/',
   Blogger: 'https://www.blogger.com/',
   Medium: 'https://medium.com/',
-  Wowchemy: 'https://wowchemy.com/',
-  quarto: 'https://quarto.org/',
+  Quarto: 'https://quarto.org/',
 }
 
 export const languages = {
