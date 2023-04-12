@@ -38,7 +38,8 @@ export const platformDomain = [
   'Medium',
   'Hugo',
   'Jekyll',
-  'quarto',
+  'Quarto',
+  'Drupal',
   'Unknown',
 ]
 

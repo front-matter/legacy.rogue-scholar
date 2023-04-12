@@ -345,3 +345,12 @@ blog {
   category         = "Social Sciences"
   preview          = true
 }
+
+blog {
+  id               = "vayz464"
+  title            = "Software Sustainability Institute - Cultivating world-class research with software"
+  feedUrl          = "https://www.software.ac.uk/rss"
+  category         = "Engineering and Technology"
+  generator        = "Drupal"
+  preview          = true
+}
