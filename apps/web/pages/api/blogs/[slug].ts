@@ -1,6 +1,6 @@
 import { extract, FeedData } from '@extractus/feed-extractor'
 import fs from 'fs'
-import { get, isObject, omit, pick, capitalize } from 'lodash'
+import { capitalize, get, isObject, omit, pick } from 'lodash'
 import path from 'path'
 
 // const archiver = require('archiver')
