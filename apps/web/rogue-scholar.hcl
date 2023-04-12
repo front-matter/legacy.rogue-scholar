@@ -360,6 +360,7 @@ blog {
   title            = "Research Software Community Leiden"
   feedUrl          = "https://researchsoftware.pubpub.org/rss.xml"
   category         = "Engineering and Technology"
+  generator        = "PubPub"
   preview          = true
 }
 
@@ -368,6 +369,7 @@ blog {
   title            = "Quarto"
   feedUrl          = "https://quarto.org/docs/blog/index.xml"
   category         = "Engineering and Technology"
+  favicon          = null
   preview          = true
 }
 
@@ -408,5 +410,6 @@ blog {
   title            = "chem-bla-ics"
   feedUrl          = "https://chem-bla-ics.blogspot.com/feeds/posts/default"
   category         = "Natural Sciences"
+  license          = false
   preview          = true
 }
