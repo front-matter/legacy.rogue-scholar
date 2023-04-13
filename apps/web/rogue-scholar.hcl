@@ -416,3 +416,12 @@ blog {
   license          = false
   preview          = true
 }
+
+blog {
+  id               = "468ap65"
+  title            = "Behind the Science"
+  feedUrl          = "https://ulirockenbauch.blog/feed/atom/"
+  category         = "Social Sciences"
+  license          = false
+  preview          = true
+}
