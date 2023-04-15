@@ -9,7 +9,7 @@ type Props = {
 
 export const Hero: React.FunctionComponent<Props> = ({ blogs }) => {
   const blogNumber = numberToWords(blogs.length)
-  const blogsWithIimages = blogs.filter((blog) => blog.favicon)
+  const blogsWithIimages = blogs.filter((blog) => blog.favicon && !blog.preview)
 
   return (
     <Container className="pt-10 pb-16 text-center lg:pt-16">
@@ -38,7 +38,6 @@ export const Hero: React.FunctionComponent<Props> = ({ blogs }) => {
         </h2>
         <div className="mx-auto mt-6 grid max-w-lg grid-cols-6 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6">
           {blogsWithIimages
-            .filter((blog) => blog.favicon)
             .map((blog) => (
               <Link key={blog.id} href={'/blogs/' + blog.id}>
                 <img
