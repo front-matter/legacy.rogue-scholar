@@ -103,8 +103,8 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 target="_blank"
                 className="relative mr-6 w-0 py-2 text-base font-medium"
               >
-                <FontAwesomeIcon icon="download" />
-                <span className="ml-2">Download</span>
+                <FontAwesomeIcon icon="square-rss" />
+                <span className="ml-2">JSON Feed</span>
               </Link>
             </span>
             {generator && (
