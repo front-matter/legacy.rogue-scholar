@@ -3,7 +3,7 @@ import * as hcl from 'hcl2-parser'
 import { mapKeys, snakeCase } from 'lodash'
 import path from 'path'
 
-import { getSingleBlog, writeSingleBlog } from './blogs/[slug]'
+import { getSingleBlog } from './blogs/[slug]'
 
 const optionalKeys = [
   'title',
@@ -46,11 +46,11 @@ export async function getAllBlogs() {
   )
 }
 
-export async function writeAllBlogs(blogs) {
-  for (const blog of blogs) {
-    await writeSingleBlog(blog.id)
-  }
-}
+// export async function writeAllBlogs(blogs) {
+//   for (const blog of blogs) {
+//     await writeSingleBlog(blog.id)
+//   }
+// }
 
 export default async (_req, res) => {
   let blogs = await getAllBlogs()

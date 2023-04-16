@@ -1,15 +1,5 @@
 import { extract, FeedData } from '@extractus/feed-extractor'
-import fs from 'fs'
-import {
-  capitalize,
-  get,
-  isObject,
-  mapKeys,
-  omit,
-  pick,
-  snakeCase,
-} from 'lodash'
-import path from 'path'
+import { capitalize, get, isObject, mapKeys, omit, snakeCase } from 'lodash'
 
 // const archiver = require('archiver')
 import { getAllConfigs } from '../blogs'
@@ -116,57 +106,57 @@ const parseGenerator = (generator: any) => {
 //   return id.replace(/https?:\/\/doi\.org\//, '').replace(/\//g, '-')
 // }
 
-export async function writeSingleBlog(blogSlug) {
-  // create blog directory if it doesn't exist
-  const folderPath = path.resolve(process.cwd(), `public/${blogSlug}`)
+// export async function writeSingleBlog(blogSlug) {
+//   // create blog directory if it doesn't exist
+//   const folderPath = path.resolve(process.cwd(), `public/${blogSlug}`)
 
-  if (!fs.existsSync(folderPath)) {
-    fs.mkdirSync(folderPath)
-  }
+//   if (!fs.existsSync(folderPath)) {
+//     fs.mkdirSync(folderPath)
+//   }
 
-  let blog = await getSingleBlog(blogSlug, { includePosts: true })
+//   let blog = await getSingleBlog(blogSlug, { includePosts: true })
 
-  // reformat feed into JSON Feed format
-  blog['version'] = 'https://jsonfeed.org/version/1.1'
+//   // reformat feed into JSON Feed format
+//   blog['version'] = 'https://jsonfeed.org/version/1.1'
 
-  // filter entries to only include DOIs
-  // blog['items'] = blog.entries.filter((blog) => {
-  //   return isDoi(blog.id)
-  // })
-  // .map((post) => {
-  //   const postId = idAsSlug(post.id)
-  //   const postPath = path.resolve(
-  //     process.cwd(),
-  //     `public/${blog.id}/${postId}.json`
-  //   )
+//   // filter entries to only include DOIs
+//   // blog['items'] = blog.entries.filter((blog) => {
+//   //   return isDoi(blog.id)
+//   // })
+//   // .map((post) => {
+//   //   const postId = idAsSlug(post.id)
+//   //   const postPath = path.resolve(
+//   //     process.cwd(),
+//   //     `public/${blog.id}/${postId}.json`
+//   //   )
 
-  //   fs.writeFileSync(postPath, JSON.stringify(post))
-  // })
+//   //   fs.writeFileSync(postPath, JSON.stringify(post))
+//   // })
 
-  blog = pick(blog, [
-    'version',
-    'id',
-    'title',
-    'description',
-    'language',
-    'license',
-    'category',
-    'homePageUrl',
-    'feedUrl',
-    'feedFormat',
-    'published',
-    'favicon',
-    'generator',
-    'items',
-  ])
-  blog = mapKeys(blog, function (_, key) {
-    return snakeCase(key)
-  })
+//   blog = pick(blog, [
+//     'version',
+//     'id',
+//     'title',
+//     'description',
+//     'language',
+//     'license',
+//     'category',
+//     'homePageUrl',
+//     'feedUrl',
+//     'feedFormat',
+//     'published',
+//     'favicon',
+//     'generator',
+//     'items',
+//   ])
+//   blog = mapKeys(blog, function (_, key) {
+//     return snakeCase(key)
+//   })
 
-  const blogPath = path.resolve(process.cwd(), `public/${blog.id}.json`)
+//   const blogPath = path.resolve(process.cwd(), `public/${blog.id}.json`)
 
-  fs.writeFileSync(blogPath, JSON.stringify(blog))
-}
+//   fs.writeFileSync(blogPath, JSON.stringify(blog))
+// }
 
 export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
   const configs = await getAllConfigs()
