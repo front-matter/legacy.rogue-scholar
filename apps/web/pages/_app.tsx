@@ -17,7 +17,6 @@ import {
 import {
   faClock,
   faCopyright,
-  faDownload,
   faEnvelope,
   faEyeSlash,
   faHouse,
@@ -38,7 +37,6 @@ library.add(
   faHouse,
   faCopyright,
   faEyeSlash,
-  faDownload,
   faRocket
 )
 config.autoAddCss = false
