@@ -320,7 +320,10 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
 
 export default async function handler(req, res) {
   let blog = await getSingleBlog(req.query.slug, { includePosts: true })
+  const host = req.headers.host
+  const protocol = req.headers['x-forwarded-proto'] || 'http'
 
+  blog.id = `${protocol}://${host}/${blog.id}`
   blog = mapKeys(blog, function (_, key) {
     return snakeCase(key)
   })
