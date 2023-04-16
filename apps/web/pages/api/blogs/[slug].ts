@@ -159,6 +159,9 @@ export async function writeSingleBlog(blogSlug) {
     'generator',
     'items',
   ])
+  blog = mapKeys(blog, function (_, key) {
+    return snakeCase(key)
+  })
 
   const blogPath = path.resolve(process.cwd(), `public/${blog.id}.json`)
 
