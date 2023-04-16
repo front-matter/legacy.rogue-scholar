@@ -28,15 +28,6 @@ export async function getAllConfigs() {
       }
       return config
     })
-    .sort(function (a, b) {
-      if (a.title.toUpperCase() < b.title.toUpperCase()) {
-        return -1
-      }
-      if (a.title.toUpperCase() > b.title.toUpperCase()) {
-        return 1
-      }
-      return 0
-    })
     .filter((config) => {
       return env != 'production' || !config.preview
     })
@@ -61,7 +52,17 @@ export async function writeAllBlogs(blogs) {
 }
 
 export default async (_req, res) => {
-  const blogs = await getAllBlogs()
+  let blogs = await getAllBlogs()
+
+  blogs = blogs.sort(function (a, b) {
+    if (a.title.toUpperCase() < b.title.toUpperCase()) {
+      return -1
+    }
+    if (a.title.toUpperCase() > b.title.toUpperCase()) {
+      return 1
+    }
+    return 0
+  })
 
   res.statusCode = 200
   res.json(blogs)

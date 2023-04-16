@@ -152,7 +152,7 @@ export async function writeSingleBlog(blogSlug) {
     'items',
   ])
 
-  const blogPath = path.resolve(process.cwd(), `public/${blog.id}/blog.json`)
+  const blogPath = path.resolve(process.cwd(), `public/${blog.id}.json`)
 
   fs.writeFileSync(blogPath, JSON.stringify(blog))
 }
@@ -189,14 +189,16 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         let generator = get(feedData, 'generator', null) || config.generator
 
         generator = parseGenerator(generator)
+
         let description =
-          config.description ||
           get(feedData, 'description.#text', null) ||
           get(feedData, 'description', null) ||
           get(feedData, 'subtitle.#text', null) ||
-          get(feedData, 'subtitle', null)
+          get(feedData, 'subtitle', null) ||
+          config.description
 
-        description = isString(description) ? description : null
+        description = isString(description) ? description.trim() : null
+
         let language =
           get(feedData, 'language', null) ||
           get(feedData, '@_xml:lang', null) ||

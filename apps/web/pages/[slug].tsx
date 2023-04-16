@@ -6,10 +6,10 @@ import { getAllConfigs } from 'pages/api/blogs'
 import { BlogType, getSingleBlog, PostType } from 'pages/api/blogs/[slug]'
 import React from 'react'
 
-import { Blog } from '../../components/Blog'
-import { Footer } from '../../components/Footer'
-import { Header } from '../../components/Header'
-import { Posts } from '../../components/Posts'
+import { Blog } from '../components/Blog'
+import { Footer } from '../components/Footer'
+import { Header } from '../components/Header'
+import { Posts } from '../components/Posts'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const configs = await getAllConfigs()
