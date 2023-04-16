@@ -1,5 +1,6 @@
 import fs from 'fs'
 import * as hcl from 'hcl2-parser'
+import { mapKeys, snakeCase } from 'lodash'
 import path from 'path'
 
 import { getSingleBlog, writeSingleBlog } from './blogs/[slug]'
@@ -54,16 +55,21 @@ export async function writeAllBlogs(blogs) {
 export default async (_req, res) => {
   let blogs = await getAllBlogs()
 
-  blogs = blogs.sort(function (a, b) {
-    if (a.title.toUpperCase() < b.title.toUpperCase()) {
-      return -1
-    }
-    if (a.title.toUpperCase() > b.title.toUpperCase()) {
-      return 1
-    }
-    return 0
-  })
-
+  blogs = blogs
+    .sort(function (a, b) {
+      if (a.title.toUpperCase() < b.title.toUpperCase()) {
+        return -1
+      }
+      if (a.title.toUpperCase() > b.title.toUpperCase()) {
+        return 1
+      }
+      return 0
+    })
+    .map((blog) => {
+      return mapKeys(blog, function (_, key) {
+        return snakeCase(key)
+      })
+    })
   res.statusCode = 200
   res.json(blogs)
 }

@@ -1,6 +1,14 @@
 import { extract, FeedData } from '@extractus/feed-extractor'
 import fs from 'fs'
-import { capitalize, get, isObject, omit, pick } from 'lodash'
+import {
+  capitalize,
+  get,
+  isObject,
+  mapKeys,
+  omit,
+  pick,
+  snakeCase,
+} from 'lodash'
 import path from 'path'
 
 // const archiver = require('archiver')
@@ -314,7 +322,11 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
 }
 
 export default async function handler(req, res) {
-  const blog = await getSingleBlog(req.query.slug)
+  let blog = await getSingleBlog(req.query.slug)
+
+  blog = mapKeys(blog, function (_, key) {
+    return snakeCase(key)
+  })
 
   res.status(200).json(blog)
 }
