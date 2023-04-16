@@ -311,15 +311,15 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         return snakeCase(key)
       })
     })
-  } else {
-    blog = omit(blog, ['entries'])
   }
+
+  blog = omit(blog, ['entries'])
 
   return blog
 }
 
 export default async function handler(req, res) {
-  let blog = await getSingleBlog(req.query.slug)
+  let blog = await getSingleBlog(req.query.slug, { includePosts: true })
 
   blog = mapKeys(blog, function (_, key) {
     return snakeCase(key)
