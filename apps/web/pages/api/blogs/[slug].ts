@@ -316,7 +316,11 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
   }
 
   if (includePosts) {
-    blog.items = blog['entries']
+    blog.items = blog['entries'].map((entry) => {
+      return mapKeys(entry, function (_, key) {
+        return snakeCase(key)
+      })
+    })
   } else {
     blog = omit(blog, ['entries'])
   }
