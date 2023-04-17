@@ -44,17 +44,18 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                   )}
                   <div className="group relative max-w-3xl">
                     <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                      <Link href={post.isPermalink ? post.id : post.link}>
-                        {post.title}
-                      </Link>
+                      <Link href={post.url}>{post.title}</Link>
                     </h3>
                     <div className="text-small mt-1 flex items-center gap-x-1 text-gray-500">
-                      <time dateTime={post.published.toString()}>
-                        {new Date(post.published).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
+                      <time dateTime={post.datePublished.toString()}>
+                        {new Date(post.datePublished).toLocaleDateString(
+                          'en-US',
+                          {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          }
+                        )}
                       </time>
                       {post.id && post.isPermalink && (
                         <span>
@@ -75,9 +76,9 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                         />
                       ))}
                     </span>
-                    {post.description && (
+                    {post.summary && (
                       <p className="text-medium mt-2 leading-6 text-gray-900">
-                        {parse(String(post.description))}
+                        {parse(String(post.summary))}
                       </p>
                     )}
                   </div>

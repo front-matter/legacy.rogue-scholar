@@ -9,11 +9,11 @@ const optionalKeys = [
   'title',
   'description',
   'language',
-  'license',
+  'hasLicense',
   'category',
   'favicon',
   'generator',
-  'preview',
+  'isPreview',
 ]
 
 export async function getAllConfigs() {
@@ -30,7 +30,7 @@ export async function getAllConfigs() {
       return config
     })
     .filter((config) => {
-      return env != 'production' || !config.preview
+      return env != 'production' || !config.isPreview
     })
 
   return configs

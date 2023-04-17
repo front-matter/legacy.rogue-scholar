@@ -64,8 +64,6 @@ const Home: React.FunctionComponent<Props> = ({ blogs }) => {
     count: platformsObject[key],
   }))
 
-  console.log(platforms)
-
   return (
     <>
       <Head>

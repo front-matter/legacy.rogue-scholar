@@ -41,7 +41,7 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
         <meta name="og:title" content="Rogue Scholar - {data.title}" />
       </Head>
       <Header />
-      <div className={blog.preview ? 'bg-blue-50' : 'bg-white'}>
+      <div className={blog.isPreview ? 'bg-blue-50' : 'bg-white'}>
         <Blog blog={blog} />
         <Posts posts={posts} />
         <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">

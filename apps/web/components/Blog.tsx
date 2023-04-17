@@ -62,12 +62,16 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             )}
           </div>
           <div className="-mt-px">
-            <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-              {blog.category}
-            </span>
-            <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-              {languages[blog.language]}
-            </span>
+            {blog.category && (
+              <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+                {blog.category}
+              </span>
+            )}
+            {blog.language && (
+              <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+                {languages[blog.language]}
+              </span>
+            )}
             {blog.description && (
               <div className="mt-1 text-lg leading-normal text-gray-600">
                 {parse(String(blog.description))}
@@ -85,18 +89,20 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 <span className="ml-2">Home Page</span>
               </Link>
             </span>
-            <span className="-ml-px text-gray-500">
-              <Link
-                href={blog.feedUrl}
-                target="_blank"
-                className="relative mr-6 w-0 py-2 text-base font-medium"
-              >
-                <FontAwesomeIcon icon="rss" />
-                <span className="ml-2">
-                  {feedFormats[blog.feedFormat] + ' Feed'}
-                </span>
-              </Link>
-            </span>
+            {blog.feedUrl && blog.feedFormat && (
+              <span className="-ml-px text-gray-500">
+                <Link
+                  href={blog.feedUrl}
+                  target="_blank"
+                  className="relative mr-6 w-0 py-2 text-base font-medium"
+                >
+                  <FontAwesomeIcon icon="rss" />
+                  <span className="ml-2">
+                    {feedFormats[blog.feedFormat] + ' Feed'}
+                  </span>
+                </Link>
+              </span>
+            )}
             <span className="-ml-px text-gray-500">
               <Link
                 href={'/' + blog.id + '.json'}
@@ -144,7 +150,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 <span className="mr-6 ml-2">License not confirmed</span>
               </span>
             )}
-            {blog.preview && (
+            {blog.isPreview && (
               <span className="text-orange-600">
                 <FontAwesomeIcon icon="eye-slash" />
                 <span className="ml-2">Preview only</span>

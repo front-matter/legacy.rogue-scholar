@@ -11,13 +11,17 @@ type Props = {
 
 export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
   blogs = blogs.sort(function (a, b) {
-    if (a.title.toUpperCase() < b.title.toUpperCase()) {
-      return -1
+    if (a.title && b.title) {
+      if (a.title.toUpperCase() < b.title.toUpperCase()) {
+        return -1
+      }
+      if (a.title.toUpperCase() > b.title.toUpperCase()) {
+        return 1
+      }
+      return 0
+    } else {
+      return 0
     }
-    if (a.title.toUpperCase() > b.title.toUpperCase()) {
-      return 1
-    }
-    return 0
   })
   return (
     <>
@@ -61,7 +65,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                 key={blog.id}
                 className={
                   'col-span-1 divide-y divide-gray-200 rounded-lg shadow' +
-                  (blog.preview ? ' bg-blue-50' : ' bg-white')
+                  (blog.isPreview ? ' bg-blue-50' : ' bg-white')
                 }
               >
                 <div className="flex w-full items-center justify-between space-x-6 p-6">
@@ -108,16 +112,21 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         Home Page
                       </Link>
                     </div>
-                    <div className="-ml-px flex w-0 flex-1">
-                      <Link
-                        href={blog.feedUrl}
-                        target="_blank"
-                        className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
-                      >
-                        <FontAwesomeIcon icon="rss" className="text-gray-500" />
-                        {feedFormats[blog.feedFormat] + ' Feed'}
-                      </Link>
-                    </div>
+                    {blog.feedUrl && blog.feedFormat && (
+                      <div className="-ml-px flex w-0 flex-1">
+                        <Link
+                          href={blog.feedUrl}
+                          target="_blank"
+                          className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
+                        >
+                          <FontAwesomeIcon
+                            icon="rss"
+                            className="text-gray-500"
+                          />
+                          {feedFormats[blog.feedFormat] + ' Feed'}
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </li>

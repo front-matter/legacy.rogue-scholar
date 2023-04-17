@@ -9,7 +9,9 @@ type Props = {
 
 export const Hero: React.FunctionComponent<Props> = ({ blogs }) => {
   const blogNumber = numberToWords(blogs.length)
-  const blogsWithIimages = blogs.filter((blog) => blog.favicon && !blog.preview)
+  const blogsWithIimages = blogs.filter(
+    (blog) => blog.favicon && !blog.isPreview
+  )
 
   return (
     <Container className="pt-10 pb-16 text-center lg:pt-16">

@@ -1,52 +1,115 @@
 import { extract, FeedData } from '@extractus/feed-extractor'
+import Ajv, { DefinedError, JSONSchemaType } from 'ajv'
 import { capitalize, get, isObject, mapKeys, omit, snakeCase } from 'lodash'
 
 // const archiver = require('archiver')
 import { getAllConfigs } from '../blogs'
 
+const itemKeys = {
+  description: 'summary',
+  published: 'datePublished',
+  link: 'url',
+}
+
 export interface AuthorType {
   name: string
   url?: string
+  avatar?: string
 }
 
 export interface PostType {
-  id: string
-  link?: string
-  isPermalink?: boolean
+  id?: string
+  url?: string
   title?: string
-  description?: string
-  published?: Date
+  summary?: string
+  datePublished?: string
+  dateModified?: string
   authors?: AuthorType[]
   image?: string
+  contentHtml?: string
+  contentText?: string
   tags?: string[]
+  language?: string
 }
 
-export interface BlogType extends FeedData {
+export interface BlogType
+  extends Omit<FeedData, 'entries' | 'published' | 'link'> {
   version?: string
   id?: string
   title?: string
-  category?: string[]
+  category?: string
   description?: string
   language?: string
   homePageUrl?: string
   feedUrl?: string
-  feedFormat?: string
   icon?: string
   favicon?: string
-  published?: Date
+  dateModified?: string
   generator?: string
-  license?: boolean
-  preview?: boolean
+  hasLicense?: boolean
+  license?: string
+  feedFormat?: string
+  isPreview?: boolean
   items?: PostType[]
+  expired?: boolean
 }
 
-const isDoi = (doi: string) => {
-  try {
-    return new URL(doi).hostname === 'doi.org'
-  } catch (error) {
-    return false
-  }
+const postSchema: JSONSchemaType<PostType> = {
+  type: 'object',
+  properties: {
+    id: { type: 'string', nullable: true },
+    url: { type: 'string', nullable: true },
+    title: { type: 'string', nullable: true },
+    contentHtml: { type: 'string' },
+    contentText: { type: 'string' },
+    summary: { type: 'string', nullable: true },
+    image: { type: 'string' },
+    datePublished: { type: 'string', nullable: true },
+    dateModified: { type: 'string', nullable: true },
+    authors: { type: 'array', nullable: true },
+    tags: { type: 'array' },
+    language: { type: 'string' },
+  },
+  required: ['id'],
+  additionalProperties: true,
 }
+
+const blogSchema: JSONSchemaType<BlogType> = {
+  type: 'object',
+  properties: {
+    version: { type: 'string', nullable: true },
+    id: { type: 'string', nullable: true },
+    feedUrl: { type: 'string', nullable: true },
+    title: { type: 'string', nullable: true },
+    items: { type: 'array', nullable: true },
+    homePageUrl: { type: 'string', nullable: true },
+    description: { type: 'string', nullable: true },
+    icon: { type: 'string', nullable: true },
+    favicon: { type: 'string', nullable: true },
+    language: { type: 'string', nullable: true },
+    feedFormat: { type: 'string', nullable: true },
+    dateModified: { type: 'string', nullable: true },
+    category: { type: 'string', nullable: true },
+    generator: { type: 'string', nullable: true },
+    hasLicense: { type: 'boolean', nullable: true },
+    isPreview: { type: 'boolean', nullable: true },
+    expired: { type: 'boolean', nullable: true },
+  },
+  required: ['id', 'feedUrl', 'items'],
+  additionalProperties: true,
+}
+
+const ajv = new Ajv()
+const validateBlog = ajv.compile(blogSchema)
+const validatePost = ajv.compile(postSchema)
+
+// const isDoi = (doi: string) => {
+//   try {
+//     return new URL(doi).hostname === 'doi.org'
+//   } catch (error) {
+//     return false
+//   }
+// }
 
 const isOrcid = (orcid: string) => {
   try {
@@ -103,62 +166,6 @@ const parseGenerator = (generator: any) => {
   }
 }
 
-// const idAsSlug = (id: string) => {
-//   return id.replace(/https?:\/\/doi\.org\//, '').replace(/\//g, '-')
-// }
-
-// export async function writeSingleBlog(blogSlug) {
-//   // create blog directory if it doesn't exist
-//   const folderPath = path.resolve(process.cwd(), `public/${blogSlug}`)
-
-//   if (!fs.existsSync(folderPath)) {
-//     fs.mkdirSync(folderPath)
-//   }
-
-//   let blog = await getSingleBlog(blogSlug, { includePosts: true })
-
-//   // reformat feed into JSON Feed format
-//   blog['version'] = 'https://jsonfeed.org/version/1.1'
-
-//   // filter entries to only include DOIs
-//   // blog['items'] = blog.entries.filter((blog) => {
-//   //   return isDoi(blog.id)
-//   // })
-//   // .map((post) => {
-//   //   const postId = idAsSlug(post.id)
-//   //   const postPath = path.resolve(
-//   //     process.cwd(),
-//   //     `public/${blog.id}/${postId}.json`
-//   //   )
-
-//   //   fs.writeFileSync(postPath, JSON.stringify(post))
-//   // })
-
-//   blog = pick(blog, [
-//     'version',
-//     'id',
-//     'title',
-//     'description',
-//     'language',
-//     'license',
-//     'category',
-//     'homePageUrl',
-//     'feedUrl',
-//     'feedFormat',
-//     'published',
-//     'favicon',
-//     'generator',
-//     'items',
-//   ])
-//   blog = mapKeys(blog, function (_, key) {
-//     return snakeCase(key)
-//   })
-
-//   const blogPath = path.resolve(process.cwd(), `public/${blog.id}.json`)
-
-//   fs.writeFileSync(blogPath, JSON.stringify(blog))
-// }
-
 export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
   const configs = await getAllConfigs()
   const config = configs.find((config) => config.id === blogSlug)
@@ -169,8 +176,15 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
       useISODateFormat: true,
       getExtraFeedFields: (feedData) => {
         // console.log(feedData)
+        // required properties from config
         const id = config.id
+        const version = 'https://jsonfeed.org/version/1.1'
         const feedUrl = config.feedUrl
+        const category = config.category
+
+        // optional properties from config
+        const isPreview = config.isPreview
+
         let homePageUrl = []
           .concat(get(feedData, 'link', null))
           .find((link) => get(link, '@_rel', null) === 'alternate')
@@ -214,13 +228,12 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
 
         favicon =
           favicon !== 'https://s0.wp.com/i/buttonw-com.png' ? favicon : null
+
         const license =
-          get(feedData, 'rights.#text', null) || config.license === false
+          get(feedData, 'rights.#text', null) || config.hasLicense === false
             ? null
             : 'https://creativecommons.org/licenses/by/4.0/legalcode'
-        const category = config.category
-        const preview = config.preview
-        const published =
+        const dateModified =
           get(feedData, 'pubDate', null) ||
           get(feedData, 'lastBuildDate', null) ||
           get(feedData, 'updated', null) ||
@@ -230,17 +243,18 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
 
         return {
           id,
+          version,
           feedUrl,
+          category,
           homePageUrl,
           feedFormat,
           generator,
           description,
           favicon,
           language,
-          published,
+          dateModified,
           license,
-          category,
-          preview,
+          isPreview,
         }
       },
       getExtraEntryFields: (feedEntry) => {
@@ -259,19 +273,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           get(feedEntry, 'id.#text', null) ||
           get(feedEntry, 'guid.#text', null) ||
           get(feedEntry, 'id', null)
-        // let link =
-        //   []
-        //     .concat(get(feedEntry, 'link', null))
-        //     .find((link) => get(link, '@_rel', null) === 'alternate') ||
-        //   get(feedEntry, 'link.@_href', null) ||
-        //   get(feedEntry, 'link', null) ||
-        //   id
 
-        // link = get(link, '@_href', null)
-        const isPermalink =
-          isDoi(id) ||
-          get(feedEntry, 'guid.@_isPermalink', null) ||
-          get(feedEntry, 'id.@_isPermalink', null)
         const tags = []
           .concat(get(feedEntry, 'category', []))
           .map(
@@ -281,9 +283,9 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         const image =
           get(feedEntry, 'media:content.@_url', null) ||
           get(feedEntry, 'enclosure.@_url', null)
-        const published =
+        const datePublished =
           get(feedEntry, 'pubDate', null) || get(feedEntry, 'published', null)
-        const modified = get(feedEntry, 'updated', null)
+        const dateModified = get(feedEntry, 'updated', null)
         const contentHtml =
           get(feedEntry, 'content:encoded', null) ||
           get(feedEntry, 'content.#text', null) ||
@@ -291,13 +293,11 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
 
         return {
           id,
-          // link,
-          isPermalink: Boolean(isPermalink),
           tags,
           authors,
           image,
-          published,
-          modified,
+          datePublished,
+          dateModified,
           contentHtml,
         }
       },
@@ -308,13 +308,39 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
 
   if (includePosts) {
     blog.items = blog['entries'].map((entry) => {
+      // validate post against JSON Schema
+      if (!validatePost(entry)) {
+        for (const err of validatePost.errors as DefinedError[]) {
+          switch (err.keyword) {
+            case 'type':
+              // err type is narrowed here to have "type" error params properties
+              console.log(err.params.type)
+              break
+            // ...
+          }
+        }
+      }
+      // rename obsolete keys
       return mapKeys(entry, function (_, key) {
-        return snakeCase(key)
+        return get(itemKeys, key, key)
       })
     })
   }
 
-  blog = omit(blog, ['entries'])
+  blog = omit(blog, ['entries', 'published', 'link'])
+
+  // validate blog against JSON Schema
+  if (!validateBlog(blog)) {
+    for (const err of validateBlog.errors as DefinedError[]) {
+      switch (err.keyword) {
+        case 'type':
+          // err type is narrowed here to have "type" error params properties
+          console.log(err.params.type)
+          break
+        // ...
+      }
+    }
+  }
 
   return blog
 }
@@ -328,8 +354,13 @@ export default async function handler(req, res) {
   blog = mapKeys(blog, function (_, key) {
     return snakeCase(key)
   })
-  blog.version = 'https://jsonfeed.org/version/1.1'
-  blog = omit(blog, ['link', 'preview', 'feed_format'])
+  blog.items = blog.items?.map((entry) => {
+    // rename obsolete keys
+    return mapKeys(entry, function (_, key) {
+      return get(itemKeys, key, key)
+    })
+  })
+  blog = omit(blog, ['is_preview', 'feed_format'])
 
   res.status(200).json(blog)
 }

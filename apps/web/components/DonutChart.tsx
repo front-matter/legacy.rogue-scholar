@@ -10,8 +10,8 @@ interface ChartRecord {
 }
 
 type Props = {
-  data?: ChartRecord[]
-  count?: number
+  data: ChartRecord[]
+  count: number
   legend?: any
   title: string
   range: string[]

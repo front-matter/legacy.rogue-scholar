@@ -154,7 +154,7 @@ blog {
   category      = "Social Sciences"
   feedUrl       = "https://makedatacount.org/feed/atom/"
   favicon       = "https://makedatacount.files.wordpress.com/2021/10/cropped-untitled.png?w=32"
-  preview       = true
+  isPreview      = true
 }
 
 blog {
@@ -162,8 +162,8 @@ blog {
   category      = "Engineering and Technology"
   feedUrl       = "https://blogs.tib.eu/wp/dini-ag-blog/feed/atom/"
   favicon       = "https://blogs.tib.eu/wp/dini-ag-blog/wp-content/uploads/sites/25/2018/03/cropped-DINI-AG-FIS-3-1-32x32.png"
-  license       = false
-  preview       = true
+  hasLicense    = false
+  isPreview     = true
 }
 
 blog {
@@ -171,22 +171,22 @@ blog {
   category      = "Engineering and Technology"
   feedUrl       = "https://opencitations.hypotheses.org/feed/atom/"
   favicon       = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
-  preview       = true
+  isPreview     = true
 }
 
 blog {
   id            = "8epr274"
   category      = "Engineering and Technology"
   feedUrl       = "https://blog.joss.theoj.org/feed.xml"
-  preview       = true
+  isPreview     = true
 }
 
 blog {
   id            = "yzgx124"
   category      = "Social Sciences"
   feedUrl       = "https://www.leidenmadtrics.nl/feed/"
-  license       = false
-  preview       = true
+  hasLicense    = false
+  isPreview     = true
 }
 
 blog {
@@ -201,106 +201,106 @@ blog {
   id            = "4bamy94"
   category      = "Medical and Health Sciences"
   feedUrl       = "http://blog.europepmc.org/feeds/posts/default"
-  license       = false
-  preview       = true
+  hasLicense    = false
+  isPreview     = true
 }
 
 blog {
   id            = "hkxgp47"
   category      = "Engineering and Technology"
   feedUrl       = "https://www.crossref.org/blog/index.xml"
-  license       = false
-  preview       = true
+  hasLicense    = false
+  isPreview     = true
 }
 
 blog {
   id            = "p0b8159"
   feedUrl       = "https://johnhawks.net/weblog/rss/"
   category      = "Natural Sciences"
-  license       = false
-  preview       = true
+  hasLicense    = false
+  isPreview     = true
 }
 
 blog {
   id            = "5qtw267"
   feedUrl       = "https://pkp.sfu.ca/feed/atom/"
   category      = "Engineering and Technology"
-  preview       = true
+  isPreview     = true
 }
 
 blog {
   id            = "7gyq558"
   feedUrl       = "https://tarleb.com/index.xml"
   category      = "Engineering and Technology"
-  license       = false
-  preview       = true
+  hasLicense    = false
+  isPreview     = true
 }
 
 blog {
   id            = "187q468"
   feedUrl       = "https://verfassungsblog.de/feed/atom/"
   category      = "Social Sciences"
-  license       = false
-  preview       = true
+  hasLicense    = false
+  isPreview     = true
 }
 
 blog {
   id            = "r2hfr67"
   feedUrl       = "https://polecopub.hypotheses.org/feed/atom/"
   category      = "Social Sciences"
-  preview       = true
+  isPreview     = true
 }
 
 blog  {
   id            = "1v89348"
   feedUrl       = "http://feeds.feedburner.com/trevorowensblog"
   category      = "Engineering and Technology"
-  license       = false
-  preview       = true
+  hasLicense    = false
+  isPreview     = true
 }
 
 blog {
   id            = "gwkwj61"
   feedUrl       = "https://2i2c.org/blog/index.xml"
   category      = "Engineering and Technology"
-  preview       = true
+  isPreview     = true
 }
 
 blog {
   id               = "h6apa40"
   feedUrl          = "https://asapbio.org/feed/atom/"
   category         = "Medical and Health Sciences"
-  preview          = true
+  isPreview        = true
 }
 
 blog {
   id               = "bpcte98"
   feedUrl          = "https://blog.datadryad.org/feed/atom/"
   category         = "Natural Sciences"
-  license          = false
-  preview          = true
+  hasLicense       = false
+  isPreview        = true
 }
 
 // blog {
 //   id               = "d95vj95"
 //   feedUrl          = "https://retractionwatch.com/feed/"
 //   category         = "Social Sciences"
-//   license          = false
-//   preview          = true
+//   hasLicense         = false
+//   isPreview         = true
 // }
 
 blog {
   id               = "98vgh33"
   feedUrl          = "http://sparcopen.org/feed/atom/"
   category         = "Social Sciences"
-  preview          = true
+  isPreview        = true
 }
 
 blog {
   id               = "az6r062"
   feedUrl          = "https://blog.trialanderror.org/rss.xml"
   category         = "Social Sciences"
-  preview          = true
+  isPreview        = true
 }
 
 blog {
@@ -308,7 +308,7 @@ blog {
   feedUrl          = "https://www.software.ac.uk/rss"
   category         = "Engineering and Technology"
   generator        = "Drupal"
-  preview          = true
+  isPreview        = true
 }
 
 blog {
@@ -316,7 +316,7 @@ blog {
   feedUrl          = "https://researchsoftware.pubpub.org/rss.xml"
   category         = "Engineering and Technology"
   generator        = "PubPub"
-  preview          = true
+  isPreview        = true
 }
 
 blog {
@@ -324,52 +324,52 @@ blog {
   feedUrl          = "https://quarto.org/docs/blog/index.xml"
   category         = "Engineering and Technology"
   favicon          = null
-  preview          = true
+  isPreview        = true
 }
 
 blog {
   id               = "e51yy88"
   feedUrl          = "https://cameronneylon.net/feed/atom/"
   category         = "Social Sciences"
-  license          = false
-  preview          = true
+  hasLicense       = false
+  isPreview        = true
 }
 
 blog {
   id               = "prmb582"
   feedUrl          = "https://citationstyles.org/feed.xml"
   category         = "Engineering and Technology"
-  license          = false
-  preview          = true
+  hasLicense       = false
+  isPreview        = true
 }
 
 blog {
   id               = "snaee07"
   feedUrl          = "http://feeds.feedburner.com/zotero/"
   category         = "Humanities"
-  license          = false
-  preview          = true
+  hasLicense       = false
+  isPreview        = true
 }
 
 blog {
   id               = "wj8c931"
   feedUrl          = "https://sfdora.org/feed/atom/"
   category         = "Social Sciences"
-  preview          = true
+  isPreview        = true
 }
 
 blog {
   id               = "q3gnt10"
   feedUrl          = "https://chem-bla-ics.blogspot.com/feeds/posts/default"
   category         = "Natural Sciences"
-  license          = false
-  preview          = true
+  hasLicense       = false
+  isPreview        = true
 }
 
 blog {
   id               = "468ap65"
   feedUrl          = "https://ulirockenbauch.blog/feed/atom/"
   category         = "Social Sciences"
-  license          = false
-  preview          = true
+  hasLicense       = false
+  isPreview        = true
 }
