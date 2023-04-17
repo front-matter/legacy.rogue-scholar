@@ -1,5 +1,5 @@
 import { extract, FeedData } from '@extractus/feed-extractor'
-import Ajv, { DefinedError, JSONSchemaType } from 'ajv'
+// import Ajv, { DefinedError, JSONSchemaType } from 'ajv'
 import { capitalize, get, isObject, mapKeys, omit, snakeCase } from 'lodash'
 
 // const archiver = require('archiver')
@@ -54,54 +54,55 @@ export interface BlogType
   expired?: boolean
 }
 
-const postSchema: JSONSchemaType<PostType> = {
-  type: 'object',
-  properties: {
-    id: { type: 'string', nullable: true },
-    url: { type: 'string', nullable: true },
-    title: { type: 'string', nullable: true },
-    contentHtml: { type: 'string' },
-    contentText: { type: 'string' },
-    summary: { type: 'string', nullable: true },
-    image: { type: 'string' },
-    datePublished: { type: 'string', nullable: true },
-    dateModified: { type: 'string', nullable: true },
-    authors: { type: 'array', nullable: true },
-    tags: { type: 'array' },
-    language: { type: 'string' },
-  },
-  required: ['id'],
-  additionalProperties: true,
-}
+// const postSchema: JSONSchemaType<PostType> = {
+//   type: 'object',
+//   properties: {
+//     id: { type: 'string', nullable: true },
+//     url: { type: 'string', nullable: true },
+//     title: { type: 'string', nullable: true },
+//     contentHtml: { type: 'string' },
+//     contentText: { type: 'string' },
+//     summary: { type: 'string', nullable: true },
+//     image: { type: 'string' },
+//     datePublished: { type: 'string', nullable: true },
+//     dateModified: { type: 'string', nullable: true },
+//     authors: { type: 'array', nullable: true },
+//     tags: { type: 'array' },
+//     language: { type: 'string' },
+//   },
+//   required: ['id'],
+//   additionalProperties: true,
+// }
 
-const blogSchema: JSONSchemaType<BlogType> = {
-  type: 'object',
-  properties: {
-    version: { type: 'string', nullable: true },
-    id: { type: 'string', nullable: true },
-    feedUrl: { type: 'string', nullable: true },
-    title: { type: 'string', nullable: true },
-    items: { type: 'array', nullable: true },
-    homePageUrl: { type: 'string', nullable: true },
-    description: { type: 'string', nullable: true },
-    icon: { type: 'string', nullable: true },
-    favicon: { type: 'string', nullable: true },
-    language: { type: 'string', nullable: true },
-    feedFormat: { type: 'string', nullable: true },
-    dateModified: { type: 'string', nullable: true },
-    category: { type: 'string', nullable: true },
-    generator: { type: 'string', nullable: true },
-    hasLicense: { type: 'boolean', nullable: true },
-    isPreview: { type: 'boolean', nullable: true },
-    expired: { type: 'boolean', nullable: true },
-  },
-  required: ['id', 'feedUrl', 'items'],
-  additionalProperties: true,
-}
+// const blogSchema: JSONSchemaType<BlogType> = {
+//   type: 'object',
+//   properties: {
+//     version: { type: 'string', nullable: true },
+//     id: { type: 'string', nullable: true },
+//     feedUrl: { type: 'string', nullable: true },
+//     title: { type: 'string', nullable: true },
+//     items: { type: 'array', nullable: true },
+//     homePageUrl: { type: 'string', nullable: true },
+//     description: { type: 'string', nullable: true },
+//     icon: { type: 'string', nullable: true },
+//     favicon: { type: 'string', nullable: true },
+//     language: { type: 'string', nullable: true },
+//     feedFormat: { type: 'string', nullable: true },
+//     dateModified: { type: 'string', nullable: true },
+//     category: { type: 'string', nullable: true },
+//     generator: { type: 'string', nullable: true },
+//     hasLicense: { type: 'boolean', nullable: true },
+//     license: { type: 'string', nullable: true },
+//     isPreview: { type: 'boolean', nullable: true },
+//     expired: { type: 'boolean', nullable: true },
+//   },
+//   required: ['id', 'feedUrl', 'items'],
+//   additionalProperties: true,
+// }
 
-const ajv = new Ajv()
-const validateBlog = ajv.compile(blogSchema)
-const validatePost = ajv.compile(postSchema)
+// const ajv = new Ajv()
+// const validateBlog = ajv.compile(blogSchema)
+// const validatePost = ajv.compile(postSchema)
 
 // const isDoi = (doi: string) => {
 //   try {
@@ -309,17 +310,17 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
   if (includePosts) {
     blog.items = blog['entries'].map((entry) => {
       // validate post against JSON Schema
-      if (!validatePost(entry)) {
-        for (const err of validatePost.errors as DefinedError[]) {
-          switch (err.keyword) {
-            case 'type':
-              // err type is narrowed here to have "type" error params properties
-              console.log(err.params.type)
-              break
-            // ...
-          }
-        }
-      }
+      // if (!validatePost(entry)) {
+      //   for (const err of validatePost.errors as DefinedError[]) {
+      //     switch (err.keyword) {
+      //       case 'type':
+      //         // err type is narrowed here to have "type" error params properties
+      //         console.log(err.params.type)
+      //         break
+      //       // ...
+      //     }
+      //   }
+      // }
       // rename obsolete keys
       return mapKeys(entry, function (_, key) {
         return get(itemKeys, key, key)
@@ -330,17 +331,17 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
   blog = omit(blog, ['entries', 'published', 'link'])
 
   // validate blog against JSON Schema
-  if (!validateBlog(blog)) {
-    for (const err of validateBlog.errors as DefinedError[]) {
-      switch (err.keyword) {
-        case 'type':
-          // err type is narrowed here to have "type" error params properties
-          console.log(err.params.type)
-          break
-        // ...
-      }
-    }
-  }
+  // if (!validateBlog(blog)) {
+  //   for (const err of validateBlog.errors as DefinedError[]) {
+  //     switch (err.keyword) {
+  //       case 'type':
+  //         // err type is narrowed here to have "type" error params properties
+  //         console.log(err.params.type)
+  //         break
+  //       // ...
+  //     }
+  //   }
+  // }
 
   return blog
 }

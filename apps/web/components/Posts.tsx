@@ -32,7 +32,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                 <div>
                   {post.tags && (
                     <div className="flex items-center gap-x-1 text-xs">
-                      {[].concat(post.tags).map((tag) => (
+                      {post.tags.map((tag) => (
                         <span
                           key={tag}
                           className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800"
@@ -43,21 +43,25 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                     </div>
                   )}
                   <div className="group relative max-w-3xl">
-                    <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                      <Link href={post.url}>{post.title}</Link>
-                    </h3>
+                    {post.url && (
+                      <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                        <Link href={post.url}>{post.title}</Link>
+                      </h3>
+                    )}
                     <div className="text-small mt-1 flex items-center gap-x-1 text-gray-500">
-                      <time dateTime={post.datePublished.toString()}>
-                        {new Date(post.datePublished).toLocaleDateString(
-                          'en-US',
-                          {
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric',
-                          }
-                        )}
-                      </time>
-                      {post.id && post.isPermalink && (
+                      {post.datePublished && (
+                        <time dateTime={post.datePublished.toString()}>
+                          {new Date(post.datePublished).toLocaleDateString(
+                            'en-US',
+                            {
+                              year: 'numeric',
+                              month: 'long',
+                              day: 'numeric',
+                            }
+                          )}
+                        </time>
+                      )}
+                      {post.id && (
                         <span>
                           •{' '}
                           <Link href={post.id} target="_blank">
@@ -66,16 +70,21 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                         </span>
                       )}
                     </div>
-                    <span>
-                      {post.authors.map((author, index) => (
-                        <Author
-                          key={author.name}
-                          name={author.name}
-                          url={author.url}
-                          isLast={index === post.authors.length - 1}
-                        />
-                      ))}
-                    </span>
+                    {post.authors && post.authors.length > 0 && (
+                      <span>
+                        {post.authors.map((author, index) => (
+                          <Author
+                            key={author.name}
+                            name={author.name}
+                            url={author.url}
+                            isLast={
+                              index ===
+                              (post.authors && post.authors.length - 1)
+                            }
+                          />
+                        ))}
+                      </span>
+                    )}
                     {post.summary && (
                       <p className="text-medium mt-2 leading-6 text-gray-900">
                         {parse(String(post.summary))}
