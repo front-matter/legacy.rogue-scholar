@@ -328,7 +328,7 @@ export default async function handler(req, res) {
     return snakeCase(key)
   })
   blog['version'] = 'https://jsonfeed.org/version/1.1'
-  blog = omit(blog, ['preview', 'feed_format'])
+  blog = omit(blog, ['link', 'preview', 'feed_format'])
 
   res.status(200).json(blog)
 }
