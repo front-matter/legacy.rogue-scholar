@@ -123,12 +123,12 @@ blog {
   feedUrl       = "https://grieve-smith.com/blog/feed/atom/"
 }
 
-blog {
-  id            = "ez7c883"
-  category      = "Natural Sciences"
-  feedUrl       = "https://medium.com/feed/@publisherad"
-  favicon       = "https://cdn-images-1.medium.com/fit/c/150/150/1*DJGPkBv9iJDmlE836eaoig.jpeg"
-}
+// blog {
+//   id            = "ez7c883"
+//   category      = "Natural Sciences"
+//   feedUrl       = "https://medium.com/feed/@publisherad"
+//   favicon       = "https://cdn-images-1.medium.com/fit/c/150/150/1*DJGPkBv9iJDmlE836eaoig.jpeg"
+// }
 
 blog {
   id            = "8q8xh52"
