@@ -38,7 +38,13 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
     <>
       <Head>
         <title>{blog.title}</title>
-        <meta name="og:title" content="Rogue Scholar - {data.title}" />
+        <meta name="og:title" content={'Rogue Scholar' + blog.title} />
+        <link
+          rel="alternate"
+          title={blog.title}
+          type="application/feed+json"
+          href={blog.feedUrl}
+        />
       </Head>
       <Header />
       <div className={blog.isPreview ? 'bg-blue-50' : 'bg-white'}>
