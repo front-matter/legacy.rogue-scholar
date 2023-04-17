@@ -26,6 +26,19 @@ const nextConfig = {
       },
     ]
   },
+  async headers() {
+    return [
+      {
+        source: '/:slug.json',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'application/feed+json',
+          },
+        ],
+      },
+    ]
+  },
   async rewrites() {
     return [
       {
