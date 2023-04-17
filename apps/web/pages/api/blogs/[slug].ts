@@ -355,12 +355,18 @@ export default async function handler(req, res) {
   blog = mapKeys(blog, function (_, key) {
     return snakeCase(key)
   })
-  blog.items = blog.items?.map((entry) => {
-    // rename obsolete keys
-    return mapKeys(entry, function (_, key) {
-      return get(itemKeys, key, key)
+  if (blog.items) {
+    blog.items = blog.items.map((post) => {
+      // rename obsolete keys
+      post = mapKeys(post, function (_, key) {
+        return get(itemKeys, key, key)
+      })
+      // turn keys into snake_case
+      return mapKeys(post, function (_, key) {
+        return snakeCase(key)
+      })
     })
-  })
+  }
   blog = omit(blog, ['is_preview', 'feed_format'])
 
   res.status(200).json(blog)
