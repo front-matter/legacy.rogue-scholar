@@ -22,7 +22,14 @@ const BlogsPage: React.FunctionComponent<Props> = ({ blogs }) => {
   return (
     <>
       <Head>
-        <meta name="og:title" content="Rogue Scholar - Blogs" />
+        <meta name="og:title" content="Rogue Scholar: Blogs" />
+        <meta property="og:site_name" content="Rogue Scholar" />
+        <meta property="og:title" content="Rogue Scholar: Blogs" />
+        <meta
+          property="og:description"
+          content="Rogue Scholar: Listing of included Blogs."
+        />
+        <meta property="og:url" content="https://rogue-scholar.org/blogs" />
       </Head>
       <Header />
       <Blogs blogs={blogs} />

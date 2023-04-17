@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
+import { jsonLdScriptProps } from 'react-schemaorg'
+import { WebPage } from 'schema-dts'
 
 // import { CallToAction } from '../components/CallToAction'
 import { Faqs } from '../components/Faqs'
@@ -71,6 +73,25 @@ const Home: React.FunctionComponent<Props> = ({ blogs }) => {
         <meta
           name="description"
           content="The Rogue Scholar improves your science blog in important ways, including full-text search, DOIs and metadata, and long-term archiving."
+        />
+        <meta property="og:site_name" content="Rogue Scholar" />
+        <meta property="og:title" content="Rogue Scholar" />
+        <meta
+          property="og:description"
+          content="Rogue Scholar - Science blogging on steroids."
+        />
+        <meta property="og:url" content="https://rogue-scholar.org/" />
+        <script
+          type="application/ld+json"
+          {...jsonLdScriptProps<WebPage>({
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            url: 'https://rogue-scholar.org/',
+            name: 'Rogue Scholar',
+            publisher: { '@type': 'Organization', name: 'Front Matter' },
+            inLanguage: 'en',
+            license: 'https://creativecommons.org/licenses/by/4.0/legalcode',
+          })}
         />
       </Head>
       <Header />

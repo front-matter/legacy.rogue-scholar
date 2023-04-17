@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { getAllConfigs } from 'pages/api/blogs'
 import { BlogType, getSingleBlog, PostType } from 'pages/api/blogs/[slug]'
 import React from 'react'
+import { jsonLdScriptProps } from 'react-schemaorg'
+import { Blog as BlogSchema } from 'schema-dts'
 
 import { Blog } from '../components/Blog'
 import { Footer } from '../components/Footer'
@@ -38,12 +40,33 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
     <>
       <Head>
         <title>{blog.title}</title>
-        <meta name="og:title" content={'Rogue Scholar' + blog.title} />
+        <meta property="og:site_name" content="Rogue Scholar" />
+        <meta property="og:title" content={'Rogue Scholar: ' + blog.title} />
+        <meta
+          property="og:description"
+          content={'Rogue Scholar: ' + blog.description}
+        />
+        <meta
+          property="og:url"
+          content={'https://rogue-scholar.org/' + blog.id}
+        />
+        {blog.favicon && <meta property="og:image" content={blog.favicon} />}
         <link
           rel="alternate"
           title={blog.title}
           type="application/feed+json"
           href={'https://rogue-scholar.org/' + blog.id + '.json'}
+        />
+        <script
+          type="application/ld+json"
+          {...jsonLdScriptProps<BlogSchema>({
+            '@context': 'https://schema.org',
+            '@type': 'Blog',
+            url: `https://rogue-scholar.org/${blog.id}`,
+            name: `${blog.title}`,
+            inLanguage: `${blog.language}`,
+            license: 'https://creativecommons.org/licenses/by/4.0/legalcode',
+          })}
         />
       </Head>
       <Header />
