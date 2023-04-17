@@ -43,7 +43,7 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
           rel="alternate"
           title={blog.title}
           type="application/feed+json"
-          href={blog.feedUrl}
+          href={'https://rogue-scholar.org/' + blog.id + '.json'}
         />
       </Head>
       <Header />
