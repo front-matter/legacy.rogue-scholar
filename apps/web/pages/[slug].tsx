@@ -64,6 +64,7 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
             '@type': 'Blog',
             url: `https://rogue-scholar.org/${blog.id}`,
             name: `${blog.title}`,
+            description: `${blog.description}`,
             inLanguage: `${blog.language}`,
             license: 'https://creativecommons.org/licenses/by/4.0/legalcode',
           })}
