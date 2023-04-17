@@ -91,7 +91,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 target="_blank"
                 className="relative mr-6 w-0 py-2 text-base font-medium"
               >
-                <FontAwesomeIcon icon="square-rss" />
+                <FontAwesomeIcon icon="rss" />
                 <span className="ml-2">
                   {feedFormats[blog.feedFormat] + ' Feed'}
                 </span>
