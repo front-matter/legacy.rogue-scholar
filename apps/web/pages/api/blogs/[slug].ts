@@ -22,6 +22,7 @@ export interface PostType {
 }
 
 export interface BlogType extends FeedData {
+  version?: string
   id?: string
   title?: string
   category?: string[]
@@ -327,7 +328,7 @@ export default async function handler(req, res) {
   blog = mapKeys(blog, function (_, key) {
     return snakeCase(key)
   })
-  blog['version'] = 'https://jsonfeed.org/version/1.1'
+  blog.version = 'https://jsonfeed.org/version/1.1'
   blog = omit(blog, ['link', 'preview', 'feed_format'])
 
   res.status(200).json(blog)
