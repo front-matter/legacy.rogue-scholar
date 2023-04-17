@@ -38,7 +38,17 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
     <>
       <Head>
         <title>{blog.title}</title>
-        <meta name="og:title" content={'Rogue Scholar' + blog.title} />
+        <meta property="og:site_name" content="Rogue Scholar" />
+        <meta property="og:title" content={'Rogue Scholar: ' + blog.title} />
+        <meta
+          property="og:description"
+          content={'Rogue Scholar: ' + blog.description}
+        />
+        <meta
+          property="og:url"
+          content={'https://rogue-scholar.org/' + blog.id}
+        />
+        {blog.favicon && <meta property="og:image" content={blog.favicon} />}
         <link
           rel="alternate"
           title={blog.title}

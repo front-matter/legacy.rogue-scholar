@@ -44,6 +44,7 @@
     "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.2.0",
+    "react-schemaorg": "^2.0.0",
     "react-vega": "^7.6.0",
     "sharp": "^0.31.3",
     "swr": "^2.0.0",
