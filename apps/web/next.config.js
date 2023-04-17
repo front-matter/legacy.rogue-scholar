@@ -26,6 +26,14 @@ const nextConfig = {
       },
     ]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/:slug.json',
+        destination: '/api/blogs/:slug',
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig
