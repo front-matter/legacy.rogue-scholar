@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 import { jsonLdScriptProps } from 'react-schemaorg'
+import { WebPage } from 'schema-dts'
 
 // import { CallToAction } from '../components/CallToAction'
 import { Faqs } from '../components/Faqs'
@@ -82,9 +83,9 @@ const Home: React.FunctionComponent<Props> = ({ blogs }) => {
         <meta property="og:url" content="https://rogue-scholar.org/" />
         <script
           type="application/ld+json"
-          {...jsonLdScriptProps<Blog>({
+          {...jsonLdScriptProps<WebPage>({
             '@context': 'https://schema.org',
-            '@type': 'Blog',
+            '@type': 'WebPage',
             url: 'https://rogue-scholar.org/',
             name: 'Rogue Scholar',
             publisher: { '@type': 'Organization', name: 'Front Matter' },

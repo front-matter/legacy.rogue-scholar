@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { getAllConfigs } from 'pages/api/blogs'
 import { BlogType, getSingleBlog, PostType } from 'pages/api/blogs/[slug]'
 import React from 'react'
+import { jsonLdScriptProps } from 'react-schemaorg'
+import { Blog as BlogSchema } from 'schema-dts'
 
 import { Blog } from '../components/Blog'
 import { Footer } from '../components/Footer'
@@ -54,6 +56,17 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
           title={blog.title}
           type="application/feed+json"
           href={blog.feedUrl}
+        />
+        <script
+          type="application/ld+json"
+          {...jsonLdScriptProps<BlogSchema>({
+            '@context': 'https://schema.org',
+            '@type': 'Blog',
+            url: `https://rogue-scholar.org/${blog.id}`,
+            name: `${blog.title}`,
+            inLanguage: `${blog.language}`,
+            license: 'https://creativecommons.org/licenses/by/4.0/legalcode',
+          })}
         />
       </Head>
       <Header />
