@@ -1,6 +1,6 @@
 import parse from 'html-react-parser'
 import Link from 'next/link'
-import { PostType } from 'pages/api/blogs/[slug]'
+import { isDoi, PostType } from 'pages/api/blogs/[slug]'
 
 import { Author } from '../components/Author'
 
@@ -61,7 +61,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                           )}
                         </time>
                       )}
-                      {post.id && (
+                      {post.id && isDoi(post.id) && (
                         <span>
                           •{' '}
                           <Link href={post.id} target="_blank">

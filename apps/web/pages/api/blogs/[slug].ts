@@ -104,13 +104,13 @@ export interface BlogType
 // const validateBlog = ajv.compile(blogSchema)
 // const validatePost = ajv.compile(postSchema)
 
-// const isDoi = (doi: string) => {
-//   try {
-//     return new URL(doi).hostname === 'doi.org'
-//   } catch (error) {
-//     return false
-//   }
-// }
+export const isDoi = (doi: string) => {
+  try {
+    return new URL(doi).hostname === 'doi.org'
+  } catch (error) {
+    return false
+  }
+}
 
 const isOrcid = (orcid: string) => {
   try {
