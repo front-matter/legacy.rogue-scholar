@@ -178,6 +178,7 @@ blog {
   id            = "8epr274"
   category      = "Engineering and Technology"
   feedUrl       = "https://blog.joss.theoj.org/feed.xml"
+  favicon       = "https://user-images.githubusercontent.com/4483/49343677-fcd32700-f63b-11e8-8883-8c07463ee2a9.png"
 }
 
 blog {
@@ -376,4 +377,11 @@ blog {
   id               = "5764g49"
   feedUrl          = "http://sfmatheson.blogspot.com/feeds/posts/default"
   category         = "Social Sciences"
+}
+
+blog {
+  id               = "y3h0g22"
+  feedUrl          = "https://www.researchsoft.org/blog/index.xml"
+  category         = "Engineering and Technology"
+  isPreview        = true
 }
