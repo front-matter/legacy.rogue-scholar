@@ -377,3 +377,10 @@ blog {
   feedUrl          = "http://sfmatheson.blogspot.com/feeds/posts/default"
   category         = "Social Sciences"
 }
+
+blog {
+  id               = "y3h0g22"
+  feedUrl          = "https://www.researchsoft.org/blog/index.xml"
+  category         = "Engineering and Technology"
+  isPreview        = true
+}
