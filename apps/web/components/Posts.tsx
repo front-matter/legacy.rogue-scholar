@@ -29,6 +29,16 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
                 )}
+                {post.thumbnail && (
+                  <div className="relative aspect-[16/9] h-16 w-16 sm:aspect-[2/1] lg:aspect-square lg:shrink-0">
+                    <img
+                      src={post.thumbnail}
+                      alt=""
+                      className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-contain"
+                    />
+                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                  </div>
+                )}
                 <div>
                   {post.tags && (
                     <div className="flex items-center gap-x-1 text-xs">
