@@ -17,7 +17,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
             {posts.map((post) => (
               <article
                 key={post.id}
-                className="relative mb-8 flex gap-8 lg:flex-row"
+                className="relative mb-8 flex gap-6 lg:flex-row"
               >
                 {post.image && (
                   <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">

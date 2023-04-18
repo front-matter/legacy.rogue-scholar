@@ -178,7 +178,6 @@ blog {
   id            = "8epr274"
   category      = "Engineering and Technology"
   feedUrl       = "https://blog.joss.theoj.org/feed.xml"
-  isPreview     = true
 }
 
 blog {
