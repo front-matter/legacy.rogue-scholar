@@ -376,6 +376,5 @@ blog {
 blog {
   id               = "5764g49"
   feedUrl          = "http://sfmatheson.blogspot.com/feeds/posts/default"
-  category         = "Natural Sciences"
-  isPreview        = true
+  category         = "Social Sciences"
 }
