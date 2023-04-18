@@ -178,7 +178,6 @@ blog {
   id            = "8epr274"
   category      = "Engineering and Technology"
   feedUrl       = "https://blog.joss.theoj.org/feed.xml"
-  isPreview     = true
 }
 
 blog {
@@ -370,6 +369,11 @@ blog {
   id               = "468ap65"
   feedUrl          = "https://ulirockenbauch.blog/feed/atom/"
   category         = "Social Sciences"
-  hasLicense       = false
   isPreview        = true
+}
+
+blog {
+  id               = "5764g49"
+  feedUrl          = "http://sfmatheson.blogspot.com/feeds/posts/default"
+  category         = "Social Sciences"
 }

@@ -8,7 +8,6 @@ import { getAllConfigs } from '../blogs'
 const itemKeys = {
   description: 'summary',
   published: 'datePublished',
-  link: 'url',
 }
 
 export interface AuthorType {
@@ -26,6 +25,7 @@ export interface PostType {
   dateModified?: string
   authors?: AuthorType[]
   image?: string
+  thumbnail?: string
   contentHtml?: string
   contentText?: string
   tags?: string[]
@@ -64,6 +64,7 @@ export interface BlogType
 //     contentText: { type: 'string' },
 //     summary: { type: 'string', nullable: true },
 //     image: { type: 'string' },
+//     thumbnail: { type: 'string' },
 //     datePublished: { type: 'string', nullable: true },
 //     dateModified: { type: 'string', nullable: true },
 //     authors: { type: 'array', nullable: true },
@@ -275,6 +276,12 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           get(feedEntry, 'guid.#text', null) ||
           get(feedEntry, 'id', null)
 
+        let url = []
+          .concat(get(feedEntry, 'link', null))
+          .find((link) => get(link, '@_rel', null) === 'alternate')
+
+        url = get(url, '@_href', null) || get(feedEntry, 'link', null)
+
         const tags = []
           .concat(get(feedEntry, 'category', []))
           .map(
@@ -284,6 +291,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         const image =
           get(feedEntry, 'media:content.@_url', null) ||
           get(feedEntry, 'enclosure.@_url', null)
+        const thumbnail = get(feedEntry, 'media:thumbnail.@_url', null)
         const datePublished =
           get(feedEntry, 'pubDate', null) || get(feedEntry, 'published', null)
         const dateModified = get(feedEntry, 'updated', null)
@@ -294,9 +302,11 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
 
         return {
           id,
+          url,
           tags,
           authors,
           image,
+          thumbnail,
           datePublished,
           dateModified,
           contentHtml,
