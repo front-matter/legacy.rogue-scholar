@@ -370,7 +370,6 @@ blog {
   id               = "468ap65"
   feedUrl          = "https://ulirockenbauch.blog/feed/atom/"
   category         = "Social Sciences"
-  hasLicense       = false
   isPreview        = true
 }
 
