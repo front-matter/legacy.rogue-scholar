@@ -10,7 +10,7 @@ type Props = {
 export const Hero: React.FunctionComponent<Props> = ({ blogs }) => {
   const blogNumber = numberToWords(blogs.length)
   const blogsWithIimages = blogs.filter(
-    (blog) => blog.favicon && !blog.isPreview
+    (blog) => blog.favicon && blog.dateIndexed
   )
 
   return (

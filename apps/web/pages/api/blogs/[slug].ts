@@ -45,11 +45,11 @@ export interface BlogType
   icon?: string
   favicon?: string
   dateModified?: string
+  dateIndexed?: string
   generator?: string
   hasLicense?: boolean
   license?: string
   feedFormat?: string
-  isPreview?: boolean
   items?: PostType[]
   expired?: boolean
 }
@@ -90,11 +90,11 @@ export interface BlogType
 //     language: { type: 'string', nullable: true },
 //     feedFormat: { type: 'string', nullable: true },
 //     dateModified: { type: 'string', nullable: true },
+//     dateIndexed: { type: 'string', nullable: true },
 //     category: { type: 'string', nullable: true },
 //     generator: { type: 'string', nullable: true },
 //     hasLicense: { type: 'boolean', nullable: true },
 //     license: { type: 'string', nullable: true },
-//     isPreview: { type: 'boolean', nullable: true },
 //     expired: { type: 'boolean', nullable: true },
 //   },
 //   required: ['id', 'feedUrl', 'items'],
@@ -183,9 +183,8 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         const version = 'https://jsonfeed.org/version/1.1'
         const feedUrl = config.feedUrl
         const category = config.category
-
-        // optional properties from config
-        const isPreview = config.isPreview
+        // only display blog in preview unless dateIndexed is set
+        const dateIndexed = config.dateIndexed
 
         let homePageUrl = []
           .concat(get(feedData, 'link', null))
@@ -254,9 +253,9 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           description,
           favicon,
           language,
+          dateIndexed,
           dateModified,
           license,
-          isPreview,
         }
       },
       getExtraEntryFields: (feedEntry) => {
