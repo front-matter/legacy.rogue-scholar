@@ -6,7 +6,6 @@ import { config, library } from '@fortawesome/fontawesome-svg-core'
 config.autoAddCss = false
 
 import {
-  fab,
   faCreativeCommons,
   faCreativeCommonsBy,
   faDiscord,
@@ -14,32 +13,15 @@ import {
   faMastodon,
   faOrcid,
 } from '@fortawesome/free-brands-svg-icons'
-import {
-  faClock,
-  faCopyright,
-  faEnvelope,
-  faEyeSlash,
-  faHouse,
-  faRocket,
-  faRss,
-  faSquareRss,
-} from '@fortawesome/free-solid-svg-icons'
+import { fas } from '@fortawesome/free-solid-svg-icons'
 library.add(
-  fab,
   faOrcid,
   faGithub,
   faMastodon,
   faDiscord,
   faCreativeCommons,
   faCreativeCommonsBy,
-  faEnvelope,
-  faRss,
-  faSquareRss,
-  faClock,
-  faHouse,
-  faCopyright,
-  faEyeSlash,
-  faRocket
+  fas
 )
 config.autoAddCss = false
 

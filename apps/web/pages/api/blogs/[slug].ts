@@ -1,6 +1,14 @@
 import { extract, FeedData } from '@extractus/feed-extractor'
 // import Ajv, { DefinedError, JSONSchemaType } from 'ajv'
-import { capitalize, get, isObject, mapKeys, omit, snakeCase } from 'lodash'
+import {
+  capitalize,
+  get,
+  isArray,
+  isObject,
+  mapKeys,
+  omit,
+  snakeCase,
+} from 'lodash'
 
 // const archiver = require('archiver')
 import { getAllConfigs } from '../blogs'
@@ -30,6 +38,7 @@ export interface PostType {
   contentText?: string
   tags?: string[]
   language?: string
+  issn?: string
 }
 
 export interface BlogType
@@ -45,11 +54,11 @@ export interface BlogType
   icon?: string
   favicon?: string
   dateModified?: string
+  dateIndexed?: string
   generator?: string
   hasLicense?: boolean
   license?: string
   feedFormat?: string
-  isPreview?: boolean
   items?: PostType[]
   expired?: boolean
 }
@@ -90,11 +99,11 @@ export interface BlogType
 //     language: { type: 'string', nullable: true },
 //     feedFormat: { type: 'string', nullable: true },
 //     dateModified: { type: 'string', nullable: true },
+//     dateIndexed: { type: 'string', nullable: true },
 //     category: { type: 'string', nullable: true },
 //     generator: { type: 'string', nullable: true },
 //     hasLicense: { type: 'boolean', nullable: true },
 //     license: { type: 'string', nullable: true },
-//     isPreview: { type: 'boolean', nullable: true },
 //     expired: { type: 'boolean', nullable: true },
 //   },
 //   required: ['id', 'feedUrl', 'items'],
@@ -183,9 +192,9 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         const version = 'https://jsonfeed.org/version/1.1'
         const feedUrl = config.feedUrl
         const category = config.category
-
-        // optional properties from config
-        const isPreview = config.isPreview
+        // only display blog in preview unless dateIndexed is set
+        const dateIndexed = config.dateIndexed
+        const issn = config.issn
 
         let homePageUrl = []
           .concat(get(feedData, 'link', null))
@@ -254,9 +263,10 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           description,
           favicon,
           language,
+          dateIndexed,
           dateModified,
           license,
-          isPreview,
+          issn,
         }
       },
       getExtraEntryFields: (feedEntry) => {
@@ -276,11 +286,15 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           get(feedEntry, 'guid.#text', null) ||
           get(feedEntry, 'id', null)
 
-        let url = []
-          .concat(get(feedEntry, 'link', null))
-          .find((link) => get(link, '@_rel', null) === 'alternate')
+        let url = get(feedEntry, 'link', null)
 
-        url = get(url, '@_href', null) || get(feedEntry, 'link', null)
+        if (isArray(url)) {
+          url = url.find((link) => get(link, '@_rel', null) === 'alternate')
+          url = get(url, '@_href', null)
+        }
+        if (isObject(url)) {
+          url = get(url, '@_href', null)
+        }
 
         const tags = []
           .concat(get(feedEntry, 'category', []))
@@ -331,7 +345,9 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
       //     }
       //   }
       // }
-      // rename obsolete keys
+      // remove obsolete keys
+      entry = omit(entry, ['link'])
+      // rename keys
       return mapKeys(entry, function (_, key) {
         return get(itemKeys, key, key)
       })

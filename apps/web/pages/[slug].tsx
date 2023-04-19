@@ -71,7 +71,7 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
         />
       </Head>
       <Header />
-      <div className={blog.isPreview ? 'bg-blue-50' : 'bg-white'}>
+      <div className={blog.dateIndexed ? 'bg-white' : 'bg-blue-50'}>
         <Blog blog={blog} />
         <Posts posts={posts} />
         {blog.homePageUrl && (

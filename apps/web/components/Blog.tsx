@@ -150,7 +150,19 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 <span className="mr-6 ml-2">License not confirmed</span>
               </span>
             )}
-            {blog.isPreview && (
+            {blog.dateIndexed && (
+              <span className="text-gray-500">
+                <FontAwesomeIcon icon="calendar-plus" />
+                <time className="ml-2" dateTime={blog.dateIndexed.toString()}>
+                  {new Date(blog.dateIndexed).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
+              </span>
+            )}
+            {!blog.dateIndexed && (
               <span className="text-orange-600">
                 <FontAwesomeIcon icon="eye-slash" />
                 <span className="ml-2">Preview only</span>

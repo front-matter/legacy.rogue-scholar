@@ -13,7 +13,8 @@ const optionalKeys = [
   'category',
   'favicon',
   'generator',
-  'isPreview',
+  'dateIndexed',
+  'issn',
 ]
 
 export async function getAllConfigs() {
@@ -30,7 +31,7 @@ export async function getAllConfigs() {
       return config
     })
     .filter((config) => {
-      return env != 'production' || !config.isPreview
+      return env != 'production' || config.dateIndexed
     })
 
   return configs
