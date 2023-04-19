@@ -14,6 +14,7 @@ const optionalKeys = [
   'favicon',
   'generator',
   'dateIndexed',
+  'issn',
 ]
 
 export async function getAllConfigs() {

@@ -4,6 +4,7 @@ blog {
   feedUrl       = "https://blog.front-matter.io/atom/"
   favicon       = "https://blog.front-matter.io/favicon.png"
   dateIndexed   = "2023-01-02"
+  issn          = "2749-9952"
 }
 
 blog {
@@ -72,6 +73,7 @@ blog {
   category      = "Natural Sciences"
   feedUrl       = "https://iphylo.blogspot.com/feeds/posts/default?alt=rss"
   dateIndexed   = "2023-02-06"
+  issn          = "2051-8188"
 }
 
 blog {

@@ -1,6 +1,14 @@
 import { extract, FeedData } from '@extractus/feed-extractor'
 // import Ajv, { DefinedError, JSONSchemaType } from 'ajv'
-import { capitalize, get, isObject, mapKeys, omit, snakeCase } from 'lodash'
+import {
+  capitalize,
+  get,
+  isArray,
+  isObject,
+  mapKeys,
+  omit,
+  snakeCase,
+} from 'lodash'
 
 // const archiver = require('archiver')
 import { getAllConfigs } from '../blogs'
@@ -30,6 +38,7 @@ export interface PostType {
   contentText?: string
   tags?: string[]
   language?: string
+  issn?: string
 }
 
 export interface BlogType
@@ -185,6 +194,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         const category = config.category
         // only display blog in preview unless dateIndexed is set
         const dateIndexed = config.dateIndexed
+        const issn = config.issn
 
         let homePageUrl = []
           .concat(get(feedData, 'link', null))
@@ -256,6 +266,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           dateIndexed,
           dateModified,
           license,
+          issn,
         }
       },
       getExtraEntryFields: (feedEntry) => {
@@ -275,11 +286,15 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           get(feedEntry, 'guid.#text', null) ||
           get(feedEntry, 'id', null)
 
-        let url = []
-          .concat(get(feedEntry, 'link', null))
-          .find((link) => get(link, '@_rel', null) === 'alternate')
+        let url = get(feedEntry, 'link', null)
 
-        url = get(url, '@_href', null) || get(feedEntry, 'link', null)
+        if (isArray(url)) {
+          url = url.find((link) => get(link, '@_rel', null) === 'alternate')
+          url = get(url, '@_href', null)
+        }
+        if (isObject(url)) {
+          url = get(url, '@_href', null)
+        }
 
         const tags = []
           .concat(get(feedEntry, 'category', []))
@@ -330,7 +345,9 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
       //     }
       //   }
       // }
-      // rename obsolete keys
+      // remove obsolete keys
+      entry = omit(entry, ['link'])
+      // rename keys
       return mapKeys(entry, function (_, key) {
         return get(itemKeys, key, key)
       })
