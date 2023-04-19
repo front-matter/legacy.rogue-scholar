@@ -200,6 +200,7 @@ blog {
   category      = "Engineering and Technology"
   feedUrl       = "https://opencitations.hypotheses.org/feed/atom/"
   favicon       = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
+  dateIndexed   = "2023-04-19"
 }
 
 blog {
