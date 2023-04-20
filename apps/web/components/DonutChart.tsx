@@ -4,7 +4,7 @@ import { VisualizationSpec } from 'vega-embed'
 // import { compactNumbers } from '../utils/helpers'
 import useWindowDimensions from '../utils/useWindowDimensions'
 
-interface ChartRecord {
+type ChartRecord = {
   title: string
   count: number
 }

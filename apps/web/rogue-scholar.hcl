@@ -398,3 +398,10 @@ blog {
 //   feedUrl          = "https://lab.sub.uni-goettingen.de/atom.xml"
 //   category         = "Engineering and Technology"
 // }
+
+blog {
+  id               = "qv9gt10"
+  feedUrl          = "https://force11.org/feed/atom/"
+  category         = "Social Sciences"
+  hasLicense       = false
+}
