@@ -74,7 +74,11 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                       {post.id && isDoi(post.id) && (
                         <span>
                           •{' '}
-                          <Link href={post.id} target="_blank">
+                          <Link
+                            data-doi={post.id}
+                            href={post.id}
+                            target="_blank"
+                          >
                             {post.id}
                           </Link>
                         </span>
