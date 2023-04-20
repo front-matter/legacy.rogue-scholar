@@ -408,7 +408,7 @@ blog {
 
 blog {
   id               = "vr35524"
-  feedUrl          = "https://ropensci.org/rbloggers/index.json"
+  feedUrl          = "https://ropensci.org/rbloggers/index.xml"
   category         = "Engineering and Technology"
   hasLicense       = false
 }
