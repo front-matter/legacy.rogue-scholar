@@ -135,13 +135,13 @@ blog {
 //   dateIndexed   = "2023-01-05"
 // }
 
-// blog {
-//   id            = "4tzex21"
-//   category      = "Social Sciences"
-//   feedUrl       = "https://medium.com/feed/@rubinpsyc"
-//   favicon       = "https://cdn-images-1.medium.com/fit/c/150/150/0*uCUPpslzlmB4BHIe.jpg"
-//   dateIndexed   = "2023-02-01"
-// }
+blog {
+  id            = "4tzex21"
+  category      = "Social Sciences"
+  feedUrl       = "https://medium.com/feed/@rubinpsyc"
+  favicon       = "https://cdn-images-1.medium.com/fit/c/150/150/0*uCUPpslzlmB4BHIe.jpg"
+  dateIndexed   = "2023-02-01"
+}
 
 blog {
   id            = "ak4s224"
