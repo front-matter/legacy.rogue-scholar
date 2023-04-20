@@ -265,7 +265,7 @@ blog {
   id            = "7gyq558"
   feedUrl       = "https://tarleb.com/index.xml"
   category      = "Engineering and Technology"
-  hasLicense    = false
+  dateIndexed   = "2023-04-20"
 }
 
 blog {
@@ -392,3 +392,9 @@ blog {
   feedUrl          = "https://www.researchsoft.org/blog/index.xml"
   category         = "Engineering and Technology"
 }
+
+// blog {
+//   id               = "6hezn63"
+//   feedUrl          = "https://lab.sub.uni-goettingen.de/atom.xml"
+//   category         = "Engineering and Technology"
+// }
