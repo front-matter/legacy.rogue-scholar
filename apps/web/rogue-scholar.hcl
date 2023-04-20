@@ -405,3 +405,10 @@ blog {
   category         = "Social Sciences"
   hasLicense       = false
 }
+
+blog {
+  id               = "vr35524"
+  feedUrl          = "https://ropensci.org/rbloggers/index.json"
+  category         = "Engineering and Technology"
+  hasLicense       = false
+}
