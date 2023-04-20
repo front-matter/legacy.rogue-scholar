@@ -393,8 +393,8 @@ blog {
   category         = "Engineering and Technology"
 }
 
-blog {
-  id               = "6hezn63"
-  feedUrl          = "https://lab.sub.uni-goettingen.de/atom.xml"
-  category         = "Engineering and Technology"
-}
+// blog {
+//   id               = "6hezn63"
+//   feedUrl          = "https://lab.sub.uni-goettingen.de/atom.xml"
+//   category         = "Engineering and Technology"
+// }
