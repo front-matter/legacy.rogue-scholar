@@ -265,7 +265,7 @@ blog {
   id            = "7gyq558"
   feedUrl       = "https://tarleb.com/index.xml"
   category      = "Engineering and Technology"
-  hasLicense    = false
+  dateIndexed   = "2023-04-20"
 }
 
 blog {
