@@ -50,7 +50,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
           <div className="relative flex items-center gap-x-12">
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                {blog.title}
+                {parse(String(blog.title))}
               </h2>
             </div>
             {blog.favicon && (

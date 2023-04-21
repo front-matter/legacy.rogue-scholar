@@ -391,9 +391,10 @@ blog {
 
 blog {
   id               = "y3h0g22"
-  title            = "Research Software Alliance"
+  title            = "Blog on Research Software Alliance"
   feedUrl          = "https://www.researchsoft.org/blog/index.xml"
   category         = "Engineering and Technology"
+  baseUrl          = "https://www.researchsoft.org"
   // dateIndexed      = "2023-04-21"
 }
 

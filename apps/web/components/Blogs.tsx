@@ -1,4 +1,5 @@
 import { Icon } from '@iconify/react'
+import parse from 'html-react-parser'
 import Link from 'next/link'
 import { BlogType } from 'pages/api/blogs/[slug]'
 
@@ -76,7 +77,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                           href={'/' + blog.id}
                           className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
                         >
-                          {blog.title}
+                          {parse(String(blog.title))}
                         </Link>
                       </h3>
                     </div>

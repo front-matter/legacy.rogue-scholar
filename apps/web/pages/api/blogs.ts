@@ -6,6 +6,7 @@ import path from 'path'
 import { getSingleBlog } from './blogs/[slug]'
 
 const optionalKeys = [
+  'baseUrl',
   'title',
   'description',
   'language',

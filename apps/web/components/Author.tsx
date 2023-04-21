@@ -17,7 +17,7 @@ export const Author: React.FunctionComponent<Props> = ({
     <>
       {url ? (
         <span>
-          <Link href={url} className="text-gray-500">
+          <Link href={url} className="whitespace-nowrap text-gray-500">
             {name}
             <Icon
               icon="fa-brands:orcid"
@@ -27,7 +27,7 @@ export const Author: React.FunctionComponent<Props> = ({
           {isLast ? '' : ', '}
         </span>
       ) : (
-        <span className="text-gray-500">
+        <span className="whitespace-nowrap text-gray-500">
           {name}
           {isLast ? '' : ', '}
         </span>

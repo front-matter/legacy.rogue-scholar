@@ -3,7 +3,7 @@ import parse from 'html-react-parser'
 import Link from 'next/link'
 import { isDoi, PostType } from 'pages/api/blogs/[slug]'
 
-import { Author } from '../components/Author'
+import { Byline } from '../components/Byline'
 
 type Props = {
   posts: PostType[]
@@ -70,37 +70,10 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                         <Link href={post.url}>{post.title}</Link>
                       </h3>
                     )}
-                    <div className="text-small text-gray-500">
-                      {post.authors && post.authors.length > 0 && (
-                        <div>
-                          {post.authors.map((author, index) => (
-                            <Author
-                              key={author.name}
-                              name={author.name}
-                              url={author.url}
-                              isLast={
-                                index ===
-                                (post.authors && post.authors.length - 1)
-                              }
-                            />
-                          ))}
-                        </div>
-                      )}
-                      {post.datePublished && (
-                        <div>
-                          <time dateTime={post.datePublished.toString()}>
-                            {new Date(post.datePublished).toLocaleDateString(
-                              'en-US',
-                              {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric',
-                              }
-                            )}
-                          </time>
-                        </div>
-                      )}
-                    </div>
+                    <Byline
+                      authors={post.authors}
+                      datePublished={post.datePublished}
+                    />
                     {post.summary && (
                       <p className="text-medium mt-2 leading-6 text-gray-900">
                         {parse(String(post.summary))}

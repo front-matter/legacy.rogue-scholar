@@ -49,6 +49,7 @@ export interface BlogType
   category?: string
   description?: string
   language?: string
+  baseUrl?: string
   homePageUrl?: string
   feedUrl?: string
   icon?: string
@@ -204,6 +205,12 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         // only display blog in preview unless dateIndexed is set
         const dateIndexed = config.dateIndexed
         const issn = config.issn
+        const baseUrl = config.baseUrl
+        const title = (
+          config.title ||
+          get(feedData, 'title.#text', null) ||
+          get(feedData, 'title', null)
+        ).trim()
 
         let homePageUrl = []
           .concat(get(feedData, 'link', null))
@@ -213,6 +220,9 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           config.homePageUrl ||
           get(homePageUrl, '@_href', null) ||
           get(feedData, 'link', null)
+        if (baseUrl !== null && homePageUrl !== null) {
+          homePageUrl = baseUrl + homePageUrl
+        }
         let feedFormat = []
           .concat(get(feedData, 'link', null))
           .find((link) => get(link, '@_rel', null) === 'self')
@@ -267,6 +277,8 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           version,
           feedUrl,
           category,
+          title,
+          baseUrl,
           homePageUrl,
           feedFormat,
           generator,
@@ -359,6 +371,10 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
       // }
       // remove obsolete keys
       entry = omit(entry, ['link'])
+      if (blog.baseUrl) {
+        entry.id = blog.baseUrl + entry.id
+        entry.url = blog.baseUrl + entry.url
+      }
       // rename keys
       return mapKeys(entry, function (_, key) {
         return get(itemKeys, key, key)
@@ -366,7 +382,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
     })
   }
 
-  blog = omit(blog, ['entries', 'published', 'link'])
+  blog = omit(blog, ['entries', 'published', 'link', 'baseUrl'])
 
   // validate blog against JSON Schema
   // if (!validateBlog(blog)) {
