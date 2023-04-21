@@ -1,4 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import { BlogType } from 'pages/api/blogs/[slug]'
 
@@ -105,10 +105,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         target="_blank"
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
-                        <FontAwesomeIcon
-                          icon="house"
-                          className="text-gray-500"
-                        />
+                        <Icon icon="fa6-solid:house" className="inline" />
                         Home Page
                       </Link>
                     </div>
@@ -119,10 +116,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                           target="_blank"
                           className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                         >
-                          <FontAwesomeIcon
-                            icon="rss"
-                            className="text-gray-500"
-                          />
+                          <Icon icon="fa6-solid:rss" className="inline" />
                           {feedFormats[blog.feedFormat] + ' Feed'}
                         </Link>
                       </div>

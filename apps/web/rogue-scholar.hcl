@@ -378,6 +378,7 @@ blog {
   id               = "468ap65"
   feedUrl          = "https://ulirockenbauch.blog/feed/atom/"
   category         = "Social Sciences"
+  dateIndexed      = "2023-04-21"
 }
 
 blog {

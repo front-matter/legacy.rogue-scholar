@@ -1,29 +1,5 @@
 import 'focus-visible'
 import '../styles/tailwind.css'
-import '@fortawesome/fontawesome-svg-core/styles.css'
-
-import { config, library } from '@fortawesome/fontawesome-svg-core'
-config.autoAddCss = false
-
-import {
-  faCreativeCommons,
-  faCreativeCommonsBy,
-  faDiscord,
-  faGithub,
-  faMastodon,
-  faOrcid,
-} from '@fortawesome/free-brands-svg-icons'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-library.add(
-  faOrcid,
-  faGithub,
-  faMastodon,
-  faDiscord,
-  faCreativeCommons,
-  faCreativeCommonsBy,
-  fas
-)
-config.autoAddCss = false
 
 import { Analytics } from '@vercel/analytics/react'
 import { Inter } from 'next/font/google'

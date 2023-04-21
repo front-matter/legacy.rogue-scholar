@@ -1,3 +1,4 @@
+import { Icon } from '@iconify/react'
 import parse from 'html-react-parser'
 import Link from 'next/link'
 import { isDoi, PostType } from 'pages/api/blogs/[slug]'
@@ -53,52 +54,53 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                     </div>
                   )}
                   <div className="group relative max-w-3xl">
-                    {post.url && (
+                    {post.id && isDoi(post.id) && (
+                      <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                        <Link href={post.id}>
+                          {post.title}
+                          <Icon
+                            icon="academicons:doi"
+                            className="ml-0.5 inline text-base text-[#f0b941]"
+                          />
+                        </Link>
+                      </h3>
+                    )}
+                    {post.url && !isDoi(post.id) && (
                       <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                         <Link href={post.url}>{post.title}</Link>
                       </h3>
                     )}
-                    <div className="text-small mt-1 flex items-center gap-x-1 text-gray-500">
-                      {post.datePublished && (
-                        <time dateTime={post.datePublished.toString()}>
-                          {new Date(post.datePublished).toLocaleDateString(
-                            'en-US',
-                            {
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                            }
-                          )}
-                        </time>
+                    <div className="text-small text-gray-500">
+                      {post.authors && post.authors.length > 0 && (
+                        <div>
+                          {post.authors.map((author, index) => (
+                            <Author
+                              key={author.name}
+                              name={author.name}
+                              url={author.url}
+                              isLast={
+                                index ===
+                                (post.authors && post.authors.length - 1)
+                              }
+                            />
+                          ))}
+                        </div>
                       )}
-                      {post.id && isDoi(post.id) && (
-                        <span>
-                          •{' '}
-                          <Link
-                            data-doi={post.id}
-                            href={post.id}
-                            target="_blank"
-                          >
-                            {post.id}
-                          </Link>
-                        </span>
+                      {post.datePublished && (
+                        <div>
+                          <time dateTime={post.datePublished.toString()}>
+                            {new Date(post.datePublished).toLocaleDateString(
+                              'en-US',
+                              {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                              }
+                            )}
+                          </time>
+                        </div>
                       )}
                     </div>
-                    {post.authors && post.authors.length > 0 && (
-                      <span>
-                        {post.authors.map((author, index) => (
-                          <Author
-                            key={author.name}
-                            name={author.name}
-                            url={author.url}
-                            isLast={
-                              index ===
-                              (post.authors && post.authors.length - 1)
-                            }
-                          />
-                        ))}
-                      </span>
-                    )}
                     {post.summary && (
                       <p className="text-medium mt-2 leading-6 text-gray-900">
                         {parse(String(post.summary))}

@@ -1,4 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Icon } from '@iconify/react'
 import parse from 'html-react-parser'
 import Link from 'next/link'
 import { BlogType } from 'pages/api/blogs/[slug]'
@@ -85,7 +85,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 target="_blank"
                 className="relative mr-6 w-0 py-2 text-base font-medium"
               >
-                <FontAwesomeIcon icon="house" />
+                <Icon icon="fa6-solid:house" className="inline" />
                 <span className="ml-2">Home Page</span>
               </Link>
             </span>
@@ -96,7 +96,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                   target="_blank"
                   className="relative mr-6 w-0 py-2 text-base font-medium"
                 >
-                  <FontAwesomeIcon icon="rss" />
+                  <Icon icon="fa6-solid:rss" className="inline" />
                   <span className="ml-2">
                     {feedFormats[blog.feedFormat] + ' Feed'}
                   </span>
@@ -109,7 +109,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 target="_blank"
                 className="relative mr-6 w-0 py-2 text-base font-medium"
               >
-                <FontAwesomeIcon icon="square-rss" />
+                <Icon icon="fa6-solid:square-rss" className="inline" />
                 <span className="ml-2">JSON Feed</span>
               </Link>
             </span>
@@ -120,7 +120,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                   target="_blank"
                   className="relative mr-6 py-2 text-base font-medium text-gray-500"
                 >
-                  <FontAwesomeIcon icon="rocket" />
+                  <Icon icon="fa6-solid:rocket" className="inline" />
                   <span className="ml-2">{generator}</span>
                 </Link>
               </span>
@@ -132,13 +132,13 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                   target="_blank"
                   className="relative mr-6 py-2 text-base font-medium"
                 >
-                  <FontAwesomeIcon
-                    icon={['fab', 'creative-commons']}
-                    className="font-bold"
+                  <Icon
+                    icon="fa6-brands:creative-commons"
+                    className="inline font-bold"
                   />
-                  <FontAwesomeIcon
-                    icon={['fab', 'creative-commons-by']}
-                    className="ml-0.5 font-bold"
+                  <Icon
+                    icon="fa6-brands:creative-commons-by"
+                    className="ml-0.5 inline font-bold"
                   />
                   <span className="ml-2">License</span>
                 </Link>
@@ -146,13 +146,13 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             )}
             {!blog.license && (
               <span className="text-orange-600">
-                <FontAwesomeIcon icon="copyright" />
+                <Icon icon="fa-solid:copyright" className="inline" />
                 <span className="mr-6 ml-2">License not confirmed</span>
               </span>
             )}
             {blog.dateIndexed && (
               <span className="text-gray-500">
-                <FontAwesomeIcon icon="calendar-plus" />
+                <Icon icon="fa6-regular:calendar-plus" className="inline" />
                 <time className="ml-2" dateTime={blog.dateIndexed.toString()}>
                   {new Date(blog.dateIndexed).toLocaleDateString('en-US', {
                     year: 'numeric',
@@ -164,7 +164,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             )}
             {!blog.dateIndexed && (
               <span className="text-orange-600">
-                <FontAwesomeIcon icon="eye-slash" />
+                <Icon icon="fa6-solid:eye-slash" className="inline" />
                 <span className="ml-2">Preview only</span>
               </span>
             )}

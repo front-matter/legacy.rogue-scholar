@@ -11,12 +11,6 @@
   "dependencies": {
     "@extractus/feed-extractor": "^6.2.1",
     "@formatjs/intl-numberformat": "^8.3.5",
-    "@fortawesome/fontawesome-free": "^6.4.0",
-    "@fortawesome/fontawesome-svg-core": "^6.4.0",
-    "@fortawesome/free-brands-svg-icons": "^6.4.0",
-    "@fortawesome/free-regular-svg-icons": "^6.4.0",
-    "@fortawesome/free-solid-svg-icons": "^6.4.0",
-    "@fortawesome/react-fontawesome": "^0.2.0",
     "@headlessui/react": "^1.7.2",
     "@humanwhocodes/number-to-words": "^1.0.0",
     "@tailwindcss/forms": "^0.5.3",
@@ -57,6 +51,7 @@
     "vega-lite": "^5.6.1"
   },
   "devDependencies": {
+    "@iconify/react": "^4.1.0",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "eslint": "8.26.0",

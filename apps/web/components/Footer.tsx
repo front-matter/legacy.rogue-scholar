@@ -1,11 +1,11 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Icon } from '@iconify/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 
 import { Container } from '../components/Container'
 import { NavLink } from '../components/NavLink'
-import Icon from '../images/icon.png'
+import MyIcon from '../images/icon.png'
 
 export function Footer() {
   const { t } = useTranslation('components')
@@ -15,7 +15,7 @@ export function Footer() {
       <Container className="relative">
         <div className="py-8">
           <div className="flex justify-center text-2xl font-semibold text-blue-600">
-            <Image src={Icon} alt="Icon" width={18} className="mr-2" /> The
+            <Image src={MyIcon} alt="Icon" width={18} className="mr-2" /> The
             Rogue Scholar
           </div>
           <nav className="mt-10 text-sm" aria-label="quick links">
@@ -40,28 +40,28 @@ export function Footer() {
               className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">Mail</span>
-              <FontAwesomeIcon icon="envelope" />
+              <Icon icon="fa6-solid:envelope" className="inline" />
             </Link>
             <Link
               href="https://discord.gg/HvbD4dNPFh"
               className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">Discord</span>
-              <FontAwesomeIcon icon={['fab', 'discord']} />
+              <Icon icon="fa6-brands:discord" className="inline" />
             </Link>
             <Link
               href="https://hachyderm.io/..mfenner"
               className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">Mastodon</span>
-              <FontAwesomeIcon icon={['fab', 'mastodon']} />
+              <Icon icon="fa6-brands:mastodon" className="inline" />
             </Link>
             <Link
               href="https://github.com/front-matter/rogue-scholar"
               className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
             >
               <span className="sr-only">GitHub</span>
-              <FontAwesomeIcon icon={['fab', 'github']} />
+              <Icon icon="fa6-brands:github" className="inline" />
             </Link>
           </div>
           <p className="mt-6 text-sm text-slate-500 sm:mt-0">

@@ -1,4 +1,4 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Icon } from '@iconify/react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -18,7 +18,11 @@ export const Author: React.FunctionComponent<Props> = ({
       {url ? (
         <span>
           <Link href={url} className="text-gray-500">
-            <FontAwesomeIcon icon={['fab', 'orcid']} /> {name}
+            {name}
+            <Icon
+              icon="fa-brands:orcid"
+              className="ml-0.5 inline text-[#a6ce39]"
+            />
           </Link>
           {isLast ? '' : ', '}
         </span>
