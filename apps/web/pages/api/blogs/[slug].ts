@@ -114,6 +114,15 @@ export interface BlogType
 // const validateBlog = ajv.compile(blogSchema)
 // const validatePost = ajv.compile(postSchema)
 
+// from @extractus/feed-extractor
+const toISODateString = (dstr) => {
+  try {
+    return dstr ? new Date(dstr).toISOString().split('.')[0] + 'Z' : null
+  } catch (err) {
+    return ''
+  }
+}
+
 export const isDoi = (doi: string) => {
   try {
     return new URL(doi).hostname === 'doi.org'
@@ -244,13 +253,14 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           get(feedData, 'rights.#text', null) || config.hasLicense === false
             ? null
             : 'https://creativecommons.org/licenses/by/4.0/legalcode'
-        const dateModified =
+        const dateModified = toISODateString(
           get(feedData, 'pubDate', null) ||
-          get(feedData, 'lastBuildDate', null) ||
-          get(feedData, 'updated', null) ||
-          get(feedData, 'modified', null) ||
-          get(feedData, 'published', null) ||
-          get(feedData, 'issued', null)
+            get(feedData, 'lastBuildDate', null) ||
+            get(feedData, 'updated', null) ||
+            get(feedData, 'modified', null) ||
+            get(feedData, 'published', null) ||
+            get(feedData, 'issued', null)
+        )
 
         return {
           id,
@@ -284,7 +294,8 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         const id =
           get(feedEntry, 'id.#text', null) ||
           get(feedEntry, 'guid.#text', null) ||
-          get(feedEntry, 'id', null)
+          get(feedEntry, 'id', null) ||
+          get(feedEntry, 'guid', null)
 
         let url = get(feedEntry, 'link', null)
 
@@ -306,9 +317,10 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
           get(feedEntry, 'media:content.@_url', null) ||
           get(feedEntry, 'enclosure.@_url', null)
         const thumbnail = get(feedEntry, 'media:thumbnail.@_url', null)
-        const datePublished =
+        const datePublished = toISODateString(
           get(feedEntry, 'pubDate', null) || get(feedEntry, 'published', null)
-        const dateModified = get(feedEntry, 'updated', null)
+        )
+        const dateModified = toISODateString(get(feedEntry, 'updated', null))
         const contentHtml =
           get(feedEntry, 'content:encoded', null) ||
           get(feedEntry, 'content.#text', null) ||
