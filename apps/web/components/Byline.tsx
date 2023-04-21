@@ -8,8 +8,8 @@ type Author = {
 }
 
 type Props = {
-  authors: Author[]
-  datePublished: Date
+  authors?: Author[]
+  datePublished?: string
 }
 
 export const Byline: React.FunctionComponent<Props> = ({
