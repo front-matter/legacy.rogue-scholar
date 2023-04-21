@@ -273,6 +273,7 @@ blog {
   feedUrl       = "https://verfassungsblog.de/feed/atom/"
   category      = "Social Sciences"
   hasLicense    = false
+  issn          = "2366-7044"
 }
 
 blog {

@@ -65,7 +65,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                         </Link>
                       </h3>
                     )}
-                    {post.url && !isDoi(post.id) && (
+                    {post.url && post.id && !isDoi(post.id) && (
                       <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                         <Link href={post.url}>{post.title}</Link>
                       </h3>
