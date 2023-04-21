@@ -395,7 +395,7 @@ blog {
   feedUrl          = "https://www.researchsoft.org/blog/index.xml"
   category         = "Engineering and Technology"
   baseUrl          = "https://www.researchsoft.org"
-  // dateIndexed      = "2023-04-21"
+  dateIndexed      = "2023-04-21"
 }
 
 // blog {
