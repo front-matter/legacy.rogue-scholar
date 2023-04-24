@@ -418,3 +418,9 @@ blog {
   category         = "Engineering and Technology"
   hasLicense       = false
 }
+
+blog {
+  id               = "8nw8q80"
+  feedUrl          = "https://subugoe.github.io/scholcomm_analytics/index.xml"
+  category         = "Engineering and Technology"
+}
