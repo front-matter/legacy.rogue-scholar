@@ -15,6 +15,7 @@ export const generators = {
   Blogger: 'https://www.blogger.com/',
   Medium: 'https://medium.com/',
   Quarto: 'https://quarto.org/',
+  Distill: 'https://rstudio.github.io/distill/'
 }
 
 export const languages = {
