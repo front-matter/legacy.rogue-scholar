@@ -398,11 +398,11 @@ blog {
   dateIndexed      = "2023-04-21"
 }
 
-// blog {
-//   id               = "6hezn63"
-//   feedUrl          = "https://lab.sub.uni-goettingen.de/atom.xml"
-//   category         = "Engineering and Technology"
-// }
+blog {
+  id               = "6hezn63"
+  feedUrl          = "https://lab.sub.uni-goettingen.de/atom.xml"
+  category         = "Engineering and Technology"
+}
 
 blog {
   id               = "qv9gt10"
