@@ -402,6 +402,7 @@ blog {
   id               = "6hezn63"
   feedUrl          = "https://lab.sub.uni-goettingen.de/atom.xml"
   category         = "Engineering and Technology"
+  dateIndexed      = "2023-04-24"
 }
 
 blog {
