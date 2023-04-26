@@ -219,7 +219,9 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         homePageUrl =
           config.homePageUrl ||
           get(homePageUrl, '@_href', null) ||
+          get(feedData, 'id', null) ||
           get(feedData, 'link', null)
+
         if (baseUrl !== null && homePageUrl !== null) {
           homePageUrl = baseUrl + homePageUrl
         }
@@ -229,8 +231,11 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
 
         feedFormat =
           get(feedFormat, '@_type', null) ||
-          get(feedData, 'atom:link.@_type', null) ||
-          'application/rss+xml'
+          get(feedData, '@_xmlns', null) === 'http://www.w3.org/2005/Atom'
+            ? 'application/atom+xml'
+            : null ||
+              get(feedData, 'atom:link.@_type', null) ||
+              'application/rss+xml'
 
         let generator = get(feedData, 'generator', null) || config.generator
 
