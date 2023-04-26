@@ -352,7 +352,7 @@ blog {
   id               = "prmb582"
   feedUrl          = "https://citationstyles.org/feed.xml"
   category         = "Engineering and Technology"
-  hasLicense       = false
+  dateIndexed      = "2023-04-25"
 }
 
 blog {
