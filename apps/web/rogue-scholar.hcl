@@ -222,7 +222,7 @@ blog {
   id            = "yzgx124"
   category      = "Social Sciences"
   feedUrl       = "https://www.leidenmadtrics.nl/feed/"
-  hasLicense    = false
+  dateIndexed   = "2023-05-01"
 }
 
 blog {
