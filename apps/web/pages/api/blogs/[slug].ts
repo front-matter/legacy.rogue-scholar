@@ -124,7 +124,7 @@ const toISODateString = (dstr) => {
   }
 }
 
-export const isDoi = (doi: string) => {
+export const isDoi = (doi: any) => {
   try {
     return new URL(doi).hostname === 'doi.org'
   } catch (error) {
@@ -323,6 +323,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         if (isObject(url)) {
           url = get(url, '@_href', null)
         }
+        console.log(url)
 
         const tags = []
           .concat(get(feedEntry, 'category', []))
@@ -375,6 +376,7 @@ export async function getSingleBlog(blogSlug, { includePosts = false } = {}) {
         //     }
         //   }
         // }
+        console.log(entry)
         // remove obsolete keys
         entry = omit(entry, ['link'])
         if (blog.baseUrl) {

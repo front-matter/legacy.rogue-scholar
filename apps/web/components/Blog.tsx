@@ -154,7 +154,10 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             {blog.dateIndexed && (
               <span className="text-gray-500">
                 <Icon icon="fa6-regular:calendar-plus" className="inline" />
-                <time className="ml-2" dateTime={blog.dateIndexed.toString()}>
+                <time
+                  className="mr-6 ml-2"
+                  dateTime={blog.dateIndexed.toString()}
+                >
                   {new Date(blog.dateIndexed).toLocaleDateString('en-US', {
                     year: 'numeric',
                     month: 'long',
@@ -166,7 +169,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             {!blog.dateIndexed && (
               <span className="text-orange-600">
                 <Icon icon="fa6-solid:eye-slash" className="inline" />
-                <span className="ml-2">Preview only</span>
+                <span className="mr-6 ml-2">Preview only</span>
               </span>
             )}
           </div>
