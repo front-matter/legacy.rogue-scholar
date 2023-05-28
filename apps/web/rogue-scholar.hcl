@@ -268,13 +268,13 @@ blog {
   dateIndexed   = "2023-04-20"
 }
 
-blog {
-  id            = "187q468"
-  feedUrl       = "https://verfassungsblog.de/feed/atom/"
-  category      = "Social Sciences"
-  hasLicense    = false
-  issn          = "2366-7044"
-}
+// blog {
+//   id            = "187q468"
+//   feedUrl       = "https://verfassungsblog.de/feed/atom/"
+//   category      = "Social Sciences"
+//   hasLicense    = false
+//   issn          = "2366-7044"
+// }
 
 blog {
   id            = "r2hfr67"
@@ -422,5 +422,11 @@ blog {
 blog {
   id               = "8nw8q80"
   feedUrl          = "https://subugoe.github.io/scholcomm_analytics/index.xml"
+  category         = "Engineering and Technology"
+}
+
+blog {
+  id               = "sfkfh60"
+  feedUrl          = "https://medium.com/feed/@kj.garza"
   category         = "Engineering and Technology"
 }
