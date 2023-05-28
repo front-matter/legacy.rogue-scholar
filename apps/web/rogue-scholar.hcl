@@ -314,11 +314,11 @@ blog {
   category         = "Social Sciences"
 }
 
-blog {
-  id               = "az6r062"
-  feedUrl          = "https://blog.trialanderror.org/rss.xml"
-  category         = "Social Sciences"
-}
+// blog {
+//   id               = "az6r062"
+//   feedUrl          = "https://blog.trialanderror.org/rss.xml"
+//   category         = "Social Sciences"
+// }
 
 blog {
   id               = "vayz464"
