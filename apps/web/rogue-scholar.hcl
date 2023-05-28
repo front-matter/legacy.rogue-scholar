@@ -429,4 +429,5 @@ blog {
   id               = "sfkfh60"
   feedUrl          = "https://medium.com/feed/@kj.garza"
   category         = "Engineering and Technology"
+  dateIndexed      = "2023-05-28"
 }
