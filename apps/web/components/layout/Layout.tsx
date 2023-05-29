@@ -11,7 +11,7 @@ export default function Layout({
 }: PropsWithChildren<{
   pageTitle?: string;
 }>) {
-  const title = useMemo(() => `${pageTitle ? `${String(pageTitle)} - ` : ''}supastarter`, [pageTitle]);
+  const title = useMemo(() => `${pageTitle ? `${String(pageTitle)} - ` : ''}Rogue Scholar`, [pageTitle]);
 
   return (
     <>

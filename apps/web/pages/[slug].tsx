@@ -27,7 +27,7 @@ export async function getStaticProps({ ctx, params }) {
   const blog = await getSingleBlog(params.slug, { includePosts: true });
 
   return {
-    props: { ...(await serverSideTranslations(ctx.locale!, ['common', 'home'])), blog: omit(blog, ['posts']), posts: blog.items },
+    props: { blog: omit(blog, ['posts']), posts: blog.items },
   };
 };
 
