@@ -1,0 +1,103 @@
+{
+  "colorMode": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "pageNotFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist."
+  },
+  "userMenu": {
+    "message": "Hello {{user}}!",
+    "signOut": "Sign out",
+    "homepage": "Homepage",
+    "account": "Account"
+  },
+  "signIn": "Sign in",
+  "language": "Language",
+  "pricingPage": "Pricing",
+  "footer": {
+    "allRightsReserved": "All rights reserved"
+  },
+  "menu": {
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "stats": "Stats",
+    "blogs": "Blogs",
+    "docs": "Docs",
+    "usage_stats": "Usage Stats",
+    "dashboard": "Dashboard"
+  },
+  "pricing": {
+    "subscribeButton": "Subscribe",
+    "intervals": {
+      "yearly": "Yearly",
+      "monthly": "Monthly",
+      "month": "month",
+      "year": "year"
+    },
+    "manageButton": "Manage",
+    "mostPopular": "Most popular"
+  },
+  "subscriptionPlans": {
+    "basic": {
+      "name": "Basic",
+      "description": "Get started with your business",
+      "features": {
+        "0": "Feature A",
+        "1": "Feature B",
+        "2": "Feature C"
+      }
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "Extends support for your business",
+      "features": {
+        "0": "Feature A",
+        "1": "Feature B",
+        "2": "Feature C"
+      }
+    },
+    "ultimate": {
+      "name": "Ultimate",
+      "description": "The ultimate bundle for your business",
+      "features": {
+        "0": "Feature A",
+        "1": "Feature B",
+        "2": "Feature C"
+      }
+    }
+  },
+  "subscriptionAlert": {
+    "title": "Your subscription",
+    "manage": "Manage subscription",
+    "text": "Hey {{ userName }}! You are currently subscribed to the {{ planName }} plan. To manage your subscription or upgrade your plan, click the button below."
+  },
+  "common": {
+    "pricingPage": "Pricing",
+    "subscriptionPlans": {
+      "team": {
+        "features": {
+          "0": "Everything in starter",
+          "1": "Archive an unlimited number of posts"
+        }
+      },
+      "starter": {
+        "features": {
+          "0": "Archive up to 50 posts per year",
+          "1": "Register DOIs with metadata",
+          "2": "Full-text search"
+        }
+      },
+      "enterprise": {
+        "features": {
+          "0": "Everything in team",
+          "1": "Archive a blog without active RSS feed",
+          "2": "Support other languages",
+          "3": "Support podcasts and vlogs",
+          "4": "Custom feature development"
+        }
+      }
+    }
+  }
+}

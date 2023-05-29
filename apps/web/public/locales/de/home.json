@@ -1,0 +1,80 @@
+{
+  "dashboardButton": "Dashboard",
+  "documentationButton": "Dokumentation",
+  "features": {
+    "authentication": {
+      "highlights": {
+        "1": "Einsatzbereite Authentifizierung mit Supabase",
+        "2": "E-Mail und Passwort, Magic Link und alle unterstützten OAuth-Anbieter",
+        "3": "Alle Authentifizierungs-Komponenten (Anmeldung, Konto erstellen, Passwort zurücksetzen, Profil) enthalten"
+      },
+      "title": "Authentifizierung"
+    },
+    "customization": {
+      "highlights": {
+        "1": "Alle Komponenten sind vollständig anpassbar",
+        "2": "Unterstützung für den Dark-Mode",
+        "3": "Chakra-UI-Theme ist einfach zu erweitern"
+      },
+      "title": "Vollständig anpassbar"
+    },
+    "dataFetching": {
+      "highlights": {
+        "1": "tanstack-query integriert, um Caching und einfaches Neuladen zu ermöglichen",
+        "2": "Automatisch generierte Types aus dem Supabase-Schema"
+      },
+      "title": "Daten-Abfrage"
+    },
+    "description": "Alles, was Sie zum Erstellen Ihrer nächsten Webanwendung benötigen!",
+    "dx": {
+      "highlights": {
+        "1": "Saubere und skalierbare Anwendungsstruktur",
+        "2": "Typsicherer Code mit Typescript",
+        "3": "ESLint und Prettier integriert"
+      },
+      "title": "Developer Experience"
+    },
+    "i18n": {
+      "highlights": {
+        "1": "next-i18next integriert zur Unterstützung der vollständigen Internationalisierung",
+        "2": "Alle Komponenten sind für die Übersetzung vorbereitet",
+        "3": "Übersetzungs-Flow bereit zur Verwendung mit einem Übersetzungsmanagement-Tool oder in VSCode über i18n-ally"
+      },
+      "title": "Internationalisierung"
+    },
+    "mailTemplates": {
+      "highlights": {
+        "1": "Anpassbare MJML-Vorlagen",
+        "2": "Gebrauchsfertige Vorlagen für alle Supabase-E-Mail-Benachrichtigungen"
+      },
+      "title": "E-Mail-Vorlagen"
+    },
+    "serverless": {
+      "highlights": {
+        "1": "Entwickelt für die Verwendung mit Serverless-Plattformen wie Vercel",
+        "2": "Skalierbar für jeden Anwendungsfall"
+      },
+      "title": "Serverless-Architektur"
+    },
+    "title": "Features"
+  },
+  "hero": {
+    "description": "Bauen Sie mit supastarter, was immer Sie wollen. Wir sind sicher, dass es großartig wird!",
+    "title": "Willkommen zu Ihrer neuen Web-App!"
+  },
+  "signupButton": "Ein Konto erstellen",
+  "pricing": {
+    "description": "Unterstützt alle Arten von Science Blogs, vom persönlichen Blog bis zum Newsletter von Organisationen.",
+    "title": "Einfache Preise für alle"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen"
+  },
+  "statistics": {
+    "description": "Wichtige Zahlen um die eingeschlossenen Blogs zu beschreiben.",
+    "title": "Statistiken",
+    "category": "Kategorie",
+    "language": "Sprache",
+    "platform": "Plattform"
+  }
+}

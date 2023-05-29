@@ -1,0 +1,49 @@
+{
+  "clients": {
+    "createButton": "Kunde hinzufügen",
+    "form": {
+      "add": {
+        "title": "Kunde hinzufügen"
+      },
+      "controls": {
+        "email": "E-Mail",
+        "name": "Name",
+        "phone": "Telefon"
+      },
+      "edit": {
+        "title": "Kunde bearbeiten"
+      },
+      "errorMessage": "Beim Versuch, den Kunden zu speichern, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+      "submitButton": "Kunde speichern",
+      "successMessage": "Der Kunde wurde erfolgreich gespeichert!"
+    },
+    "list": {
+      "columns": {
+        "email": "E-Mail",
+        "name": "Name",
+        "phone": "Telefon"
+      },
+      "delete": "Löschen",
+      "edit": "Bearbeiten",
+      "empty": "Sie haben noch keine Kunden angelegt. Klicken Sie auf den Button oben rechts, um einen neuen hinzuzufügen.",
+      "noResults": "Es wurden keine Kunden gefunden"
+    },
+    "title": "Kunden"
+  },
+  "confirmModal": {
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen"
+  },
+  "dashboard": {
+    "pageDescription": "Dies ist eine private Seite, die nur angemeldete Benutzer sehen können. Hier sehen Sie ein Beispiel für das Kundenmanagement.",
+    "pageTitle": "Dashboard"
+  },
+  "deleteClient": {
+    "errorMessage": "Beim Versuch, den Kunden zu löschen, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "successMessage": "Der Kunde wurde erfolgreich gelöscht."
+  },
+  "deleteClientModal": {
+    "description": "Möchten Sie diesen Kunden wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "title": "Kunde löschen"
+  }
+}

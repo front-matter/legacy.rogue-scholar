@@ -1,22 +1,70 @@
-import 'focus-visible'
-import '../styles/tailwind.css'
+// import theme for prismjs to style code blocks
+import '@/styles/globals.css';
+import 'prismjs/themes/prism-tomorrow.min.css';
 
-import { Analytics } from '@vercel/analytics/react'
-import { Inter } from 'next/font/google'
-import { appWithTranslation } from 'next-i18next'
-import PlausibleProvider from 'next-plausible'
+import { ChakraBaseProvider, createLocalStorageManager } from '@chakra-ui/react';
+import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
+import { Session, SessionContextProvider } from '@supabase/auth-helpers-react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AppProps } from 'next/app';
+import { Inter } from 'next/font/google';
+import { useRouter } from 'next/router';
+import { appWithTranslation, SSRConfig } from 'next-i18next';
+import { useEffect, useState } from 'react';
 
-// If loading a variable font, you don't need to specify the font weight
-const inter = Inter({ subsets: ['latin'] })
+import { customTheme, defaultToastOptions } from '@/chakra-ui.config';
+import ProgressBar from '@/components/layout/ProgressBar';
 
-function MyApp({ Component, pageProps }) {
+// import lexend font with next/font
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+// Create a client
+const queryClient = new QueryClient();
+
+function App({ Component, pageProps }: AppProps<{ initialSession?: Session | null } & SSRConfig>) {
+  const router = useRouter();
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
+  const colorModeManager = createLocalStorageManager('color-mode');
+
+  // redirect to signin page if user is signed out while being on a protected page
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabaseClient.auth.onAuthStateChange((event) => {
+      if (event === 'SIGNED_OUT' && (router.asPath.startsWith('/app') || router.asPath.startsWith('/account')))
+        router.replace('/auth/signin');
+    });
+
+    return () => subscription.unsubscribe();
+  }, [supabaseClient.auth, router.asPath]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
-    <PlausibleProvider domain="rogue-scholar.org">
-      <main className={inter.className}>
-        <Component {...pageProps} />
-        <Analytics />
-      </main>
-    </PlausibleProvider>
-  )
+    <>
+      <style jsx global>{`
+        :root {
+          --font-inter: ${inter.style.fontFamily};
+        }
+      `}</style>
+      <ProgressBar />
+
+      <QueryClientProvider client={queryClient}>
+        <ChakraBaseProvider
+          theme={customTheme}
+          colorModeManager={colorModeManager}
+          toastOptions={{
+            defaultOptions: defaultToastOptions,
+          }}
+        >
+          <SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
+            <Component {...pageProps} />
+          </SessionContextProvider>
+        </ChakraBaseProvider>
+      </QueryClientProvider>
+    </>
+  );
 }
-export default appWithTranslation(MyApp)
+
+export default appWithTranslation(App);

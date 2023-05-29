@@ -1,0 +1,70 @@
+{
+  "colorMode": {
+    "dark": "Dunkel",
+    "light": "Hell"
+  },
+  "pageNotFound": {
+    "title": "Seite nicht gefunden...",
+    "description": "Die angeforderte Seite konnte nicht gefunden werden."
+  },
+  "footer": {
+    "allRightsReserved": "Alle Rechte vorbehalten"
+  },
+  "language": "Sprache",
+  "menu": {
+    "pricing": "Preise",
+    "faq": "Häufig gestellte Fragen",
+    "stats": "Statistiken",
+    "blogs": "Blogs",
+    "docs": "Dokumentation",
+    "usage_stats": "Nutzungsstatistiken",
+    "dashboard": "Dashboard"
+  },
+  "signIn": "Anmelden",
+  "userMenu": {
+    "homepage": "Startseite",
+    "message": "Hallo {{user}}!",
+    "account": "Konto",
+    "signOut": "Abmelden"
+  },
+  "pricing": {
+    "subscribeButton": "Abonnieren",
+    "intervals": {
+      "yearly": "Jährlich",
+      "monthly": "Monatlich",
+      "month": "Monat",
+      "year": "Jahr"
+    },
+    "manageButton": "Verwalten"
+  },
+
+  "subscriptionPlans": {
+    "basic": {
+      "name": "Basic",
+      "description": "Der Start für Ihr Business",
+      "features": {
+        "0": "Funktion A",
+        "1": "Funktion B",
+        "2": "Funktion C"
+      }
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "Erweiterte Funktionen für Ihr Business",
+      "features": {
+        "0": "Funktion A",
+        "1": "Funktion B",
+        "2": "Funktion C"
+      }
+    },
+    "ultimate": {
+      "name": "Ultimate",
+      "description": "Das ultimative Paket für Ihr Business",
+      "features": {
+        "0": "Funktion A",
+        "1": "Funktion B",
+        "2": "Funktion C"
+      }
+    }
+  }
+}

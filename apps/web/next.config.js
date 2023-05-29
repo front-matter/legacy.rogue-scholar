@@ -17,15 +17,6 @@ const nextConfig = {
   experimental: {
     scrollRestoration: true,
   },
-  async redirects() {
-    return [
-      {
-        source: '/blogs/:slug',
-        destination: '/:slug',
-        permanent: true,
-      },
-    ]
-  },
   async headers() {
     return [
       {

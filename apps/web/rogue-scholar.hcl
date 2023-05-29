@@ -234,19 +234,19 @@ blog {
   dateIndexed   = "2023-04-11"
 }
 
-blog {
-  id            = "4bamy94"
-  category      = "Medical and Health Sciences"
-  feedUrl       = "http://blog.europepmc.org/feeds/posts/default"
-  hasLicense    = false
-}
+// blog {
+//   id            = "4bamy94"
+//   category      = "Medical and Health Sciences"
+//   feedUrl       = "http://blog.europepmc.org/feeds/posts/default"
+//   hasLicense    = false
+// }
 
-blog {
-  id            = "hkxgp47"
-  category      = "Engineering and Technology"
-  feedUrl       = "https://www.crossref.org/blog/index.xml"
-  hasLicense    = false
-}
+// blog {
+//   id            = "hkxgp47"
+//   category      = "Engineering and Technology"
+//   feedUrl       = "https://www.crossref.org/blog/index.xml"
+//   hasLicense    = false
+// }
 
 blog {
   id            = "p0b8159"
@@ -398,12 +398,12 @@ blog {
   dateIndexed      = "2023-04-21"
 }
 
-blog {
-  id               = "6hezn63"
-  feedUrl          = "https://lab.sub.uni-goettingen.de/atom.xml"
-  category         = "Engineering and Technology"
-  dateIndexed      = "2023-04-24"
-}
+// blog {
+//   id               = "6hezn63"
+//   feedUrl          = "https://lab.sub.uni-goettingen.de/atom.xml"
+//   category         = "Engineering and Technology"
+//   dateIndexed      = "2023-04-24"
+// }
 
 blog {
   id               = "qv9gt10"

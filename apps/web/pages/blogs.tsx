@@ -1,41 +1,35 @@
-import Head from 'next/head'
-import React from 'react'
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import React from 'react';
 
-import { Blogs } from '../components/Blogs'
-import { Footer } from '../components/Footer'
-import { Header } from '../components/Header'
-import { getAllBlogs } from './api/blogs'
+import { Blogs } from '@/components/common/Blogs';
+import Layout from '@/components/layout/Layout';
 
-export async function getStaticProps() {
-  const blogs = await getAllBlogs()
+import { getAllBlogs } from './api/blogs';
+
+export const getStaticProps: GetStaticProps = async (ctx) => {
+  const blogs = await getAllBlogs();
 
   return {
-    props: { blogs },
-  }
-}
+    props: {
+      ...(await serverSideTranslations(ctx.locale!, ['common', 'home'])),
+      blogs,
+    },
+  };
+};
 
 type Props = {
-  blogs: any
-}
+  blogs: any;
+};
 
 const BlogsPage: React.FunctionComponent<Props> = ({ blogs }) => {
   return (
     <>
-      <Head>
-        <meta name="og:title" content="Rogue Scholar: Blogs" />
-        <meta property="og:site_name" content="Rogue Scholar" />
-        <meta property="og:title" content="Rogue Scholar: Blogs" />
-        <meta
-          property="og:description"
-          content="Rogue Scholar: Listing of included Blogs."
-        />
-        <meta property="og:url" content="https://rogue-scholar.org/blogs" />
-      </Head>
-      <Header />
-      <Blogs blogs={blogs} />
-      <Footer />
+      <Layout>
+        <Blogs blogs={blogs} />
+      </Layout>
     </>
-  )
-}
+  );
+};
 
-export default BlogsPage
+export default BlogsPage;
