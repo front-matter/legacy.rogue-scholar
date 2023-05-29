@@ -13,11 +13,8 @@ export default function Footer() {
   return (
     <footer className="bg-slate-100">
       <Container className="relative">
-        <div className="py-8">
-          <div className="flex justify-center text-2xl font-semibold text-blue-600">
-            <Image src={MyIcon} alt="Icon" width={18} className="mr-2" /> The Rogue Scholar
-          </div>
-          <nav className="mt-10 text-sm" aria-label="quick links">
+        <div className="py-6">
+          <nav className="text-sm" aria-label="quick links">
             <div className="-my-1 flex justify-center gap-x-6">
               <NavLink href="/#pricing">{t('menu.pricing')}</NavLink>
               <NavLink href="/#faq">{t('menu.faq')}</NavLink>
@@ -28,7 +25,7 @@ export default function Footer() {
             </div>
           </nav>
         </div>
-        <div className="flex flex-col items-center border-t border-slate-400/10 py-10 sm:flex-row-reverse sm:justify-between">
+        <div className="flex flex-col items-center border-t border-slate-400/10 py-6 sm:flex-row-reverse sm:justify-between">
           <div className="flex gap-x-6">
             <Link href="mailto:info..front-matter.io" className="border-b-0 text-lg text-gray-500 hover:text-gray-400">
               <span className="sr-only">Mail</span>

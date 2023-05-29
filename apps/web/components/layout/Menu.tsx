@@ -22,16 +22,8 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
       link: '/#faq',
     },
     {
-      label: t('menu.stats'),
-      link: '/#stats',
-    },
-    {
       label: t('menu.blogs'),
       link: '/blogs',
-    },
-    {
-      label: t('menu.docs'),
-      link: 'https://docs.rogue-scholar.org',
     },
   ]
     // add dashboard link only if user is logged in
