@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React from 'react';
 import { jsonLdScriptProps } from 'react-schemaorg';
 import { Blog as BlogSchema } from 'schema-dts';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { getAllConfigs } from '@/pages/api/blogs';
 import { getSingleBlog } from '@/pages/api/blogs/[slug]';
@@ -22,13 +23,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ ctx, params }) {
   const blog = await getSingleBlog(params.slug, { includePosts: true });
 
   return {
-    props: { blog: omit(blog, ['posts']), posts: blog.items },
+    props: { ...(await serverSideTranslations(ctx.locale!, ['common', 'home'])), blog: omit(blog, ['posts']), posts: blog.items },
   };
-}
+};
 
 type Props = {
   blog: BlogType;
