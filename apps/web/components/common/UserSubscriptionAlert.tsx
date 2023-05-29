@@ -2,8 +2,8 @@ import { Alert, Box, Button, Heading, Stack, Text, useColorModeValue, VStack } f
 import { useTranslation } from 'next-i18next';
 import { FaStar } from 'react-icons/fa';
 
-import { useUserName } from '@/lib/client/auth';
-import { useSubscriptionActions, useUserSubscriptions } from '@/lib/client/subscriptions';
+import { useUserName } from '@/lib/blog/auth';
+import { useSubscriptionActions, useUserSubscriptions } from '@/lib/blog/subscriptions';
 
 export default function UserSubscriptionAlert() {
   const { t } = useTranslation('common');

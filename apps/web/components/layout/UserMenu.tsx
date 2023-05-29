@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next';
 import { useCallback } from 'react';
 import { FaSignOutAlt, FaUser } from 'react-icons/fa';
 
-import { useUserName } from '@/lib/client/auth';
+import { useUserName } from '@/lib/blog/auth';
 
 export default function UserMenu() {
   const { t } = useTranslation('common');

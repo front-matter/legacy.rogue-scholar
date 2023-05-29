@@ -21,12 +21,12 @@ import { useForm } from 'react-hook-form';
 
 import { Database } from '@/types/supabase';
 
-export default function ClientFormModal({
-  client,
+export default function BlogFormModal({
+  blog,
   isOpen,
   onClose,
 }: {
-  client: null | any;
+  blog: null | any;
   isOpen: boolean;
   onClose: () => void;
 }) {
@@ -41,49 +41,51 @@ export default function ClientFormModal({
     reset,
     setValue,
     formState: { isSubmitting },
-  } = useForm<{ name: string; email: string; phone: string }>();
+  } = useForm<{ id: string; title: string; feed_url: string; category: string, created_at: string, user_id: string }>();
 
   // when the modal is closed, reset the form
   useEffect(() => {
-    if (!client) {
+    if (!blog) {
       reset();
       return;
     }
 
-    setValue('name', client.name);
-    setValue('email', client.email);
-    setValue('phone', client.phone);
-  }, [client]); // eslint-disable-line react-hooks/exhaustive-deps
+    setValue('id', blog.id);
+    setValue('title', blog.title);
+    setValue('feed_url', blog.feed_url);
+    setValue('category', blog.category);
+    setValue('created_at', blog.created_at);
+  }, [blog]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!isOpen) reset();
   }, [isOpen, reset]);
 
   const upsertMutation = useMutation(
-    async (client: Database['public']['Tables']['clients']['Insert']) => {
-      const { error } = await supabaseClient.from('clients').upsert(client);
+    async (blog: Database['public']['Tables']['blogs']['Insert']) => {
+      const { error } = await supabaseClient.from('blogs').upsert(blog);
 
-      if (error) throw new Error('Could not upsert client');
+      if (error) throw new Error('Could not upsert blog');
     },
     {
       onError: () => {
         toast({
           status: 'error',
           position: 'top',
-          description: t('clients.form.errorMessage'),
+          description: t('blogs.form.errorMessage'),
         });
 
-        throw new Error('Could not upsert client');
+        throw new Error('Could not upsert blog');
       },
       onSuccess: () => {
         toast({
           status: 'success',
           position: 'top',
-          description: t('clients.form.successMessage'),
+          description: t('blogs.form.successMessage'),
         });
 
-        // refetch clients
-        queryClient.invalidateQueries(['clients']);
+        // refetch blogs
+        queryClient.invalidateQueries(['blogs']);
 
         onClose();
       },
@@ -93,7 +95,7 @@ export default function ClientFormModal({
   const onSubmit = handleSubmit(async (values) => {
     await upsertMutation.mutateAsync({
       ...values,
-      id: (client as any)?.id || undefined,
+      id: (blog as any)?.id || undefined,
     });
   });
 
@@ -109,32 +111,44 @@ export default function ClientFormModal({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader bg={headerBg} roundedTop="lg" px={8}>
-          {client ? t('clients.form.edit.title') : t('clients.form.add.title')}
+          {blog ? t('blogs.form.edit.title') : t('blogs.form.add.title')}
         </ModalHeader>
         <ModalCloseButton top={4} right={6} />
         <ModalBody p={8}>
           <form onSubmit={(e) => onSubmit(e).catch(() => {})}>
             <VStack align="stretch" spacing={6}>
-              {/* Name field */}
+              {/* ID field */}
               <FormControl isRequired>
-                <FormLabel>{t('clients.form.controls.name')}</FormLabel>
-                <Input type="text" {...register('name', { required: true })} />
+                <FormLabel>{t('blogs.form.controls.id')}</FormLabel>
+                <Input type="text" {...register('id', { required: true })} />
               </FormControl>
 
-              {/* Email field */}
-              <FormControl isRequired>
-                <FormLabel>{t('clients.form.controls.email')}</FormLabel>
-                <Input type="text" {...register('email', { required: true })} />
+              {/* Title field */}
+              <FormControl>
+                <FormLabel>{t('blogs.form.controls.title')}</FormLabel>
+                <Input type="text" {...register('title', { required: false })} />
               </FormControl>
 
-              {/* Phone field */}
+              {/* Feed URL field */}
               <FormControl isRequired>
-                <FormLabel>{t('clients.form.controls.phone')}</FormLabel>
-                <Input type="text" {...register('phone', { required: true })} />
+                <FormLabel>{t('blogs.form.controls.feed_url')}</FormLabel>
+                <Input type="text" {...register('feed_url', { required: true })} />
+              </FormControl>
+
+              {/* Category field */}
+              <FormControl isRequired>
+                <FormLabel>{t('blogs.form.controls.category')}</FormLabel>
+                <Input type="text" {...register('category', { required: true })} />
+              </FormControl>
+
+              {/* Created_at field */}
+              <FormControl isRequired>
+                <FormLabel>{t('blogs.form.controls.created_at')}</FormLabel>
+                <Input type="text" {...register('created_at', { required: true })} />
               </FormControl>
 
               <Button type="submit" colorScheme="primary" isLoading={isSubmitting}>
-                {t('clients.form.submitButton')}
+                {t('blogs.form.submitButton')}
               </Button>
             </VStack>
           </form>

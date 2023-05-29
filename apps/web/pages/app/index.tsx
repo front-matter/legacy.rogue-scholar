@@ -4,7 +4,7 @@ import { GetStaticProps } from 'next';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import ClientsList from '@/components/app/clients/List';
+import BlogsList from '@/components/app/blogs/List';
 import Loader from '@/components/common/Loader';
 import PageHeader from '@/components/common/PageHeader';
 import Layout from '@/components/layout/Layout';
@@ -21,7 +21,7 @@ function DashboardPage() {
     <Layout pageTitle={t('dashboard.pageTitle')}>
       <PageHeader title={t('dashboard.pageTitle')} description={t('dashboard.pageDescription')} align="start" />
       <Box px={4} py={12}>
-        <Container maxW="5xl">{!user ? <Loader /> : <ClientsList />}</Container>
+        <Container maxW="5xl">{!user ? <Loader /> : <BlogsList />}</Container>
       </Box>
     </Layout>
   );

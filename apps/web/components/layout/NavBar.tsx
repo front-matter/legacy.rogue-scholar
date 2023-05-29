@@ -10,7 +10,7 @@ import Menu from '@/components/layout/Menu';
 import MobileDrawerMenu from '@/components/layout/MobileDrawerMenu';
 import UserMenu from '@/components/layout/UserMenu';
 
-import { useMobileBreakpoint, useScrollTop } from '../../lib/client/layout';
+import { useMobileBreakpoint, useScrollTop } from '../../lib/blog/layout';
 
 export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
   const { t } = useTranslation('common');

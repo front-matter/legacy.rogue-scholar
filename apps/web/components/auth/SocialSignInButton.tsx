@@ -23,7 +23,7 @@ import {
 import { SiNotion } from 'react-icons/si';
 
 import { redirectPath } from '@/config/auth';
-import { useAuthRedirectUrl } from '@/lib/client/auth';
+import { useAuthRedirectUrl } from '@/lib/blog/auth';
 
 export default function SocialSignInButton({
   provider,

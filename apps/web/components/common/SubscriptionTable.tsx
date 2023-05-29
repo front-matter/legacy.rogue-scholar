@@ -5,7 +5,7 @@ import { useState } from 'react';
 import PricingPlanBox from '@/components/common/SubscriptionItem';
 import UserSubscriptionAlert from '@/components/common/UserSubscriptionAlert';
 import { recommendedPlanId } from '@/config/subscriptions';
-import { useSubscriptionPlans, useUserSubscriptions } from '@/lib/client/subscriptions';
+import { useSubscriptionPlans, useUserSubscriptions } from '@/lib/blog/subscriptions';
 
 function SubscriptionTable() {
   const { t } = useTranslation('common');

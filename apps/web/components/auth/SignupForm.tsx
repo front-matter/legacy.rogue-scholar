@@ -22,7 +22,7 @@ import { FaAt, FaEye, FaEyeSlash, FaLock, FaUserAlt } from 'react-icons/fa';
 
 import AuthFormWrapper from '@/components/auth/AuthFormWrapper';
 import { redirectPath } from '@/config/auth';
-import { useAuthRedirectUrl } from '@/lib/client/auth';
+import { useAuthRedirectUrl } from '@/lib/blog/auth';
 
 function SignupForm() {
   const { t } = useTranslation('auth');

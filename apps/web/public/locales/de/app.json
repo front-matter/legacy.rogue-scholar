@@ -1,49 +1,51 @@
 {
-  "clients": {
-    "createButton": "Kunde hinzufügen",
+  "blogs": {
+    "createButton": "Blog hinzufügen",
     "form": {
       "add": {
-        "title": "Kunde hinzufügen"
+        "title": "Blog hinzufügen"
       },
       "controls": {
-        "email": "E-Mail",
-        "name": "Name",
-        "phone": "Telefon"
+        "id": "ID",
+        "title": "Titel",
+        "feed_url": "Feed URL",
+        "category": "Kategorie"
       },
       "edit": {
-        "title": "Kunde bearbeiten"
+        "title": "Blog bearbeiten"
       },
-      "errorMessage": "Beim Versuch, den Kunden zu speichern, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-      "submitButton": "Kunde speichern",
-      "successMessage": "Der Kunde wurde erfolgreich gespeichert!"
+      "errorMessage": "Beim Versuch, das Blog zu speichern, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+      "submitButton": "Blog speichern",
+      "successMessage": "Das Blog wurde erfolgreich gespeichert!"
     },
     "list": {
       "columns": {
-        "email": "E-Mail",
-        "name": "Name",
-        "phone": "Telefon"
+        "id": "ID",
+        "title": "Titel",
+        "feed_url": "Feed URL",
+        "category": "Kategorie"
       },
       "delete": "Löschen",
       "edit": "Bearbeiten",
-      "empty": "Sie haben noch keine Kunden angelegt. Klicken Sie auf den Button oben rechts, um einen neuen hinzuzufügen.",
-      "noResults": "Es wurden keine Kunden gefunden"
+      "empty": "Sie haben noch keine Blogs angelegt. Klicken Sie auf den Button oben rechts, um einen neuen hinzuzufügen.",
+      "noResults": "Es wurden keine Blogs gefunden"
     },
-    "title": "Kunden"
+    "title": "Blogs"
   },
   "confirmModal": {
     "cancel": "Abbrechen",
     "confirm": "Bestätigen"
   },
   "dashboard": {
-    "pageDescription": "Dies ist eine private Seite, die nur angemeldete Benutzer sehen können. Hier sehen Sie ein Beispiel für das Kundenmanagement.",
+    "pageDescription": "Dies ist eine private Seite, die nur angemeldete Benutzer sehen können.",
     "pageTitle": "Dashboard"
   },
-  "deleteClient": {
-    "errorMessage": "Beim Versuch, den Kunden zu löschen, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-    "successMessage": "Der Kunde wurde erfolgreich gelöscht."
+  "deleteBlog": {
+    "errorMessage": "Beim Versuch, das Blog zu löschen, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+    "successMessage": "Das Blog wurde erfolgreich gelöscht."
   },
-  "deleteClientModal": {
-    "description": "Möchten Sie diesen Kunden wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
-    "title": "Kunde löschen"
+  "deleteBlogModal": {
+    "description": "Möchten Sie dieses Blog wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+    "title": "Blog löschen"
   }
 }

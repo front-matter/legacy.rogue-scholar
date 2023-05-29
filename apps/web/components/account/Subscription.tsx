@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 
 import AccountSection from '@/components/account/AccountSection';
 import Loader from '@/components/common/Loader';
-import { useSubscriptionActions, useUserSubscriptions } from '@/lib/client/subscriptions';
+import { useSubscriptionActions, useUserSubscriptions } from '@/lib/blog/subscriptions';
 import { formatPrice } from '@/lib/helpers';
 
 function Subscription() {

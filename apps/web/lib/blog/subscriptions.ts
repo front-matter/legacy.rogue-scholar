@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next';
 import { useCallback, useMemo, useState } from 'react';
 
 import { SubscriptionPlanId } from '@/config/subscriptions';
-import { getStripe } from '@/lib/client/stripe-client';
+import { getStripe } from '@/lib/blog/stripe-client';
 import { SubscriptionPlan } from '@/types/payments';
 import { Database } from '@/types/supabase';
 

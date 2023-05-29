@@ -3,12 +3,13 @@
     "pageTitle": "Dashboard",
     "pageDescription": "This is a private page that only logged in users can see."
   },
-  "clients": {
+  "blogs": {
     "list": {
       "columns": {
-        "name": "Name",
-        "email": "Email",
-        "phone": "Phone"
+        "id": "ID",
+        "title": "Title",
+        "feed_url": "Feed URL",
+        "category": "Category",
       },
       "empty": "You have not created any blogs yet. Click the button at the top right to add one.",
       "noResults": "No blogs found",
@@ -19,9 +20,10 @@
     "createButton": "Add blog",
     "form": {
       "controls": {
-        "name": "Name",
-        "email": "Email",
-        "phone": "Phone"
+        "id": "ID",
+        "title": "Title",
+        "feed_url": "Feed URL",
+        "category": "Category",
       },
       "add": {
         "title": "Add blog"
@@ -39,11 +41,11 @@
     "cancel": "Cancel",
     "confirm": "Confirm"
   },
-  "deleteClientModal": {
+  "deleteBlogModal": {
     "title": "Delete blog",
     "description": "Do you really want to delete this blog? This action cannot be undone."
   },
-  "deleteClient": {
+  "deleteBlog": {
     "errorMessage": "There was an error trying to delete the blog. Please try again.",
     "successMessage": "The blog was deleted successfully."
   },

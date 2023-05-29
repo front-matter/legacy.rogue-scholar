@@ -10,7 +10,7 @@ import Password from '@/components/account/Password';
 import Subscription from '@/components/account/Subscription';
 import EditableText from '@/components/common/EditableText';
 import Layout from '@/components/layout/Layout';
-import { useUserName } from '@/lib/client/auth';
+import { useUserName } from '@/lib/blog/auth';
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   return {

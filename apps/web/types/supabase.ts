@@ -3,30 +3,30 @@ export type Json = string | number | boolean | null | { [key: string]: Json } | 
 export interface Database {
   public: {
     Tables: {
-      clients: {
+      blogs: {
         Row: {
           created_at: string;
-          email: string | null;
+          category: string;
           id: string;
-          name: string;
-          phone: string | null;
+          title: string;
+          feed_url: string;
           user_id: string;
         };
         Insert: {
-          created_at?: string;
-          email?: string | null;
-          id?: string;
-          name: string;
-          phone?: string | null;
-          user_id?: string;
+          created_at: string;
+          category: string;
+          id: string;
+          title: string;
+          feed_url: string;
+          user_id: string;
         };
         Update: {
-          created_at?: string;
-          email?: string | null;
-          id?: string;
-          name?: string;
-          phone?: string | null;
-          user_id?: string;
+          created_at: string;
+          category: string;
+          id: string;
+          title: string;
+          feed_url: string;
+          user_id: string;
         };
       };
       customers: {

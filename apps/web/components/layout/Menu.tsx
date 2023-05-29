@@ -3,7 +3,7 @@ import { useUser } from '@supabase/auth-helpers-react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 
-import { useMobileBreakpoint } from '@/lib/client/layout';
+import { useMobileBreakpoint } from '@/lib/blog/layout';
 
 export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
   const { t } = useTranslation('common');

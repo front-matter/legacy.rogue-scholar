@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 
 import { defaultCurrency, localeCurrencies } from '@/config/i18n';
-import { useSubscriptionActions } from '@/lib/client/subscriptions';
+import { useSubscriptionActions } from '@/lib/blog/subscriptions';
 import { formatPrice } from '@/lib/helpers';
 import { SubscriptionPlan } from '@/types/payments';
 

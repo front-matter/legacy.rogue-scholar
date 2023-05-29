@@ -24,7 +24,7 @@ import AuthFormWrapper from '@/components/auth/AuthFormWrapper';
 import SigninModeSwitch, { SigninMode } from '@/components/auth/SigninModeSwitch';
 import Loader from '@/components/common/Loader';
 import { redirectPath } from '@/config/auth';
-import { useAuthRedirectUrl } from '@/lib/client/auth';
+import { useAuthRedirectUrl } from '@/lib/blog/auth';
 import { invalidateNextRouterCache } from '@/lib/helpers';
 import { Database } from '@/types/supabase';
 

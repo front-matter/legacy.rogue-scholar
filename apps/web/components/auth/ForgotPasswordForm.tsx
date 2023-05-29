@@ -19,7 +19,7 @@ import { useForm } from 'react-hook-form';
 import { FaAt } from 'react-icons/fa';
 
 import AuthFormWrapper from '@/components/auth/AuthFormWrapper';
-import { useAuthRedirectUrl } from '@/lib/client/auth';
+import { useAuthRedirectUrl } from '@/lib/blog/auth';
 
 function ForgotPasswordForm() {
   const supabaseClient = useSupabaseClient();
