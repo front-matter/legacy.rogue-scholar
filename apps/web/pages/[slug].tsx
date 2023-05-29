@@ -23,12 +23,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false };
 };
 
-export async function getStaticProps({ ctx, params }) {
+export async function getStaticProps({ params }) {
   const blog = await getSingleBlog(params.slug, { includePosts: true });
 
-  return {
-    props: { blog: omit(blog, ['posts']), posts: blog.items },
-  };
+  return { props: { ...(await serverSideTranslations('en', ['common', 'app'])), blog, posts: blog.items } };
 };
 
 type Props = {
