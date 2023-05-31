@@ -3,12 +3,19 @@ create table if not exists blogs (
   id text not null,
   title text not null,
   description text,
+  language text,
+  feed_format text,
+  category text,
+  license text,
+  icon text,
+  favicon text,
+  generator text,
   feed_url text,
   homepage_url text,
-  category text,
+  base_url text,
   user_id uuid not null references auth.users DEFAULT auth.uid(),
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null
-  indexed_at timestamp with time zone default timezone('utc'::text, now()) not null
+  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+  indexed_at date
 );
 -- Enable row level security for blogs
 alter table blogs enable row level security;
