@@ -176,7 +176,7 @@ export async function upsertPost(post: PostType, blog_id: string) {
 }
 
 export async function getPosts(blogSlug: string) {
-  let { data, error } = await supabase.from('posts').select(postsSelect).eq('blog_id', blogSlug)
+  let { data, error } = await supabase.from('posts').select(postsSelect).eq('blog_id', blogSlug).order('published_at', { ascending: false })
 
   if (error) {
     console.log(error);
