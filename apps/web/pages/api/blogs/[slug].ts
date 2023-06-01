@@ -92,7 +92,8 @@ export async function getSingleBlog(blogSlug: string) {
 
 export async function generatePosts(feed_url: string, blog_id: string) {
   try {
-    let blog = await extract(feed_url, {
+    let blog = {}
+    blog = await extract(feed_url, {
       getExtraEntryFields: (feedEntry) => {
         // console.log(feedEntry)
         const author = get(feedEntry, 'author', null) || get(feedEntry, 'dc:creator', []);
@@ -153,7 +154,7 @@ export async function generatePosts(feed_url: string, blog_id: string) {
 
 export async function upsertPost(post: PostType, blog_id: string) {
   const { data, error } = await supabaseAdmin.from('posts').upsert({
-    id: post.id,
+    id: isDoi(post.id) ? post.id : null,
     title: post.title,
     description: post.description,
     url: post.url,
