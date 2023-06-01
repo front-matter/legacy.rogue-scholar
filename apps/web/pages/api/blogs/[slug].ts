@@ -186,18 +186,12 @@ export async function getPosts(blogSlug: string) {
     return null;
   }
 
-  let posts: PostType[] = data;
-
-  return posts;
+  return data;
 }
 
 export default async function handler(req, res) {
   let blog = await getSingleBlog(req.query.slug);
   let posts = await getPosts(req.query.slug);
-  const host = req.headers.host;
-  const protocol = req.headers['x-forwarded-proto'] || 'http';
-
-  // blog.id = `${protocol}://${host}/${blog.id}`;
 
   if (blog && posts) {
     blog.items = posts
