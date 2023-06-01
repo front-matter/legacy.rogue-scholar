@@ -12,7 +12,7 @@ type Props = {
 export default function Hero({ blogs }: Props) {
   const { t } = useTranslation('home');
   const blogNumber = numberToWords(blogs.length);
-  const blogsWithIimages = blogs.filter((blog: BlogType) => blog.favicon && blog.dateIndexed);
+  const blogsWithIimages = blogs.filter((blog: BlogType) => blog.favicon && blog.indexed_at);
 
   return (
     <Container className="pb-16 pt-10 text-center lg:pt-16">

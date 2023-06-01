@@ -7,7 +7,6 @@ import { useCallback } from 'react';
 import { FaUser } from 'react-icons/fa';
 
 import Password from '@/components/account/Password';
-import Subscription from '@/components/account/Subscription';
 import EditableText from '@/components/common/EditableText';
 import Layout from '@/components/layout/Layout';
 import { useUserName } from '@/lib/blog/auth';
@@ -64,7 +63,6 @@ export default function AccountPage() {
 
       <Box maxW="3xl" mx="auto" p={8}>
         <VStack align="stretch" gap={4}>
-          <Subscription />
           <Password />
         </VStack>
       </Box>

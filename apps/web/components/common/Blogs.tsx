@@ -11,19 +11,6 @@ type Props = {
 };
 
 export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
-  blogs = blogs.sort(function (a, b) {
-    if (a.title && b.title) {
-      if (a.title.toUpperCase() < b.title.toUpperCase()) {
-        return -1;
-      }
-      if (a.title.toUpperCase() > b.title.toUpperCase()) {
-        return 1;
-      }
-      return 0;
-    } else {
-      return 0;
-    }
-  });
   return (
     <>
       <section className="bg-white">
@@ -35,15 +22,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                   The Rogue Scholar Blogs
                 </h2>
                 <p className="text-xl text-gray-500">
-                  This list of blogs can be downloaded as{' '}
-                  <Link
-                    target="_blank"
-                    href="/rogue-scholar.opml"
-                    className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
-                  >
-                    OPML file
-                  </Link>{' '}
-                  and imported into your RSS reader. Sign up for the Rogue Scholar if you want your blog included.
+                  Sign up for the Rogue Scholar if you want your blog included.
                 </p>
               </div>
             </div>
@@ -58,7 +37,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                 key={blog.id}
                 className={
                   'col-span-1 divide-y divide-gray-200 rounded-lg shadow' +
-                  (blog.dateIndexed ? ' bg-white' : ' bg-blue-50')
+                  (blog.indexed_at ? ' bg-white' : ' bg-blue-50')
                 }
               >
                 <div className="flex w-full items-center justify-between space-x-6 p-6">
@@ -94,7 +73,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                   <div className="-mt-px flex divide-x divide-gray-200">
                     <div className="flex w-0 flex-1">
                       <Link
-                        href={blog.homePageUrl ? blog.homePageUrl : '#'}
+                        href={blog.homepage_url ? blog.homepage_url : '#'}
                         target="_blank"
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
@@ -102,15 +81,15 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         Home Page
                       </Link>
                     </div>
-                    {blog.feedUrl && blog.feedFormat && (
+                    {blog.feed_url && blog.feed_format && (
                       <div className="-ml-px flex w-0 flex-1">
                         <Link
-                          href={blog.feedUrl}
+                          href={blog.feed_url}
                           target="_blank"
                           className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                         >
                           <Icon icon="fa6-solid:rss" className="inline" />
-                          {feedFormats[blog.feedFormat] + ' Feed'}
+                          {feedFormats[blog.feed_format] + ' Feed'}
                         </Link>
                       </div>
                     )}

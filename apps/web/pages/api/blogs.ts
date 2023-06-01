@@ -2,19 +2,19 @@ import fs from 'fs';
 import * as hcl from 'hcl2-parser';
 import { mapKeys, snakeCase } from 'lodash';
 import path from 'path';
-
+import { supabase, blogsSelect } from '@/lib/supabaseClient';
 import { getSingleBlog } from './blogs/[slug]';
 
 const optionalKeys = [
-  'baseUrl',
+  'base_url',
   'title',
   'description',
   'language',
-  'hasLicense',
+  'has_license',
   'category',
   'favicon',
   'generator',
-  'dateIndexed',
+  'indexed_at',
   'issn',
 ];
 
@@ -31,46 +31,27 @@ export async function getAllConfigs() {
       }
       return config;
     })
-    .filter((config: { dateIndexed: any; }) => {
-      return env != 'production' || config.dateIndexed;
+    .filter((config: { indexed_at: any; }) => {
+      return env != 'production' || config.indexed_at;
     });
 
   return configs;
 }
 
 export async function getAllBlogs() {
-  const configs = await getAllConfigs();
-  return Promise.all(
-    configs.map(async (blog) => {
-      return await getSingleBlog(blog.id, { includePosts: false });
-    })
-  );
-}
+  let { data, error } = await supabase.from('blogs').select(blogsSelect).order('title', { ascending: true })
 
-// export async function writeAllBlogs(blogs) {
-//   for (const blog of blogs) {
-//     await writeSingleBlog(blog.id)
-//   }
-// }
+  if (error) {
+    console.log(error);
+  } 
+  if (data) {
+    return data;
+  }
+};
 
-export default async (_req, res) => {
+export default async function handler(_, res) {
   let blogs = await getAllBlogs();
 
-  blogs = blogs
-    .sort(function (a, b) {
-      if (a.title.toUpperCase() < b.title.toUpperCase()) {
-        return -1;
-      }
-      if (a.title.toUpperCase() > b.title.toUpperCase()) {
-        return 1;
-      }
-      return 0;
-    })
-    .map((blog) => {
-      return mapKeys(blog, function (_, key) {
-        return snakeCase(key);
-      });
-    });
   res.statusCode = 200;
   res.json(blogs);
 };

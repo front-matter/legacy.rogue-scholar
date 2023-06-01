@@ -1,4 +1,3 @@
-import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
@@ -7,7 +6,7 @@ import Layout from '@/components/layout/Layout';
 
 import { getAllBlogs } from './api/blogs';
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export async function getServerSideProps(ctx) {
   const blogs = await getAllBlogs();
 
   return {
