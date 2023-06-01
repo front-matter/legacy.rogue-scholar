@@ -99,7 +99,7 @@ export const Stats: React.FunctionComponent<Props> = ({ count, categories, langu
               ></DonutChart>
             </ul>
           </li>
-          <li key="language">
+          <li key="platform">
             <ul role="list" className="flex flex-col gap-y-8">
               <DonutChart
                 data={platforms}
