@@ -11,7 +11,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale!, ['common', 'home'])),
+      ...(await serverSideTranslations('en', ['common', 'home'])),
       blogs,
     },
   };
