@@ -25,11 +25,11 @@ export const languageRange = Object.values(blue).filter(function (_v, i) {
 export const languageDomain = ['English', 'Deutsch'];
 
 export const categoryDomain = [
-  'Natural_Sciences',
-  'Engineering_and_Technology',
-  'Medical_and_Health_Sciences',
-  'Agricultural_Sciences',
-  'Social_Sciences',
+  'Natural Sciences',
+  'Engineering and Technology',
+  'Medical and Health Sciences',
+  'Agricultural Sciences',
+  'Social Sciences',
   'Humanities',
 ];
 
