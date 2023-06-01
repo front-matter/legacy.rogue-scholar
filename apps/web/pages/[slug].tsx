@@ -5,7 +5,7 @@ import { jsonLdScriptProps } from 'react-schemaorg';
 import { Blog as BlogSchema } from 'schema-dts';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { getSingleBlog, getPosts } from '@/pages/api/blogs/[slug]';
+import { getSingleBlog, getPosts, generatePosts } from '@/pages/api/blogs/[slug]';
 import { BlogType, PostType } from '@/types/blog';
 import Layout from '@/components/layout/Layout';
 import { Blog } from '@/components/common/Blog';
@@ -13,6 +13,7 @@ import { Posts } from '@/components/common/Posts';
 
 export async function getServerSideProps(ctx) {
   const blog = await getSingleBlog(ctx.params.slug);
+  // const posts = await generatePosts(blog.feed_url, ctx.params.slug);
   const posts = await getPosts(ctx.params.slug);
   return { props: { ...(await serverSideTranslations('en', ['common', 'app'])), blog, posts } };
 }

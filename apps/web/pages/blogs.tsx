@@ -6,7 +6,7 @@ import Layout from '@/components/layout/Layout';
 
 import { getAllBlogs } from './api/blogs';
 
-export async function getServerSideProps(ctx) {
+export async function getServerSideProps() {
   const blogs = await getAllBlogs();
 
   return {

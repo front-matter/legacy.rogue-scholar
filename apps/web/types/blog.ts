@@ -10,7 +10,7 @@ export interface PostType {
   id?: string;
   url?: string;
   title?: string;
-  summary?: string;
+  description?: string;
   published_at?: string;
   modified_at?: string;
   authors?: AuthorType[];

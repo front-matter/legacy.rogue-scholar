@@ -73,8 +73,8 @@ export const Posts: React.FunctionComponent<Props> = ({ posts }) => {
                       </h3>
                     )}
                     <Byline authors={post.authors} datePublished={post.published_at} />
-                    {post.summary && (
-                      <p className="text-medium mt-2 leading-6 text-gray-900">{parse(String(post.summary))}</p>
+                    {post.description && (
+                      <p className="text-medium mt-2 leading-6 text-gray-900">{parse(String(post.description))}</p>
                     )}
                   </div>
                 </div>
