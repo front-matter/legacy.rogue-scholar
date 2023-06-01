@@ -1,4 +1,3 @@
-import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import Faq from '@/components/home/Faq';
@@ -20,11 +19,14 @@ const languages = {
   de: 'Deutsch',
 };
 
-export const getStaticProps: GetStaticProps = async (ctx) => {
+export async function getServerSideProps() {
   const blogs = await getAllBlogs();
 
   return {
-    props: { ...(await serverSideTranslations(ctx.locale!, ['common', 'home'])), blogs },
+    props: {
+      ...(await serverSideTranslations('en', ['common', 'home'])),
+      blogs,
+    },
   };
 };
 
