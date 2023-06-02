@@ -1,9 +1,7 @@
 import fs from 'fs';
 import * as hcl from 'hcl2-parser';
-import { mapKeys, snakeCase } from 'lodash';
 import path from 'path';
 import { supabase, blogsSelect } from '@/lib/supabaseClient';
-import { getSingleBlog } from './blogs/[slug]';
 
 const optionalKeys = [
   'base_url',

@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import { customTheme, defaultToastOptions } from '@/chakra-ui.config';
 import ProgressBar from '@/components/layout/ProgressBar';
 
-// import lexend font with next/font
+// import inter font with next/font
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',

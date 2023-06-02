@@ -8,10 +8,11 @@ export interface AuthorType {
 
 export interface PostType {
   id?: string;
-  url?: string;
-  title?: string;
+  doi?: string;
+  url: string;
+  title: string;
   description?: string;
-  published_at?: string;
+  published_at: string;
   modified_at?: string;
   authors?: AuthorType[];
   image?: string;
@@ -20,7 +21,8 @@ export interface PostType {
   content_text?: string;
   tags?: string[];
   language?: string;
-  issn?: string;
+  blog_id: string;
+  blogs?: BlogType;
 }
 
 export interface BlogType extends Omit<FeedData, 'entries' | 'published' | 'link'> {
