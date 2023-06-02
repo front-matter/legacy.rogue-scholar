@@ -50,7 +50,7 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
                 <UserMenu />
               ) : (
                 <Button as={Link} href="/auth/signin" size="sm" colorScheme="primary" variant="outline">
-                  {t('signIn')}
+                  {t('signIn', 'Sign In')}
                 </Button>
               )}
               {!hideMenu && isMobile && (

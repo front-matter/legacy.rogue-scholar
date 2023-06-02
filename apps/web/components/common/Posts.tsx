@@ -23,6 +23,9 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false })
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl sm:text-center">
+          <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Most Recent Posts</h2>
+        </div>
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="space-t-10 lg:space-t-10 mt-4 lg:mt-6">
             {posts.map((post) => (

@@ -85,7 +85,7 @@ export default function Faqs() {
             id="faq-title"
             className="font-display py-6 text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl"
           >
-            {t('faq.title')}
+            {t('faq.title', 'Frequently Asked Questions')}
           </h2>
           <p className="mt-2 text-lg tracking-tight text-slate-700">
             If you can’t find what you’re looking for, go to our{' '}
