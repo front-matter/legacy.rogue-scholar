@@ -23,9 +23,11 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false })
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl sm:text-center">
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Most Recent Posts</h2>
-        </div>
+        {!parent && (
+          <div className="mx-auto max-w-2xl sm:text-center">
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Most Recent Posts</h2>
+          </div>
+        )}
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="space-t-10 lg:space-t-10 mt-4 lg:mt-6">
             {posts.map((post) => (
@@ -69,7 +71,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false })
                         <Link href={'/blogs/' + post.blog_id}>{post.blogs.title}</Link>
                       </h2>
                     )}
-                    <h3 className="mt-1 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                    <h3 className="mt-1 text-xl font-semibold leading-7 text-gray-900 group-hover:text-gray-600">
                       {post.doi && (
                         <Link href={post.doi}>
                           {post.title}
