@@ -16,12 +16,12 @@ export default function Footer() {
         <div className="py-6">
           <nav className="text-sm" aria-label="quick links">
             <div className="-my-1 flex justify-center gap-x-6">
-              <NavLink href="/#pricing">{t('menu.pricing')}</NavLink>
-              <NavLink href="/#faq">{t('menu.faq')}</NavLink>
-              <NavLink href="/#stats">{t('menu.stats')}</NavLink>
-              <NavLink href="/blogs">{t('menu.blogs')}</NavLink>
-              <NavLink href="https://docs.rogue-scholar.org">{t('menu.docs')}</NavLink>
-              <NavLink href="https://plausible.io/rogue-scholar.org">{t('menu.usage_stats')}</NavLink>
+              <NavLink href="/#pricing">{t('menu.pricing', 'Pricing')}</NavLink>
+              <NavLink href="/#faq">{t('menu.faq', 'FAQ')}</NavLink>
+              <NavLink href="/#stats">{t('menu.stats', 'Stats')}</NavLink>
+              <NavLink href="/blogs">{t('menu.blogs', 'Blogs')}</NavLink>
+              <NavLink href="https://docs.rogue-scholar.org">{t('menu.docs', 'Docs')}</NavLink>
+              <NavLink href="https://plausible.io/rogue-scholar.org">{t('menu.usage_stats', 'Usage Stats')}</NavLink>
             </div>
           </nav>
         </div>
@@ -48,7 +48,7 @@ export default function Footer() {
             </Link>
           </div>
           <p className="mt-6 text-sm text-slate-500 sm:mt-0">
-            Copyright &copy; {new Date().getFullYear()} The Rogue Scholar. {t('footer.allRightsReserved')}
+            Copyright &copy; {new Date().getFullYear()} The Rogue Scholar. {t('footer.allRightsReserved', 'All Rights Reserved')}
           </p>
         </div>
       </Container>

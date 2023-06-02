@@ -14,15 +14,15 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
 
   const menuItems = [
     {
-      label: t('menu.pricing'),
+      label: t('menu.pricing', 'Pricing'),
       link: '/#pricing',
     },
     {
-      label: t('menu.faq'),
+      label: t('menu.faq', 'FAQ'),
       link: '/#faq',
     },
     {
-      label: t('menu.blogs'),
+      label: t('menu.blogs', 'Blogs'),
       link: '/blogs',
     },
     {

@@ -70,9 +70,9 @@ export const Stats: React.FunctionComponent<Props> = ({ count, categories, langu
             id="faq-title"
             className="font-display py-6 text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl"
           >
-            {t('statistics.title')}
+            {t('statistics.title', 'Statistics')}
           </h2>
-          <p className="mt-2 text-lg tracking-tight text-slate-700">{t('statistics.description')}</p>
+          <p className="mt-2 text-lg tracking-tight text-slate-700">{t('statistics.description', 'Fundamental numbers describing the included blogs.')}</p>
         </div>
         <ul role="list" className="mx-auto mt-5 grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3">
           <li key="category">
@@ -81,7 +81,7 @@ export const Stats: React.FunctionComponent<Props> = ({ count, categories, langu
                 data={categories}
                 legend={false}
                 count={count}
-                title={t('statistics.category')}
+                title={t('statistics.category', 'Category')}
                 range={range}
                 domain={categoryDomain}
               ></DonutChart>
@@ -93,7 +93,7 @@ export const Stats: React.FunctionComponent<Props> = ({ count, categories, langu
                 data={languages}
                 legend={false}
                 count={count}
-                title={t('statistics.language')}
+                title={t('statistics.language', 'Language')}
                 range={languageRange}
                 domain={languageDomain}
               ></DonutChart>
@@ -105,7 +105,7 @@ export const Stats: React.FunctionComponent<Props> = ({ count, categories, langu
                 data={platforms}
                 legend={false}
                 count={count}
-                title={t('statistics.platform')}
+                title={t('statistics.platform', 'Platform')}
                 range={range}
                 domain={platformDomain}
               ></DonutChart>
