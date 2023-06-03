@@ -8,6 +8,7 @@ export interface AuthorType {
 
 export interface PostType {
   id: string;
+  short_id: string;
   url?: string;
   title?: string;
   summary?: string;

@@ -1,8 +1,9 @@
 import { supabase, postsSelect } from '@/lib/supabaseClient';
+import { hashids } from '@/utils/helpers';
 import { PostType } from '@/types/blog';
 
 export async function getSinglePost(postSlug: string) {
-  let { data, error } = await supabase.from('posts').select(postsSelect).eq('id', postSlug).single()
+  let { data, error } = await supabase.from('posts').select(postsSelect).eq('short_id', hashids.decode(postSlug)).single()
 
   if (error) {
     console.log(error);
@@ -12,6 +13,7 @@ export async function getSinglePost(postSlug: string) {
     return null;
   }
 
+  data.short_id = hashids.encode(data.short_id);
   return data;
 }
 
