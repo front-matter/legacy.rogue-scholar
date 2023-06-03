@@ -11,6 +11,7 @@ import { Inter } from 'next/font/google';
 import { useRouter } from 'next/router';
 import { appWithTranslation, SSRConfig } from 'next-i18next';
 import { useEffect, useState } from 'react';
+import PlausibleProvider from 'next-plausible';
 
 import { customTheme, defaultToastOptions } from '@/chakra-ui.config';
 import ProgressBar from '@/components/layout/ProgressBar';
@@ -49,7 +50,6 @@ function App({ Component, pageProps }: AppProps<{ initialSession?: Session | nul
         }
       `}</style>
       <ProgressBar />
-
       <QueryClientProvider client={queryClient}>
         <ChakraBaseProvider
           theme={customTheme}
@@ -58,9 +58,11 @@ function App({ Component, pageProps }: AppProps<{ initialSession?: Session | nul
             defaultOptions: defaultToastOptions,
           }}
         >
-          <SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
-            <Component {...pageProps} />
-          </SessionContextProvider>
+          <PlausibleProvider domain="rogue-scholar.org">
+            <SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
+              <Component {...pageProps} />
+            </SessionContextProvider>
+          </PlausibleProvider>
         </ChakraBaseProvider>
       </QueryClientProvider>
     </>
