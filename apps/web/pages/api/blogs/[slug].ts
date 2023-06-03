@@ -57,22 +57,18 @@ const parseGenerator = (generator: any) => {
 };
 
 export async function getSingleBlog(blogSlug: string) {
-  let { data, error } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', blogSlug)
+  let { data, error } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', blogSlug).single();
 
   if (error) {
     console.log(error);
   }
 
-  if (!data || data.length === 0) {
+  if (!data) {
     return null;
   }
 
-  let blog: BlogType = data[0];
+  let blog: BlogType = data;
   blog.id = '/blogs/' + blog.id;
-  // blog.items = blog.items.map((post) => {
-  //   post.id = '/posts/' + hashids.encode(post.id);
-  //   return post;    
-  // });
 
   return blog;
 }

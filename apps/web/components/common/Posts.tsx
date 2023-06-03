@@ -19,7 +19,6 @@ export const isDoi = (doi: any) => {
 };
 
 export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false }) => {
-  console.log(posts);
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -42,16 +41,6 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false })
                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                   </div>
                 )}
-                {post.thumbnail && (
-                  <div className="relative aspect-[16/9] h-16 w-16 sm:aspect-[2/1] lg:aspect-square lg:shrink-0">
-                    <img
-                      src={post.thumbnail}
-                      alt=""
-                      className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-contain"
-                    />
-                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                  </div>
-                )}
                 <div>
                   {post.tags && (
                     <div className="flex items-center gap-x-1 text-xs">
@@ -66,23 +55,22 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false })
                     </div>
                   )}
                   <div className="group relative max-w-3xl">
-                    {!parent && post.blogs && (
+                    {!parent && post.blog && (
                       <h2 className="mt-1 text-2xl font-bold leading-6 text-blue-600 group-hover:text-blue-700">
-                        <Link href={'/blogs/' + post.blog_id}>{post.blogs.title}</Link>
+                        <Link href={'/blogs/' + post.blog.id}>{post.blog.title}</Link>
                       </h2>
                     )}
                     <h3 className="mt-1 text-xl font-semibold leading-7 text-gray-900 group-hover:text-gray-600">
-                      {post.doi && (
-                        <Link href={post.doi}>
-                          {post.title}
+                      <Link href={post.id}>
+                        {post.title}
+                        {isDoi(post.id) && (
                           <Icon icon="academicons:doi" className="ml-0.5 inline text-base text-[#f0b941]" />
-                        </Link>
-                      )}
-                      {!post.doi && <Link href={post.url}>{post.title}</Link>}
+                        )}
+                      </Link>
                     </h3>
-                    <Byline authors={post.authors} datePublished={post.published_at} />
-                    {post.description && (
-                      <p className="text-medium mt-2 leading-6 text-gray-900">{parse(String(post.description))}</p>
+                    <Byline authors={post.authors} datePublished={post.date_published} />
+                    {post.summary && (
+                      <p className="text-medium mt-2 leading-6 text-gray-900">{parse(String(post.summary))}</p>
                     )}
                   </div>
                 </div>

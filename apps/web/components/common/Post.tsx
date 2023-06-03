@@ -18,8 +18,6 @@ export const isDoi = (doi: any) => {
 };
 
 export const Post: React.FunctionComponent<Props> = ({ post }) => {
-  const url = post.doi || post.url || '';
-
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -41,12 +39,12 @@ export const Post: React.FunctionComponent<Props> = ({ post }) => {
                 )}
                 <div className="group relative max-w-3xl">
                   <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                    <Link href={url}>
+                    <Link href={post.id}>
                       {post.title}
-                      {post.doi && <Icon icon="academicons:doi" className="ml-0.5 inline text-base text-[#f0b941]" />}
+                      {isDoi(post.id) && <Icon icon="academicons:doi" className="ml-0.5 inline text-base text-[#f0b941]" />}
                     </Link>
                   </h3>
-                  <Byline authors={post.authors} datePublished={post.published_at} />
+                  <Byline authors={post.authors} datePublished={post.date_published} />
                   {post.content_html && (
                     <p className="text-medium mt-2 leading-6 text-gray-900">{parse(String(post.content_html))}</p>
                   )}

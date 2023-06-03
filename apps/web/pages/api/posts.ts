@@ -3,7 +3,6 @@ import { get, isArray, isObject } from 'lodash';
 
 import { supabaseAdmin } from '@/lib/server/supabase-admin';
 import { supabase, postsSelect } from '@/lib/supabaseClient';
-import { hashids } from '@/utils/helpers';
 import { PostType } from '@/types/blog';
 
 // from @extractus/feed-extractor
@@ -32,31 +31,25 @@ export const isDoi = (doi: any) => {
 };
 
 export async function getAllPosts() {
-  let { data, error } = await supabase.from('posts').select(postsSelect).range(0, 24).order('published_at', { ascending: false })
+  let { data, error } = await supabase.from('posts').select(postsSelect).range(0, 24).order('date_published', { ascending: false })
 
   if (error) {
     console.log(error);
   } 
   if (data) {
-    return data.map(post => {
-      post.id = '/posts/' + hashids.encode(post.id);
-      return post;
-    })
+    return data;
   }
 };
 
 export async function getPosts(blogSlug: string) {
-  let { data, error } = await supabase.from('posts').select(postsSelect).eq('blog_id', blogSlug).order('published_at', { ascending: false })
+  let { data, error } = await supabase.from('posts').select(postsSelect).eq('blog_id', blogSlug).order('date_published', { ascending: false })
 
   if (error) {
     console.log(error);
   }
 
   if (data) {
-    return data.map(post => {
-      post.id = '/posts/' + hashids.encode(post.id);
-      return post;
-    })
+    return data;
   }
 };
 
@@ -124,16 +117,14 @@ export async function generatePosts(feed_url: string, blog_id: string) {
 
 export async function upsertPost(post: PostType, blog_id: string) {
   const { data, error } = await supabaseAdmin.from('posts').upsert({
-    doi: isDoi(post.id) ? post.id : null,
+    id: post.id,
     title: post.title,
-    description: post.description,
-    url: post.url,
+    summary: post.summary,
     tags: post.tags,
     authors: post.authors,
     image: post.image,
-    thumbnail: null,
-    published_at: post.published_at,
-    modified_at: post.modified_at,
+    date_published: post.date_published,
+    date_modified: post.date_modified,
     content_html: post.content_html,
     blog_id: blog_id,
   });
@@ -143,21 +134,6 @@ export async function upsertPost(post: PostType, blog_id: string) {
   }
 
   return data;
-}
-
-export async function getPost(postSlug: string) {
-  const postId = hashids.decode(postSlug);
-  let { data, error } = await supabase.from('posts').select(postsSelect).eq('id', postId)
-
-  if (error) {
-    console.log(error);
-  }
-
-  if (!data || data.length === 0) {
-    return null;
-  }
-
-  return data[0];
 }
 
 export default async function handler(_, res) {

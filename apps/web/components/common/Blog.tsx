@@ -74,7 +74,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
           <div className="mt-2">
             <span className="text-gray-500">
               <Link
-                href={blog.homepage_url ?? ''}
+                href={blog.home_page_url ?? ''}
                 target="_blank"
                 className="relative mr-6 w-0 py-2 text-base font-medium"
               >

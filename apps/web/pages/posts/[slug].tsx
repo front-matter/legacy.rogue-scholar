@@ -5,14 +5,14 @@ import { Blog as BlogSchema } from 'schema-dts';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { getSingleBlog } from '@/pages/api/blogs/[slug]';
-import { getPost } from '@/pages/api/posts';
+import { getSinglePost } from '@/pages/api/posts/[slug]';
 import { BlogType, PostType } from '@/types/blog';
 import Layout from '@/components/layout/Layout';
 import { Blog } from '@/components/common/Blog';
 import { Post } from '@/components/common/Post';
 
 export async function getServerSideProps(ctx) {
-  const post = await getPost(ctx.params.slug);
+  const post = await getSinglePost(ctx.params.slug);
   const blog = await getSingleBlog(post && post.blog_id);
   return { props: { ...(await serverSideTranslations('en', ['common', 'app'])), blog, post } };
 }

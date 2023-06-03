@@ -230,7 +230,7 @@ blog {
   description  = "Notes from the Accelerating Devices Lab, an ATML at Jülich Supercomputing Centre"
   category     = "Engineering and Technology"
   feed_url     = "https://x-dev.pages.jsc.fz-juelich.de/feed.xml"
-  homepage_url = "https://x-dev.pages.jsc.fz-juelich.de/"
+  home_page_url = "https://x-dev.pages.jsc.fz-juelich.de/"
   indexed_at   = "2023-04-11"
 }
 
