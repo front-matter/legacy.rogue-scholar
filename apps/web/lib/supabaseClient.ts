@@ -6,4 +6,4 @@ export const blogsSelect = 'id, title, description, language, icon, favicon, fee
 
 export const postsSelect = 'id, short_id, url, title, summary, date_published, date_modified, authors, image, content_html, tags, language, blog_id, blog: blogs (id, title, language, favicon, feed_url, home_page_url, license, category)'
 
-export const blogWithPostsSelect = 'id, title, description, language, icon, favicon, feed_url, feed_format, home_page_url, indexed_at, license, generator, category, items: posts (id, short_id, url, title, summary, date_published, date_modified, authors, image, content_html, tags, language, blog_id)'
+export const blogWithPostsSelect = 'id, title, description, language, icon, favicon, feed_url, feed_format, home_page_url, indexed_at, license, generator, category, items: posts (id, short_id, url, title, summary, date_published, date_modified, authors, image, content_html, tags, language)'
