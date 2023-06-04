@@ -60,5 +60,5 @@ jobs:
         uses: wei/curl@v1
         id: api
         with:
-          args: -X PATCH -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -d '{ "id": "${{ steps.random_doi.outputs.DOI }}" }' https://api.rogue-scholar.org/rest/v1/posts?short_id=eq.${{ steps.pending_post.outputs.POSTID }}
+          args: -X PATCH -H "apikey=${{ secrets.SUPABASE_KEY }}" -H "Authorization=Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type=application/json" -d '{ "id"="${{ steps.random_doi.outputs.DOI }}" }' https://api.rogue-scholar.org/rest/v1/posts?short_id=eq.${{ steps.pending_post.outputs.POSTID }}
     
