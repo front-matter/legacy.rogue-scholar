@@ -31,7 +31,7 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Find blog post without DOI
         run: |
-          bundle exec commonmeta json_feed ${{ github.event.inputs.blog }} >> $GITHUB_OUTPUT
+          echo "bundle exec commonmeta json_feed ${{ github.event.inputs.blog }}" >> $GITHUB_OUTPUT
           id: post_without_doi
       - name: Generate random DOI
         run: |
