@@ -2,8 +2,8 @@ name: DOI Registration Rogue Scholar
 on:
   workflow_dispatch:
     inputs:
-      post:
-        description: 'Short_id of the post'
+      blog:
+        description: 'ID of the blog'
         required: true
         type: string
 jobs:
@@ -29,10 +29,10 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-      # - name: Find blog posts without DOI
-      #   run: |
-      #     bundle exec commonmeta json_feed ${{ github.event.inputs.post }}
-      #     - name: Generate XML
+      - name: Find blog post without DOI
+        run: |
+          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed ${{ github.event.inputs.blog }})"
+          id: posts_without_doi
       - name: Generate random DOI
         run: |
           echo "::set-output name=DOI::$(bundle exec commonmeta encode 10.59350)"
@@ -40,13 +40,12 @@ jobs:
       - name: Generate XML
         run: |
           mkdir -p upload
-
-          bundle exec commonmeta https://rogue-scholar.org/api/posts/${{ github.event.inputs.post }} --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/${{ github.event.inputs.post }}
+          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.posts_without_doi.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
             name: uploads
-            path: upload/${{ github.event.inputs.post }}         
+            path: upload/temp         
       - name: Download
         uses: actions/download-artifact@v2
         with:
@@ -55,5 +54,5 @@ jobs:
         uses: wei/curl@v1
         id: api
         with:
-          args: -X POST -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/${{ github.event.inputs.post }} https://doi.crossref.org/servlet/deposit
+          args: -X POST -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp https://doi.crossref.org/servlet/deposit
   
