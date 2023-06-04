@@ -41,7 +41,7 @@ jobs:
         run: |
           mkdir -p upload
 
-          bundle exec commonmeta https://rogue-scholar.org/api/posts/${{ github.event.inputs.post }} --doi ${{ steps.random_doi.outputs.DOI }} --depositor ${{ secrets.CROSSREF_DEPOSITOR_NAME }} --email ${{ secrets.CROSSREF_DEPOSITOR_EMAIL }} --registrant ${{ secrets.CROSSREF_REGISTRANT }} -t crossref_xml > upload/${{ github.event.inputs.post }}
+          bundle exec commonmeta https://rogue-scholar.org/api/posts/${{ github.event.inputs.post }} --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/${{ github.event.inputs.post }}
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
