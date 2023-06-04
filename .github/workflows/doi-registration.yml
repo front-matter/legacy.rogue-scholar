@@ -9,8 +9,9 @@ on:
 jobs:
   register:
     runs-on: ubuntu-latest
-    env:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+    outputs:
+      postid: ${{ steps.pending_post.outputs.POSTID }}
+      doi: ${{ steps.random_doi.outputs.DOI }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3       
@@ -32,7 +33,7 @@ jobs:
       - name: Find blog post without DOI
         run: |
           echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed ${{ github.event.inputs.blog }})"
-          id: post_without_doi
+          id: pending_post
       - name: Generate random DOI
         run: |
           echo "::set-output name=DOI::$(bundle exec commonmeta encode 10.59350)"
@@ -40,7 +41,7 @@ jobs:
       - name: Generate XML
         run: |
           mkdir -p upload
-          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.post_without_doi.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
+          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.pending_post.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
