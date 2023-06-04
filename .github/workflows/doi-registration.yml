@@ -32,11 +32,11 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Find blog post without DOI
         run: |
-          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed ${{ github.event.inputs.blog }})"
+          echo "::set-output name=POSTID::$(commonmeta json_feed ${{ github.event.inputs.blog }})"
           id: pending_post
       - name: Generate random DOI
         run: |
-          echo "::set-output name=DOI::$(bundle exec commonmeta encode 10.59350)"
+          echo "::set-output name=DOI::$(commonmeta encode 10.59350)"
         id: random_doi
       - name: Generate XML
         run: |
