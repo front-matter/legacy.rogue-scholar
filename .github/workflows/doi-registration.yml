@@ -31,7 +31,7 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Find blog post without DOI
         run: |
-          echo "bundle exec commonmeta json_feed ${{ github.event.inputs.blog }}" >> $GITHUB_OUTPUT
+          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed ${{ github.event.inputs.blog }})"
           id: post_without_doi
       - name: Generate random DOI
         run: |
@@ -40,7 +40,7 @@ jobs:
       - name: Generate XML
         run: |
           mkdir -p upload
-          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.post_without_doi.outputs.* }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
+          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.post_without_doi.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
