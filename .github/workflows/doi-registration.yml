@@ -57,7 +57,5 @@ jobs:
         with:
           args: -X POST -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp https://doi.crossref.org/servlet/deposit
       - name: update Rogue Scholar post
-        uses: wei/curl@v1
-        id: api
-        with:
-          args: -X PATCH https://api.rogue-scholar.org/rest/v1/posts?uuid=eq.${{ steps.pending_post.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "id": "${{ steps.random_doi.outputs.DOI }}" }'
+        run: |
+          curl -X PATCH https://api.rogue-scholar.org/rest/v1/posts?uuid=eq.${{ steps.pending_post.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "id": "${{ steps.random_doi.outputs.DOI }}" }'
