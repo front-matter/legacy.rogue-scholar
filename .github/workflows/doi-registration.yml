@@ -1,7 +1,7 @@
 name: DOI Registration Rogue Scholar
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/10 * * * *"
 jobs:
   register:
     runs-on: ubuntu-latest
