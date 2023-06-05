@@ -4,7 +4,6 @@ import { get, isArray, isObject } from 'lodash';
 import { supabaseAdmin } from '@/lib/server/supabase-admin';
 import { supabase, postsSelect } from '@/lib/supabaseClient';
 import { PostType } from '@/types/blog';
-import { hashids } from '@/utils/helpers';
 
 // from @extractus/feed-extractor
 const toISODateString = (dstr) => {
@@ -38,10 +37,7 @@ export async function getAllPosts() {
     console.log(error);
   } 
   if (data) {
-    return data.map(post => {
-      post.short_id = hashids.encode(post.short_id);
-      return post;
-    });
+    return data;
   }
 };
 
@@ -53,10 +49,7 @@ export async function getPosts(blogSlug: string) {
   }
 
   if (data) {
-    return data.map(post => {
-      post.short_id = hashids.encode(post.short_id);
-      return post;
-    });
+    return data;
   }
 };
 

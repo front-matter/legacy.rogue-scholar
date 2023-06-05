@@ -4151,11 +4151,6 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-hashids@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/hashids/-/hashids-2.3.0.tgz#af92c9cdb093c0ed3542cf0dcbd6c289125df387"
-  integrity sha512-ljM73TE/avEhNnazxaj0Dw3BbEUuLC5yYCQ9RSkSUcT4ZSU6ZebdKCIBJ+xT/DnSYW36E9k82GH1Q6MydSIosQ==
-
 hast-util-to-estree@^2.0.0:
   version "2.2.1"
   resolved "https://registry.npmjs.org/hast-util-to-estree/-/hast-util-to-estree-2.2.1.tgz"

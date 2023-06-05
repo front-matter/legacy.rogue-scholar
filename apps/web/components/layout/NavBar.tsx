@@ -49,9 +49,14 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
               {user ? (
                 <UserMenu />
               ) : (
-                <Button as={Link} href="/auth/signin" size="sm" colorScheme="primary" variant="outline">
-                  {t('signIn', 'Sign In')}
-                </Button>
+                <>
+                  <Button as={Link} href="/signup" size="sm" colorScheme="primary" variant="outline">
+                    {t('signUp', 'Sign Up')}
+                  </Button>
+                  <Button as={Link} href="/auth/signin" size="sm" colorScheme="primary" variant="outline">
+                    {t('signIn', 'Sign In')}
+                  </Button>
+                </>
               )}
               {!hideMenu && isMobile && (
                 <IconButton aria-label={t('menu.title')} variant="outline" onClick={mobileDrawerDisclosure.onToggle}>

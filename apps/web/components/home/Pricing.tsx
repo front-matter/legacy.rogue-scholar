@@ -124,7 +124,7 @@ export function Pricing() {
             name="Starter"
             price="Free"
             description="For most blogs."
-            href="/auth/signup"
+            href="/signup"
             features={[
               'Archive up to 50 posts per year',
               'Register DOIs with metadata',
@@ -135,7 +135,7 @@ export function Pricing() {
             name="Team"
             price="$1 per post"
             description="Perfect for larger blogs."
-            href="/auth/signup"
+            href="/signup"
             features={[
               'Everything in starter',
               'Archive an unlimited number of posts',
@@ -145,7 +145,7 @@ export function Pricing() {
             name="Enterprise"
             price="Contact us"
             description="Having special requirements."
-            href="/auth/signup"
+            href="/signup"
             features={[
               'Everything in team',
               'Archive a blog without active RSS feed',

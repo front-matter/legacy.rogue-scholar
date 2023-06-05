@@ -16,20 +16,15 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
       <section className="bg-white">
         <Container className="relative">
           <div className="mx-auto max-w-7xl px-4 py-2 text-center sm:px-6 md:py-12 lg:px-8 lg:py-8">
-            <div className="space-y-8 sm:space-y-12">
-              <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
-                <h2 className="font-display text-5xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-                  The Rogue Scholar Blogs
-                </h2>
-                <p className="text-xl text-gray-500">
-                  Sign up for the Rogue Scholar if you want your blog included.
-                </p>
-              </div>
+            <div className="mx-auto max-w-2xl sm:text-center">
+              <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                The Rogue Scholar Blogs
+              </h2>
             </div>
           </div>
         </Container>
       </section>
-      <section id="blogs" aria-label="blog listing" className="bg-slate-50 py-8 sm:py-12">
+      <section id="blogs" aria-label="blog listing" className="bg-slate-50 py-4 sm:py-6">
         <Container className="relative">
           <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {blogs.map((blog) => (

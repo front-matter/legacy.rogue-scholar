@@ -2,7 +2,6 @@ import { capitalize, isObject } from 'lodash';
 
 import { supabase, blogWithPostsSelect } from '@/lib/supabaseClient';
 import { BlogType } from '@/types/blog';
-import { hashids } from '@/utils/helpers';
 
 export const isDoi = (doi: any) => {
   try {
@@ -68,13 +67,7 @@ export async function getSingleBlog(blogSlug: string) {
     return null;
   }
 
-  let blog: BlogType = data;
-  blog.items = blog.items?.map((post) => {
-    post.short_id = hashids.encode(post.short_id);
-    return post;
-  });
-
-  return blog;
+  return data;
 }
 
 export default async function handler(req, res) {
