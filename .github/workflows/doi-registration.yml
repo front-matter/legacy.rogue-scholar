@@ -52,7 +52,7 @@ jobs:
             name: uploads
       - name: Register content
         run: |
-          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation:doMDUpload" -F "login_id:${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd:${{ secrets.CROSSREF_PASSWORD }}" -F "fname:@upload/temp"
+          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
       - name: update Rogue Scholar post
         run: |
           curl -X PATCH https://api.rogue-scholar.org/rest/v1/posts?uuid=eq.${{ steps.pending_post.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "id": "${{ steps.random_doi.outputs.DOI }}" }'
