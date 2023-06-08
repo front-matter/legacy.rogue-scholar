@@ -28,7 +28,7 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Find blog post without DOI
         run: |
-          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed 468ap65)"
+          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed 4425y27)"
         id: pending_post
       - name: Exit early if no pending posts
         if: steps.pending_post.outputs.POSTID == ''
