@@ -1,18 +1,21 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
+import { supabase, blogsSelect } from '@/lib/supabaseClient';
 import { Blogs } from '@/components/common/Blogs';
 import Layout from '@/components/layout/Layout';
 
-import { getAllBlogs } from './api/blogs';
-
 export async function getServerSideProps() {
-  const blogs = await getAllBlogs();
+  let { data, error } = await supabase.from('blogs').select(blogsSelect).order('title', { ascending: true })
+
+  if (error) {
+    console.log(error)
+  }
 
   return {
     props: {
       ...(await serverSideTranslations('en', ['common', 'home'])),
-      blogs,
+      blogs: data,
     },
   };
 };

@@ -3,12 +3,11 @@ import React from 'react';
 
 import { Posts } from '@/components/common/Posts';
 import Layout from '@/components/layout/Layout';
-
-import { getAllPosts } from '@/pages/api/posts';
+import { supabase, postsSelect } from '@/lib/supabaseClient';
 import { PostType } from '@/types/blog';
 
 export async function getServerSideProps() {
-  const posts = await getAllPosts();
+  let { data: posts, error } = await supabase.from('posts').select(postsSelect).range(0, 24).order('date_published', { ascending: false })
 
   return {
     props: {

@@ -36,20 +36,13 @@ export async function getAllConfigs() {
   return configs;
 }
 
-export async function getAllBlogs() {
+export default async function handler(_, res) {
   let { data, error } = await supabase.from('blogs').select(blogsSelect).order('title', { ascending: true })
 
   if (error) {
     console.log(error);
   } 
-  if (data) {
-    return data;
-  }
-};
-
-export default async function handler(_, res) {
-  let blogs = await getAllBlogs();
 
   res.statusCode = 200;
-  res.json(blogs);
+  res.json(data);
 };

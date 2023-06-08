@@ -5,17 +5,21 @@ import { jsonLdScriptProps } from 'react-schemaorg';
 import { Blog as BlogSchema } from 'schema-dts';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { getSingleBlog,  } from '@/pages/api/blogs/[slug]';
-import { getPosts } from '@/pages/api/posts';
 import { BlogType, PostType } from '@/types/blog';
 import Layout from '@/components/layout/Layout';
+import { supabase, blogWithPostsSelect, postsSelect } from '@/lib/supabaseClient';
 import { Blog } from '@/components/common/Blog';
 import { Posts } from '@/components/common/Posts';
 
 export async function getServerSideProps(ctx) {
-  const blog = await getSingleBlog(ctx.params.slug);
-  // const posts = await generatePosts(blog.feed_url, ctx.params.slug);
-  const posts = await getPosts(ctx.params.slug);
+  let { data: blog } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', ctx.params.slug).single();
+
+  let { data: posts } = await supabase
+    .from('posts')
+    .select(postsSelect)
+    .eq('blog_id', ctx.params.slug)
+    .order('date_published', { ascending: false });
+
   return { props: { ...(await serverSideTranslations('en', ['common', 'app'])), blog, posts } };
 }
 

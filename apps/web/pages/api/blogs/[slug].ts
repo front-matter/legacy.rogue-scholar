@@ -56,26 +56,14 @@ const parseGenerator = (generator: any) => {
   }
 };
 
-export async function getSingleBlog(blogSlug: string) {
-  let { data, error } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', blogSlug).single();
+export default async function handler(req, res) {
+  let { data, error } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', req.query.slug).single();
 
   if (error) {
     console.log(error);
   }
 
-  if (!data) {
-    return null;
-  }
-
-  return data;
-}
-
-export default async function handler(req, res) {
-  let blog = await getSingleBlog(req.query.slug);
-
-  if (!blog) {
-    return null;
-  }
+  const blog = data;
   
   res.status(200).json(blog);
 }

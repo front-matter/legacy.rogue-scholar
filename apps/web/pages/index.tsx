@@ -5,8 +5,7 @@ import Hero from '@/components/home/Hero';
 import { Pricing } from '@/components/home/Pricing';
 import { Stats } from '@/components/home/Stats';
 import Layout from '@/components/layout/Layout';
-
-import { getAllBlogs } from './api/blogs';
+import { supabase, blogsSelect } from '@/lib/supabaseClient';
 
 const countBy = (arr, prop) =>
   arr.reduce(function (obj, v) {
@@ -20,12 +19,16 @@ const languages = {
 };
 
 export async function getServerSideProps() {
-  const blogs = await getAllBlogs();
+  let { data, error } = await supabase.from('blogs').select(blogsSelect).order('title', { ascending: true })
+
+  if (error) {
+    console.log(error);
+  } 
 
   return {
     props: {
       ...(await serverSideTranslations('en', ['common', 'home'])),
-      blogs,
+      blogs: data,
     },
   };
 };

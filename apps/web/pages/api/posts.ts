@@ -30,17 +30,6 @@ export const isDoi = (doi: any) => {
   }
 };
 
-export async function getAllPosts() {
-  let { data, error } = await supabase.from('posts').select(postsSelect).range(0, 24).order('date_published', { ascending: false })
-
-  if (error) {
-    console.log(error);
-  } 
-  if (data) {
-    return data;
-  }
-};
-
 export async function getPosts(blogSlug: string) {
   let { data, error } = await supabase.from('posts').select(postsSelect).eq('blog_id', blogSlug).order('date_published', { ascending: false })
 
@@ -137,8 +126,12 @@ export async function upsertPost(post: PostType, blog_id: string) {
 }
 
 export default async function handler(_, res) {
-  let posts = await getAllPosts();
+  let { data: posts, error } = await supabase.from('posts').select(postsSelect).range(0, 24).order('date_published', { ascending: false })
 
+  if (error) {
+    console.log(error);
+  }
+  
   res.statusCode = 200;
   res.json(posts);
 };
