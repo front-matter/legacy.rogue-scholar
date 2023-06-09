@@ -43,6 +43,5 @@ export interface BlogType extends Omit<FeedData, 'entries' | 'published' | 'link
   feed_format?: string;
   items?: PostType[];
   expired?: boolean;
-  registerable?: boolean;
   prefix?: string;
 }
