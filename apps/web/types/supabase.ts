@@ -5,28 +5,58 @@ export interface Database {
     Tables: {
       blogs: {
         Row: {
-          created_at: string;
           category: string;
+          description?: string;
           id: string;
-          title: string;
+          title?: string;
           feed_url: string;
-          user_id: string;
+          home_page_url?: string;
+          feed_format?: string;
+          user_id?: string;
+          created_at?: string;
+          indexed_at?: string;
+          modified_at?: string;
+          language?: string;
+          favicon?: string;
+          license?: string;
+          generator?: string;
+          prefix?: string;
         };
         Insert: {
-          created_at: string;
           category: string;
+          description?: string;
           id: string;
-          title: string;
+          title?: string;
           feed_url: string;
-          user_id: string;
+          home_page_url?: string;
+          feed_format?: string;
+          user_id?: string;
+          created_at?: string;
+          indexed_at?: string;
+          modified_at?: string;
+          language?: string;
+          favicon?: string;
+          license?: string;
+          generator?: string;
+          prefix?: string;
         };
         Update: {
-          created_at: string;
           category: string;
+          description?: string;
           id: string;
-          title: string;
+          title?: string;
           feed_url: string;
-          user_id: string;
+          home_page_url?: string;
+          feed_format?: string;
+          user_id?: string;
+          created_at?: string;
+          indexed_at?: string;
+          modified_at?: string;
+          language?: string;
+          favicon?: string;
+          license?: string;
+          generator?: string;
+          prefix?: string;
         };
       };
       customers: {
