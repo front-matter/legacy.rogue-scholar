@@ -21,6 +21,15 @@ export const isDoi = (doi: any) => {
   }
 };
 
+// from @extractus/feed-extractor
+const toISODateString = (dstr) => {
+  try {
+    return dstr ? new Date(dstr).toISOString().split('.')[0] + 'Z' : null;
+  } catch (err) {
+    return '';
+  }
+};
+
 export async function getPosts(blogSlug: string) {
   let { data, error } = await supabase.from('posts').select(postsSelect).eq('blog_id', blogSlug).order('date_published', { ascending: false })
 

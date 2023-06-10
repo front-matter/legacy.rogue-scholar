@@ -5,11 +5,11 @@ export interface Database {
     Tables: {
       blogs: {
         Row: {
-          category: string;
+          category?: string;
           description?: string;
-          id: string;
+          id?: string;
           title?: string;
-          feed_url: string;
+          feed_url?: string;
           home_page_url?: string;
           feed_format?: string;
           user_id?: string;
@@ -23,11 +23,11 @@ export interface Database {
           prefix?: string;
         };
         Insert: {
-          category: string;
+          category?: string;
           description?: string;
-          id: string;
+          id?: string;
           title?: string;
-          feed_url: string;
+          feed_url?: string;
           home_page_url?: string;
           feed_format?: string;
           user_id?: string;
@@ -41,11 +41,11 @@ export interface Database {
           prefix?: string;
         };
         Update: {
-          category: string;
+          category?: string;
           description?: string;
-          id: string;
+          id?: string;
           title?: string;
-          feed_url: string;
+          feed_url?: string;
           home_page_url?: string;
           feed_format?: string;
           user_id?: string;
