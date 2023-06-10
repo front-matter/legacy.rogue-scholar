@@ -42,6 +42,7 @@ export const feedFormats: { [key: string]: string; } = {
 };
 
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
+  const generator = blog.generator ? blog.generator.split(' ')[0] : null;
   return (
     <div className="bg-inherit pt-4">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -90,15 +91,15 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 </Link>
               </span>
             )}
-            {blog.generator && (
+            {generator && (
               <span className="text-gray-500">
                 <Link
-                  href={generators[blog.generator] ?? ''}
+                  href={generators[generator] ?? ''}
                   target="_blank"
                   className="relative mr-6 py-2 text-base font-medium text-gray-500"
                 >
                   <Icon icon="fa6-solid:rocket" className="inline" />
-                  <span className="ml-2">{blog.generator}</span>
+                  <span className="ml-2">{generator}</span>
                 </Link>
               </span>
             )}
