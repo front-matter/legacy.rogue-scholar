@@ -2,18 +2,17 @@ import fs from 'fs';
 import * as hcl from 'hcl2-parser';
 import path from 'path';
 import { supabase, blogsSelect } from '@/lib/supabaseClient';
+import { upsertSingleBlog } from '@/pages/api/blogs/[slug]';
 
 const optionalKeys = [
-  'base_url',
   'title',
   'description',
   'language',
-  'has_license',
   'category',
   'favicon',
   'generator',
   'indexed_at',
-  'issn',
+  'prefix'
 ];
 
 export async function getAllConfigs() {

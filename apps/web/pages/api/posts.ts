@@ -5,15 +5,6 @@ import { supabaseAdmin } from '@/lib/server/supabase-admin';
 import { supabase, postsSelect } from '@/lib/supabaseClient';
 import { PostType } from '@/types/blog';
 
-// from @extractus/feed-extractor
-const toISODateString = (dstr) => {
-  try {
-    return dstr ? new Date(dstr).toISOString().split('.')[0] + 'Z' : null;
-  } catch (err) {
-    return '';
-  }
-};
-
 const isOrcid = (orcid: any) => {
   try {
     return new URL(orcid).hostname === 'orcid.org';

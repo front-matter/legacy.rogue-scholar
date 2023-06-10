@@ -25,20 +25,18 @@ export interface PostType {
 
 export interface BlogType extends Omit<FeedData, 'entries' | 'published' | 'link'> {
   version?: string;
-  id?: string;
+  id: string;
   title?: string;
-  category?: string;
+  category: string;
   description?: string;
   language?: string;
   base_url?: string;
   home_page_url?: string;
-  feed_url?: string;
-  icon?: string;
+  feed_url: string;
   favicon?: string;
   modified_at?: string;
   indexed_at?: string;
   generator?: string;
-  has_license?: boolean;
   license?: string;
   feed_format?: string;
   items?: PostType[];

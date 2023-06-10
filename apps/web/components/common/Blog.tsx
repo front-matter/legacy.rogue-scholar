@@ -122,7 +122,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </span>
             )}
             {blog.indexed_at && (
-              <span className="text-gray-500">
+              <span className="text-gray-500 font-medium">
                 <Icon icon="fa6-regular:calendar-plus" className="inline" />
                 <time className="ml-2 mr-6" dateTime={blog.indexed_at.toString()}>
                   {new Date(blog.indexed_at).toLocaleDateString('en-US', {
@@ -133,10 +133,16 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 </time>
               </span>
             )}
-            {!blog.indexed_at && (
-              <span className="text-orange-600">
-                <Icon icon="fa6-solid:eye-slash" className="inline" />
-                <span className="ml-2 mr-6">Preview only</span>
+            {blog.modified_at && blog.modified_at > '1970-01-02' && (
+              <span className="text-gray-500 font-medium">
+                <Icon icon="fa6-regular:calendar-check" className="inline" />
+                <time className="ml-2 mr-6" dateTime={blog.modified_at.toString()}>
+                  {new Date(blog.modified_at).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </time>
               </span>
             )}
           </div>
