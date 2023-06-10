@@ -97,6 +97,10 @@ export async function getSingleBlog(blogSlug: string) {
   const configs = await getAllConfigs();
   const config = configs.find((config) => config.id === blogSlug);
 
+  if (!config) {
+    throw new Error(`No blog found with slug ${blogSlug}`);
+  }
+
   return await extract(config.feed_url, {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
@@ -125,12 +129,10 @@ export async function getSingleBlog(blogSlug: string) {
           ? 'application/atom+xml'
           : null || get(feedData, 'atom:link.@_type', null) || 'application/rss+xml';
 
-      let generator = get(feedData, 'generator', null) || config.generator;
+      let generator = get(feedData, 'generator', null)
 
-      generator = parseGenerator(generator);
-      // strip version from generator
-      generator = generator ? generator.split(' ')[0] : null;
-
+      generator = parseGenerator(generator) || config.generator;
+      
       let description =
         get(feedData, 'description.#text', null) ||
         get(feedData, 'description', null) ||
