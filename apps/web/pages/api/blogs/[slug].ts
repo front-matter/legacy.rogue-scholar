@@ -1,8 +1,7 @@
-import { get, capitalize, isObject, omit } from 'lodash';
-import { extract, FeedData } from '@extractus/feed-extractor';
+import { get, capitalize, isObject } from 'lodash';
+import { extract } from '@extractus/feed-extractor';
 
 import { supabaseAdmin } from '@/lib/server/supabase-admin';
-import { supabase, blogsSelect, blogWithPostsSelect } from '@/lib/supabaseClient';
 import { BlogType } from '@/types/blog';
 import { getAllConfigs } from '@/pages/api/blogs';
 
@@ -110,7 +109,7 @@ export async function getSingleBlog(blogSlug: string) {
       const indexed_at = config.indexed_at;
       const title = (config.title || get(feedData, 'title.#text', null) || get(feedData, 'title', null)).trim();
 
-      let home_page_url = [ ...get(feedData, 'link', []) ]
+      let home_page_url = [].concat(get(feedData, 'link', []))
         .find((link) => get(link, '@_rel', null) === 'alternate');
 
       home_page_url =
@@ -130,7 +129,7 @@ export async function getSingleBlog(blogSlug: string) {
 
       generator = parseGenerator(generator);
       // strip version from generator
-      generator = generator.split(' ')[0];
+      generator = generator ? generator.split(' ')[0] : null;
 
       let description =
         get(feedData, 'description.#text', null) ||
