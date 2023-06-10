@@ -41,5 +41,6 @@ export interface BlogType extends FeedData {
   feed_format?: string;
   items?: PostType[];
   expired?: boolean;
+  backlog?: boolean;
   prefix?: string;
 }

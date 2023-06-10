@@ -61,7 +61,7 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
         <div className={blog.indexed_at ? 'bg-white' : 'bg-blue-50'}>
           <Blog blog={blog} />
           {posts && <Posts posts={posts} parent={true} />}
-          {blog.home_page_url && (
+          {blog.home_page_url && blog.backlog && (
             <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
               <div className="my-5 lg:my-8">
                 <Link
