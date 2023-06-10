@@ -35,6 +35,11 @@ export async function getServerSideProps() {
 
 export default function Home({ blogs }) {
   blogs = blogs.map((blog) => {
+    if (blog.generator) {
+      blog.generator = blog.generator.split(' ')[0];
+    } else {
+      blog.generator = 'Unknown';
+    }
     blog.language = languages[blog.language] || blog.language;
     return blog;
   });

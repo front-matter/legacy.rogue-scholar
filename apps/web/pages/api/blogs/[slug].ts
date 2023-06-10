@@ -97,10 +97,6 @@ export async function getSingleBlog(blogSlug: string) {
   const configs = await getAllConfigs();
   const config = configs.find((config) => config.id === blogSlug);
 
-  if (!config) {
-    throw new Error(`No blog found with slug ${blogSlug}`);
-  }
-
   return await extract(config.feed_url, {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
