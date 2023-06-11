@@ -1,8 +1,8 @@
 name: DOI Registration Rogue Scholar
 on:
   schedule:
-    # workflow_dispatch:
-    - cron: "45 8 * * *"
+    workflow_dispatch:
+    # - cron: "45 8 * * *"
 jobs:
   register:
     runs-on: ubuntu-latest
