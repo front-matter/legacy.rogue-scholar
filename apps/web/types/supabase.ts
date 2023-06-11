@@ -59,6 +59,50 @@ export interface Database {
           prefix?: string;
         };
       };
+      posts: {
+        Row: {
+          authors?: Json | null;
+          blog_id?: string;
+          content_html?: string;
+          date_modified?: string;
+          date_published?: string;
+          id?: string;
+          image?: string;
+          language?: string;
+          summary?: string;
+          tags?: string[];
+          title?: string;
+          url?: string;
+        }
+        Insert: {
+          authors?: Json | null;
+          blog_id?: string;
+          content_html?: string;
+          date_modified?: string;
+          date_published?: string;
+          id?: string;
+          image?: string;
+          language?: string;
+          summary?: string;
+          tags?: string[];
+          title?: string;
+          url?: string;
+        };
+        Update: {
+          authors?: Json | null;
+          blog_id?: string;
+          content_html?: string;
+          date_modified?: string;
+          date_published?: string;
+          id?: string;
+          image?: string;
+          language?: string;
+          summary?: string;
+          tags?: string[];
+          title?: string;
+          url?: string;
+        };
+      };
       customers: {
         Row: {
           stripe_customer_id: string;
