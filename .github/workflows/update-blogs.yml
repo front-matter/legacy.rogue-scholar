@@ -1,7 +1,8 @@
 name: Update Blogs
-on:
-  schedule:
-    - cron: "10 8 * * *"
+on: 
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "10 8 * * *"
 jobs:
   update:
     runs-on: ubuntu-latest
