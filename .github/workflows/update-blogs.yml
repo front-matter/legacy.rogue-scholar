@@ -1,0 +1,11 @@
+name: Update Blogs
+on:
+  schedule:
+    - cron: "15 9 * * *"
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: update Rogue Scholar blogs
+        run: |
+          curl -X POST https://rogue-scholar.org/api/blogs/update -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}"
