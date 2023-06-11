@@ -4,7 +4,7 @@ import { get, isArray, isObject } from 'lodash';
 import { upsertSinglePost } from '@/pages/api/posts/[slug]';
 import { getSingleBlog } from '@/pages/api/blogs/[slug]';
 import { getAllConfigs } from '@/pages/api/blogs';
-import { BlogType } from '@/types/blog';
+import { BlogType, PostType } from '@/types/blog';
 
 const isOrcid = (orcid: any) => {
   try {
@@ -38,7 +38,7 @@ export async function getAllUpdatedPosts() {
 export async function getUpdatedPosts(blogSlug: string) {
   const blog: BlogType = await getSingleBlog(blogSlug);
 
-  let blogWithPosts = await extract(blog.feed_url, {
+  let blogWithPosts = await extract(blog.feed_url as string, {
     useISODateFormat: true,
     getExtraEntryFields: (feedEntry) => {
       // (feedEntry)
@@ -93,10 +93,10 @@ export async function getUpdatedPosts(blogSlug: string) {
     },
   });
 
-  const posts = blogWithPosts['entries'].filter((post) => {
-    return post.date_published > blog.modified_at;
+  let posts : PostType[] = blogWithPosts['entries'] || [];
+  return posts.filter((post) => {
+    return (post.date_published as string) > (blog.modified_at as string);
   });
-  return posts;
 };
 
 
