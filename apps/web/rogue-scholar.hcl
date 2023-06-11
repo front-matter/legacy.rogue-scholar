@@ -407,13 +407,14 @@ blog {
   indexed_at = "2023-04-18"
 }
 
-// blog {
-//   id         = "y3h0g22"
-//   title      = "Blog on Research Software Alliance"
-//   feed_url   = "https://www.researchsoft.org/blog/index.xml"
-//   category   = "Engineering and Technology"
-//   indexed_at = "2023-04-21"
-// }
+blog {
+  id            = "y3h0g22"
+  title         = "Blog on Research Software Alliance"
+  feed_url      = "https://www.researchsoft.org/blog/index.xml"
+  home_page_url = "https://www.researchsoft.org/blog/"
+  category      = "Engineering and Technology"
+  indexed_at    = "2023-04-21"
+}
 
 blog {
   id         = "6hezn63"

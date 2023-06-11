@@ -1,6 +1,7 @@
-import { get, capitalize, isObject } from 'lodash';
+import { get, capitalize, isObject, omit } from 'lodash';
 import { extract } from '@extractus/feed-extractor';
 
+import { supabase } from '@/lib/supabaseClient';
 import { supabaseAdmin } from '@/lib/server/supabase-admin';
 import { BlogType } from '@/types/blog';
 import { getAllConfigs } from '@/pages/api/blogs';
@@ -97,7 +98,7 @@ export async function getSingleBlog(blogSlug: string) {
   const configs = await getAllConfigs();
   const config = configs.find((config) => config.id === blogSlug);
 
-  return await extract(config.feed_url, {
+  let blog : BlogType = await extract(config.feed_url, {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
       // console.log(feedData)
@@ -152,14 +153,6 @@ export async function getSingleBlog(blogSlug: string) {
         get(feedData, 'rights.#text', null)
           ? null
           : 'https://creativecommons.org/licenses/by/4.0/legalcode';
-      const modified_at = toISODateString(
-        get(feedData, 'pubDate', null) ||
-          get(feedData, 'lastBuildDate', null) ||
-          get(feedData, 'updated', null) ||
-          get(feedData, 'modified', null) ||
-          get(feedData, 'published', null) ||
-          get(feedData, 'issued', null)
-      );
       const prefix = config.prefix;
 
       return {
@@ -175,12 +168,15 @@ export async function getSingleBlog(blogSlug: string) {
         favicon,
         language,
         license,
-        modified_at,
         indexed_at,
         prefix
       };
-    },
+    }
   });
+  let { data: posts } = await supabase.from('posts').select('date_published, blog_id').eq('blog_id', blog.id).order('date_published', { ascending: false });
+  blog.modified_at = posts && posts.length > 0 ? posts[0].date_published : '1970-01-01T00:00:00Z';
+  blog = omit(blog, ['published', 'link', 'entries']);
+  return blog;
 };
 
 export default async function handler(req, res) {
