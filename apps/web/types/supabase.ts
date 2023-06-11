@@ -1,3 +1,5 @@
+import { AuthorType } from "./blog";
+
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
 
 export interface Database {
@@ -61,7 +63,7 @@ export interface Database {
       };
       posts: {
         Row: {
-          authors?: Json | null;
+          authors?: AuthorType[];
           blog_id?: string;
           content_html?: string;
           date_modified?: string;
@@ -75,7 +77,7 @@ export interface Database {
           url?: string;
         }
         Insert: {
-          authors?: Json | null;
+          authors?: AuthorType[];
           blog_id?: string;
           content_html?: string;
           date_modified?: string;
@@ -89,7 +91,7 @@ export interface Database {
           url?: string;
         };
         Update: {
-          authors?: Json | null;
+          authors?: AuthorType[];
           blog_id?: string;
           content_html?: string;
           date_modified?: string;

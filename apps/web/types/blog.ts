@@ -1,5 +1,4 @@
 import { FeedData } from '@extractus/feed-extractor';
-import { Json } from './supabase';
 
 export interface AuthorType {
   name: string;
@@ -9,13 +8,13 @@ export interface AuthorType {
 
 export interface PostType {
   id: string;
-  short_id: string;
+  uuid?: string;
   url?: string;
   title?: string;
   summary?: string;
   date_published?: string;
   date_modified?: string;
-  authors?: Json | null;
+  authors?: AuthorType[];
   image?: string;
   content_html?: string;
   tags?: string[];
