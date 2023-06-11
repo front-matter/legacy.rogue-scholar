@@ -27,9 +27,7 @@ export async function upsertSinglePost(post: PostType) {
 }
 
 export default async function handler(req, res) {
-  // let { data, error } = await supabase.from('posts').select(postsSelect).eq('uuid', req.query.slug).single()
-
-  const posts = await getUpdatedPosts(req.query.slug);
+  let { data: post } = await supabase.from('posts').select(postsSelect).eq('uuid', req.query.slug).single()
   
-  res.status(200).json(posts);
+  res.status(200).json(post);
 }
