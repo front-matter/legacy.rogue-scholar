@@ -1,7 +1,7 @@
 name: Update Blogs
 on:
   schedule:
-    - cron: "15 9 * * *"
+    - cron: "10 8 * * *"
 jobs:
   update:
     runs-on: ubuntu-latest
