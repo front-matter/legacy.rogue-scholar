@@ -174,7 +174,7 @@ export async function getSingleBlog(blogSlug: string) {
     }
   });
   let { data: posts } = await supabase.from('posts').select('date_published, blog_id').eq('blog_id', blog.id).order('date_published', { ascending: false });
-  blog.modified_at = posts ? posts[0].date_published : '1970-01-01T00:00:00Z';
+  blog.modified_at = posts && posts.length > 0 ? posts[0].date_published : '1970-01-01T00:00:00Z';
   blog = omit(blog, ['published', 'link', 'entries']);
   return blog;
 };
