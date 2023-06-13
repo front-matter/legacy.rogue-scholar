@@ -8,6 +8,7 @@ import { getSingleBlog } from '@/pages/api/blogs/[slug]';
 import { getAllConfigs } from '@/pages/api/blogs';
 import { BlogType, PostType } from '@/types/blog';
 import { isDoi } from '../posts';
+import { all } from 'axios';
 
 const isOrcid = (orcid: any) => {
   try {
@@ -59,9 +60,9 @@ const toISODateString = (dstr) => {
   }
 };
 
-export async function getAllUpdatedPosts() {
+export async function getAllUpdatedPosts(allPosts: boolean = false) {
   const configs = await getAllConfigs();
-  let posts = await Promise.all(configs.map((config) => getUpdatedPosts(config.id)));
+  let posts = await Promise.all(configs.map((config) => getUpdatedPosts(config.id, allPosts)));
   posts = posts.flat();
   posts = posts.map((post) => {
     post.summary = post.description;
@@ -71,7 +72,7 @@ export async function getAllUpdatedPosts() {
   return posts;
 }
 
-export async function getUpdatedPosts(blogSlug: string) {
+export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = false) {
   const blog: BlogType = await getSingleBlog(blogSlug);
 
   let blogWithPosts = await extract(blog.feed_url as string, {
@@ -132,7 +133,7 @@ export async function getUpdatedPosts(blogSlug: string) {
 
   let posts : PostType[] = blogWithPosts['entries'] || [];
   return posts.filter((post) => {
-    return (post.date_published as string) > (blog.modified_at as string);
+    return (post.date_published as string) > (allPosts ? '1970-01-01' : blog.modified_at as string);
   });
 };
 
@@ -141,7 +142,8 @@ export default async function handler(req, res) {
   if (!req.headers.authorization || req.headers.authorization.split(' ')[1] !== process.env.SUPABASE_SERVICE_ROLE_KEY) {
     res.status(401).json({ message: 'Unauthorized' });
   } else if (req.method === 'POST') {
-    const posts = await getAllUpdatedPosts();
+    const allPosts: boolean = req.body.allPosts || false;
+    const posts = await getAllUpdatedPosts(allPosts);
     res.status(200).json(posts);
   } else {
     res.status(405).json({ message: 'Method Not Allowed' });
