@@ -1,7 +1,7 @@
 import { get, capitalize, isObject, omit } from 'lodash';
 import { extract } from '@extractus/feed-extractor';
 
-import { supabase } from '@/lib/supabaseClient';
+import { supabase, blogWithPostsSelect } from '@/lib/supabaseClient';
 import { supabaseAdmin } from '@/lib/server/supabase-admin';
 import { BlogType } from '@/types/blog';
 import { getAllConfigs } from '@/pages/api/blogs';
@@ -180,8 +180,8 @@ export async function getSingleBlog(blogSlug: string) {
 };
 
 export default async function handler(req, res) {
-  // let { data, error } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', req.query.slug).single();
+  let { data: blog } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', req.query.slug).single();
 
-  const blog = await getSingleBlog(req.query.slug);
+  // const blog = await getSingleBlog(req.query.slug);
   res.status(200).json(blog);
 }
