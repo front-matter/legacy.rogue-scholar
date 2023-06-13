@@ -1,5 +1,4 @@
 import { supabase, postsSelect } from '@/lib/supabaseClient';
-import { getUpdatedPosts } from '@/pages/api/posts/update';
 import { supabaseAdmin } from '@/lib/server/supabase-admin';
 import { PostType } from '@/types/blog';
 
@@ -13,6 +12,7 @@ export async function upsertSinglePost(post: PostType) {
     id: post.id,
     image: post.image,
     language: post.language,
+    references: post.references,
     summary: post.summary,
     tags: post.tags,
     title: post.title,
