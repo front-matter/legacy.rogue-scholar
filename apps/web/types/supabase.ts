@@ -1,4 +1,4 @@
-import { AuthorType } from "./blog";
+import { AuthorType, ReferenceType } from "./blog";
 
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
 
@@ -71,6 +71,7 @@ export interface Database {
           id?: string;
           image?: string;
           language?: string;
+          references?: ReferenceType[];
           summary?: string;
           tags?: string[];
           title?: string;
@@ -85,6 +86,7 @@ export interface Database {
           id?: string;
           image?: string;
           language?: string;
+          references?: ReferenceType[];
           summary?: string;
           tags?: string[];
           title?: string;
@@ -99,6 +101,7 @@ export interface Database {
           id?: string;
           image?: string;
           language?: string;
+          references?: ReferenceType[];
           summary?: string;
           tags?: string[];
           title?: string;

@@ -5,6 +5,11 @@ export interface AuthorType {
   url?: string;
   avatar?: string;
 }
+export interface ReferenceType {
+  key?: string;
+  doi?: string;
+  url?: string;
+}
 
 export interface PostType {
   id: string;
@@ -17,6 +22,7 @@ export interface PostType {
   authors?: AuthorType[];
   image?: string;
   content_html?: string;
+  references?: ReferenceType[];
   tags?: string[];
   language?: string;
   blog_id?: string;

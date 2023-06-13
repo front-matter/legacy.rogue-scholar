@@ -1,5 +1,4 @@
 import { supabase, postsSelect } from '@/lib/supabaseClient';
-import { getUpdatedPosts } from '@/pages/api/posts/update';
 import { supabaseAdmin } from '@/lib/server/supabase-admin';
 import { PostType } from '@/types/blog';
 
@@ -13,11 +12,34 @@ export async function upsertSinglePost(post: PostType) {
     id: post.id,
     image: post.image,
     language: post.language,
+    references: post.references,
     summary: post.summary,
     tags: post.tags,
     title: post.title,
     url: post.url,
   });
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
+export async function updateSinglePost(post: PostType) {
+  const { data, error } = await supabaseAdmin.from('posts').update({
+    authors: post.authors,
+    blog_id: post.blog_id,
+    content_html: post.content_html,
+    date_modified: post.date_modified,
+    date_published: post.date_published,
+    image: post.image,
+    language: post.language,
+    references: post.references,
+    summary: post.summary,
+    tags: post.tags,
+    title: post.title,
+  }).eq('url', post.url);
 
   if (error) {
     throw error;
