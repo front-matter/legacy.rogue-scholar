@@ -26,6 +26,28 @@ export async function upsertSinglePost(post: PostType) {
   return data;
 }
 
+export async function updateSinglePost(post: PostType) {
+  const { data, error } = await supabaseAdmin.from('posts').update({
+    authors: post.authors,
+    blog_id: post.blog_id,
+    content_html: post.content_html,
+    date_modified: post.date_modified,
+    date_published: post.date_published,
+    image: post.image,
+    language: post.language,
+    references: post.references,
+    summary: post.summary,
+    tags: post.tags,
+    title: post.title,
+  }).eq('url', post.url);
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
+
 export default async function handler(req, res) {
   let { data: post } = await supabase.from('posts').select(postsSelect).eq('uuid', req.query.slug).single()
   

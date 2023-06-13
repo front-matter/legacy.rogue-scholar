@@ -3,7 +3,7 @@ import { get, isArray, isObject, uniq } from 'lodash';
 const extractUrls = require("extract-urls");
 import normalizeUrl from 'normalize-url';
 
-import { upsertSinglePost } from '@/pages/api/posts/[slug]';
+import { upsertSinglePost, updateSinglePost } from '@/pages/api/posts/[slug]';
 import { getSingleBlog } from '@/pages/api/blogs/[slug]';
 import { getAllConfigs } from '@/pages/api/blogs';
 import { BlogType, PostType } from '@/types/blog';
@@ -68,7 +68,11 @@ export async function getAllUpdatedPosts(allPosts: boolean = false) {
     post.summary = post.description;
     return post;
   });
-  await Promise.all(posts.map(post => upsertSinglePost(post)));
+  if (allPosts) {
+    await Promise.all(posts.map(post => updateSinglePost(post)));
+  } else {
+    await Promise.all(posts.map(post => upsertSinglePost(post)));
+  }
   return posts;
 }
 
@@ -142,8 +146,7 @@ export default async function handler(req, res) {
   if (!req.headers.authorization || req.headers.authorization.split(' ')[1] !== process.env.SUPABASE_SERVICE_ROLE_KEY) {
     res.status(401).json({ message: 'Unauthorized' });
   } else if (req.method === 'POST') {
-    const allPosts: boolean = req.body.allPosts || false;
-    const posts = await getAllUpdatedPosts(allPosts);
+    const posts = await getAllUpdatedPosts();
     res.status(200).json(posts);
   } else {
     res.status(405).json({ message: 'Method Not Allowed' });
