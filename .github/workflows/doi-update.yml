@@ -3,13 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       slug:
-        description: 'uuid of blog post'     
+        description: 'id of blog'     
         required: true
 jobs:
-  update:
+  findPosts:
     runs-on: ubuntu-latest
-    outputs:
-      doi: ${{ steps.random_doi.outputs.DOI }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3       
@@ -28,19 +26,52 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-      - name: Generate XML
+      - name: Find blog posts by blog id
         run: |
-          mkdir -p upload
-          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ github.event.inputs.slug }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
-      - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-            name: uploads
-            path: upload/temp         
-      - name: Download
-        uses: actions/download-artifact@v2
-        with:
-            name: uploads
-      - name: Update content
+          echo "::set-output name=POSTS::$(bundle exec commonmeta json_feed_by_blog ${{ github.event.inputs.slug }})"
+        id: posts_by_blog
+    outputs:
+      posts: ${{ steps.posts_by_blog.outputs.POSTS }}
+  updatePosts:
+    runs-on: ubuntu-latest
+    needs: findPosts
+    strategy:
+      matrix:
+        uuids: ${{ fromJson(needs.findPosts.outputs.posts) }}
+    steps:
+      - name: Lists uuids
         run: |
-          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
+          echo ${{ matrix.uuids }}
+  #     - name: Checkout
+  #       uses: actions/checkout@v3       
+  #     - uses: actions/cache@v3
+  #       with:
+  #         path: vendor/bundle
+  #         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-gems-
+  #     - name: Set up Ruby 3.2
+  #       uses: ruby/setup-ruby@v1
+  #       with:
+  #         ruby-version: '3.2'
+  #     - name: Install commonmeta-ruby
+  #       run: |
+  #         gem install bundler
+  #         bundle config path vendor/bundle
+  #         bundle install --jobs 4 --retry 3
+  #     - name: Generate XML
+  #       run: |
+  #         mkdir -p upload
+  #         bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ github.event.inputs.slug }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
+  #     - name: Upload
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #           name: uploads
+  #           path: upload/temp         
+  #     - name: Download
+  #       uses: actions/download-artifact@v2
+  #       with:
+  #           name: uploads
+  #     - name: Update content
+  #       run: |
+  #         curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"

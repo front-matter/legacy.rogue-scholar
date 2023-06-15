@@ -30,8 +30,8 @@ const getReferences = (content_html: string) => {
   if (reference_html.length == 1) {
     return [];
   }
-  // strip optional text after references, using <hr> or <hr /> as tag
-  reference_html[1] = reference_html[1].split(/(?:<hr \/>|<hr>)/, 2)[0];
+  // strip optional text after references, using <hr>, <hr />, <h2, <h3, <h4 as tag
+  reference_html[1] = reference_html[1].split(/(?:<hr \/>|<hr>|<h2|<h3|<h4)/, 2)[0];
   let urls = extractUrls(reference_html[1]);
   if (!urls || urls.length == 0) {
     return [];

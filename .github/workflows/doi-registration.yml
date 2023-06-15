@@ -1,13 +1,11 @@
 name: DOI Registration Rogue Scholar
 on:
-  schedule:
-    # workflow_dispatch:
-    # - cron: "*/10 * * * *"
+  workflow_dispatch:
 jobs:
   register:
     runs-on: ubuntu-latest
     outputs:
-      postid: ${{ steps.pending_post.outputs.POSTID }}
+      postid: ${{ steps.pending_post.outputs.POSTS }}
       doi: ${{ steps.random_doi.outputs.DOI }}
     steps:
       - name: Checkout
@@ -29,7 +27,7 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Find blog post without DOI
         run: |
-          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed)"
+          echo "::set-output name=POSTS::$(bundle exec commonmeta json_feed_unregistered)"
         id: pending_post
       - name: Exit early if no pending posts
         if: steps.pending_post.outputs.POSTID == ''

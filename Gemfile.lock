@@ -8,7 +8,8 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    base32-url (0.6.0)
+    base32-url (0.7.0)
+      uuidtools (~> 2.1, >= 2.1.5)
     bibtex-ruby (6.0.0)
       latex-decode (~> 0.0)
     builder (3.2.4)
@@ -17,10 +18,10 @@ GEM
     citeproc-ruby (2.0.0)
       citeproc (~> 1.0, >= 1.0.9)
       csl (~> 2.0)
-    commonmeta-ruby (3.2.9)
+    commonmeta-ruby (3.2.12)
       activesupport (>= 4.2.5, < 8.0)
       addressable (~> 2.8.1, < 2.8.2)
-      base32-url (>= 0.5.0, < 1)
+      base32-url (>= 0.7.0, < 1)
       bibtex-ruby (~> 6.0)
       builder (~> 3.2, >= 3.2.4)
       citeproc-ruby (~> 2.0)
@@ -172,12 +173,13 @@ GEM
       unf_ext
     unf_ext (0.0.8.2)
     unicode-types (1.8.0)
+    uuidtools (2.2.0)
 
 PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
-  commonmeta-ruby (~> 3.2, >= 3.2.9)
+  commonmeta-ruby (~> 3.2, >= 3.2.12)
 
 BUNDLED WITH
    2.4.14
