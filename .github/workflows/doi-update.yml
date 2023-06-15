@@ -42,7 +42,7 @@ jobs:
       - findPosts
     steps:
       - name: Echo previous outputs
-        run: echo "${{ toJSON(needs.findPosts.outputs) }}"
+        run: echo "${{ fromJSON(needs.findPosts.outputs) }}"
       
   #     - name: Checkout
   #       uses: actions/checkout@v3       
