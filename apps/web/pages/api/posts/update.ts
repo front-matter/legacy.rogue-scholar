@@ -1,5 +1,5 @@
 import { extract } from '@extractus/feed-extractor';
-import { get, isArray, isObject, uniq } from 'lodash';
+import { get, isArray, isObject, uniq, unescape } from 'lodash';
 const extractUrls = require("extract-urls");
 import normalizeUrl from 'normalize-url';
 
@@ -18,6 +18,11 @@ const isOrcid = (orcid: any) => {
   }
 };
 
+// from https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript
+const decodeHtmlCharCodes = (str: string) => 
+  str.replace(/(&#(\d+);)/g, (_match, _capture, charCode) => 
+    String.fromCharCode(charCode));
+
 const getReferences = (content_html: string) => {
   // extract links from references section,defined as the text after the tag 
   // "References</h2>", "References</h3>" or "References</h4>
@@ -25,9 +30,12 @@ const getReferences = (content_html: string) => {
   if (reference_html.length == 1) {
     return [];
   }
-  // strip optional text after references, using <hr /> as a marker
-  reference_html[1] = reference_html[1].split(/<hr \/>/, 2)[0];
+  // strip optional text after references, using <hr> or <hr /> as tag
+  reference_html[1] = reference_html[1].split(/(?:<hr \/>|<hr>)/, 2)[0];
   let urls = extractUrls(reference_html[1]);
+  if (!urls || urls.length == 0) {
+    return [];
+  }
   urls = urls.map((url) => {
     url = normalizeUrl(url, { removeQueryParameters: ['ref', 'referrer', 'origin', 'utm_content', 'utm_medium', 'utm_source'] })
     url = isDoi(url) ? url.toLowerCase() : url;
@@ -38,12 +46,12 @@ const getReferences = (content_html: string) => {
     let doi = isDoi(url)
     if (doi) { 
       return {
-        key: (index + 1) as string,
+        key: `ref${index + 1}`,
         doi: url,
       };
     } else {
       return {
-        key: (index + 1) as string,
+        key: `ref${index + 1}`,
         url: url,
       };
     }
@@ -81,6 +89,7 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
 
   let blogWithPosts = await extract(blog.feed_url as string, {
     useISODateFormat: true,
+    descriptionMaxLen: 500,
     getExtraEntryFields: (feedEntry) => {
       const author = get(feedEntry, 'author', null) || get(feedEntry, 'dc:creator', []);
       const authors = [].concat(author).map((author) => {
@@ -107,7 +116,8 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
       const tags = [].concat(get(feedEntry, 'category', []))
         .map((tag) => get(tag, '@_term', null) || get(tag, '#text', null) || tag)
         .slice(0, 5);
-      const title = get(feedEntry, 'title.#text', null) || get(feedEntry, 'title', null);
+      let title = get(feedEntry, 'title.#text', null) || get(feedEntry, 'title', null) || '';
+      title = decodeHtmlCharCodes(title).trim();
       let url: any = get(feedEntry, 'link', []);
       
       if (isArray(url) && url.length > 0) {
