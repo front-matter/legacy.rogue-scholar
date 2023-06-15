@@ -35,7 +35,7 @@ jobs:
       - name: Generate matrix
         id: matrix
         run: |
-          echo "::set-output name=POSTS::${{ toJSON(bundle exec commonmeta json_feed_by_blog ${{ github.event.inputs.slug }} | jq --slurp --raw-input 'split("\\n")[:-1]') }}"
+          echo "::set-output name=POSTS::$(bundle exec commonmeta json_feed_by_blog ${{ github.event.inputs.slug }} | jq --slurp --raw-input 'split("\\n")[:-1]'))"
   my_echo:
     runs-on: ubuntu-latest
     needs:
