@@ -8,6 +8,8 @@ on:
 jobs:
   findPosts:
     runs-on: ubuntu-latest
+    outputs:
+      posts: ${{ steps.posts_by_blog.outputs.POSTS }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3       
@@ -27,13 +29,13 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
       - name: Find blog posts by blog id
-        env:
-          POSTS: $(bundle exec commonmeta json_feed_by_blog ${{ github.event.inputs.slug }})
         run: |
-          echo "$POSTS" 
+          echo "::set-output name=POSTS::$(bundle exec commonmeta json_feed_by_blog ${{ github.event.inputs.slug }})"
         id: posts_by_blog
-    outputs:
-      posts: ${{ steps.posts_by_blog.outputs.POSTS }}
+      - name: Generate matrix
+        run: |
+          echo ${{ steps.posts_by_blog.outputs.POSTS }}
+        id: matrix
   # updatePosts:
   #   runs-on: ubuntu-latest
   #   needs: findPosts
