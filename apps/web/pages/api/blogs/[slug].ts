@@ -180,7 +180,7 @@ export async function getSingleBlog(blogSlug: string) {
 };
 
 export default async function handler(req, res) {
-  let { data: blog } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', req.query.slug).single();
+  let { data: blog } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', req.query.slug).lt('posts.date_indexed', '2023-01-01').single();
 
   // const blog = await getSingleBlog(req.query.slug);
   res.status(200).json(blog);
