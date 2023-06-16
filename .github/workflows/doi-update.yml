@@ -1,10 +1,7 @@
 name: DOI update Rogue Scholar
 on:
-  workflow_dispatch:
-    inputs:
-      slug:
-        description: 'id of blog'     
-        required: true
+  schedule:
+    - cron: "*/10 * * * *"
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -28,8 +25,11 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Find blog posts by blog id
         run: |
-          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed_by_blog ${{ github.event.inputs.slug }})"
+          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed_by_blog tyfqw20)"
         id: posts_by_blog
+      - name: Exit early if no posts found
+        if: steps.posts_by_blog.outputs.POSTID == ''
+        run: exit 1
       - name: Generate XML
         run: |
           mkdir -p upload
