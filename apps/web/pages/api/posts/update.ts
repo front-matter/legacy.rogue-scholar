@@ -1,14 +1,17 @@
 import { extract } from '@extractus/feed-extractor';
-import { get, isArray, isObject, uniq, unescape } from 'lodash';
+import { get, isArray, isObject, isString, uniq, pick } from 'lodash';
 const extractUrls = require("extract-urls");
 import normalizeUrl from 'normalize-url';
 
 import { upsertSinglePost, updateSinglePost } from '@/pages/api/posts/[slug]';
 import { getSingleBlog } from '@/pages/api/blogs/[slug]';
 import { getAllConfigs } from '@/pages/api/blogs';
-import { BlogType, PostType } from '@/types/blog';
+import { BlogType, PostType, AuthorType } from '@/types/blog';
 import { isDoi } from '../posts';
-import { all } from 'axios';
+
+export const authorIDs: { [key: string]: string; } = {
+  "http://www.blogger.com/profile/00269598293846172649": "https://orcid.org/0000-0002-7101-9767"
+}
 
 const isOrcid = (orcid: any) => {
   try {
@@ -91,10 +94,19 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
     useISODateFormat: true,
     descriptionMaxLen: 500,
     getExtraEntryFields: (feedEntry) => {
-      const author = get(feedEntry, 'author', null) || get(feedEntry, 'dc:creator', []);
+      let author: any = get(feedEntry, 'author', null) || get(feedEntry, 'dc:creator', []);
+      if (isString(author)) {
+        author = {
+          name: author,
+          url: null,
+        };
+      } else if (isArray(author)) {
+        author = author[0];
+      }
+      author = pick(author, ['name', 'uri']);
       const authors = [].concat(author).map((author) => {
         return {
-          name: get(author, 'name', null) || author,
+          name: get(author, 'name', null),
           url: isOrcid(get(author, 'uri', null)) ? get(author, 'uri', null) : null,
         };
       });
