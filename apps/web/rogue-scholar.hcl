@@ -76,7 +76,7 @@ blog {
 blog {
   id         = "tyfqw20"
   category   = "Natural Sciences"
-  feed_url   = "https://iphylo.blogspot.com/feeds/posts/default?alt=rss"
+  feed_url   = "https://iphylo.blogspot.com/feeds/posts/default"
   prefix     = "10.59350"
   indexed_at = "2023-02-06"
 }
