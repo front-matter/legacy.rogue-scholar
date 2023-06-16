@@ -103,6 +103,9 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
       } else if (isArray(author)) {
         author = author[0];
       }
+      if (author && authorIDs[author.uri]) {
+        author.uri = authorIDs[author.uri];
+      }
       author = pick(author, ['name', 'uri']);
       const authors = [].concat(author).map((author) => {
         return {
