@@ -177,7 +177,7 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
 
 
 export default async function handler(req, res) {
-  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] !== process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] !== process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY) {
     res.status(401).json({ message: 'Unauthorized' });
   } else if (req.method === 'POST') {
     const posts = await getAllUpdatedPosts();
