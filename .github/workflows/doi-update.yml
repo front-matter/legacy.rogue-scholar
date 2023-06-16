@@ -33,19 +33,19 @@ jobs:
       - name: Generate XML
         run: |
           mkdir -p upload
-          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.posts_by_blog.outputs.POSTID }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
+          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.posts_by_blog.outputs.POSTID }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/${{ steps.posts_by_blog.outputs.POSTID }}
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
             name: uploads
-            path: upload/temp         
+            path: upload/${{ steps.posts_by_blog.outputs.POSTID }}         
       - name: Download
         uses: actions/download-artifact@v2
         with:
             name: uploads
       - name: Update content
         run: |
-          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
+          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/${{ steps.posts_by_blog.outputs.POSTID }}"
       - name: Set current date as env variable
         run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
       - name: update Rogue Scholar post
