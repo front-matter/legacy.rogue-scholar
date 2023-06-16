@@ -6,10 +6,8 @@ on:
         description: 'id of blog'     
         required: true
 jobs:
-  findPosts:
+  update:
     runs-on: ubuntu-latest
-    outputs:
-      posts: ${{ steps.matrix.outputs.POSTS }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3       
@@ -30,50 +28,27 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Find blog posts by blog id
         run: |
-          echo "::set-output name=POSTS::$(bundle exec commonmeta json_feed_by_blog ${{ github.event.inputs.slug }})"
+          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed_by_blog ${{ github.event.inputs.slug }})"
         id: posts_by_blog
-      - name: Generate matrix
-        id: matrix
+      - name: Generate XML
         run: |
-          echo "::set-output name=POSTS::$(bundle exec commonmeta json_feed_by_blog ${{ github.event.inputs.slug }} | jq --slurp --raw-input 'split("\\n")[:-1]'))"
-  my_echo:
-    runs-on: ubuntu-latest
-    needs:
-      - findPosts
-    steps:
-      - name: Echo previous outputs
-        run: echo "${{ fromJSON(needs.findPosts.outputs) }}"
-      
-  #     - name: Checkout
-  #       uses: actions/checkout@v3       
-  #     - uses: actions/cache@v3
-  #       with:
-  #         path: vendor/bundle
-  #         key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-  #         restore-keys: |
-  #           ${{ runner.os }}-gems-
-  #     - name: Set up Ruby 3.2
-  #       uses: ruby/setup-ruby@v1
-  #       with:
-  #         ruby-version: '3.2'
-  #     - name: Install commonmeta-ruby
-  #       run: |
-  #         gem install bundler
-  #         bundle config path vendor/bundle
-  #         bundle install --jobs 4 --retry 3
-  #     - name: Generate XML
-  #       run: |
-  #         mkdir -p upload
-  #         bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ github.event.inputs.slug }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
-  #     - name: Upload
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #           name: uploads
-  #           path: upload/temp         
-  #     - name: Download
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #           name: uploads
-  #     - name: Update content
-  #       run: |
-  #         curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
+          mkdir -p upload
+          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.posts_by_blog.outputs.POSTID }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+            name: uploads
+            path: upload/temp         
+      - name: Download
+        uses: actions/download-artifact@v2
+        with:
+            name: uploads
+      - name: Update content
+        run: |
+          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
+      - name: Set current date as env variable
+        run: echo "NOW=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+      - name: update Rogue Scholar post
+        run: |
+          curl -X PATCH https://api.rogue-scholar.org/rest/v1/posts?uuid=eq.${{ steps.posts_by_blog.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "date_indexed": "$NOW" }'
+  
