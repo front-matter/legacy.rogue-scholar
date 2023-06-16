@@ -2,6 +2,8 @@ import { Icon } from '@iconify/react';
 import Link from 'next/link';
 import React from 'react';
 
+import { isOrcid } from '@/pages/api/posts/update';
+
 type Props = {
   name: string;
   url?: string;
@@ -11,7 +13,7 @@ type Props = {
 export const Author: React.FunctionComponent<Props> = ({ name, url, isLast }) => {
   return (
     <>
-      {url ? (
+      {url && isOrcid(url) ? (
         <span>
           <Link href={url} className="whitespace-nowrap text-gray-500">
             {name}

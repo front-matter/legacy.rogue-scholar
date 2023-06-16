@@ -10,12 +10,21 @@ import { BlogType, PostType, AuthorType } from '@/types/blog';
 import { isDoi } from '../posts';
 
 export const authorIDs: { [key: string]: string; } = {
-  "http://www.blogger.com/profile/00269598293846172649": "https://orcid.org/0000-0002-7101-9767"
+  "Roderic Page": "https://orcid.org/0000-0002-7101-9767",
+  "Liberate Science": "https://ror.org/0342dzm54"
 }
 
-const isOrcid = (orcid: any) => {
+export const isOrcid = (orcid: any) => {
   try {
     return new URL(orcid).hostname === 'orcid.org';
+  } catch (error) {
+    return false;
+  }
+};
+
+const isRor = (ror: any) => {
+  try {
+    return new URL(ror).hostname === 'ror.org';
   } catch (error) {
     return false;
   }
@@ -103,14 +112,14 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
       } else if (isArray(author)) {
         author = author[0];
       }
-      if (author && authorIDs[author.uri]) {
-        author.uri = authorIDs[author.uri];
+      if (author && authorIDs[author.name]) {
+        author.uri = authorIDs[author.name];
       }
       author = pick(author, ['name', 'uri']);
       const authors = [].concat(author).map((author) => {
         return {
           name: get(author, 'name', null),
-          url: isOrcid(get(author, 'uri', null)) ? get(author, 'uri', null) : null,
+          url: isOrcid(get(author, 'uri', null)) || isRor(get(author, 'uri', null)) ? get(author, 'uri', null) : null,
         };
       });
       const blog_id = blog.id;
