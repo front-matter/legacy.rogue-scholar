@@ -9,7 +9,7 @@ import { getAllConfigs } from '@/pages/api/blogs';
 import { BlogType, PostType, AuthorType } from '@/types/blog';
 import { isDoi } from '../posts';
 
-export const authorIDs: { [key: string]: string; } = {
+export const authorIDs = {
   "Roderic Page": "https://orcid.org/0000-0002-7101-9767",
   "Liberate Science": "https://ror.org/0342dzm54"
 }
@@ -107,19 +107,16 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
       if (isString(author)) {
         author = {
           name: author,
-          url: null,
+          uri: null,
         };
-      } else if (isArray(author)) {
-        author = author[0];
       }
-      if (author && authorIDs[author.name]) {
-        author.uri = authorIDs[author.name];
+      if (!isArray(author)) {
+        author = [author];
       }
-      author = pick(author, ['name', 'uri']);
-      const authors = [].concat(author).map((author) => {
+      const authors = author.map((auth) => {
         return {
-          name: get(author, 'name', null),
-          url: isOrcid(get(author, 'uri', null)) || isRor(get(author, 'uri', null)) ? get(author, 'uri', null) : null,
+          name: get(auth, 'name', null),
+          url: isOrcid(get(auth, 'uri', null)) ? get(auth, 'uri') : null || isRor(get(auth, 'uri', null)) ? get(auth, 'uri') : null,
         };
       });
       const blog_id = blog.id;
@@ -168,7 +165,7 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
       };
     },
   });
-
+  
   let posts : PostType[] = blogWithPosts['entries'] || [];
   return posts.filter((post) => {
     return (post.date_published as string) > (allPosts ? '1970-01-01' : blog.modified_at as string);
