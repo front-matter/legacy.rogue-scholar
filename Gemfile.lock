@@ -18,7 +18,7 @@ GEM
     citeproc-ruby (2.0.0)
       citeproc (~> 1.0, >= 1.0.9)
       csl (~> 2.0)
-    commonmeta-ruby (3.2.13)
+    commonmeta-ruby (3.2.14)
       activesupport (>= 4.2.5, < 8.0)
       addressable (~> 2.8.1, < 2.8.2)
       base32-url (>= 0.7.0, < 1)
@@ -108,7 +108,7 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     matrix (0.4.2)
-    minitest (5.18.0)
+    minitest (5.18.1)
     multi_json (1.15.0)
     namae (1.1.1)
     nokogiri (1.15.2-arm64-darwin)
@@ -179,7 +179,7 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
-  commonmeta-ruby (~> 3.2, >= 3.2.13)
+  commonmeta-ruby (~> 3.2, >= 3.2.14)
 
 BUNDLED WITH
    2.4.14
