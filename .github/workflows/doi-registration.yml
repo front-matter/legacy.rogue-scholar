@@ -34,24 +34,24 @@ jobs:
         run: exit 1
       - name: Generate random DOI
         run: |
-          echo "::set-output name=DOI::$(bundle exec commonmeta encode 10.59350)"
+          echo "::set-output name=DOI::$(bundle exec commonmeta encode_by_uuid ${{ steps.pending_post.outputs.POSTID }})"
         id: random_doi
       - name: Generate XML
         run: |
           mkdir -p upload
-          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.pending_post.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
+          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.pending_post.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/${{ steps.pending_post.outputs.POSTID }}
       - name: Upload
         uses: actions/upload-artifact@v2
         with:
             name: uploads
-            path: upload/temp         
+            path: upload/${{ steps.pending_post.outputs.POSTID }}         
       - name: Download
         uses: actions/download-artifact@v2
         with:
             name: uploads
       - name: Register content
         run: |
-          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
+          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/${{ steps.pending_post.outputs.POSTID }}"
       - name: update Rogue Scholar post
         run: |
           curl -X PATCH https://api.rogue-scholar.org/rest/v1/posts?uuid=eq.${{ steps.pending_post.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "id": "${{ steps.random_doi.outputs.DOI }}" }'
