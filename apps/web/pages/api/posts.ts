@@ -32,6 +32,7 @@ export async function upsertPost(post: PostType, blog_id: string) {
     image: post.image,
     date_published: post.date_published,
     date_modified: post.date_modified,
+    date_indexed: new Date().toISOString(),
     content_html: post.content_html,
     blog_id: blog_id,
   });
