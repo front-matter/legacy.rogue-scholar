@@ -1,7 +1,7 @@
 name: DOI update Rogue Scholar
 on:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "00,10,20 9,18 * * *"
 jobs:
   update:
     runs-on: ubuntu-latest
