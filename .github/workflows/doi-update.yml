@@ -24,7 +24,7 @@ jobs:
           gem install bundler
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
-      - name: Find blog posts by blog id
+      - name: Find blog posts that are not indexed recently
         run: |
           echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed_not_indexed 1980-01-01)"
         id: posts_by_blog
