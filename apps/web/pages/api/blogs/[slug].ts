@@ -180,8 +180,12 @@ export async function getSingleBlog(blogSlug: string) {
 };
 
 export default async function handler(req, res) {
-  let { data: blog } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', req.query.slug).lt('posts.date_indexed', '2023-01-01').single();
-
-  // const blog = await getSingleBlog(req.query.slug);
-  res.status(200).json(blog);
+  const { data } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', req.query.slug);
+  
+  if (data) {
+    const blog = data[0];
+    res.status(200).json(blog);
+  } else {
+    res.status(404).json({ message: 'Not Found' });
+  }
 }
