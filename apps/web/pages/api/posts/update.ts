@@ -114,9 +114,11 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
         author = [author];
       }
       const authors = author.map((auth) => {
+        let url = authorIDs[auth['name']] || null;
+        url ??= isOrcid(get(auth, 'uri', null)) ? get(auth, 'uri') : null || isRor(get(auth, 'uri', null)) ? get(auth, 'uri') : null;
         return {
           name: get(auth, 'name', null),
-          url: isOrcid(get(auth, 'uri', null)) ? get(auth, 'uri') : null || isRor(get(auth, 'uri', null)) ? get(auth, 'uri') : null,
+          url: url,
         };
       });
       const blog_id = blog.id;
