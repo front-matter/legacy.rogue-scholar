@@ -23,7 +23,7 @@ export async function getPosts(blogSlug: string) {
 };
 
 export default async function handler(_, res) {
-  let { data: posts, error } = await supabase.from('posts').select(postsSelect).range(0, 24).order('date_published', { ascending: false })
+  let { data: posts, error } = await supabase.from('posts').select(postsSelect).limit(25).order('date_published', { ascending: false })
 
   if (error) {
     console.log(error);

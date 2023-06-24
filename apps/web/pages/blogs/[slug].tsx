@@ -18,6 +18,7 @@ export async function getServerSideProps(ctx) {
     .from('posts')
     .select(postsSelect)
     .eq('blog_id', ctx.params.slug)
+    .limit(25)
     .order('date_published', { ascending: false });
 
   return { props: { ...(await serverSideTranslations('en', ['common', 'app'])), blog, posts } };

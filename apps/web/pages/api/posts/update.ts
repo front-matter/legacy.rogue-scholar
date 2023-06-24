@@ -6,7 +6,7 @@ import normalizeUrl from 'normalize-url';
 import { upsertSinglePost, updateSinglePost } from '@/pages/api/posts/[slug]';
 import { getSingleBlog } from '@/pages/api/blogs/[slug]';
 import { getAllConfigs } from '@/pages/api/blogs';
-import { BlogType, PostType, AuthorType } from '@/types/blog';
+import { BlogType, PostType } from '@/types/blog';
 import { isDoi } from '../posts';
 
 export const authorIDs = {
@@ -89,17 +89,18 @@ export async function getAllUpdatedPosts(allPosts: boolean = false) {
     return post;
   });
   if (allPosts) {
-    await Promise.all(posts.map(post => updateSinglePost(post)));
-  } else {
     await Promise.all(posts.map(post => upsertSinglePost(post)));
+  } else {
+    await Promise.all(posts.map(post => updateSinglePost(post)));
   }
   return posts;
 }
 
 export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = false) {
   const blog: BlogType = await getSingleBlog(blogSlug);
+  const feed_url = blog.complete_feed_url || blog.feed_url;
 
-  let blogWithPosts = await extract(blog.feed_url as string, {
+  let blogWithPosts = await extract(feed_url as string, {
     useISODateFormat: true,
     descriptionMaxLen: 500,
     getExtraEntryFields: (feedEntry) => {

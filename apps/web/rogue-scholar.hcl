@@ -1,10 +1,11 @@
 blog {
-  id         = "f0m0e38"
-  category   = "Engineering and Technology"
-  feed_url   = "https://blog.front-matter.io/atom/"
-  favicon    = "https://blog.front-matter.io/favicon.png"
-  prefix     = "10.53731"
-  indexed_at = "2023-01-02"
+  id                = "f0m0e38"
+  category          = "Engineering and Technology"
+  feed_url          = "https://blog.front-matter.io/atom/"
+  complete_feed_url = "https://blog.front-matter.io/atom-complete/"
+  favicon           = "https://blog.front-matter.io/favicon.png"
+  prefix            = "10.53731"
+  indexed_at        = "2023-01-02"
 }
 
 blog {
@@ -40,12 +41,13 @@ blog {
 }
 
 blog {
-  id         = "pm0p222"
-  category   = "Humanities"
-  feed_url   = "https://upstream.force11.org/atom/"
-  favicon    = "https://upstream.force11.org/favicon.png"
-  prefix     = "10.54900"
-  indexed_at = "2023-01-13"
+  id                = "pm0p222"
+  category          = "Humanities"
+  feed_url          = "https://upstream.force11.org/atom/"
+  complete_feed_url = "https://upstream.force11.org/atom-complete/"
+  favicon           = "https://upstream.force11.org/favicon.png"
+  prefix            = "10.54900"
+  indexed_at        = "2023-01-13"
 }
 
 blog {

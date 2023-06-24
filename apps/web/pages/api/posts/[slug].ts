@@ -18,7 +18,7 @@ export async function upsertSinglePost(post: PostType) {
     tags: post.tags,
     title: post.title,
     url: post.url,
-  });
+  }, { onConflict: 'url' });
 
   if (error) {
     throw error;

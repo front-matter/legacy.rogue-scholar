@@ -1,4 +1,4 @@
-import { getAllUpdatedPosts, getUpdatedPosts } from '@/pages/api/posts/update'
+import { getUpdatedPosts } from '@/pages/api/posts/update'
 import { updateSinglePost, upsertSinglePost } from '@/pages/api/posts/[slug]'
 
 export default async function handler(req, res) {

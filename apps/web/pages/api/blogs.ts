@@ -2,9 +2,9 @@ import fs from 'fs';
 import * as hcl from 'hcl2-parser';
 import path from 'path';
 import { supabase, blogsSelect } from '@/lib/supabaseClient';
-import { upsertSingleBlog } from '@/pages/api/blogs/[slug]';
 
 const optionalKeys = [
+  'complete_feed_url',
   'title',
   'description',
   'language',
