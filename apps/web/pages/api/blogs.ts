@@ -4,7 +4,7 @@ import path from 'path';
 import { supabase, blogsSelect } from '@/lib/supabaseClient';
 
 const optionalKeys = [
-  'complete_feed_url',
+  'current_feed_url',
   'title',
   'description',
   'language',

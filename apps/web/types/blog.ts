@@ -11,6 +11,14 @@ export interface ReferenceType {
   url?: string;
 }
 
+export interface PaginationType {
+  page: number;
+  pages: number;
+  total: number;
+  prev?: number;
+  next?: number;
+}
+
 export interface PostType {
   id: string;
   uuid?: string;
@@ -39,7 +47,7 @@ export interface BlogType extends FeedData {
   base_url?: string;
   home_page_url?: string;
   feed_url?: string;
-  complete_feed_url?: string;
+  current_feed_url?: string;
   favicon?: string;
   modified_at?: string;
   indexed_at?: string;

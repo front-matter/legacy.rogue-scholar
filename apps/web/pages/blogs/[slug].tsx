@@ -5,31 +5,44 @@ import { jsonLdScriptProps } from 'react-schemaorg';
 import { Blog as BlogSchema } from 'schema-dts';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { BlogType, PostType } from '@/types/blog';
+import { BlogType, PostType, PaginationType } from '@/types/blog';
 import Layout from '@/components/layout/Layout';
 import { supabase, blogWithPostsSelect, postsSelect } from '@/lib/supabaseClient';
 import { Blog } from '@/components/common/Blog';
 import { Posts } from '@/components/common/Posts';
+import { getPagination } from '@/pages/api/posts';
+import Pagination from '@/components/layout/Pagination';
 
 export async function getServerSideProps(ctx) {
+  const page = parseInt(ctx.query.page || 1);
+  const { from, to } = getPagination(page - 1, 15);
   let { data: blog } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', ctx.params.slug).single();
-
-  let { data: posts } = await supabase
+  let { data: posts, count } = await supabase
     .from('posts')
-    .select(postsSelect)
+    .select(postsSelect, { count: 'exact' })
     .eq('blog_id', ctx.params.slug)
-    .limit(25)
-    .order('date_published', { ascending: false });
+    .order('date_published', { ascending: false })
+    .range(from, to);
+  count ??= 50; // estimating total number of posts if error fetching count
+  const pages = Math.ceil(count / 15);
+  const pagination = {
+    page: page,
+    pages: pages,
+    total: count,
+    prev: page > 1 ? page - 1 : null,
+    next: page < pages ? page + 1 : null,
+  };
 
-  return { props: { ...(await serverSideTranslations('en', ['common', 'app'])), blog, posts } };
+  return { props: { ...(await serverSideTranslations('en', ['common', 'app'])), blog, posts, pagination } };
 }
 
 type Props = {
   blog: BlogType;
   posts: PostType[];
+  pagination: PaginationType;
 };
 
-const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
+const BlogPage: React.FunctionComponent<Props> = ({ blog, posts, pagination }) => {
   return (
     <>
       <Head>
@@ -62,6 +75,7 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts }) => {
         <div className={blog.indexed_at ? 'bg-white' : 'bg-blue-50'}>
           <Blog blog={blog} />
           {posts && <Posts posts={posts} parent={true} />}
+          {pagination.pages > 1 && <Pagination base_url={'/blogs/' + blog.id} pagination={pagination} />}
           {blog.home_page_url && blog.backlog && (
             <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
               <div className="my-5 lg:my-8">

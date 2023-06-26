@@ -97,9 +97,8 @@ const parseGenerator = (generator: any) => {
 export async function getSingleBlog(blogSlug: string) {
   const configs = await getAllConfigs();
   const config = configs.find((config) => config.id === blogSlug);
-  const feed_url = config.complete_feed_url || config.feed_url
 
-  let blog : BlogType = await extract(feed_url, {
+  let blog : BlogType = await extract(config.feed_url, {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
       // console.log(feedData)

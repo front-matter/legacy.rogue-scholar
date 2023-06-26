@@ -10,7 +10,7 @@ export default async function handler(req, res) {
       post.summary = post['description'];
       return post;
     });
-    if (true) {
+    if (false) {
       await Promise.all(posts.map(post => updateSinglePost(post)));
     } else {
       await Promise.all(posts.map(post => upsertSinglePost(post)));

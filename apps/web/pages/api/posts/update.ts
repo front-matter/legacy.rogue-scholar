@@ -98,9 +98,8 @@ export async function getAllUpdatedPosts(allPosts: boolean = false) {
 
 export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = false) {
   const blog: BlogType = await getSingleBlog(blogSlug);
-  const feed_url = blog.complete_feed_url || blog.feed_url;
 
-  let blogWithPosts = await extract(feed_url as string, {
+  let blogWithPosts = await extract(blog.feed_url as string, {
     useISODateFormat: true,
     descriptionMaxLen: 500,
     getExtraEntryFields: (feedEntry) => {
