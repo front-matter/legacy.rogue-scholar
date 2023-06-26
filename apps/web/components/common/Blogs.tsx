@@ -18,7 +18,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
           <div className="mx-auto max-w-7xl px-4 py-2 text-center sm:px-6 md:py-12 lg:px-8 lg:py-8">
             <div className="mx-auto max-w-2xl sm:text-center">
               <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                The Rogue Scholar Blogs
+                Rogue Scholar Blogs
               </h2>
             </div>
           </div>

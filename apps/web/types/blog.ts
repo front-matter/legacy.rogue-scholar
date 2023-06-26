@@ -12,6 +12,8 @@ export interface ReferenceType {
 }
 
 export interface PaginationType {
+  base_url: string;
+  query?: string;
   page: number;
   pages: number;
   total: number;

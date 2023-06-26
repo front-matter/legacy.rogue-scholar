@@ -11,21 +11,29 @@ import { supabase, blogWithPostsSelect, postsSelect } from '@/lib/supabaseClient
 import { Blog } from '@/components/common/Blog';
 import { Posts } from '@/components/common/Posts';
 import { getPagination } from '@/pages/api/posts';
+import Search from '@/components/layout/Search';
 import Pagination from '@/components/layout/Pagination';
 
 export async function getServerSideProps(ctx) {
+  let querystrings = ctx.query.query ? ctx.query.query.split(' ') : ['2023'];
   const page = parseInt(ctx.query.page || 1);
   const { from, to } = getPagination(page - 1, 15);
   let { data: blog } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', ctx.params.slug).single();
   let { data: posts, count } = await supabase
     .from('posts')
     .select(postsSelect, { count: 'exact' })
-    .eq('blog_id', ctx.params.slug)
+    .eq('blog_id', ctx.params.slug) 
+    .textSearch('fts', querystrings.length > 1 ? `${querystrings.join(' <-> ')}` : querystrings[0], {
+      type: 'plain',
+      config: 'english'
+    })
     .order('date_published', { ascending: false })
     .range(from, to);
   count ??= 50; // estimating total number of posts if error fetching count
   const pages = Math.ceil(count / 15);
   const pagination = {
+    base_url: '/blogs/' + ctx.params.slug,
+    query: ctx.query.query || '',
     page: page,
     pages: pages,
     total: count,
@@ -74,9 +82,10 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts, pagination }) =
       <Layout>
         <div className={blog.indexed_at ? 'bg-white' : 'bg-blue-50'}>
           <Blog blog={blog} />
-          {pagination.pages > 1 && <Pagination base_url={'/blogs/' + blog.id} pagination={pagination} />}
+          <Search />
+          {pagination.pages > 1 && <Pagination pagination={pagination} />}
           {posts && <Posts posts={posts} parent={true} />}
-          {pagination.pages > 1 && <Pagination base_url={'/blogs/' + blog.id} pagination={pagination} />}
+          {pagination.pages > 1 && <Pagination pagination={pagination} />}
           {blog.home_page_url && blog.backlog && (
             <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
               <div className="mb-2 lg:mb-5">

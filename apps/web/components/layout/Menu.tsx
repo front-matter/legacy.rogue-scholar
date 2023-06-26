@@ -1,8 +1,8 @@
-import { Button, Stack, useColorModeValue } from '@chakra-ui/react';
-import { useUser } from '@supabase/auth-helpers-react';
+import { Button, Stack, Input, useColorModeValue } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 
+import { useUser } from '@supabase/auth-helpers-react';
 import { useMobileBreakpoint } from '@/lib/blog/layout';
 
 export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
@@ -25,9 +25,9 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
       label: t('menu.pricing', 'Pricing'),
       link: '/#pricing',
     },
-  ]
-    // add dashboard link only if user is logged in
-    // .concat(user ? [{ label: t('menu.dashboard'), link: '/app' }] : []);
+  ];
+  // add dashboard link only if user is logged in
+  // .concat(user ? [{ label: t('menu.dashboard'), link: '/app' }] : []);
 
   return (
     <Stack

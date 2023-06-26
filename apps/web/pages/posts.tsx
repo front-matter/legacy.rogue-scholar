@@ -8,18 +8,27 @@ import Layout from '@/components/layout/Layout';
 import { supabase, postsSelect } from '@/lib/supabaseClient';
 import { PostType, PaginationType } from '@/types/blog';
 import Pagination from '@/components/layout/Pagination';
+import Search from '@/components/layout/Search';
 
 export async function getServerSideProps(ctx) {
+  let querystrings = ctx.query.query ? ctx.query.query.split(' ') : ['2023'];
   const page = parseInt(ctx.query.page || 1);
   const { from, to } = getPagination(page - 1, 15);
   let { data: posts, count } = await supabase
     .from('posts')
     .select(postsSelect, { count: 'exact' })
+    .textSearch('fts', querystrings.length > 1 ? `${querystrings.join(' <-> ')}` : querystrings[0], {
+      type: 'plain',
+      config: 'english'
+    })
     .order('date_published', { ascending: false })
     .range(from, to);
   count ??= 1000; // estimating total number of posts if error fetching count
+  console.log(count)
   const pages = Math.ceil(count / 15);
   const pagination = {
+    base_url: '/posts',
+    query: ctx.query.query || '',
     page: page,
     pages: pages,
     total: count,
@@ -45,11 +54,12 @@ const PostsPage: React.FunctionComponent<Props> = ({ posts, pagination }) => {
     <>
       <Layout>
         <div className="mx-auto max-w-2xl sm:text-center">
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The Rogue Scholar Posts</h2>
+          <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Rogue Scholar Posts</h2>
         </div>
-        <Pagination base_url="/posts" pagination={pagination} />
+        <Search />
+        <Pagination pagination={pagination} />
         <Posts posts={posts} />
-        <Pagination base_url="/posts" pagination={pagination} />
+        <Pagination pagination={pagination} />
       </Layout>
     </>
   );
