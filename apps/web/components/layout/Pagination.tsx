@@ -15,7 +15,7 @@ export default function Pagination({ base_url, pagination }: Props) {
       <nav className="flex items-center justify-between bg-white py-3" aria-label="Pagination">
         <div className="hidden sm:block">
           <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">page {pagination.page}</span> out of{' '}
+            Showing page <span className="font-medium">{pagination.page}</span> out of{' '}
             <span className="font-medium">{pagination.pages}</span> pages.
           </p>
         </div>
