@@ -74,15 +74,16 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts, pagination }) =
       <Layout>
         <div className={blog.indexed_at ? 'bg-white' : 'bg-blue-50'}>
           <Blog blog={blog} />
+          {pagination.pages > 1 && <Pagination base_url={'/blogs/' + blog.id} pagination={pagination} />}
           {posts && <Posts posts={posts} parent={true} />}
           {pagination.pages > 1 && <Pagination base_url={'/blogs/' + blog.id} pagination={pagination} />}
           {blog.home_page_url && blog.backlog && (
             <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
-              <div className="my-5 lg:my-8">
+              <div className="mb-2 lg:mb-5">
                 <Link
                   href={blog.home_page_url}
                   target="_blank"
-                  className="text-xl font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
+                  className="text-base font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
                 >
                   More posts via the {blog.title} Home Page …
                 </Link>

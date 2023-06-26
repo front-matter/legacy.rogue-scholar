@@ -22,15 +22,10 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false })
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {!parent && (
-          <div className="mx-auto max-w-2xl sm:text-center">
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The Rogue Scholar Posts</h2>
-          </div>
-        )}
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="space-t-10 lg:space-t-10 mt-4 lg:mt-6">
             {posts.map((post) => (
-              <article key={post.id} className="relative mb-8 flex gap-6 lg:flex-row">
+              <article key={post.id} className="relative mb-5 flex gap-6 lg:flex-row">
                 {post.image && (
                   <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
                     <img

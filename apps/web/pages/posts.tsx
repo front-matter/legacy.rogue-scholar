@@ -20,12 +20,12 @@ export async function getServerSideProps(ctx) {
   count ??= 1000; // estimating total number of posts if error fetching count
   const pages = Math.ceil(count / 15);
   const pagination = {
-      page: page,
-      pages: pages,
-      total: count,
-      prev: page > 1 ? page - 1 : null,
-      next: page < pages ? page + 1 : null,
-    };
+    page: page,
+    pages: pages,
+    total: count,
+    prev: page > 1 ? page - 1 : null,
+    next: page < pages ? page + 1 : null,
+  };
   return {
     props: {
       ...(await serverSideTranslations('en', ['common', 'home'])),
@@ -44,8 +44,12 @@ const PostsPage: React.FunctionComponent<Props> = ({ posts, pagination }) => {
   return (
     <>
       <Layout>
+        <div className="mx-auto max-w-2xl sm:text-center">
+          <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">The Rogue Scholar Posts</h2>
+        </div>
+        <Pagination base_url="/posts" pagination={pagination} />
         <Posts posts={posts} />
-        {pagination.pages > 1 && <Pagination base_url='/posts' pagination={pagination} />}
+        <Pagination base_url="/posts" pagination={pagination} />
       </Layout>
     </>
   );

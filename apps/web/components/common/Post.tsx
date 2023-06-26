@@ -23,7 +23,7 @@ export const Post: React.FunctionComponent<Props> = ({ post }) => {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="space-t-10 lg:space-t-10 mt-10 lg:mt-12">
-            <article key={post.id} className="relative mb-8 flex gap-6 lg:flex-row">
+            <article key={post.id} className="relative mb-5 flex gap-6 lg:flex-row">
               <div>
                 {post.tags && (
                   <div className="flex items-center gap-x-1 text-xs">
