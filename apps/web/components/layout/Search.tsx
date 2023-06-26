@@ -2,13 +2,14 @@ import { useRef } from 'react';
 import { useQueryState } from 'next-usequerystate';
 import { Icon } from '@iconify/react';
 
-export default function Search({ base_url }: Props) {
+export default function Search() {
   const [query, setQuery] = useQueryState('query');
   console.log(query);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = () => {
-    setQuery(inputRef.current?.value);
+    const query = inputRef.current?.value;
+    setQuery(query || '');
   };
 
   const onKeyDown = (event) => {
