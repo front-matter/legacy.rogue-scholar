@@ -15,7 +15,6 @@ import Search from '@/components/layout/Search';
 import Pagination from '@/components/layout/Pagination';
 
 export async function getServerSideProps(ctx) {
-  let querystrings = ctx.query.query ? ctx.query.query.split(' ') : ['2023'];
   const page = parseInt(ctx.query.page || 1);
   const { from, to } = getPagination(page - 1, 15);
   let { data: blog } = await supabase.from('blogs').select(blogWithPostsSelect).eq('id', ctx.params.slug).single();
@@ -23,7 +22,7 @@ export async function getServerSideProps(ctx) {
     .from('posts')
     .select(postsSelect, { count: 'exact' })
     .eq('blog_id', ctx.params.slug) 
-    .textSearch('fts', querystrings.length > 1 ? `${querystrings.join(' <-> ')}` : querystrings[0], {
+    .textSearch('fts', ctx.query.query || 'doi.org', {
       type: 'plain',
       config: 'english'
     })
@@ -83,9 +82,9 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts, pagination }) =
         <div className={blog.indexed_at ? 'bg-white' : 'bg-blue-50'}>
           <Blog blog={blog} />
           <Search />
-          {pagination.pages > 1 && <Pagination pagination={pagination} />}
+          {pagination.total > 0 && <Pagination pagination={pagination} />}
           {posts && <Posts posts={posts} parent={true} />}
-          {pagination.pages > 1 && <Pagination pagination={pagination} />}
+          {pagination.total > 0 && <Pagination pagination={pagination} />}
           {blog.home_page_url && blog.backlog && (
             <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
               <div className="mb-2 lg:mb-5">

@@ -11,20 +11,18 @@ import Pagination from '@/components/layout/Pagination';
 import Search from '@/components/layout/Search';
 
 export async function getServerSideProps(ctx) {
-  let querystrings = ctx.query.query ? ctx.query.query.split(' ') : ['2023'];
   const page = parseInt(ctx.query.page || 1);
   const { from, to } = getPagination(page - 1, 15);
   let { data: posts, count } = await supabase
     .from('posts')
     .select(postsSelect, { count: 'exact' })
-    .textSearch('fts', querystrings.length > 1 ? `${querystrings.join(' <-> ')}` : querystrings[0], {
+    .textSearch('fts', ctx.query.query || 'doi.org', {
       type: 'plain',
-      config: 'english'
+      config: 'english',
     })
     .order('date_published', { ascending: false })
     .range(from, to);
   count ??= 1000; // estimating total number of posts if error fetching count
-  console.log(count)
   const pages = Math.ceil(count / 15);
   const pagination = {
     base_url: '/posts',
@@ -57,9 +55,9 @@ const PostsPage: React.FunctionComponent<Props> = ({ posts, pagination }) => {
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Rogue Scholar Posts</h2>
         </div>
         <Search />
-        <Pagination pagination={pagination} />
+        {pagination.total > 0 && <Pagination pagination={pagination} />}
         <Posts posts={posts} />
-        <Pagination pagination={pagination} />
+        {pagination.total > 0 && <Pagination pagination={pagination} />}
       </Layout>
     </>
   );
