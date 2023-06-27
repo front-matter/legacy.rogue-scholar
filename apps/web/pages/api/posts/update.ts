@@ -49,7 +49,7 @@ const getReferences = (content_html: string) => {
     return [];
   }
   urls = urls.map((url) => {
-    url = normalizeUrl(url, { removeQueryParameters: ['ref', 'referrer', 'origin', 'utm_content', 'utm_medium', 'utm_source'] })
+    url = normalizeUrl(url, { removeQueryParameters: ['ref', 'referrer', 'origin', 'utm_content', 'utm_medium', 'utm_campaign', 'utm_source'] })
     url = isDoi(url) ? url.toLowerCase() : url;
     return url;
   });
@@ -150,6 +150,8 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
       if (isObject(url)) {
         url = get(url, '@_href', null);
       }
+      url = decodeHtmlCharCodes(url)
+      url = normalizeUrl(url, { removeQueryParameters: ['ref', 'referrer', 'origin', 'utm_content', 'utm_medium', 'utm_campaign', 'utm_source'] })
 
       return {
         authors,
@@ -169,9 +171,11 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
   });
   
   let posts : PostType[] = blogWithPosts['entries'] || [];
-  return posts.filter((post) => {
-    return (post.date_published as string) > (allPosts ? '1970-01-01' : blog.modified_at as string);
-  });
+  console.log(posts)
+  // return posts.filter((post) => {
+  //   return (post.date_published as string) > (allPosts ? '1970-01-01' : blog.modified_at as string);
+  // });
+  return posts;
 };
 
 
