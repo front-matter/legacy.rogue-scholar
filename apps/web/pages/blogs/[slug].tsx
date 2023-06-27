@@ -13,6 +13,7 @@ import { Posts } from '@/components/common/Posts';
 import { getPagination } from '@/pages/api/posts';
 import Search from '@/components/layout/Search';
 import Pagination from '@/components/layout/Pagination';
+import { decodeHtmlCharCodes } from '@/pages/api/posts/update';
 
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1);
@@ -93,7 +94,7 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts, pagination }) =
                   target="_blank"
                   className="text-base font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
                 >
-                  More posts via the {blog.title} Home Page …
+                  More posts via the {decodeHtmlCharCodes(blog.title)} Home Page …
                 </Link>
               </div>
             </div>

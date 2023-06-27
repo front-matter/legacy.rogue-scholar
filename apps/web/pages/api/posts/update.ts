@@ -31,7 +31,7 @@ const isRor = (ror: any) => {
 };
 
 // from https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript
-const decodeHtmlCharCodes = (str: string) => 
+export const decodeHtmlCharCodes = (str: string) => 
   str.replace(/(&#(\d+);)/g, (_match, _capture, charCode) => 
     String.fromCharCode(charCode));
 
