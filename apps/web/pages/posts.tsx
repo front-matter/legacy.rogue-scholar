@@ -12,11 +12,12 @@ import Search from '@/components/layout/Search';
 
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1);
+  const query = ctx.query.query || 'doi.org';
   const { from, to } = getPagination(page - 1, 15);
   let { data: posts, count } = await supabase
     .from('posts')
     .select(postsSelect, { count: 'exact' })
-    .textSearch('fts', ctx.query.query || 'doi.org', {
+    .textSearch('fts', query, {
       type: 'plain',
       config: 'english',
     })
@@ -55,7 +56,7 @@ const PostsPage: React.FunctionComponent<Props> = ({ posts, pagination }) => {
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Rogue Scholar Posts</h2>
         </div>
         <Search />
-        {pagination.total > 0 && <Pagination pagination={pagination} />}
+        <Pagination pagination={pagination} />
         <Posts posts={posts} />
         {pagination.total > 0 && <Pagination pagination={pagination} />}
       </Layout>

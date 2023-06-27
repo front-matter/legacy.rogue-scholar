@@ -15,23 +15,31 @@ export default function Pagination({ pagination }: Props) {
     <div className="mx-auto max-w-2xl lg:max-w-4xl">
       <nav className="flex items-center justify-between bg-white pt-1 pb-3" aria-label="Pagination">
         <div className="hidden sm:block">
-          <p className="text-sm text-gray-700">
-            Showing <span className="font-medium">{from}</span> to <span className="font-medium">{to}</span> of{' '}
-            <span className="font-medium">{pagination.total}</span> results
-          </p>
+          {pagination.total > 0 && (
+            <p className="text-sm text-gray-700">
+              Showing <span className="font-semibold">{from}</span> to <span className="font-semibold">{to}</span> of{' '}
+              <span className="font-semibold">{pagination.total}</span> results
+            </p>
+          )}
+          {pagination.total === 0 && (
+            <p className="text-sm text-gray-700">
+               No results found
+            </p>
+          )}
         </div>
-        <div className="flex flex-1 justify-between sm:justify-end">
+        <div className="flex flex-1 justify-between sm:justify-end font-medium">
           {pagination.prev && (
             <Link
-              className="relative inline-flex items-center rounded-md bg-white px-2 py-1 text-sm font-medium text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"
+              className="relative inline-flex items-center px-1 py-1 text-sm focus-visible:outline-offset-0"
               href={`${pagination.base_url}?page=${pagination.prev}&query=${pagination.query}`}
             >
-              Previous
+              Previous    
             </Link>
           )}
+          {pagination.prev && pagination.next && <span className="ml-1">|</span> }
           {pagination.next && (
             <Link
-              className="relative ml-1 inline-flex items-center rounded-md bg-white px-2 py-1 text-sm font-medium text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"
+              className="relative ml-1 inline-flex items-center px-1 py-1 text-sm focus-visible:outline-offset-0"
               href={`${pagination.base_url}?page=${pagination.next}&query=${pagination.query}`}
             >
               Next

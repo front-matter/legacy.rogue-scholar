@@ -82,7 +82,7 @@ const BlogPage: React.FunctionComponent<Props> = ({ blog, posts, pagination }) =
         <div className={blog.indexed_at ? 'bg-white' : 'bg-blue-50'}>
           <Blog blog={blog} />
           <Search />
-          {pagination.total > 0 && <Pagination pagination={pagination} />}
+          <Pagination pagination={pagination} />
           {posts && <Posts posts={posts} parent={true} />}
           {pagination.total > 0 && <Pagination pagination={pagination} />}
           {blog.home_page_url && blog.backlog && (
