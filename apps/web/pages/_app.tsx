@@ -57,24 +57,25 @@ function App({
         }
       `}</style>
       <ProgressBar />
-      <QueryClientProvider client={queryClient}>
-        <ChakraBaseProvider
-          theme={customTheme}
-          colorModeManager={colorModeManager}
-          toastOptions={{
-            defaultOptions: defaultToastOptions,
-          }}
-        >
-          <PlausibleProvider domain="rogue-scholar.org">
+
+      <PlausibleProvider domain="rogue-scholar.org">
+        <QueryClientProvider client={queryClient}>
+          <ChakraBaseProvider
+            theme={customTheme}
+            colorModeManager={colorModeManager}
+            toastOptions={{
+              defaultOptions: defaultToastOptions,
+            }}
+          >
             <SessionContextProvider
               supabaseClient={supabaseClient}
               initialSession={pageProps.initialSession}
             >
               <Component {...pageProps} />
             </SessionContextProvider>
-          </PlausibleProvider>
-        </ChakraBaseProvider>
-      </QueryClientProvider>
+          </ChakraBaseProvider>
+        </QueryClientProvider>
+      </PlausibleProvider>
     </>
   )
 }
