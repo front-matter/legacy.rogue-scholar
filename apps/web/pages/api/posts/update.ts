@@ -1,9 +1,10 @@
 import { extract } from '@extractus/feed-extractor';
-import { get, isArray, isObject, isString, uniq, pick } from 'lodash';
+import { stripTags, truncate } from 'bellajs'
+import { get, isArray, isObject, isString, uniq } from 'lodash';
 const extractUrls = require("extract-urls");
 import normalizeUrl from 'normalize-url';
 
-import { upsertSinglePost, updateSinglePost } from '@/pages/api/posts/[slug]';
+import { upsertSinglePost } from '@/pages/api/posts/[slug]';
 import { getSingleBlog } from '@/pages/api/blogs/[slug]';
 import { getAllConfigs } from '@/pages/api/blogs';
 import { BlogType, PostType } from '@/types/blog';
@@ -29,6 +30,12 @@ const isRor = (ror: any) => {
     return false;
   }
 };
+
+// from https://github.com/extractus/feed-extractor/blob/main/src/utils/normalizer.js
+export const buildDescription = (val, maxlen) => {
+  const stripped = stripTags(String(val))
+  return truncate(stripped, maxlen).replace(/\n+/g, ' ')
+}
 
 // from https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript
 export const decodeHtmlCharCodes = (str: string) => 
@@ -80,29 +87,30 @@ const toISODateString = (dstr) => {
   }
 };
 
-export async function getAllUpdatedPosts(allPosts: boolean = false) {
+export async function getAllPosts() {
   const configs = await getAllConfigs();
-  let posts = await Promise.all(configs.map((config) => getUpdatedPosts(config.id, allPosts)));
+  let posts = await Promise.all(configs.map((config) => getAllPostsByBlog(config.id)));
   posts = posts.flat();
-  posts = posts.map((post) => {
-    post.summary = post.description;
-    return post;
-  });
-  if (allPosts) {
-    await Promise.all(posts.map(post => upsertSinglePost(post)));
-  } else {
-    await Promise.all(posts.map(post => updateSinglePost(post)));
-  }
+  await Promise.all(posts.map(post => upsertSinglePost(post)));
   return posts;
 }
 
-export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = false) {
+export async function getUpdatedPosts() {
+  const configs = await getAllConfigs();
+  let posts = await Promise.all(configs.map((config) => getUpdatedPostsByBlog(config.id)));
+  posts = posts.flat();
+  await Promise.all(posts.map(post => upsertSinglePost(post)));
+  return posts;
+}
+
+export async function getAllPostsByBlog(blogSlug: string) {
   const blog: BlogType = await getSingleBlog(blogSlug);
 
   let blogWithPosts = await extract(blog.feed_url as string, {
     useISODateFormat: true,
     descriptionMaxLen: 500,
     getExtraEntryFields: (feedEntry) => {
+      // console.log(feedEntry)
       let author: any = get(feedEntry, 'author', null) || get(feedEntry, 'dc:creator', []);
       if (isString(author)) {
         author = {
@@ -126,21 +134,9 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
         get(feedEntry, 'content:encoded', null) ||
         get(feedEntry, 'content.#text', null) ||
         get(feedEntry, 'description', null);
+      const summary = buildDescription(content_html, 500);
       const date_modified = toISODateString(get(feedEntry, 'updated', null));
       const date_published = toISODateString(get(feedEntry, 'pubDate', null) || get(feedEntry, 'published', null));
-      const id =
-        get(feedEntry, 'id.#text', null) ||
-        get(feedEntry, 'guid.#text', null) ||
-        get(feedEntry, 'id', null) ||
-        get(feedEntry, 'guid', null);
-      const image = get(feedEntry, 'media:content.@_url', null) || get(feedEntry, 'enclosure.@_url', null);
-      const language = get(feedEntry, 'dc:language', null) || get(feedEntry, 'language', null) || blog.language;
-      const references = content_html ? getReferences(content_html) : [];
-      const tags = [].concat(get(feedEntry, 'category', []))
-        .map((tag) => get(tag, '@_term', null) || get(tag, '#text', null) || tag)
-        .slice(0, 5);
-      let title = get(feedEntry, 'title.#text', null) || get(feedEntry, 'title', null) || '';
-      title = decodeHtmlCharCodes(title).trim();
       let url: any = get(feedEntry, 'link', []);
       
       if (isArray(url) && url.length > 0) {
@@ -151,15 +147,29 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
         url = get(url, '@_href', null);
       }
       url = decodeHtmlCharCodes(url)
-      url = normalizeUrl(url, { removeQueryParameters: ['ref', 'referrer', 'origin', 'utm_content', 'utm_medium', 'utm_campaign', 'utm_source'] })
+      url = normalizeUrl(url, { removeQueryParameters: ['ref', 'referrer', 'origin', 'source', 'utm_content', 'utm_medium', 'utm_campaign', 'utm_source'] })
+      // const id =
+      //   get(feedEntry, 'id.#text', null) ||
+      //   get(feedEntry, 'guid.#text', null) ||
+      //   get(feedEntry, 'id', null) ||
+      //   get(feedEntry, 'guid', null) ||
+      //   url;
+      const image = get(feedEntry, 'media:content.@_url', null) || get(feedEntry, 'enclosure.@_url', null);
+      const language = get(feedEntry, 'dc:language', null) || get(feedEntry, 'language', null) || blog.language;
+      const references = content_html ? getReferences(content_html) : [];
+      const tags = [].concat(get(feedEntry, 'category', []))
+        .map((tag) => decodeHtmlCharCodes(get(tag, '@_term', null) || get(tag, '#text', null) || tag))
+        .slice(0, 5);
+      let title = get(feedEntry, 'title.#text', null) || get(feedEntry, 'title', null) || '';
+      title = decodeHtmlCharCodes(title).trim();
 
       return {
         authors,
         blog_id,
         content_html,
+        summary,
         date_modified,
         date_published,
-        id,
         image,
         language,
         references,
@@ -170,20 +180,23 @@ export async function getUpdatedPosts(blogSlug: string, allPosts: boolean = fals
     },
   });
   
-  let posts : PostType[] = blogWithPosts['entries'] || [];
-  console.log(posts)
-  // return posts.filter((post) => {
-  //   return (post.date_published as string) > (allPosts ? '1970-01-01' : blog.modified_at as string);
-  // });
+  const posts : PostType[] = blogWithPosts['entries'] || [];
   return posts;
 };
 
+export async function getUpdatedPostsByBlog(blogSlug: string) {
+  const blog: BlogType = await getSingleBlog(blogSlug);
+  let posts = await getAllPostsByBlog(blogSlug);
+  return posts.filter((post) => {
+    return (post.date_published as string) > (blog.modified_at as string);
+  });
+};
 
 export default async function handler(req, res) {
   if (!req.headers.authorization || req.headers.authorization.split(' ')[1] !== process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY) {
     res.status(401).json({ message: 'Unauthorized' });
   } else if (req.method === 'POST') {
-    const posts = await getAllUpdatedPosts();
+    const posts = await getUpdatedPosts();
     res.status(200).json(posts);
   } else {
     res.status(405).json({ message: 'Method Not Allowed' });
