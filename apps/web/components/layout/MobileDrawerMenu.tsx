@@ -1,13 +1,25 @@
-import { Drawer, DrawerBody, DrawerCloseButton, DrawerContent, VStack } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  VStack,
+} from "@chakra-ui/react"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 
-import Menu from '@/components/layout/Menu';
+import Menu from "@/components/layout/Menu"
 
-export default function MobileDrawerMenu({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const router = useRouter();
+export default function MobileDrawerMenu({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean
+  onClose: () => void
+}) {
+  const router = useRouter()
 
-  useEffect(() => onClose(), [router.asPath]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => onClose(), [router.asPath]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs">
@@ -21,5 +33,5 @@ export default function MobileDrawerMenu({ isOpen, onClose }: { isOpen: boolean;
         </DrawerBody>
       </DrawerContent>
     </Drawer>
-  );
+  )
 }

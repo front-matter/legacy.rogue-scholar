@@ -1,47 +1,47 @@
-import { Button, Stack, Input, useColorModeValue } from '@chakra-ui/react';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
+import { Button, Stack, useColorModeValue } from "@chakra-ui/react"
+// import { useUser } from "@supabase/auth-helpers-react"
+import Link from "next/link"
+import { useTranslation } from "next-i18next"
 
-import { useUser } from '@supabase/auth-helpers-react';
-import { useMobileBreakpoint } from '@/lib/blog/layout';
+import { useMobileBreakpoint } from "@/lib/blog/layout"
 
 export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
-  const { t } = useTranslation('common');
-  const user = useUser();
-  const menuItemColor = useColorModeValue('gray.600', 'gray.200');
-  const isMobile = useMobileBreakpoint();
-  const isHidden = isMobile !== !!mobileMode;
+  const { t } = useTranslation("common")
+  // const user = useUser()
+  const menuItemColor = useColorModeValue("gray.600", "gray.200")
+  const isMobile = useMobileBreakpoint()
+  const isHidden = isMobile !== !!mobileMode
 
   const menuItems = [
     {
-      label: t('menu.blogs', 'Blogs'),
-      link: '/blogs',
+      label: t("menu.blogs", "Blogs"),
+      link: "/blogs",
     },
     {
-      label: t('menu.posts', 'Posts'),
-      link: '/posts',
+      label: t("menu.posts", "Posts"),
+      link: "/posts",
     },
     {
-      label: t('menu.pricing', 'Pricing'),
-      link: '/#pricing',
+      label: t("menu.pricing", "Pricing"),
+      link: "/#pricing",
     },
-  ];
+  ]
   // add dashboard link only if user is logged in
   // .concat(user ? [{ label: t('menu.dashboard'), link: '/app' }] : []);
 
   return (
     <Stack
       hidden={isHidden}
-      direction={mobileMode ? 'column' : 'row'}
+      direction={mobileMode ? "column" : "row"}
       spacing={4}
-      align={mobileMode ? 'start' : 'center'}
+      align={mobileMode ? "start" : "center"}
     >
       {menuItems.map((item, i) => (
         <Button
           as={Link}
           key={i}
           href={item.link}
-          fontSize={mobileMode ? 'lg' : 'base'}
+          fontSize={mobileMode ? "lg" : "base"}
           display="block"
           variant="link"
           fontWeight="normal"
@@ -51,5 +51,5 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
         </Button>
       ))}
     </Stack>
-  );
+  )
 }

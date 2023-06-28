@@ -8,8 +8,8 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-} from '@chakra-ui/react';
-import { useTranslation } from 'next-i18next';
+} from "@chakra-ui/react"
+import { useTranslation } from "next-i18next"
 
 export default function ConfirmModal({
   title,
@@ -18,13 +18,13 @@ export default function ConfirmModal({
   isOpen,
   onClose,
 }: {
-  title: string;
-  description: string;
-  isDelete: boolean;
-  isOpen: boolean;
-  onClose: (confirmed: boolean) => void;
+  title: string
+  description: string
+  isDelete: boolean
+  isOpen: boolean
+  onClose: (confirmed: boolean) => void // eslint-disable-line no-unused-vars
 }) {
-  const { t } = useTranslation('app');
+  const { t } = useTranslation("app")
 
   return (
     <Modal
@@ -43,14 +43,22 @@ export default function ConfirmModal({
           <Text>{description}</Text>
         </ModalBody>
         <ModalFooter>
-          <Button variant="ghost" colorScheme="gray" onClick={() => onClose(false)}>
-            {t('confirmModal.cancel')}
+          <Button
+            variant="ghost"
+            colorScheme="gray"
+            onClick={() => onClose(false)}
+          >
+            {t("confirmModal.cancel")}
           </Button>
-          <Button colorScheme={isDelete ? 'red' : 'primary'} onClick={() => onClose(true)} ml={3}>
-            {t('confirmModal.confirm')}
+          <Button
+            colorScheme={isDelete ? "red" : "primary"}
+            onClick={() => onClose(true)}
+            ml={3}
+          >
+            {t("confirmModal.confirm")}
           </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>
-  );
+  )
 }

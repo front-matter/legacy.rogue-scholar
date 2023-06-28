@@ -1,5 +1,5 @@
-import React from 'react';
-import ContentLoader from 'react-content-loader';
+import React from "react"
+import ContentLoader from "react-content-loader"
 
 export function Loader() {
   return (
@@ -22,5 +22,5 @@ export function Loader() {
         </ContentLoader>
       </div>
     </div>
-  );
+  )
 }

@@ -1,31 +1,30 @@
-import { Icon } from '@iconify/react';
-import parse from 'html-react-parser';
-import Link from 'next/link';
-import { PostType } from '@/types/blog';
+import { Icon } from "@iconify/react"
+import parse from "html-react-parser"
+import Link from "next/link"
 
-import { Byline } from '@/components/common/Byline';
+import { Byline } from "@/components/common/Byline"
+import { decodeHtmlCharCodes, isDoi } from "@/lib/helpers"
+import { PostType } from "@/types/blog"
 
 type Props = {
-  posts: PostType[];
-  parent?: boolean;
-};
+  posts: PostType[]
+  parent?: boolean
+}
 
-export const isDoi = (doi: any) => {
-  try {
-    return new URL(doi).hostname === 'doi.org';
-  } catch (error) {
-    return false;
-  }
-};
-
-export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false }) => {
+export const Posts: React.FunctionComponent<Props> = ({
+  posts,
+  parent = false,
+}) => {
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="space-t-10 lg:space-t-10 mt-4 lg:mt-6">
             {posts.map((post) => (
-              <article key={post.id} className="relative mb-5 flex gap-6 lg:flex-row">
+              <article
+                key={post.id}
+                className="relative mb-5 flex gap-6 lg:flex-row"
+              >
                 {post.image && (
                   <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
                     <img
@@ -51,21 +50,31 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false })
                   )}
                   <div className="group relative max-w-3xl">
                     {!parent && post.blog && (
-                      <h2 className="mt-1 text-2xl font-bold leading-6 text-blue-600 group-hover:text-blue-700">
-                        <Link href={'/blogs/' + post.blog.id}>{post.blog.title}</Link>
-                      </h2>
+                      <h3 className="mt-1 text-xl font-bold text-blue-600 group-hover:text-blue-800">
+                        <Link href={"/blogs/" + post.blog.id}>
+                          {decodeHtmlCharCodes(post.blog.title || "")}
+                        </Link>
+                      </h3>
                     )}
-                    <h3 className="mt-1 text-xl font-semibold leading-7 text-gray-900 group-hover:text-gray-600">
+                    <h3 className="mt-1 text-xl font-semibold text-gray-900 group-hover:text-gray-600">
                       <Link href={post.id}>
                         {post.title}
                         {isDoi(post.id) && (
-                          <Icon icon="academicons:doi" className="ml-0.5 inline text-base text-[#f0b941]" />
+                          <Icon
+                            icon="academicons:doi"
+                            className="ml-0.5 inline text-base text-[#f0b941]"
+                          />
                         )}
                       </Link>
                     </h3>
-                    <Byline authors={post.authors} datePublished={post.date_published} />
+                    <Byline
+                      authors={post.authors}
+                      datePublished={post.date_published}
+                    />
                     {post.summary && (
-                      <p className="text-medium mt-2 leading-6 text-gray-900">{parse(String(post.summary))}</p>
+                      <p className="text-medium mt-2 leading-6 text-gray-900">
+                        {parse(String(post.summary))}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -75,5 +84,5 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, parent = false })
         </div>
       </div>
     </>
-  );
-};
+  )
+}

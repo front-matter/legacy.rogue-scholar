@@ -1,7 +1,7 @@
-import clsx from 'clsx'
+import clsx from "clsx"
 
-import { Button } from '@/components/common/Button'
-import { Container } from '@/components/layout/Container'
+import { Button } from "@/components/common/Button"
+import { Container } from "@/components/layout/Container"
 
 function SwirlyDoodle({ className }) {
   return (
@@ -25,7 +25,7 @@ function CheckIcon({ className }) {
     <svg
       aria-hidden="true"
       className={clsx(
-        'h-6 w-6 flex-none fill-current stroke-current',
+        "h-6 w-6 flex-none fill-current stroke-current",
         className
       )}
     >
@@ -47,19 +47,19 @@ function CheckIcon({ className }) {
 }
 
 function Plan({ name, price, description, href, features, featured = false }) {
-  href = href || '#'
+  href = href || "#"
   return (
     <section
       className={clsx(
-        'mb-10 flex flex-col rounded-3xl px-6 sm:px-8',
-        featured ? 'order-first bg-blue-600 py-8 lg:order-none' : 'lg:py-8'
+        "mb-10 flex flex-col rounded-3xl px-6 sm:px-8",
+        featured ? "order-first bg-blue-600 py-8 lg:order-none" : "lg:py-8"
       )}
     >
       <h3 className="font-display mt-5 text-lg text-white">{name}</h3>
       <p
         className={clsx(
-          'mt-2 text-base',
-          featured ? 'text-white' : 'text-slate-400'
+          "mt-2 text-base",
+          featured ? "text-white" : "text-slate-400"
         )}
       >
         {description}
@@ -70,21 +70,21 @@ function Plan({ name, price, description, href, features, featured = false }) {
       <ul
         role="list"
         className={clsx(
-          'order-last mt-10 flex flex-col gap-y-3 text-sm',
-          featured ? 'text-white' : 'text-slate-200'
+          "order-last mt-10 flex flex-col gap-y-3 text-sm",
+          featured ? "text-white" : "text-slate-200"
         )}
       >
         {features.map((feature) => (
           <li key={feature} className="flex">
-            <CheckIcon className={featured ? 'text-white' : 'text-slate-400'} />
+            <CheckIcon className={featured ? "text-white" : "text-slate-400"} />
             <span className="ml-4">{feature}</span>
           </li>
         ))}
       </ul>
-      {price == 'Free' && (
+      {price == "Free" && (
         <Button
           href={href}
-          variant={featured ? 'solid' : 'outline'}
+          variant={featured ? "solid" : "outline"}
           color="white"
           className="mt-8"
           aria-label={`Register with the ${name} plan for ${price}`}
@@ -92,7 +92,7 @@ function Plan({ name, price, description, href, features, featured = false }) {
           Sign up
         </Button>
       )}
-      {price != 'Free' && <div className="my-9"></div>}
+      {price != "Free" && <div className="my-9"></div>}
     </section>
   )
 }
@@ -108,9 +108,9 @@ export function Pricing() {
         <div className="md:text-center">
           <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
             <span className="relative whitespace-nowrap">
-              <SwirlyDoodle className="absolute top-1/2 left-0 h-[1em] w-full fill-blue-400" />
+              <SwirlyDoodle className="absolute left-0 top-1/2 h-[1em] w-full fill-blue-400" />
               <span className="relative">Simple pricing</span>
-            </span>{' '}
+            </span>{" "}
             for everyone.
           </h2>
           <p className="mt-4 text-lg text-slate-400">
@@ -126,9 +126,9 @@ export function Pricing() {
             description="For most blogs."
             href="/signup"
             features={[
-              'Archive up to 50 posts per year',
-              'Register DOIs with metadata',
-              'Full-text search',
+              "Archive up to 50 posts per year",
+              "Register DOIs with metadata",
+              "Full-text search",
             ]}
           />
           <Plan
@@ -137,8 +137,8 @@ export function Pricing() {
             description="Perfect for larger blogs."
             href="/signup"
             features={[
-              'Everything in starter',
-              'Archive an unlimited number of posts',
+              "Everything in starter",
+              "Archive an unlimited number of posts",
             ]}
           />
           <Plan
@@ -147,11 +147,11 @@ export function Pricing() {
             description="Having special requirements."
             href="/signup"
             features={[
-              'Everything in team',
-              'Archive a blog without active RSS feed',
-              'Support other languages',
-              'Support podcasts and vlogs',
-              'Custom feature development',
+              "Everything in team",
+              "Archive a blog without active RSS feed",
+              "Support other languages",
+              "Support podcasts and vlogs",
+              "Custom feature development",
             ]}
           />
         </div>

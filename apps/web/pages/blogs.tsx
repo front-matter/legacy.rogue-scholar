@@ -1,12 +1,15 @@
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React from 'react';
+import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import React from "react"
 
-import { supabase, blogsSelect } from '@/lib/supabaseClient';
-import { Blogs } from '@/components/common/Blogs';
-import Layout from '@/components/layout/Layout';
+import { Blogs } from "@/components/common/Blogs"
+import Layout from "@/components/layout/Layout"
+import { blogsSelect, supabase } from "@/lib/supabaseClient"
 
 export async function getServerSideProps() {
-  let { data, error } = await supabase.from('blogs').select(blogsSelect).order('title', { ascending: true })
+  const { data, error } = await supabase
+    .from("blogs")
+    .select(blogsSelect)
+    .order("title", { ascending: true })
 
   if (error) {
     console.log(error)
@@ -14,15 +17,15 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      ...(await serverSideTranslations('en', ['common', 'home'])),
+      ...(await serverSideTranslations("en", ["common", "home"])),
       blogs: data,
     },
-  };
-};
+  }
+}
 
 type Props = {
-  blogs: any;
-};
+  blogs: any
+}
 
 const BlogsPage: React.FunctionComponent<Props> = ({ blogs }) => {
   return (
@@ -31,7 +34,7 @@ const BlogsPage: React.FunctionComponent<Props> = ({ blogs }) => {
         <Blogs blogs={blogs} />
       </Layout>
     </>
-  );
-};
+  )
+}
 
-export default BlogsPage;
+export default BlogsPage

@@ -1,5 +1,5 @@
-import { useBreakpointValue } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useBreakpointValue } from "@chakra-ui/react"
+import { useEffect, useState } from "react"
 
 export function useMobileBreakpoint() {
   return useBreakpointValue(
@@ -9,26 +9,26 @@ export function useMobileBreakpoint() {
     },
     {
       ssr: true,
-      fallback: 'lg',
+      fallback: "lg",
     }
-  );
+  )
 }
 
 export function useScrollTop() {
-  const [isTop, setIsTop] = useState(true);
+  const [isTop, setIsTop] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
-      const offsetTop = window.scrollY;
-      const newIsTop = offsetTop <= 0;
+      const offsetTop = window.scrollY
+      const newIsTop = offsetTop <= 0
 
-      if (newIsTop !== isTop) setIsTop(newIsTop);
-    };
+      if (newIsTop !== isTop) setIsTop(newIsTop)
+    }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll)
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isTop]);
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [isTop])
 
-  return isTop;
+  return isTop
 }

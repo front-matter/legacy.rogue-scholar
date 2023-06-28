@@ -18,63 +18,68 @@ import {
   useDisclosure,
   useToast,
   VStack,
-} from '@chakra-ui/react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
-import { useCallback, useState } from 'react';
-import { FaBloggerB, FaEdit, FaTrash, FaUserPlus } from 'react-icons/fa';
+} from "@chakra-ui/react"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import Link from "next/link"
+import { useTranslation } from "next-i18next"
+import { useCallback, useState } from "react"
+import { FaEdit, FaTrash, FaUserPlus } from "react-icons/fa"
 
-import BlogFormModal from '@/components/app/blogs/FormModal';
-import NoSubscriptionAlert from '@/components/app/blogs/NoSubscriptionAlert';
-import ConfirmModal from '@/components/app/ConfirmModal';
-import Loader from '@/components/common/Loader';
-import { useUserPermissions } from '@/lib/blog/permissions';
-import { Database } from '@/types/supabase';
+import BlogFormModal from "@/components/app/blogs/FormModal"
+import NoSubscriptionAlert from "@/components/app/blogs/NoSubscriptionAlert"
+import ConfirmModal from "@/components/app/ConfirmModal"
+import Loader from "@/components/common/Loader"
+import { useUserPermissions } from "@/lib/blog/permissions"
+import { Database } from "@/types/supabase"
 
-type Blog = Database['public']['Tables']['blogs']['Row'];
+type Blog = Database["public"]["Tables"]["blogs"]["Row"]
 
 export default function BlogsList() {
-  const supabaseClient = useSupabaseClient<Database>();
-  const queryClient = useQueryClient();
-  const { t } = useTranslation('app');
-  const toast = useToast();
-  const { isUserSubscribed, loading: loadingPermissions } = useUserPermissions();
-  const formModal = useDisclosure();
-  const confirmModal = useDisclosure();
-  const [selectedBlog, setSelectedBlog] = useState<null | Blog>(null);
-  const { data: blogs, isLoading: loadingBlogs } = useQuery(['blogs'], async () => {
-    const { data: blogs, error } = await supabaseClient.from('blogs').select('*');
+  const supabaseClient = useSupabaseClient<Database>()
+  const queryClient = useQueryClient()
+  const { t } = useTranslation("app")
+  const toast = useToast()
+  const { isUserSubscribed, loading: loadingPermissions } = useUserPermissions()
+  const formModal = useDisclosure()
+  const confirmModal = useDisclosure()
+  const [selectedBlog, setSelectedBlog] = useState<null | Blog>(null)
+  const { data: blogs, isLoading: loadingBlogs } = useQuery(
+    ["blogs"],
+    async () => {
+      const { data: blogs, error } = await supabaseClient
+        .from("blogs")
+        .select("*")
 
-    if (error) throw new Error('Failed to fetch blogs');
-    return blogs;
-  });
-  const tableBg = useColorModeValue('white', 'gray.700');
-  const tableBorderColor = useColorModeValue('gray.100', 'gray.600');
+      if (error) throw new Error("Failed to fetch blogs")
+      return blogs
+    }
+  )
+  const tableBg = useColorModeValue("white", "gray.700")
+  const tableBorderColor = useColorModeValue("gray.100", "gray.600")
 
   const openBlogForm = useCallback(
     (blog: Blog | null) => {
-      setSelectedBlog(blog);
-      formModal.onOpen();
+      setSelectedBlog(blog)
+      formModal.onOpen()
     },
     [formModal, setSelectedBlog]
-  );
+  )
 
   const openDeleteConfirm = useCallback(
     (blog: Blog | null) => {
-      setSelectedBlog(blog);
-      confirmModal.onOpen();
+      setSelectedBlog(blog)
+      confirmModal.onOpen()
     },
     [confirmModal, setSelectedBlog]
-  );
+  )
 
   const deleteBlogMutation = useMutation(
     async (id: string) => {
-      if (!id) return;
-      const { error } = await supabaseClient.from('blogs').delete().eq('id', id);
+      if (!id) return
+      const { error } = await supabaseClient.from("blogs").delete().eq("id", id)
 
-      if (error) throw new Error('Could not delete blog');
+      if (error) throw new Error("Could not delete blog")
     },
     {
       // reset blog after request
@@ -82,19 +87,19 @@ export default function BlogsList() {
       // show toast on error
       onError: () =>
         toast({
-          status: 'error',
-          title: t('deleteBlog.errorMessage'),
+          status: "error",
+          title: t("deleteBlog.errorMessage"),
         }),
       // show toast on success and refetch blogs
       onSuccess: () => {
         toast({
-          status: 'success',
-          title: t('deleteBlog.successMessage'),
-        });
-        queryClient.invalidateQueries(['blogs']);
+          status: "success",
+          title: t("deleteBlog.successMessage"),
+        })
+        queryClient.invalidateQueries(["blogs"])
       },
     }
-  );
+  )
 
   return loadingPermissions ? (
     <Loader />
@@ -102,9 +107,15 @@ export default function BlogsList() {
     <>
       {!isUserSubscribed && !!blogs?.length && <NoSubscriptionAlert />}
       <HStack mb={4} justify="space-between">
-        <Heading fontSize="2xl">{t('blogs.title')}</Heading>
+        <Heading fontSize="2xl">{t("blogs.title")}</Heading>
 
-        <Tooltip label={!isUserSubscribed && blogs?.length ? t('blogs.upgradeToCreateMore') : undefined}>
+        <Tooltip
+          label={
+            !isUserSubscribed && blogs?.length
+              ? t("blogs.upgradeToCreateMore")
+              : undefined
+          }
+        >
           <Button
             size="sm"
             colorScheme="primary"
@@ -112,7 +123,7 @@ export default function BlogsList() {
             leftIcon={<FaUserPlus />}
             onClick={() => openBlogForm(null)}
           >
-            {t('blogs.createButton')}
+            {t("blogs.createButton")}
           </Button>
         </Tooltip>
       </HStack>
@@ -136,10 +147,10 @@ export default function BlogsList() {
           <Table>
             <Thead borderBottom="1px solid" borderColor={tableBorderColor}>
               <Tr>
-                <Th>{t('blogs.list.columns.id')}</Th>
-                <Th>{t('blogs.list.columns.title')}</Th>
-                <Th>{t('blog.list.columns.feed_url')}</Th>
-                <Th>{t('blog.list.columns.category')}</Th>
+                <Th>{t("blogs.list.columns.id")}</Th>
+                <Th>{t("blogs.list.columns.title")}</Th>
+                <Th>{t("blog.list.columns.feed_url")}</Th>
+                <Th>{t("blog.list.columns.category")}</Th>
                 <Th></Th>
               </Tr>
             </Thead>
@@ -161,7 +172,7 @@ export default function BlogsList() {
                           colorScheme="primary"
                           variant="ghost"
                           icon={<FaEdit />}
-                          aria-label={t('blogs.list.edit')}
+                          aria-label={t("blogs.list.edit")}
                           onClick={() => openBlogForm(blog)}
                         />
                         <IconButton
@@ -169,8 +180,11 @@ export default function BlogsList() {
                           colorScheme="red"
                           variant="ghost"
                           icon={<FaTrash />}
-                          aria-label={t('blogs.list.delete')}
-                          disabled={selectedBlog?.id === blog.id && deleteBlogMutation.isLoading}
+                          aria-label={t("blogs.list.delete")}
+                          disabled={
+                            selectedBlog?.id === blog.id &&
+                            deleteBlogMutation.isLoading
+                          }
                           onClick={() => openDeleteConfirm(blog)}
                         />
                       </HStack>
@@ -181,8 +195,10 @@ export default function BlogsList() {
                 <Tr>
                   <Td colSpan={99}>
                     <VStack textAlign="center" p={6}>
-                      <Heading fontSize="lg">{t('blogs.list.noResults')}</Heading>
-                      <Text opacity={0.5}>{t('blogs.list.empty')}</Text>
+                      <Heading fontSize="lg">
+                        {t("blogs.list.noResults")}
+                      </Heading>
+                      <Text opacity={0.5}>{t("blogs.list.empty")}</Text>
                     </VStack>
                   </Td>
                 </Tr>
@@ -191,17 +207,22 @@ export default function BlogsList() {
           </Table>
         )}
       </Box>
-      <BlogFormModal blog={selectedBlog} isOpen={formModal.isOpen} onClose={formModal.onClose} />
+      <BlogFormModal
+        blog={selectedBlog}
+        isOpen={formModal.isOpen}
+        onClose={formModal.onClose}
+      />
       <ConfirmModal
-        title={t('deleteBlogModal.title')}
-        description={t('deleteBlogModal.description')}
+        title={t("deleteBlogModal.title")}
+        description={t("deleteBlogModal.description")}
         isDelete
         isOpen={confirmModal.isOpen}
         onClose={(confirmed) => {
-          if (confirmed && selectedBlog?.id) deleteBlogMutation.mutate(selectedBlog.id);
-          confirmModal.onClose();
+          if (confirmed && selectedBlog?.id)
+            deleteBlogMutation.mutate(selectedBlog.id)
+          confirmModal.onClose()
         }}
       />
     </>
-  );
+  )
 }

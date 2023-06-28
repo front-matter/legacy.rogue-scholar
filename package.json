@@ -9,7 +9,7 @@
     "dev": "turbo run dev --parallel"
   },
   "devDependencies": {
-    "eslint": "^7.32.0",
+    "eslint": "^8.43.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "turbo": "^1.9.3"

@@ -1,7 +1,8 @@
 {
   "hero": {
-    "title": "Welcome to your new web app!",
-    "description": "Built whatever you like with supastarter. We are sure it's gonna be awesome."
+    "title": "Science blogging",
+    "subtitle": "on steroids.",
+    "description": "The Rogue Scholar improves your science blog in important ways, including full-text search, DOIs and metadata, and long-term archiving."
   },
   "signupButton": "Create an account",
   "dashboardButton": "Dashboard",

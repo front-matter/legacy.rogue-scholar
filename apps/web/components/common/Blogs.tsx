@@ -1,14 +1,14 @@
-import { Icon } from '@iconify/react';
-import parse from 'html-react-parser';
-import Link from 'next/link';
-import { BlogType } from '@/types/blog';
+import { Icon } from "@iconify/react"
+import parse from "html-react-parser"
+import Link from "next/link"
 
-import { Container } from '@/components/layout/Container';
-import { feedFormats, languages } from '@/components/common/Blog';
+import { feedFormats, languages } from "@/components/common/Blog"
+import { Container } from "@/components/layout/Container"
+import { BlogType } from "@/types/blog"
 
 type Props = {
-  blogs: BlogType[];
-};
+  blogs: BlogType[]
+}
 
 export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
   return (
@@ -24,15 +24,22 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
           </div>
         </Container>
       </section>
-      <section id="blogs" aria-label="blog listing" className="bg-slate-50 py-4 sm:py-6">
+      <section
+        id="blogs"
+        aria-label="blog listing"
+        className="bg-slate-50 py-4 sm:py-6"
+      >
         <Container className="relative">
-          <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul
+            role="list"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          >
             {blogs.map((blog) => (
               <li
                 key={blog.id}
                 className={
-                  'col-span-1 divide-y divide-gray-200 rounded-lg shadow' +
-                  (blog.indexed_at ? ' bg-white' : ' bg-blue-50')
+                  "col-span-1 divide-y divide-gray-200 rounded-lg shadow" +
+                  (blog.indexed_at ? " bg-white" : " bg-blue-50")
                 }
               >
                 <div className="flex w-full items-center justify-between space-x-6 p-6">
@@ -40,7 +47,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                     <div className="flex items-center space-x-3">
                       <h3 className="text-semibold truncate font-medium text-gray-900">
                         <Link
-                          href={'/blogs/' + blog.id}
+                          href={"/blogs/" + blog.id}
                           className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
                         >
                           {parse(String(blog.title))}
@@ -68,7 +75,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                   <div className="-mt-px flex divide-x divide-gray-200">
                     <div className="flex w-0 flex-1">
                       <Link
-                        href={blog.home_page_url ? blog.home_page_url : '#'}
+                        href={blog.home_page_url ? blog.home_page_url : "#"}
                         target="_blank"
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
@@ -84,7 +91,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                           className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                         >
                           <Icon icon="fa6-solid:rss" className="inline" />
-                          {feedFormats[blog.feed_format] + ' Feed'}
+                          {feedFormats[blog.feed_format] + " Feed"}
                         </Link>
                       </div>
                     )}
@@ -96,5 +103,5 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
         </Container>
       </section>
     </>
-  );
-};
+  )
+}

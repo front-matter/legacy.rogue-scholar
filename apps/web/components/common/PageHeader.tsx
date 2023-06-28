@@ -1,5 +1,14 @@
-import { Box, BoxProps, Container, ContainerProps, Heading, Text, useColorModeValue, VStack } from '@chakra-ui/react';
-import { PropsWithChildren, useMemo } from 'react';
+import {
+  Box,
+  BoxProps,
+  Container,
+  ContainerProps,
+  Heading,
+  Text,
+  useColorModeValue,
+  VStack,
+} from "@chakra-ui/react"
+import { PropsWithChildren, useMemo } from "react"
 
 export default function PageHeader({
   title,
@@ -10,14 +19,18 @@ export default function PageHeader({
   ...rest
 }: PropsWithChildren<
   {
-    title: string;
-    description?: string;
-    align?: 'start' | 'center' | 'end';
-    containerMaxWidth?: ContainerProps['maxW'];
+    title: string
+    description?: string
+    align?: "start" | "center" | "end"
+    containerMaxWidth?: ContainerProps["maxW"]
   } & BoxProps
 >) {
-  const bgColor = useColorModeValue('primary.50', 'gray.900');
-  const textAlign = useMemo(() => (align === 'start' && 'left') || (align === 'end' && 'right') || 'center', [align]);
+  const bgColor = useColorModeValue("primary.50", "gray.900")
+  const textAlign = useMemo(
+    () =>
+      (align === "start" && "left") || (align === "end" && "right") || "center",
+    [align]
+  )
 
   return (
     <Box
@@ -25,12 +38,12 @@ export default function PageHeader({
       py={12}
       px={4}
       borderWidth="1px 0"
-      borderColor={useColorModeValue('gray.100', 'gray.800')}
+      borderColor={useColorModeValue("gray.100", "gray.800")}
       {...rest}
     >
-      <Container maxW={containerMaxWidth ?? '5xl'}>
-        <VStack spacing={2} align={align ?? 'center'}>
-          <Heading fontSize={{ base: '4xl', lg: '5xl' }} textAlign={textAlign}>
+      <Container maxW={containerMaxWidth ?? "5xl"}>
+        <VStack spacing={2} align={align ?? "center"}>
+          <Heading fontSize={{ base: "4xl", lg: "5xl" }} textAlign={textAlign}>
             {title}
           </Heading>
           {description && (
@@ -42,5 +55,5 @@ export default function PageHeader({
         </VStack>
       </Container>
     </Box>
-  );
+  )
 }

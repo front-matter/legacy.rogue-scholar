@@ -1,167 +1,204 @@
-import { extract } from '@extractus/feed-extractor';
-import { stripTags, truncate } from 'bellajs'
-import { get, isArray, isObject, isString, uniq } from 'lodash';
-const extractUrls = require("extract-urls");
-import normalizeUrl from 'normalize-url';
+import { extract } from "@extractus/feed-extractor"
+import { stripTags, truncate } from "bellajs"
+import { get, isArray, isObject, isString, uniq } from "lodash"
+const extractUrls = require("extract-urls")
 
-import { upsertSinglePost } from '@/pages/api/posts/[slug]';
-import { getSingleBlog } from '@/pages/api/blogs/[slug]';
-import { getAllConfigs } from '@/pages/api/blogs';
-import { BlogType, PostType } from '@/types/blog';
-import { isDoi } from '../posts';
+import normalizeUrl from "normalize-url"
+
+import { decodeHtmlCharCodes, isDoi, isOrcid, isRor } from "@/lib/helpers"
+import { getAllConfigs } from "@/pages/api/blogs"
+import { getSingleBlog } from "@/pages/api/blogs/[slug]"
+import { upsertSinglePost } from "@/pages/api/posts/[slug]"
+import { BlogType, PostType } from "@/types/blog"
 
 export const authorIDs = {
   "Roderic Page": "https://orcid.org/0000-0002-7101-9767",
-  "Liberate Science": "https://ror.org/0342dzm54"
+  "Liberate Science": "https://ror.org/0342dzm54",
 }
-
-export const isOrcid = (orcid: any) => {
-  try {
-    return new URL(orcid).hostname === 'orcid.org';
-  } catch (error) {
-    return false;
-  }
-};
-
-const isRor = (ror: any) => {
-  try {
-    return new URL(ror).hostname === 'ror.org';
-  } catch (error) {
-    return false;
-  }
-};
 
 // from https://github.com/extractus/feed-extractor/blob/main/src/utils/normalizer.js
 export const buildDescription = (val, maxlen) => {
   const stripped = stripTags(String(val))
-  return truncate(stripped, maxlen).replace(/\n+/g, ' ')
+
+  return truncate(stripped, maxlen).replace(/\n+/g, " ")
 }
 
-// from https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript
-export const decodeHtmlCharCodes = (str: string) => 
-  str.replace(/(&#(\d+);)/g, (_match, _capture, charCode) => 
-    String.fromCharCode(charCode));
-
 const getReferences = (content_html: string) => {
-  // extract links from references section,defined as the text after the tag 
+  // extract links from references section,defined as the text after the tag
   // "References</h2>", "References</h3>" or "References</h4>
-  let reference_html = content_html.split(/References<\/(?:h2|h3|h4)>/, 2);
+  const reference_html = content_html.split(/References<\/(?:h2|h3|h4)>/, 2)
+
   if (reference_html.length == 1) {
-    return [];
+    return []
   }
   // strip optional text after references, using <hr>, <hr />, <h2, <h3, <h4 as tag
-  reference_html[1] = reference_html[1].split(/(?:<hr \/>|<hr>|<h2|<h3|<h4)/, 2)[0];
-  let urls = extractUrls(reference_html[1]);
+  reference_html[1] = reference_html[1].split(
+    /(?:<hr \/>|<hr>|<h2|<h3|<h4)/,
+    2
+  )[0]
+  let urls = extractUrls(reference_html[1])
+
   if (!urls || urls.length == 0) {
-    return [];
+    return []
   }
   urls = urls.map((url) => {
-    url = normalizeUrl(url, { removeQueryParameters: ['ref', 'referrer', 'origin', 'utm_content', 'utm_medium', 'utm_campaign', 'utm_source'] })
-    url = isDoi(url) ? url.toLowerCase() : url;
-    return url;
-  });
-  urls = uniq(urls);
+    url = normalizeUrl(url, {
+      removeQueryParameters: [
+        "ref",
+        "referrer",
+        "origin",
+        "utm_content",
+        "utm_medium",
+        "utm_campaign",
+        "utm_source",
+      ],
+    })
+    url = isDoi(url) ? url.toLowerCase() : url
+    return url
+  })
+  urls = uniq(urls)
   urls = urls.map((url, index) => {
-    let doi = isDoi(url)
-    if (doi) { 
+    const doi = isDoi(url)
+
+    if (doi) {
       return {
         key: `ref${index + 1}`,
         doi: url,
-      };
+      }
     } else {
       return {
         key: `ref${index + 1}`,
         url: url,
-      };
+      }
     }
-  });
-  return urls;
-};
+  })
+  return urls
+}
 
 // from @extractus/feed-extractor
 const toISODateString = (dstr) => {
   try {
-    return dstr ? new Date(dstr).toISOString().split('.')[0] + 'Z' : null;
+    return dstr ? new Date(dstr).toISOString().split(".")[0] + "Z" : null
   } catch (err) {
-    return '';
+    return ""
   }
-};
+}
 
 export async function getAllPosts() {
-  const configs = await getAllConfigs();
-  let posts = await Promise.all(configs.map((config) => getAllPostsByBlog(config.id)));
-  posts = posts.flat();
-  await Promise.all(posts.map(post => upsertSinglePost(post)));
-  return posts;
+  const configs = await getAllConfigs()
+  let posts = await Promise.all(
+    configs.map((config) => getAllPostsByBlog(config.id))
+  )
+
+  posts = posts.flat()
+  await Promise.all(posts.map((post) => upsertSinglePost(post)))
+  return posts
 }
 
 export async function getUpdatedPosts() {
-  const configs = await getAllConfigs();
-  let posts = await Promise.all(configs.map((config) => getUpdatedPostsByBlog(config.id)));
-  posts = posts.flat();
-  await Promise.all(posts.map(post => upsertSinglePost(post)));
-  return posts;
+  const configs = await getAllConfigs()
+  let posts = await Promise.all(
+    configs.map((config) => getUpdatedPostsByBlog(config.id))
+  )
+
+  posts = posts.flat()
+  await Promise.all(posts.map((post) => upsertSinglePost(post)))
+  return posts
 }
 
 export async function getAllPostsByBlog(blogSlug: string) {
-  const blog: BlogType = await getSingleBlog(blogSlug);
+  const blog: BlogType = await getSingleBlog(blogSlug)
 
-  let blogWithPosts = await extract(blog.feed_url as string, {
+  const blogWithPosts = await extract(blog.feed_url as string, {
     useISODateFormat: true,
     descriptionMaxLen: 500,
     getExtraEntryFields: (feedEntry) => {
       // console.log(feedEntry)
-      let author: any = get(feedEntry, 'author', null) || get(feedEntry, 'dc:creator', []);
+      let author: any =
+        get(feedEntry, "author", null) || get(feedEntry, "dc:creator", [])
+
       if (isString(author)) {
         author = {
           name: author,
           uri: null,
-        };
+        }
       }
       if (!isArray(author)) {
-        author = [author];
+        author = [author]
       }
       const authors = author.map((auth) => {
-        let url = authorIDs[auth['name']] || null;
-        url ??= isOrcid(get(auth, 'uri', null)) ? get(auth, 'uri') : null || isRor(get(auth, 'uri', null)) ? get(auth, 'uri') : null;
+        let url = authorIDs[auth["name"]] || null
+
+        url ??= isOrcid(get(auth, "uri", null))
+          ? get(auth, "uri")
+          : null || isRor(get(auth, "uri", null))
+          ? get(auth, "uri")
+          : null
         return {
-          name: get(auth, 'name', null),
+          name: get(auth, "name", null),
           url: url,
-        };
-      });
-      const blog_id = blog.id;
+        }
+      })
+      const blog_id = blog.id
       const content_html =
-        get(feedEntry, 'content:encoded', null) ||
-        get(feedEntry, 'content.#text', null) ||
-        get(feedEntry, 'description', null);
-      const summary = buildDescription(content_html, 500);
-      const date_modified = toISODateString(get(feedEntry, 'updated', null));
-      const date_published = toISODateString(get(feedEntry, 'pubDate', null) || get(feedEntry, 'published', null));
-      let url: any = get(feedEntry, 'link', []);
-      
+        get(feedEntry, "content:encoded", null) ||
+        get(feedEntry, "content.#text", null) ||
+        get(feedEntry, "description", null)
+      const summary = buildDescription(content_html, 500)
+      const date_modified = toISODateString(get(feedEntry, "updated", null))
+      const date_published = toISODateString(
+        get(feedEntry, "pubDate", null) || get(feedEntry, "published", null)
+      )
+      let url: any = get(feedEntry, "link", [])
+
       if (isArray(url) && url.length > 0) {
-        url = url.find((link) => get(link, '@_rel', null) === 'alternate');
-        url = get(url, '@_href', null);
+        url = url.find((link) => get(link, "@_rel", null) === "alternate")
+        url = get(url, "@_href", null)
       }
       if (isObject(url)) {
-        url = get(url, '@_href', null);
+        url = get(url, "@_href", null)
       }
       url = decodeHtmlCharCodes(url)
-      url = normalizeUrl(url, { removeQueryParameters: ['ref', 'referrer', 'origin', 'source', 'utm_content', 'utm_medium', 'utm_campaign', 'utm_source'] })
+      url = normalizeUrl(url, {
+        removeQueryParameters: [
+          "ref",
+          "referrer",
+          "origin",
+          "source",
+          "utm_content",
+          "utm_medium",
+          "utm_campaign",
+          "utm_source",
+        ],
+      })
       // const id =
       //   get(feedEntry, 'id.#text', null) ||
       //   get(feedEntry, 'guid.#text', null) ||
       //   get(feedEntry, 'id', null) ||
       //   get(feedEntry, 'guid', null) ||
       //   url;
-      const image = get(feedEntry, 'media:content.@_url', null) || get(feedEntry, 'enclosure.@_url', null);
-      const language = get(feedEntry, 'dc:language', null) || get(feedEntry, 'language', null) || blog.language;
-      const references = content_html ? getReferences(content_html) : [];
-      const tags = [].concat(get(feedEntry, 'category', []))
-        .map((tag) => decodeHtmlCharCodes(get(tag, '@_term', null) || get(tag, '#text', null) || tag))
-        .slice(0, 5);
-      let title = get(feedEntry, 'title.#text', null) || get(feedEntry, 'title', null) || '';
-      title = decodeHtmlCharCodes(title).trim();
+      const image =
+        get(feedEntry, "media:content.@_url", null) ||
+        get(feedEntry, "enclosure.@_url", null)
+      const language =
+        get(feedEntry, "dc:language", null) ||
+        get(feedEntry, "language", null) ||
+        blog.language
+      const references = content_html ? getReferences(content_html) : []
+      const tags = []
+        .concat(get(feedEntry, "category", []))
+        .map((tag) =>
+          decodeHtmlCharCodes(
+            get(tag, "@_term", null) || get(tag, "#text", null) || tag
+          )
+        )
+        .slice(0, 5)
+      let title =
+        get(feedEntry, "title.#text", null) ||
+        get(feedEntry, "title", null) ||
+        ""
+
+      title = decodeHtmlCharCodes(title).trim()
 
       return {
         authors,
@@ -176,29 +213,36 @@ export async function getAllPostsByBlog(blogSlug: string) {
         tags,
         title,
         url,
-      };
+      }
     },
-  });
-  
-  const posts : PostType[] = blogWithPosts['entries'] || [];
-  return posts;
-};
+  })
+
+  const posts: PostType[] = blogWithPosts["entries"] || []
+
+  return posts
+}
 
 export async function getUpdatedPostsByBlog(blogSlug: string) {
-  const blog: BlogType = await getSingleBlog(blogSlug);
-  let posts = await getAllPostsByBlog(blogSlug);
+  const blog: BlogType = await getSingleBlog(blogSlug)
+  const posts = await getAllPostsByBlog(blogSlug)
+
   return posts.filter((post) => {
-    return (post.date_published as string) > (blog.modified_at as string);
-  });
-};
+    return (post.date_published as string) > (blog.modified_at as string)
+  })
+}
 
 export default async function handler(req, res) {
-  if (!req.headers.authorization || req.headers.authorization.split(' ')[1] !== process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY) {
-    res.status(401).json({ message: 'Unauthorized' });
-  } else if (req.method === 'POST') {
-    const posts = await getUpdatedPosts();
-    res.status(200).json(posts);
+  if (
+    !req.headers.authorization ||
+    req.headers.authorization.split(" ")[1] !==
+      process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY
+  ) {
+    res.status(401).json({ message: "Unauthorized" })
+  } else if (req.method === "POST") {
+    const posts = await getUpdatedPosts()
+
+    res.status(200).json(posts)
   } else {
-    res.status(405).json({ message: 'Method Not Allowed' });
+    res.status(405).json({ message: "Method Not Allowed" })
   }
 }

@@ -1,18 +1,21 @@
-import React from 'react';
+import React from "react"
 
-import { Author } from '@/components/common/Author';
+import { Author } from "@/components/common/Author"
 
 type Author = {
-  name: string;
-  url?: string;
-};
+  name: string
+  url?: string
+}
 
 type Props = {
-  authors?: Author[];
-  datePublished?: string;
-};
+  authors?: Author[]
+  datePublished?: string
+}
 
-export const Byline: React.FunctionComponent<Props> = ({ authors, datePublished }) => {
+export const Byline: React.FunctionComponent<Props> = ({
+  authors,
+  datePublished,
+}) => {
   return (
     <div className="text-small text-gray-500">
       {authors && authors.length > 0 && (
@@ -30,14 +33,14 @@ export const Byline: React.FunctionComponent<Props> = ({ authors, datePublished 
       {datePublished && (
         <div>
           <time dateTime={datePublished.toString()}>
-            {new Date(datePublished).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
+            {new Date(datePublished).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
             })}
           </time>
         </div>
       )}
     </div>
-  );
-};
+  )
+}

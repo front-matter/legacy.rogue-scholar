@@ -1,7 +1,7 @@
-import { Divider, Flex, Text } from '@chakra-ui/react';
+import { Divider, Flex, Text } from "@chakra-ui/react"
 
 interface Props {
-  text: string;
+  text: string
 }
 
 function DividerWithText({ text }: Props) {
@@ -22,6 +22,6 @@ function DividerWithText({ text }: Props) {
         {text}
       </Text>
     </Flex>
-  );
+  )
 }
-export default DividerWithText;
+export default DividerWithText

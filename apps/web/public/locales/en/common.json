@@ -73,6 +73,12 @@
     "manage": "Manage subscription",
     "text": "Hey {{ userName }}! You are currently subscribed to the {{ planName }} plan. To manage your subscription or upgrade your plan, click the button below."
   },
+  "pagination": {
+    "page": "Page",
+    "previous": "Previous",
+    "next": "Next",
+    "no_results": "No results"
+  },
   "common": {
     "pricingPage": "Pricing",
     "subscriptionPlans": {
