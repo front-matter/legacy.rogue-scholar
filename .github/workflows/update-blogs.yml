@@ -2,7 +2,7 @@ name: Update Blogs
 on: 
   # workflow_dispatch:
   schedule:
-    - cron: "10 8 * * *"
+    - cron: "30 8,17 * * *"
 jobs:
   update:
     runs-on: ubuntu-latest

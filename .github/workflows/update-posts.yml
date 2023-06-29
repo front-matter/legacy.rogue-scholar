@@ -1,0 +1,12 @@
+name: Update Posts
+on: 
+  workflow_dispatch:
+  # schedule:
+    # - cron: "00,10,20 8,17 * * *"
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: update Rogue Scholar posts
+        run: |
+          curl -X POST https://rogue-scholar.org/api/posts/update-all -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}"

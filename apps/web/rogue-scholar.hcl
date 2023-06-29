@@ -21,6 +21,7 @@ blog {
   category   = "Engineering and Technology"
   feed_url   = "https://blog.oa.works/rss/"
   favicon    = "https://blog.oa.works/favicon.png"
+  prefix     = "10.59350"
   indexed_at = "2023-01-04"
 }
 
@@ -37,6 +38,7 @@ blog {
   category   = "Humanities"
   feed_url   = "https://flavoursofopen.science/feed/atom/"
   favicon    = "https://flavoursofopen.science/wp-content/uploads/2022/05/cropped-open-padlock-32x32.png"
+  prefix     = "10.59350"
   indexed_at = "2023-01-02"
 }
 
@@ -106,6 +108,7 @@ blog {
   category   = "Natural Sciences"
   feed_url   = "https://quantixed.org/feed/atom/"
   favicon    = "https://i0.wp.com/quantixed.org/wp-content/uploads/2017/12/cropped-qlogo512x512-01.png?fit=32%2C32&#038;ssl=1"
+  prefix     = "10.59350"
   indexed_at = "2023-01-15"
 }
 
@@ -129,6 +132,7 @@ blog {
   id         = "h49ct36"
   category   = "Social Sciences"
   feed_url   = "https://libscie.org/rss/"
+  prefix     = "10.59350"
   indexed_at = "2023-01-04"
 }
 
@@ -137,6 +141,7 @@ blog {
   category   = "Social Sciences"
   feed_url   = "https://www.samuelmoore.org/feed/atom/"
   favicon    = "https://www.samuelmoore.org/wp-content/uploads/2019/02/cropped-cropped-cropped-roAorange-icon-2-32x32.png"
+  prefix     = "10.59350"
   indexed_at = "2023-01-05"
 }
 
@@ -151,6 +156,7 @@ blog {
   category   = "Social Sciences"
   feed_url   = "https://medium.com/feed/@rubinpsyc"
   favicon    = "https://cdn-images-1.medium.com/fit/c/150/150/0*uCUPpslzlmB4BHIe.jpg"
+  prefix     = "10.59350"
   indexed_at = "2023-02-01"
 }
 
@@ -175,6 +181,7 @@ blog {
   category   = "Natural Sciences"
   feed_url   = "https://medium.com/feed/@clearskiesadam"
   favicon    = "https://cdn-images-1.medium.com/fit/c/150/150/1*DJGPkBv9iJDmlE836eaoig.jpeg"
+  prefix     = "10.59350"
   indexed_at = "2023-01-07"
 }
 
@@ -423,6 +430,7 @@ blog {
   id         = "6hezn63"
   feed_url   = "https://lab.sub.uni-goettingen.de/atom.xml"
   category   = "Engineering and Technology"
+  prefix     = "10.59350"
   indexed_at = "2023-04-24"
 }
 
@@ -450,5 +458,6 @@ blog {
   id         = "sfkfh60"
   feed_url   = "https://medium.com/feed/@kj.garza"
   category   = "Engineering and Technology"
+  prefix     = "10.59350"
   indexed_at = "2023-05-28"
 }

@@ -19,7 +19,10 @@ export const Author: React.FunctionComponent<Props> = ({
     <>
       {url && isOrcid(url) ? (
         <span>
-          <Link href={url} className="whitespace-nowrap text-gray-500">
+          <Link
+            href={url}
+            className="whitespace-nowrap text-gray-500 hover:text-gray-900"
+          >
             {name}
             <Icon
               icon="fa-brands:orcid"
