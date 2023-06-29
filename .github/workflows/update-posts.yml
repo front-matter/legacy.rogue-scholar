@@ -1,8 +1,8 @@
 name: Update Posts
 on: 
-  workflow_dispatch:
-  # schedule:
-    # - cron: "00,10,20 8,17 * * *"
+  # workflow_dispatch:
+  schedule:
+    - cron: "00,10,20 8,17 * * *"
 jobs:
   update:
     runs-on: ubuntu-latest
