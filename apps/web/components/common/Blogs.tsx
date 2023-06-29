@@ -83,18 +83,19 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         Home Page
                       </Link>
                     </div>
-                    {blog.feed_url && blog.feed_format && (
-                      <div className="-ml-px flex w-0 flex-1">
-                        <Link
-                          href={blog.feed_url}
-                          target="_blank"
-                          className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
-                        >
-                          <Icon icon="fa6-solid:rss" className="inline" />
-                          {feedFormats[blog.feed_format] + " Feed"}
-                        </Link>
-                      </div>
-                    )}
+                    {(blog.current_feed_url || blog.feed_url || "") &&
+                      blog.feed_format && (
+                        <div className="-ml-px flex w-0 flex-1">
+                          <Link
+                            href={blog.current_feed_url || blog.feed_url || ""}
+                            target="_blank"
+                            className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
+                          >
+                            <Icon icon="fa6-solid:rss" className="inline" />
+                            {feedFormats[blog.feed_format] + " Feed"}
+                          </Link>
+                        </div>
+                      )}
                   </div>
                 </div>
               </li>

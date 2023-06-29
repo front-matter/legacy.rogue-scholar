@@ -119,8 +119,8 @@ const BlogPage: React.FunctionComponent<Props> = ({
                   target="_blank"
                   className="text-base font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
                 >
-                  More posts via the {decodeHtmlCharCodes(blog.title ?? "")}{" "}
-                  Home Page …
+                  More posts via the {decodeHtmlCharCodes(blog.title)} Home Page
+                  …
                 </Link>
               </div>
             </div>

@@ -1,4 +1,6 @@
 import Cors from "cors"
+import { isString } from "lodash"
+const he = require("he")
 
 export function getBaseURL() {
   const url =
@@ -46,6 +48,14 @@ export const invalidateNextRouterCache = () => {
   }
 }
 
+export const isUrl = (url: any) => {
+  try {
+    return new URL(url)
+  } catch (error) {
+    return false
+  }
+}
+
 export const isDoi = (doi: any) => {
   try {
     return new URL(doi).hostname === "doi.org"
@@ -71,10 +81,11 @@ export const isRor = (ror: any) => {
 }
 
 // from https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript
-export const decodeHtmlCharCodes = (str: string) =>
-  str.replace(/(&#(\d+);)/g, (_match, _capture, charCode) =>
-    String.fromCharCode(charCode)
-  )
+export const decodeHtmlCharCodes = (str: any) => {
+  if (!isString(str)) return str
+
+  return he.decode(str)
+}
 
 export const getPagination = (page, size) => {
   const limit = size ? +size : 3

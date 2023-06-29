@@ -3,7 +3,7 @@ import parse from "html-react-parser"
 import Link from "next/link"
 
 import { Byline } from "@/components/common/Byline"
-import { decodeHtmlCharCodes, isDoi } from "@/lib/helpers"
+import { isDoi } from "@/lib/helpers"
 import { PostType } from "@/types/blog"
 
 type Props = {
@@ -49,28 +49,24 @@ export const Posts: React.FunctionComponent<Props> = ({
                     </div>
                   )}
                   <div className="group relative max-w-3xl">
-                    {!parent && post.blog && (
-                      <h3 className="mt-1 text-xl font-bold text-blue-600 group-hover:text-blue-800">
-                        <Link href={"/blogs/" + post.blog.id}>
-                          {decodeHtmlCharCodes(post.blog.title || "")}
-                        </Link>
-                      </h3>
-                    )}
                     <h3 className="mt-1 text-xl font-semibold text-gray-900 group-hover:text-gray-600">
-                      <Link href={post.id}>
-                        {post.title}
-                        {isDoi(post.id) && (
+                      {post.title}
+                    </h3>
+                    <Byline post={post} parent={parent} />
+                    {isDoi(post.id) && (
+                      <div className="py-1">
+                        <Link
+                          className="text-base text-gray-500 group-hover:text-gray-900"
+                          href={post.id}
+                        >
                           <Icon
                             icon="academicons:doi"
-                            className="ml-0.5 inline text-base text-[#f0b941]"
+                            className="mr-1 inline text-gray-300"
                           />
-                        )}
-                      </Link>
-                    </h3>
-                    <Byline
-                      authors={post.authors}
-                      datePublished={post.date_published}
-                    />
+                          {post.id}
+                        </Link>
+                      </div>
+                    )}
                     {post.summary && (
                       <p className="text-medium mt-2 leading-6 text-gray-900">
                         {parse(String(post.summary))}

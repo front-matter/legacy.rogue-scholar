@@ -1,11 +1,11 @@
 blog {
-  id                = "f0m0e38"
-  category          = "Engineering and Technology"
-  feed_url          = "https://blog.front-matter.io/atom-complete/"
+  id               = "f0m0e38"
+  category         = "Engineering and Technology"
+  feed_url         = "https://blog.front-matter.io/atom-complete/"
   current_feed_url = "https://blog.front-matter.io/atom/"
-  favicon           = "https://blog.front-matter.io/favicon.png"
-  prefix            = "10.53731"
-  indexed_at        = "2023-01-02"
+  favicon          = "https://blog.front-matter.io/favicon.png"
+  prefix           = "10.53731"
+  indexed_at       = "2023-01-02"
 }
 
 blog {
@@ -41,13 +41,13 @@ blog {
 }
 
 blog {
-  id                = "pm0p222"
-  category          = "Humanities"
-  feed_url          = "https://upstream.force11.org/atom-complete/"
+  id               = "pm0p222"
+  category         = "Humanities"
+  feed_url         = "https://upstream.force11.org/atom-complete/"
   current_feed_url = "https://upstream.force11.org/atom/"
-  favicon           = "https://upstream.force11.org/favicon.png"
-  prefix            = "10.54900"
-  indexed_at        = "2023-01-13"
+  favicon          = "https://upstream.force11.org/favicon.png"
+  prefix           = "10.54900"
+  indexed_at       = "2023-01-13"
 }
 
 blog {
@@ -414,6 +414,7 @@ blog {
   title         = "Blog on Research Software Alliance"
   feed_url      = "https://www.researchsoft.org/blog/index.xml"
   home_page_url = "https://www.researchsoft.org/blog/"
+  base_url      = "https://www.researchsoft.org"
   category      = "Engineering and Technology"
   indexed_at    = "2023-04-21"
 }

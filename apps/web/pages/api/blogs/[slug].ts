@@ -1,6 +1,7 @@
 import { extract } from "@extractus/feed-extractor"
 import { capitalize, get, isObject, isString, omit } from "lodash"
 
+import { decodeHtmlCharCodes } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import { blogWithPostsSelect, supabase } from "@/lib/supabaseClient"
 import { getAllConfigs } from "@/pages/api/blogs"
@@ -9,22 +10,26 @@ import { BlogType } from "@/types/blog"
 export async function upsertSingleBlog(blogSlug: string) {
   const blog: BlogType = await getSingleBlog(blogSlug)
 
-  const { data, error } = await supabaseAdmin.from("blogs").upsert({
-    id: blog.id,
-    title: blog.title,
-    description: blog.description,
-    feed_url: blog.feed_url,
-    home_page_url: blog.home_page_url,
-    feed_format: blog.feed_format,
-    indexed_at: blog.indexed_at,
-    modified_at: blog.modified_at,
-    language: blog.language,
-    favicon: blog.favicon,
-    license: blog.license,
-    category: blog.category,
-    generator: blog.generator,
-    prefix: blog.prefix,
-  })
+  const { data, error } = await supabaseAdmin.from("blogs").upsert(
+    {
+      id: blog.id,
+      title: blog.title,
+      description: blog.description,
+      feed_url: blog.feed_url,
+      current_feed_url: blog.current_feed_url,
+      home_page_url: blog.home_page_url,
+      feed_format: blog.feed_format,
+      indexed_at: blog.indexed_at,
+      modified_at: blog.modified_at,
+      language: blog.language,
+      favicon: blog.favicon,
+      license: blog.license,
+      category: blog.category,
+      generator: blog.generator,
+      prefix: blog.prefix,
+    },
+    { onConflict: "id" }
+  )
 
   if (error) {
     throw error
@@ -90,12 +95,12 @@ export async function getSingleBlog(blogSlug: string) {
       const feed_url = config.feed_url
       const category = config.category
       const indexed_at = config.indexed_at
-      const title = (
+      const title = decodeHtmlCharCodes(
         config.title ||
-        get(feedData, "title.#text", null) ||
-        get(feedData, "title", null)
+          get(feedData, "title.#text", null) ||
+          get(feedData, "title", null)
       ).trim()
-
+      const current_feed_url = config.current_feed_url
       let home_page_url = []
         .concat(get(feedData, "link", []))
         .find((link) => get(link, "@_rel", null) === "alternate")
@@ -155,6 +160,7 @@ export async function getSingleBlog(blogSlug: string) {
         id,
         version,
         feed_url,
+        current_feed_url,
         home_page_url,
         feed_format,
         title,
@@ -169,14 +175,18 @@ export async function getSingleBlog(blogSlug: string) {
       }
     },
   })
+  // find timestamp from last modified post
   const { data: posts } = await supabase
     .from("posts")
-    .select("date_published, blog_id")
+    .select("date_modified, blog_id")
     .eq("blog_id", blog.id)
-    .order("date_published", { ascending: false })
+    .order("date_modified", { ascending: false })
+    .limit(1)
 
-  blog.modified_at =
-    posts && posts.length > 0 ? posts[0].date_published : "1970-01-01T00:00:00Z"
+  blog.modified_at = posts && posts.length > 0 ? posts[0].date_modified : null
+  if (!blog.modified_at) {
+    blog.modified_at = "1970-01-02T00:00:00Z"
+  }
   blog = omit(blog, ["published", "link", "entries"])
   return blog
 }

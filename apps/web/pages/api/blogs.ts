@@ -6,6 +6,7 @@ import { blogsSelect, supabase } from "@/lib/supabaseClient"
 
 const optionalKeys = [
   "current_feed_url",
+  "base_url",
   "title",
   "description",
   "language",

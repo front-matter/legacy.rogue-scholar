@@ -35,20 +35,23 @@ export const Post: React.FunctionComponent<Props> = ({ post }) => {
                 )}
                 <div className="group relative max-w-3xl">
                   <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                    <Link href={post.id}>
-                      {post.title}
-                      {isDoi(post.id) && (
+                    {post.title}
+                  </h3>
+                  <Byline post={post} parent={false} />
+                  {isDoi(post.id) && (
+                    <div className="py-1">
+                      <Link
+                        className="text-base text-gray-500 group-hover:text-gray-900"
+                        href={post.id}
+                      >
                         <Icon
                           icon="academicons:doi"
-                          className="ml-0.5 inline text-base text-[#f0b941]"
+                          className="mr-1 inline text-gray-300"
                         />
-                      )}
-                    </Link>
-                  </h3>
-                  <Byline
-                    authors={post.authors}
-                    datePublished={post.date_published}
-                  />
+                        {post.id}
+                      </Link>
+                    </div>
+                  )}
                   {post.content_html && (
                     <p className="text-medium mt-2 leading-6 text-gray-900">
                       {parse(String(post.content_html))}

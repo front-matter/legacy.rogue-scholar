@@ -3,6 +3,7 @@ import { stripTags, truncate } from "bellajs"
 import { get, isArray, isObject, isString, uniq } from "lodash"
 const extractUrls = require("extract-urls")
 
+import isRelativeUrl from "is-relative-url"
 import normalizeUrl from "normalize-url"
 
 import { decodeHtmlCharCodes, isDoi, isOrcid, isRor } from "@/lib/helpers"
@@ -144,11 +145,20 @@ export async function getAllPostsByBlog(blogSlug: string) {
         get(feedEntry, "content:encoded", null) ||
         get(feedEntry, "content.#text", null) ||
         get(feedEntry, "description", null)
-      const summary = buildDescription(content_html, 500)
-      const date_modified = toISODateString(get(feedEntry, "updated", null))
+      let summary = buildDescription(content_html, 500)
+
+      summary = decodeHtmlCharCodes(summary)
       const date_published = toISODateString(
-        get(feedEntry, "pubDate", null) || get(feedEntry, "published", null)
+        get(feedEntry, "pubDate", null) ||
+          get(feedEntry, "published", "1970-01-01")
       )
+      let date_modified = toISODateString(
+        get(feedEntry, "updated", "1970-01-01")
+      )
+
+      if (date_published && date_modified && date_published > date_modified) {
+        date_modified = date_published
+      }
       let url: any = get(feedEntry, "link", [])
 
       if (isArray(url) && url.length > 0) {
@@ -158,8 +168,13 @@ export async function getAllPostsByBlog(blogSlug: string) {
       if (isObject(url)) {
         url = get(url, "@_href", null)
       }
+      // feed contains relative urls
+      if (isRelativeUrl(url)) {
+        url = blog.base_url + url
+      }
       url = decodeHtmlCharCodes(url)
       url = normalizeUrl(url, {
+        stripWWW: false,
         removeQueryParameters: [
           "ref",
           "referrer",
@@ -227,7 +242,10 @@ export async function getUpdatedPostsByBlog(blogSlug: string) {
   const posts = await getAllPostsByBlog(blogSlug)
 
   return posts.filter((post) => {
-    return (post.date_published as string) > (blog.modified_at as string)
+    return (
+      (post.date_published as string) > (blog.modified_at as string) ||
+      (post.date_modified as string) > (blog.modified_at as string)
+    )
   })
 }
 

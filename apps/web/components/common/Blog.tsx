@@ -44,6 +44,7 @@ export const feedFormats: { [key: string]: string } = {
 
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
   const generator = blog.generator ? blog.generator.split(" ")[0] : null
+  const feed_url = blog.current_feed_url || blog.feed_url
 
   return (
     <div className="bg-inherit pt-4">
@@ -91,10 +92,10 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 <span className="ml-2">Home Page</span>
               </Link>
             </span>
-            {blog.feed_url && blog.feed_format && (
+            {feed_url && blog.feed_format && (
               <span className="-ml-px text-gray-500">
                 <Link
-                  href={blog.feed_url}
+                  href={feed_url}
                   target="_blank"
                   className="relative mr-6 w-0 py-2 text-base font-medium"
                 >

@@ -51,7 +51,6 @@ export async function updateSinglePost(post: PostType) {
   if (error) {
     throw error
   }
-
   return data
 }
 

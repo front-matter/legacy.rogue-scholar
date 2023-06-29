@@ -1,4 +1,4 @@
-import { getUpdatedPosts } from "@/pages/api/posts/update"
+import { getAllPosts } from "@/pages/api/posts/update"
 
 export default async function handler(req, res) {
   if (
@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   ) {
     res.status(401).json({ message: "Unauthorized" })
   } else if (req.method === "POST") {
-    const posts = await getUpdatedPosts()
+    const posts = await getAllPosts()
 
     res.status(200).json(posts)
   } else {

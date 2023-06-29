@@ -9,11 +9,6 @@ type Props = {
 
 export default function Pagination({ pagination }: Props) {
   const { t } = useTranslation("common")
-  const from = pagination.page * 15 - 15 + 1
-  const to =
-    pagination.page * 15 > pagination.total
-      ? pagination.total
-      : pagination.page * 15
 
   return (
     <div className="mx-auto max-w-2xl lg:max-w-4xl">
@@ -24,8 +19,7 @@ export default function Pagination({ pagination }: Props) {
         <div className="hidden sm:block">
           {pagination.total > 0 && (
             <p className="text-sm text-gray-700">
-              Showing <span className="font-semibold">{from}</span> to{" "}
-              <span className="font-semibold">{to}</span> of{" "}
+              Page <span className="font-semibold">{pagination.page}</span> of{" "}
               <span className="font-semibold">{pagination.total}</span> results
             </p>
           )}
