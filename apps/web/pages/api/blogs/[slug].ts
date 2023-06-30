@@ -20,15 +20,15 @@ export async function upsertSingleBlog(blogSlug: string) {
       home_page_url: blog.home_page_url,
       feed_format: blog.feed_format,
       indexed_at: blog.indexed_at,
-      modified_at: blog.modified_at,
       language: blog.language,
       favicon: blog.favicon,
       license: blog.license,
       category: blog.category,
       generator: blog.generator,
       prefix: blog.prefix,
+      expired: blog.expired,
     },
-    { onConflict: "id" }
+    { onConflict: "id", ignoreDuplicates: false }
   )
 
   if (error) {
@@ -129,13 +129,12 @@ export async function getSingleBlog(blogSlug: string) {
       generator = parseGenerator(generator) || config.generator
 
       let description =
+        config.description ||
         get(feedData, "description.#text", null) ||
         get(feedData, "description", null) ||
         get(feedData, "subtitle.#text", null) ||
-        get(feedData, "subtitle", null) ||
-        config.description
-
-      description = isString(description) ? description.trim() : null
+        get(feedData, "subtitle", null)
+      description = isString(description) ? decodeHtmlCharCodes(description).trim() : null
 
       let language =
         get(feedData, "language", null) ||
@@ -155,6 +154,7 @@ export async function getSingleBlog(blogSlug: string) {
         ? null
         : "https://creativecommons.org/licenses/by/4.0/legalcode"
       const prefix = config.prefix
+      const expired = config.expired
 
       return {
         id,
@@ -172,6 +172,7 @@ export async function getSingleBlog(blogSlug: string) {
         license,
         indexed_at,
         prefix,
+        expired,
       }
     },
   })
@@ -192,16 +193,31 @@ export async function getSingleBlog(blogSlug: string) {
 }
 
 export default async function handler(req, res) {
-  const { data } = await supabase
+  if (req.method === "GET") {
+    const { data: blog, error } = await supabase
     .from("blogs")
     .select(blogWithPostsSelect)
     .eq("id", req.query.slug)
 
-  if (data) {
-    const blog = data[0]
+    if (error) {
+      console.log(error)
+    }
 
+    if (blog) {  
+      res.status(200).json(blog[0])
+    } else {
+      res.status(404).json({ message: "Not Found" })
+    }
+  } else if (
+    !req.headers.authorization ||
+    req.headers.authorization.split(" ")[1] !==
+      process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY
+  ) {
+    res.status(401).json({ message: "Unauthorized" })
+  } else if (req.method === "POST") {
+    const blog = await upsertSingleBlog(req.query.slug)
     res.status(200).json(blog)
   } else {
-    res.status(404).json({ message: "Not Found" })
+    res.status(405).json({ message: "Method Not Allowed" })
   }
 }

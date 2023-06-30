@@ -75,6 +75,7 @@ blog {
   category   = "Natural Sciences"
   feed_url   = "https://donnywinston.com/index.xml"
   indexed_at = "2023-02-01"
+  expired    = true
 }
 
 blog {
@@ -188,7 +189,7 @@ blog {
 blog {
   id         = "8q8xh52"
   category   = "Natural Sciences"
-  feed_url   = "http://bjoern.brembs.net/feed/atom/"
+  feed_url   = "https://bjoern.brembs.net/feed/atom/"
   prefix     = "10.59350"
   generator  = "WordPress"
   indexed_at = "2023-04-04"
@@ -232,6 +233,7 @@ blog {
   feed_url   = "https://opencitations.hypotheses.org/feed/atom/"
   favicon    = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
   indexed_at = "2023-04-19"
+  expired    = true
 }
 
 blog {
@@ -240,6 +242,7 @@ blog {
   feed_url   = "https://blog.joss.theoj.org/feed.xml"
   favicon    = "https://user-images.githubusercontent.com/4483/49343677-fcd32700-f63b-11e8-8883-8c07463ee2a9.png"
   indexed_at = "2023-04-17"
+  expired    = true
 }
 
 blog {
@@ -247,6 +250,7 @@ blog {
   category   = "Social Sciences"
   feed_url   = "https://www.leidenmadtrics.nl/feed/"
   indexed_at = "2023-05-01"
+  expired    = true
 }
 
 blog {
@@ -421,9 +425,9 @@ blog {
   title         = "Blog on Research Software Alliance"
   feed_url      = "https://www.researchsoft.org/blog/index.xml"
   home_page_url = "https://www.researchsoft.org/blog/"
-  base_url      = "https://www.researchsoft.org"
   category      = "Engineering and Technology"
   indexed_at    = "2023-04-21"
+  expired       = true
 }
 
 blog {
