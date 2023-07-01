@@ -76,6 +76,7 @@ export interface Database {
           tags?: string[];
           title?: string;
           url?: string;
+          uuid?: string;
         }
         Insert: {
           authors?: AuthorType[];
@@ -91,6 +92,7 @@ export interface Database {
           tags?: string[];
           title?: string;
           url?: string;
+          uuid?: string;
         };
         Update: {
           authors?: AuthorType[];
@@ -106,6 +108,7 @@ export interface Database {
           tags?: string[];
           title?: string;
           url?: string;
+          uuid?: string;
         };
       };
       customers: {

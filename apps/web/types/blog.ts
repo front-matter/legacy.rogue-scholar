@@ -12,7 +12,7 @@ export interface ReferenceType {
 }
 
 export interface PaginationType {
-  base_url: string;
+  base_url?: string;
   query?: string;
   page: number;
   pages: number;
@@ -29,6 +29,7 @@ export interface PostType {
   summary?: string;
   date_published?: string;
   date_modified?: string;
+  date_indexed?: string;
   authors?: AuthorType[];
   image?: string;
   content_html?: string;
@@ -36,7 +37,12 @@ export interface PostType {
   tags?: string[];
   language?: string;
   blog_id?: string;
-  blog?: BlogType;
+  blog?: BlogParentType;
+}
+
+export interface PostResponseType {
+  posts: PostType[];
+  pagination: PaginationType;
 }
 
 export interface BlogType extends FeedData {
@@ -60,4 +66,9 @@ export interface BlogType extends FeedData {
   expired?: boolean;
   backlog?: boolean;
   prefix?: string;
+}
+
+export interface BlogParentType {
+  id: string;
+  title: string;
 }
