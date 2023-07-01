@@ -100,7 +100,7 @@ export default async function handler(req, res) {
     } else if (slug) {
       const { data: post } = await supabase
         .from("posts")
-        .select(postsSelect)
+        .select(postsWithBlogSelect)
         .eq("uuid", slug)
         .single()
 
