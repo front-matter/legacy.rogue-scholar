@@ -2,7 +2,6 @@ import Link from "next/link"
 import React from "react"
 
 import { Author } from "@/components/common/Author"
-import { decodeHtmlCharCodes } from "@/lib/helpers"
 import { PostType } from "@/types/blog"
 
 type Author = {
@@ -36,7 +35,7 @@ export const Byline: React.FunctionComponent<Props> = ({ post, parent }) => {
                 className="font-semibold text-blue-600 group-hover:text-blue-800"
                 href={"/blogs/" + post.blog?.id}
               >
-                {decodeHtmlCharCodes(post.blog?.title)}
+                {post.blog?.title}
               </Link>
             </span>
           )}
