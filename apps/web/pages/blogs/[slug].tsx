@@ -10,7 +10,7 @@ import { Posts } from "@/components/common/Posts"
 import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
 import Search from "@/components/layout/Search"
-import { decodeHtmlCharCodes, getPagination } from "@/lib/helpers"
+import { getPagination } from "@/lib/helpers"
 import {
   blogWithPostsSelect,
   postsSelect,
@@ -119,8 +119,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
                   target="_blank"
                   className="text-base font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
                 >
-                  More posts via the {decodeHtmlCharCodes(blog.title)} Home Page
-                  …
+                  More posts via the {blog.title} Home Page …
                 </Link>
               </div>
             </div>

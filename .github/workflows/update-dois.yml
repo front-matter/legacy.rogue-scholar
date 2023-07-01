@@ -1,8 +1,8 @@
-name: DOI update Rogue Scholar
+name: Update DOIs for changed Posts
 on:
-  schedule:
-   # - cron: "00,10,20 9,18 * * *"
-    - cron: "*/10 * * * *"
+  workflow_dispatch:
+  # schedule:
+   # - cron: "00,10,20,30 9,18 * * *"
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -26,7 +26,7 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Find blog posts that are not indexed recently
         run: |
-          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed_not_indexed 1980-01-01)"
+          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed_not_indexed)"
         id: posts_by_blog
       - name: Generate XML
         if: steps.posts_by_blog.outputs.POSTID != ''
@@ -54,8 +54,4 @@ jobs:
       - name: Update Rogue Scholar post
         if: steps.posts_by_blog.outputs.POSTID != ''
         run: |
-          curl -X PATCH https://api.rogue-scholar.org/rest/v1/posts?uuid=eq.${{ steps.posts_by_blog.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "date_indexed": "$NOW" }'    
-      - name: Update blog
-        if: startsWith( steps.posts_by_blog.outputs.POSTID, '32e9f1da' )
-        run: |
-          echo "${{ steps.posts_by_blog.outputs.POSTID }}" 
+          curl -X PATCH https://api.rogue-scholar.org/rest/v1/posts?uuid=eq.${{ steps.posts_by_blog.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "date_indexed": "$NOW" }'

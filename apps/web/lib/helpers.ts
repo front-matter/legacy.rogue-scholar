@@ -80,6 +80,15 @@ export const isRor = (ror: any) => {
   }
 }
 
+// from @extractus/feed-extractor
+export const toISODateString = (dstr) => {
+  try {
+    return dstr ? new Date(dstr).toISOString().split(".")[0] + "Z" : null
+  } catch (err) {
+    return ""
+  }
+}
+
 // from https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript
 export const decodeHtmlCharCodes = (str: any) => {
   if (!isString(str)) return str
