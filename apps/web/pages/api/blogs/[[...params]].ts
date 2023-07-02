@@ -138,11 +138,13 @@ const getReferences = (content_html: string) => {
   return urls
 }
 
-export async function extractAllPostsByBlog(blogSlug: string) {
+export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   const blog: BlogType = await getSingleBlog(blogSlug)
+  const feed_url = page > 1 ? `${blog.feed_url}?paged=${page}` : blog.feed_url
 
+  console.log(feed_url)
   try {
-    const blogWithPosts = await extract(blog.feed_url as string, {
+    const blogWithPosts = await extract(feed_url as string, {
       useISODateFormat: true,
       descriptionMaxLen: 500,
       getExtraEntryFields: (feedEntry) => {
@@ -273,9 +275,9 @@ export async function extractAllPostsByBlog(blogSlug: string) {
   }
 }
 
-export async function extractUpdatedPostsByBlog(blogSlug: string) {
+export async function extractUpdatedPostsByBlog(blogSlug: string, page = 1) {
   const blog: BlogType = await getSingleBlog(blogSlug)
-  const posts = await extractAllPostsByBlog(blogSlug)
+  const posts = await extractAllPostsByBlog(blogSlug, page)
 
   return posts.filter((post) => {
     return (post.date_modified as string) > (blog.modified_at as string)
@@ -491,6 +493,7 @@ export default async function handler(req, res) {
 
   const query = req.query.query || "doi.org"
   const page = (req.query.page as number) || 1
+  const update = req.query.update
   const { from, to } = getPagination(page, 15)
 
   if (req.method === "GET") {
@@ -553,8 +556,13 @@ export default async function handler(req, res) {
   } else if (req.method === "POST") {
     if (slug) {
       if (action === "posts") {
-        const posts = await extractUpdatedPostsByBlog(slug)
+        let posts: PostType[] = []
 
+        if (update === "all") {
+          posts = await extractAllPostsByBlog(slug, page)
+        } else {
+          posts = await extractUpdatedPostsByBlog(slug, page)
+        }
         if (posts) {
           await Promise.all(posts.map((post) => upsertSinglePost(post)))
           res.status(200).json(posts)
