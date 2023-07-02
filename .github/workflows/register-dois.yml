@@ -1,6 +1,6 @@
 name: Register DOIs for new Posts
 on:
-  # workflow_dispatch:
+  workflow_dispatch:
   schedule:
     - cron: "20,30,40,50 8,17 * * *"
 jobs:
