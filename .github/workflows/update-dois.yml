@@ -1,8 +1,8 @@
 name: Update DOIs for changed Posts
 on:
-  workflow_dispatch:
-  # schedule:
-   # - cron: "00,10,20,30 9,18 * * *"
+  # workflow_dispatch:
+  schedule:
+    - cron: "00,10,20,30 9,18 * * *"
 jobs:
   update:
     runs-on: ubuntu-latest

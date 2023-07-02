@@ -1,8 +1,8 @@
 name: Register DOIs for new Posts
 on:
-  workflow_dispatch:
-  # schedule:
-    # - cron: "20,30,40,50 8,17 * * *"
+  # workflow_dispatch:
+  schedule:
+    - cron: "20,30,40,50 8,17 * * *"
 jobs:
   register:
     runs-on: ubuntu-latest
