@@ -1,6 +1,6 @@
 name: Update Blogs
 on: 
-  # workflow_dispatch:
+  workflow_dispatch:
   schedule:
     - cron: "00 8 * * *"
 jobs:

@@ -1,6 +1,6 @@
 name: Update Posts
 on: 
-  # workflow_dispatch:
+  workflow_dispatch:
   schedule:
     - cron: "10 8,17 * * *"
 jobs:
