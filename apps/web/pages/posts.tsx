@@ -12,7 +12,7 @@ import { PaginationType, PostType } from "@/types/blog"
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || "doi.org"
-  const { from, to } = getPagination(page - 1, 15)
+  const { from, to } = getPagination(page, 15)
 
   let { data: posts, count } = await supabase
     .from("posts")

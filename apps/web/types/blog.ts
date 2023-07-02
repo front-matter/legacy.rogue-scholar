@@ -40,11 +40,6 @@ export interface PostType {
   blog?: BlogParentType;
 }
 
-export interface PostResponseType {
-  posts: PostType[];
-  pagination: PaginationType;
-}
-
 export interface BlogType extends FeedData {
   version?: string;
   id?: string;

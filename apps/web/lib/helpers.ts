@@ -97,9 +97,8 @@ export const decodeHtmlCharCodes = (str: any) => {
 }
 
 export const getPagination = (page, size) => {
-  const limit = size ? +size : 3
-  const from = page ? page * limit : 0
-  const to = page ? from + size : size
+  const from = page > 1 ? (page - 1) * size : 0
+  const to = from + size - 1
 
   return { from, to }
 }

@@ -65,7 +65,7 @@ export default async function handler(req, res) {
   const slug = req.query.params?.[0]
 
   const query = req.query.query || "doi.org"
-  const page = (req.query.page as number) || 0
+  const page = (req.query.page as number) || 1
   const { from, to } = getPagination(page, 15)
 
   if (req.method === "GET") {
