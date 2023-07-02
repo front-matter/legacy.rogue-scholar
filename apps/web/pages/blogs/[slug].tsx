@@ -20,7 +20,7 @@ import { BlogType, PaginationType, PostType } from "@/types/blog"
 
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
-  const { from, to } = getPagination(page - 1, 15)
+  const { from, to } = getPagination(page, 15)
   const { data: blog } = await supabase
     .from("blogs")
     .select(blogWithPostsSelect)
