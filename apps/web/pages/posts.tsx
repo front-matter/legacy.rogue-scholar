@@ -6,7 +6,7 @@ import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
 import Search from "@/components/layout/Search"
 import { getPagination } from "@/lib/helpers"
-import { postsSelect, supabase } from "@/lib/supabaseClient"
+import { postsWithBlogSelect, supabase } from "@/lib/supabaseClient"
 import { PaginationType, PostType } from "@/types/blog"
 
 export async function getServerSideProps(ctx) {
@@ -16,7 +16,7 @@ export async function getServerSideProps(ctx) {
 
   let { data: posts, count } = await supabase
     .from("posts")
-    .select(postsSelect, { count: "exact" })
+    .select(postsWithBlogSelect, { count: "exact" })
     .textSearch("fts", query, {
       type: "plain",
       config: "english",
