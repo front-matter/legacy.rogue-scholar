@@ -142,7 +142,6 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   const blog: BlogType = await getSingleBlog(blogSlug)
   const feed_url = page > 1 ? `${blog.feed_url}?paged=${page}` : blog.feed_url
 
-  console.log(feed_url)
   try {
     const blogWithPosts = await extract(feed_url as string, {
       useISODateFormat: true,

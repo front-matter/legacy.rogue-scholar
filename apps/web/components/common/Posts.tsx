@@ -54,21 +54,21 @@ export const Posts: React.FunctionComponent<Props> = ({
                     </h3>
                     <Byline post={post} parent={parent} />
                     {isDoi(post.id) && (
-                      <div className="py-1">
+                      <div className="py-1 font-medium">
                         <Link
-                          className="text-base text-gray-500 group-hover:text-gray-900"
+                          className="text-base text-gray-300 group-hover:text-gray-900"
                           href={post.id}
                         >
                           <Icon
                             icon="academicons:doi"
-                            className="mr-1 inline text-gray-300"
+                            className="mr-1 inline text-gray-300 hover:text-gray-900"
                           />
                           {post.id}
                         </Link>
                       </div>
                     )}
                     {post.summary && (
-                      <p className="text-medium mt-2 leading-6 text-gray-900">
+                      <p className="text-medium mt-2 font-serif leading-6 text-gray-900">
                         {parse(String(post.summary))}
                       </p>
                     )}

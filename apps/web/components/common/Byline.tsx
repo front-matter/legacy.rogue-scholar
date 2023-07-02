@@ -16,7 +16,7 @@ type Props = {
 
 export const Byline: React.FunctionComponent<Props> = ({ post, parent }) => {
   return (
-    <div className="text-base text-gray-500">
+    <div className="text-base font-medium text-gray-500">
       {post.date_published && (
         <div>
           Published{" "}

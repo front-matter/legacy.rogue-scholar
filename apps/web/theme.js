@@ -2,8 +2,7 @@ module.exports = {
   theme: {
     fonts: {
       sans: 'var(--font-inter), sans-serif',
-      heading: 'var(--font-inter), sans-serif',
-      body: 'var(--font-inter), sans-serif',
+      serif: 'var(--font-lora), serif',
     },
     colors: {
       primary: {

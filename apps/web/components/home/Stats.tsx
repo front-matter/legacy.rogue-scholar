@@ -77,7 +77,7 @@ export const Stats: React.FunctionComponent<Props> = ({
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2
             id="faq-title"
-            className="font-display py-6 text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl"
+            className="py-6 font-sans text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl"
           >
             {t("statistics.title", "Statistics")}
           </h2>

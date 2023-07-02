@@ -80,7 +80,6 @@ export default async function handler(req, res) {
       if (error) {
         console.log(error)
       }
-      console.log(posts)
 
       res.status(200).json(posts)
     } else if (slug === "not_indexed") {

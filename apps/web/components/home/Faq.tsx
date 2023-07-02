@@ -95,7 +95,7 @@ export default function Faqs() {
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2
             id="faq-title"
-            className="font-display py-6 text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl"
+            className="py-6 font-sans text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl"
           >
             {t("faq.title", "Frequently Asked Questions")}
           </h2>
@@ -126,10 +126,10 @@ export default function Faqs() {
               <ul role="list" className="flex flex-col gap-y-8">
                 {column.map((faq, faqIndex) => (
                   <li key={faqIndex}>
-                    <h3 className="font-display text-lg font-semibold leading-7 text-slate-900">
+                    <h3 className="font-sans text-lg font-semibold leading-7 text-slate-900">
                       {faq.question}
                     </h3>
-                    <p className="mt-0 text-base text-slate-700">
+                    <p className="mt-0 font-serif text-base text-slate-700">
                       {faq.answer}
                     </p>
                   </li>

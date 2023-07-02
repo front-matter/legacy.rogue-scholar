@@ -18,7 +18,7 @@ export default function Hero({ blogs }: Props) {
 
   return (
     <Container className="pb-16 pt-10 text-center lg:pt-16">
-      <h1 className="font-display mx-auto max-w-4xl text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
+      <h1 className="mx-auto max-w-4xl font-sans text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
         {t("home.title", "Science Blogging")}{" "}
         <span className="relative whitespace-nowrap text-blue-600">
           <svg
