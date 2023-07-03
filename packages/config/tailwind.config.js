@@ -29,7 +29,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
-        serif: ['Georgia', ...defaultTheme.fontFamily.serif],
+        serif: ['Lora', ...defaultTheme.fontFamily.serif],
       },
       maxWidth: {
         '2xl': '40rem',
