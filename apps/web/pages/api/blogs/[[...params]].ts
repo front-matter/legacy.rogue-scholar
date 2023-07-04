@@ -23,6 +23,7 @@ import {
   isOrcid,
   isRor,
   toISODateString,
+  detectLanguage
 } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
@@ -228,10 +229,10 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         const image =
           get(feedEntry, "media:content.@_url", null) ||
           get(feedEntry, "enclosure.@_url", null)
-        const language =
-          get(feedEntry, "dc:language", null) ||
-          get(feedEntry, "language", null) ||
-          blog.language
+        let language = detectLanguage(content_html || '')
+          // get(feedEntry, "dc:language", null) ||
+          // get(feedEntry, "language", null) ||
+          // franc(content_html || "") || blog.language
         const references = content_html ? getReferences(content_html) : []
         const tags = []
           .concat(get(feedEntry, "category", []))
