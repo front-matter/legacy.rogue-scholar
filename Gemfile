@@ -1,3 +1,3 @@
 source 'https://rubygems.org'
 
-gem "commonmeta-ruby", "~> 3.3", ">= 3.3.11"
+gem "commonmeta-ruby", "~> 3.3", ">= 3.3.12"
