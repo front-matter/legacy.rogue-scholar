@@ -153,12 +153,13 @@ blog {
 // }
 
 blog {
-  id         = "4tzex21"
-  category   = "Social Sciences"
-  feed_url   = "https://medium.com/feed/@rubinpsyc"
-  favicon    = "https://cdn-images-1.medium.com/fit/c/150/150/0*uCUPpslzlmB4BHIe.jpg"
-  prefix     = "10.59350"
-  indexed_at = "2023-02-01"
+  id            = "4tzex21"
+  category      = "Social Sciences"
+  feed_url      = "https://medium.com/feed/@rubinpsyc"
+  home_page_url = "https://medium.com/@rubinpsyc"
+  favicon       = "https://cdn-images-1.medium.com/fit/c/150/150/0*uCUPpslzlmB4BHIe.jpg"
+  prefix        = "10.59350"
+  indexed_at    = "2023-02-01"
 }
 
 blog {
@@ -178,12 +179,13 @@ blog {
 }
 
 blog {
-  id         = "ez7c883"
-  category   = "Natural Sciences"
-  feed_url   = "https://medium.com/feed/@clearskiesadam"
-  favicon    = "https://cdn-images-1.medium.com/fit/c/150/150/1*DJGPkBv9iJDmlE836eaoig.jpeg"
-  prefix     = "10.59350"
-  indexed_at = "2023-01-07"
+  id            = "ez7c883"
+  category      = "Natural Sciences"
+  feed_url      = "https://medium.com/feed/@clearskiesadam"
+  home_page_url = "https://medium.com/@clearskiesadam"
+  favicon       = "https://cdn-images-1.medium.com/fit/c/150/150/1*DJGPkBv9iJDmlE836eaoig.jpeg"
+  prefix        = "10.59350"
+  indexed_at    = "2023-01-07"
 }
 
 blog {
@@ -384,26 +386,6 @@ blog {
   indexed_at = "2023-04-25"
 }
 
-// blog {
-//   id         = "snaee07"
-//   feed_url   = "https://www.zotero.org/blog/feed/atom/"
-//   category   = "Humanities"
-//   hasLicense = false
-// }
-
-// blog {
-//   id       = "wj8c931"
-//   feed_url = "https://sfdora.org/feed/atom/"
-//   category = "Social Sciences"
-// }
-
-// blog {
-//   id         = "q3gnt10"
-//   feed_url   = "https://chem-bla-ics.blogspot.com/feeds/posts/default"
-//   category   = "Natural Sciences"
-//   hasLicense = false
-// }
-
 blog {
   id         = "468ap65"
   feed_url   = "https://ulirockenbauch.blog/feed/atom/"
@@ -445,11 +427,25 @@ blog {
 //   hasLicense = false
 // }
 
+blog {
+  id            = "sfkfh60"
+  feed_url      = "https://medium.com/feed/@kj.garza"
+  home_page_url = "https://medium.com/@kj.garza"
+  category      = "Engineering and Technology"
+  prefix        = "10.59350"
+  indexed_at    = "2023-05-28"
+}
+
 // blog {
-//   id         = "vr35524"
-//   feed_url   = "https://ropensci.org/rbloggers/index.xml"
-//   category   = "Engineering and Technology"
-//   hasLicense = false
+//   id         = "smw7661"
+//   feed_url   = "http://rrresearch.fieldofscience.com/feeds/posts/default"
+//   category   = "Natural Sciences"
+// }
+
+// blog {
+//   id         = "8ac2f59"
+//   feed_url   = "https://elephantinthelab.org/feed/atom/"
+//   category   = "Social Sciences"
 // }
 
 // blog {
@@ -458,10 +454,29 @@ blog {
 //   category = "Engineering and Technology"
 // }
 
-blog {
-  id         = "sfkfh60"
-  feed_url   = "https://medium.com/feed/@kj.garza"
-  category   = "Engineering and Technology"
-  prefix     = "10.59350"
-  indexed_at = "2023-05-28"
-}
+// blog {
+//   id         = "vr35524"
+//   feed_url   = "https://ropensci.org/rbloggers/index.xml"
+//   category   = "Engineering and Technology"
+//   hasLicense = false
+// }
+
+// blog {
+//   id         = "q3gnt10"
+//   feed_url   = "https://chem-bla-ics.blogspot.com/feeds/posts/default"
+//   category   = "Natural Sciences"
+//   hasLicense = false
+// }
+
+// blog {
+//   id         = "snaee07"
+//   feed_url   = "https://www.zotero.org/blog/feed/atom/"
+//   category   = "Humanities"
+//   hasLicense = false
+// }
+
+// blog {
+//   id       = "wj8c931"
+//   feed_url = "https://sfdora.org/feed/atom/"
+//   category = "Social Sciences"
+// }

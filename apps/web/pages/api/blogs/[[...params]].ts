@@ -38,6 +38,7 @@ import { BlogType, PostType } from "@/types/blog"
 
 const optionalKeys = [
   "current_feed_url",
+  "home_page_url",
   "base_url",
   "title",
   "description",
@@ -396,12 +397,11 @@ export async function getSingleBlog(blogSlug: string) {
           get(feedData, "title", null)
       ).trim()
       const current_feed_url = config.current_feed_url
-      let home_page_url = []
+      let home_page_url = config.home_page_url || []
         .concat(get(feedData, "link", []))
         .find((link) => get(link, "@_rel", null) === "alternate")
 
       home_page_url =
-        config.home_page_url ||
         get(home_page_url, "@_href", null) ||
         get(feedData, "id", null) ||
         get(feedData, "link", null)
