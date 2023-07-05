@@ -18,7 +18,7 @@ GEM
     citeproc-ruby (2.0.0)
       citeproc (~> 1.0, >= 1.0.9)
       csl (~> 2.0)
-    commonmeta-ruby (3.3.12)
+    commonmeta-ruby (3.3.13)
       activesupport (>= 4.2.5, < 8.0)
       addressable (~> 2.8.1, < 2.8.2)
       base32-url (>= 0.7.0, < 1)
@@ -181,7 +181,7 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
-  commonmeta-ruby (~> 3.3, >= 3.3.12)
+  commonmeta-ruby (~> 3.3, >= 3.3.13)
 
 BUNDLED WITH
    2.4.14
