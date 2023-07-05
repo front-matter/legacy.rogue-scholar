@@ -83,6 +83,7 @@ export const buildDescription = (val, maxlen) => {
 }
 
 export const authorIDs = {
+  "Kristian Garza": "https://orcid.org/0000-0003-3484-6875",
   "Roderic Page": "https://orcid.org/0000-0002-7101-9767",
   "Liberate Science": "https://ror.org/0342dzm54",
 }
