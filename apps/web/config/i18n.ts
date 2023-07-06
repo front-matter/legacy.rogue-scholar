@@ -1,6 +1,7 @@
 import { i18n } from '@/next-i18next.config';
 
 export const localeNames = {
+  de: 'Deutsch',
   en: 'English',
 };
 
