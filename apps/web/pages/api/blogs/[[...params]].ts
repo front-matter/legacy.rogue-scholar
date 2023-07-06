@@ -18,12 +18,12 @@ const extractUrls = require("extract-urls")
 
 import {
   decodeHtmlCharCodes,
+  detectLanguage,
   getPagination,
   isDoi,
   isOrcid,
   isRor,
   toISODateString,
-  detectLanguage
 } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
@@ -231,10 +231,10 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         const image =
           get(feedEntry, "media:content.@_url", null) ||
           get(feedEntry, "enclosure.@_url", null)
-        let language = detectLanguage(content_html || '')
-          // get(feedEntry, "dc:language", null) ||
-          // get(feedEntry, "language", null) ||
-          // franc(content_html || "") || blog.language
+        const language = detectLanguage(content_html || "")
+        // get(feedEntry, "dc:language", null) ||
+        // get(feedEntry, "language", null) ||
+        // franc(content_html || "") || blog.language
         const references = content_html ? getReferences(content_html) : []
         const tags = []
           .concat(get(feedEntry, "category", []))
@@ -397,9 +397,11 @@ export async function getSingleBlog(blogSlug: string) {
           get(feedData, "title", null)
       ).trim()
       const current_feed_url = config.current_feed_url
-      let home_page_url = config.home_page_url || []
-        .concat(get(feedData, "link", []))
-        .find((link) => get(link, "@_rel", null) === "alternate")
+      let home_page_url =
+        config.home_page_url ||
+        []
+          .concat(get(feedData, "link", []))
+          .find((link) => get(link, "@_rel", null) === "alternate")
 
       home_page_url =
         get(home_page_url, "@_href", null) ||
