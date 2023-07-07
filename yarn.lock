@@ -45,10 +45,17 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.13", "@babel/runtime@^7.20.6", "@babel/runtime@^7.20.7":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.20.13", "@babel/runtime@^7.20.7":
   version "7.22.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.22.5.tgz#8564dd588182ce0047d55d7a75e93921107b57ec"
   integrity sha512-ecjvYlnAaZ/KVneE/OdKYBYfgXV3Ptu6zQWmgEF7vwKhQnvVS6bjMD2XYgj+SNvQ1GfK/pjgokfPkC/2CO8CuA==
+  dependencies:
+    regenerator-runtime "^0.13.11"
+
+"@babel/runtime@^7.22.5":
+  version "7.22.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.22.6.tgz#57d64b9ae3cff1d67eb067ae117dac087f5bd438"
+  integrity sha512-wDb5pWm4WDdF6LFUde3Jl8WzPA+3ZbxYqkC6xAXuD3irdEHN1k0NfTRrJD8ZD378SJ61miMLCqIOXYhd8x+AJQ==
   dependencies:
     regenerator-runtime "^0.13.11"
 
@@ -4294,17 +4301,17 @@ human-signals@^4.3.0:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-4.3.1.tgz#ab7f811e851fca97ffbd2c1fe9a958964de321b2"
   integrity sha512-nZXjEF2nbo7lIw3mgYjItAfgQXog3OjJogSbKa2CQIIvSGWcKgeJnQlNXip6NglNzYH45nSRiEVimMvYL8DDqQ==
 
-i18next-fs-backend@^2.1.1:
+i18next-fs-backend@^2.1.5:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.1.5.tgz#03347eacde6a35b599da1889a048ae63bcf0c687"
   integrity sha512-7fgSH8nVhXSBYPHR/W3tEXXhcnwHwNiND4Dfx9knzPzdsWTUTL/TdDVV+DY0dL0asHKLbdoJaXS4LdVW6R8MVQ==
 
-i18next@^22.4.14:
-  version "22.5.1"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.5.1.tgz#99df0b318741a506000c243429a7352e5f44d424"
-  integrity sha512-8TGPgM3pAD+VRsMtUMNknRz3kzqwp/gPALrWMsDnmC1mKqJwpWyooQRLMcbTwq8z8YwSmuj+ZYvc+xCuEpkssA==
+i18next@^23.2.8:
+  version "23.2.8"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-23.2.8.tgz#dd54fab8f68c1ef2e0408249e042cf9cef683554"
+  integrity sha512-wU0pMlJ91ZbB89i77G3YQ11/pBQrzgWpxJYl7HFyA9aU9v3aHMI/oBKQmAJNURr0A8cLG4EHjgSMK8IqQTp4PQ==
   dependencies:
-    "@babel/runtime" "^7.20.6"
+    "@babel/runtime" "^7.22.5"
 
 iconv-lite@0.6:
   version "0.6.3"
@@ -5682,16 +5689,16 @@ next-absolute-url@^1.2.2:
   resolved "https://registry.yarnpkg.com/next-absolute-url/-/next-absolute-url-1.2.2.tgz#9aba5adcee8effcffd63271d99e13213ad04c23b"
   integrity sha512-Z2+LZXQTthhw2je9u4eq8QWXxXd57a6b54x9exBfQX4Dct6YxaMjcXZWNLHd9AOlCue84EsMpdSGP7wACqUnPg==
 
-next-i18next@^13.2.2:
-  version "13.3.0"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-13.3.0.tgz#81575b0e17a94efa97319c1e697af893a4cea174"
-  integrity sha512-X4kgi51BCOoGdKbv87eZ8OU7ICQDg5IP+T5fNjqDY3os9ea0OKTY4YpAiVFiwcI9XimcUmSPbKO4a9jFUyYSgg==
+next-i18next@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-14.0.0.tgz#fd637c81df96c9d6f2cc4716037130ac4e5d6968"
+  integrity sha512-umv8hOZoSoAA+td3ErfemyO/5Ib2pnYCdQ8/Oy+fncS2skFIL3hHKRer3Oa3Nfm4Xbv5p6DHWzm3NhT1j4tWwg==
   dependencies:
     "@babel/runtime" "^7.20.13"
     "@types/hoist-non-react-statics" "^3.3.1"
     core-js "^3"
     hoist-non-react-statics "^3.3.2"
-    i18next-fs-backend "^2.1.1"
+    i18next-fs-backend "^2.1.5"
 
 next-mdx-remote@^4.2.1, next-mdx-remote@^4.4.1:
   version "4.4.1"
@@ -6401,12 +6408,12 @@ react-hook-form@^7.43.9:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.45.1.tgz#e352c7f4dbc7540f0756abbb4dcfd1122fecc9bb"
   integrity sha512-6dWoFJwycbuFfw/iKMcl+RdAOAOHDiF11KWYhNDRN/OkUt+Di5qsZHwA0OwsVnu9y135gkHpTw9DJA+WzCeR9w==
 
-react-i18next@^12.2.0:
-  version "12.3.1"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-12.3.1.tgz#30134a41a2a71c61dc69c6383504929aed1c99e7"
-  integrity sha512-5v8E2XjZDFzK7K87eSwC7AJcAkcLt5xYZ4+yTPDAW1i7C93oOY1dnr4BaQM7un4Hm+GmghuiPvevWwlca5PwDA==
+react-i18next@^13.0.1:
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-13.0.1.tgz#4d047d2d63d9616f7f5fd4ca88b1cc449cc15290"
+  integrity sha512-gMO6N2GfSfuH7xlHSsZ/mZf+Py9bLm/+EDKIn5fNTuDTjcCcwmMU5UEuGCDk5mdfivbo7ySyYXBN7B9tbGUxiA==
   dependencies:
-    "@babel/runtime" "^7.20.6"
+    "@babel/runtime" "^7.22.5"
     html-parse-stringify "^3.0.1"
 
 react-icons@^4.8.0:

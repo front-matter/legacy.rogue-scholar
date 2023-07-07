@@ -14,6 +14,7 @@
     "account": "Account"
   },
   "signIn": "Sign in",
+  "signUp": "Sign up",
   "language": "Language",
   "pricingPage": "Pricing",
   "footer": {
@@ -28,6 +29,20 @@
     "docs": "Docs",
     "usage_stats": "Usage Stats",
     "dashboard": "Dashboard"
+  },
+  "posts": {
+    "title": "Rogue Scholar Posts",
+    "description": "List of all posts",
+    "search": "Search posts...",
+    "no_results": "No posts found",
+    "all": "All",
+    "published": "Published",
+    "draft": "Draft",
+    "scheduled": "Scheduled",
+    "errors": {
+      "title": "Something went wrong",
+      "description": "We were unable to fetch your posts. Please try again later."
+    }
   },
   "pricing": {
     "subscribeButton": "Subscribe",
@@ -78,7 +93,12 @@
     "page": "Page",
     "previous": "Previous",
     "next": "Next",
+    "of": "of",
+    "results": "results",
     "no_results": "No results"
+  },
+  "search": {
+    "placeholder": "Type to search..."
   },
   "common": {
     "pricingPage": "Pricing",

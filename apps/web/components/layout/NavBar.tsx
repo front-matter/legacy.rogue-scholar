@@ -70,7 +70,7 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
                     colorScheme="primary"
                     variant="outline"
                   >
-                    {t("signUp", "Sign Up")}
+                    {t("signUp")}
                   </Button>
                   <Button
                     as={Link}
@@ -79,7 +79,7 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
                     colorScheme="primary"
                     variant="outline"
                   >
-                    {t("signIn", "Sign In")}
+                    {t("signIn")}
                   </Button>
                 </>
               )}

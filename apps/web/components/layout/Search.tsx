@@ -1,8 +1,10 @@
 import { Icon } from "@iconify/react"
+import { useTranslation } from "next-i18next"
 import { queryTypes, useQueryState } from "next-usequerystate"
 import { useRef, useState } from "react"
 
 export default function Search() {
+  const { t } = useTranslation("common")
   const [query, setQuery] = useQueryState("query")
   const [page, setPage] = useQueryState("page", queryTypes.integer)
 
@@ -52,7 +54,7 @@ export default function Search() {
       )}
       <input
         id="search"
-        placeholder={"Type to search..."}
+        placeholder={t("search.placeholder")}
         value={searchInput}
         onChange={onSearchChange}
         className="mt-3 block w-full rounded-md border border-gray-400 bg-white py-2 pl-10 text-base placeholder-gray-500 focus:border-blue-500 focus:text-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500"

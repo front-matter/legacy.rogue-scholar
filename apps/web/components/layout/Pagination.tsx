@@ -19,13 +19,16 @@ export default function Pagination({ pagination }: Props) {
         <div className="hidden sm:block">
           {pagination.total > 0 && (
             <p className="text-sm text-gray-700">
-              Page <span className="font-semibold">{pagination.page}</span> of{" "}
-              <span className="font-semibold">{pagination.total}</span> results
+              {t("pagination.page")}{" "}
+              <span className="font-semibold">{pagination.page}</span>{" "}
+              {t("pagination.of")}{" "}
+              <span className="font-semibold">{pagination.total}</span>{" "}
+              {t("pagination.results")}
             </p>
           )}
           {pagination.total === 0 && (
             <p className="text-sm text-gray-700">
-              {t("pagination.no_results", "No results found")}
+              {t("pagination.no_results")}
             </p>
           )}
         </div>
@@ -35,7 +38,7 @@ export default function Pagination({ pagination }: Props) {
               className="relative inline-flex items-center px-1 py-1 text-sm focus-visible:outline-offset-0"
               href={`${pagination.base_url}?page=${pagination.prev}&query=${pagination.query}`}
             >
-              {t("pagination.previous", "Previous")}
+              {t("pagination.previous")}
             </Link>
           )}
           {pagination.prev && pagination.next && (
@@ -46,7 +49,7 @@ export default function Pagination({ pagination }: Props) {
               className="relative ml-1 inline-flex items-center px-1 py-1 text-sm focus-visible:outline-offset-0"
               href={`${pagination.base_url}?page=${pagination.next}&query=${pagination.query}`}
             >
-              {t("pagination.next", "Next")}
+              {t("pagination.next")}
             </Link>
           )}
         </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
 
@@ -38,7 +39,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      ...(await serverSideTranslations("en", ["common", "home"])),
+      ...(await serverSideTranslations(ctx.locale!, ["common", "home"])),
       posts,
       pagination,
     },
@@ -51,12 +52,14 @@ type Props = {
 }
 
 const PostsPage: React.FunctionComponent<Props> = ({ posts, pagination }) => {
+  const { t } = useTranslation("common")
+
   return (
     <>
       <Layout>
         <div className="mx-auto max-w-2xl sm:text-center">
           <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Rogue Scholar Posts
+            {t("posts.title")}
           </h2>
         </div>
         <Search />

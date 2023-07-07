@@ -5,7 +5,7 @@ import { Blogs } from "@/components/common/Blogs"
 import Layout from "@/components/layout/Layout"
 import { blogsSelect, supabase } from "@/lib/supabaseClient"
 
-export async function getServerSideProps() {
+export async function getServerSideProps(ctx) {
   const { data, error } = await supabase
     .from("blogs")
     .select(blogsSelect)
@@ -17,7 +17,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      ...(await serverSideTranslations("en", ["common", "home"])),
+      ...(await serverSideTranslations(ctx.locale!, ["common", "home"])),
       blogs: data,
     },
   }
