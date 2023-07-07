@@ -9,7 +9,7 @@
   },
   "footer": {
     "authors": " und jeweilige Autoren. ",
-    "creativeCommons": "Alle Inhalte stehen unter der <a href='{{url}}'>Creative Commons Namensnennung 4.0 International Lizenz</a>."
+    "creativeCommons": "Alle Inhalte stehen unter der <a className='hover:font-semibold' href='{{url}}'>Creative Commons Namensnennung 4.0 International Lizenz</a>."
   },
   "language": "Sprache",
   "menu": {

@@ -19,7 +19,7 @@
   "pricingPage": "Pricing",
   "footer": {
     "authors": " and respective authors. ",
-    "creativeCommons": "All content distributed under the terms of the <a href='{{url}}'>Creative Commons Attribution 4.0 License</a>."
+    "creativeCommons": "All content distributed under the terms of the <a className='hover:font-semibold' href='{{url}}'>Creative Commons Attribution 4.0 License</a>."
   },
   "menu": {
     "pricing": "Pricing",
