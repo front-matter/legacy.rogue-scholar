@@ -22,7 +22,7 @@ import UserMenu from "@/components/layout/UserMenu"
 import { useMobileBreakpoint, useScrollTop } from "../../lib/blog/layout"
 
 export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
-  const { t } = useTranslation("common")
+  const { t, ready } = useTranslation("common")
   const user = useUser()
   const mobileDrawerDisclosure = useDisclosure()
   const isMobile = useMobileBreakpoint()
@@ -33,6 +33,8 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
     if (!isMobile && mobileDrawerDisclosure.isOpen)
       mobileDrawerDisclosure.onClose()
   }, [isMobile, mobileDrawerDisclosure])
+
+  if (!ready) return "loading translations..."
 
   return (
     <>

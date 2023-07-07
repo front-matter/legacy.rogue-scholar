@@ -104,26 +104,26 @@
     "pricingPage": "Pricing",
     "subscriptionPlans": {
       "team": {
-        "features": {
-          "0": "Everything in starter",
-          "1": "Archive an unlimited number of posts"
-        }
+        "features": [
+          "Everything in starter",
+          "Archive an unlimited number of posts"
+        ]
       },
       "starter": {
-        "features": {
-          "0": "Archive up to 50 posts per year",
-          "1": "Register DOIs with metadata",
-          "2": "Full-text search"
-        }
+        "features": [
+          "Archive up to 50 posts per year",
+          "Register DOIs with metadata",
+          "Full-text search"
+        ]
       },
       "enterprise": {
-        "features": {
-          "0": "Everything in team",
-          "1": "Archive a blog without active RSS feed",
-          "2": "Support other languages",
-          "3": "Support podcasts and vlogs",
-          "4": "Custom feature development"
-        }
+        "features": [
+          "Everything in team",
+          "Archive a blog without active RSS feed",
+          "Support other languages",
+          "Support podcasts and vlogs",
+          "Custom feature development"
+        ]
       }
     }
   }

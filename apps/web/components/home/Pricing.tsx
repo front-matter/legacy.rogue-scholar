@@ -1,4 +1,5 @@
 import clsx from "clsx"
+import { useTranslation } from "next-i18next"
 
 import { Button } from "@/components/common/Button"
 import { Container } from "@/components/layout/Container"
@@ -98,6 +99,10 @@ function Plan({ name, price, description, href, features, featured = false }) {
 }
 
 export function Pricing() {
+  const { t, ready } = useTranslation("home")
+
+  if (!ready) return "loading translations..."
+
   return (
     <section
       id="pricing"
@@ -114,16 +119,15 @@ export function Pricing() {
             for everyone.
           </h2>
           <p className="mt-4 text-lg text-slate-400">
-            Support all kinds of science blogs, from personal blog to
-            organizational newsletters.
+            {t("pricing.description")}
           </p>
         </div>
         <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
           <Plan
             featured
-            name="Starter"
-            price="Free"
-            description="For most blogs."
+            name={t("pricing.plans.starter.name")}
+            price={t("pricing.plans.starter.price")}
+            description={t("pricing.plans.starter.description")}
             href="/signup"
             features={[
               "Archive up to 50 posts per year",
@@ -132,9 +136,9 @@ export function Pricing() {
             ]}
           />
           <Plan
-            name="Team"
-            price="$1 per post"
-            description="Perfect for larger blogs."
+            name={t("pricing.plans.team.name")}
+            price={t("pricing.plans.team.price")}
+            description={t("pricing.plans.team.price")}
             href="/signup"
             features={[
               "Everything in starter",
@@ -142,9 +146,9 @@ export function Pricing() {
             ]}
           />
           <Plan
-            name="Enterprise"
-            price="Contact us"
-            description="Having special requirements."
+            name={t("pricing.plans.enterprise.name")}
+            price={t("pricing.plans.enterprise.price")}
+            description={t("pricing.plans.enterprise.description")}
             href="/signup"
             features={[
               "Everything in team",

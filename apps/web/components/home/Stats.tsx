@@ -1,7 +1,7 @@
 import { useTranslation } from "next-i18next"
 
-import DonutChart from "../common/DonutChart"
-import { Container } from "../layout/Container"
+import DonutChart from "@/components/common/DonutChart"
+import { Container } from "@/components/layout/Container"
 
 // tailwindcss colors
 export const blue = {
@@ -79,13 +79,10 @@ export const Stats: React.FunctionComponent<Props> = ({
             id="faq-title"
             className="py-6 font-sans text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl"
           >
-            {t("statistics.title", "Statistics")}
+            {t("statistics.title")}
           </h2>
           <p className="mt-2 text-lg tracking-tight text-slate-700">
-            {t(
-              "statistics.description",
-              "Fundamental numbers describing the included blogs."
-            )}
+            {t("statistics.description")}
           </p>
         </div>
         <ul
@@ -98,7 +95,7 @@ export const Stats: React.FunctionComponent<Props> = ({
                 data={categories}
                 legend={false}
                 count={count}
-                title={t("statistics.category", "Category")}
+                title={t("statistics.category")}
                 range={range}
                 domain={categoryDomain}
               ></DonutChart>
@@ -110,7 +107,7 @@ export const Stats: React.FunctionComponent<Props> = ({
                 data={languages}
                 legend={false}
                 count={count}
-                title={t("statistics.language", "Language")}
+                title={t("statistics.language")}
                 range={languageRange}
                 domain={languageDomain}
               ></DonutChart>
@@ -122,7 +119,7 @@ export const Stats: React.FunctionComponent<Props> = ({
                 data={platforms}
                 legend={false}
                 count={count}
-                title={t("statistics.platform", "Platform")}
+                title={t("statistics.platform")}
                 range={range}
                 domain={platformDomain}
               ></DonutChart>
