@@ -59,13 +59,47 @@
     "title": "Features"
   },
   "hero": {
-    "description": "Bauen Sie mit supastarter, was immer Sie wollen. Wir sind sicher, dass es großartig wird!",
-    "title": "Willkommen zu Ihrer neuen Web-App!"
+    "title": "Science blogging",
+    "subtitle": "on steroids.",
+    "description": "The Rogue Scholar improves your science blog in important ways, including full-text search, DOIs and metadata, and long-term archiving."
   },
   "signupButton": "Ein Konto erstellen",
   "pricing": {
     "description": "Unterstützt alle Arten von Science Blogs, vom persönlichen Blog bis zum Newsletter von Organisationen.",
-    "title": "Einfache Preise für alle"
+    "title": "Einfache Preise für alle",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "price": "Free",
+        "description": "For most blogs.",
+        "features": {
+          "1": "Archive up to 50 posts per year",
+          "2": "Full-text search of all posts",
+          "3": "Register DOIs with metadata"
+        }
+      },
+      "team": {
+        "name": "Team",
+        "price": "$1 per post",
+        "description": "Perfect for larger blogs.",
+        "features": {
+          "1": "Everything in starter",
+          "2": "Archive an unlimited number of posts",
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Contact us",
+        "description": "Having special requirements.",
+        "features": {
+          "1": "Everything in team",
+          "2": "Archive a blog without active RSS feed",
+          "3": "Support other languages",
+          "4": "Support podcasts and vlogs",
+          "5": "Custom feature development"
+        }
+      }
+    },
   },
   "faq": {
     "title": "Häufig gestellte Fragen"

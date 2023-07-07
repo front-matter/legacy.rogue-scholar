@@ -7,9 +7,7 @@ import { Container } from "./Container"
 import { NavLink } from "./NavLink"
 
 export default function Footer() {
-  const { t, ready } = useTranslation("common")
-
-  if (!ready) return "loading translations..."
+  const { t } = useTranslation("common")
 
   return (
     <footer className="bg-slate-100">

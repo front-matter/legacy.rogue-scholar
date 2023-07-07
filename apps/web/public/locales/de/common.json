@@ -55,8 +55,8 @@
   },
   "pagination": {
     "page": "Seite",
-    "previous": "Vorherige",
-    "next": "Nächste",
+    "previous": "Vorherige Seite",
+    "next": "Nächste Seite",
     "of": "von",
     "results": "Ergebnissen",
     "no_results": "Keine Ergebnisse"
