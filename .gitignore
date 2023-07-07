@@ -40,3 +40,5 @@ yarn-error.log*
 build/**
 dist/**
 .next
+
+/apps/web/simplelocalize.yml
