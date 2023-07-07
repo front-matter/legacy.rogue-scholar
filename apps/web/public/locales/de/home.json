@@ -61,8 +61,8 @@
   "hero": {
     "title": "Wissenschaftliches Bloggen",
     "subtitle": "verbessert.",
-    "slogan": "Von bisher {{number}} Blogs vertraut, unter anderem",
-    "description": "Rogue Scholar verbessert Ihr Science Blog in wichtigen Punkten, einschließlich Volltextsuche, Langzeitarchivierung, DOIs und Metadaten."
+    "slogan": "Vetraut von bisher {{number}} Wissenschaftsblogs, unter anderem",
+    "description": "Rogue Scholar verbessert Ihr Wissenschaftsblog in wichtigen Punkten, einschließlich Volltextsuche, Langzeitarchivierung, DOIs und Metadaten."
   },
   "signupButton": "Ein Konto erstellen",
   "pricing": {
@@ -104,7 +104,37 @@
     }
   },
   "faq": {
-    "title": "Häufig gestellte Fragen"
+    "title": "Häufig gestellte Fragen",
+    "more": "Wenn Sie nicht finden, wonach Sie suchen, gehen Sie zu unserer ",
+    "support": "oder wenden sich an uns über das ",
+    "questions": {
+      "1": "Wann ist Rogue Scholar verfügbar?",
+      "2": "Wie kann ich mein Blog mit bei Rogue Scholar anmelden?",
+      "3": "Warum könnte mein Blog nicht für Rogue Scholar geeignet sein?",
+      "4": "Unterstützt Rogue Scholar nur Blogs über Naturwissenschaft?",
+      "5": "In welchen Sprachen ist Rogue Scholar verfügbar?",
+      "6": "Wie wird mein Blog von Rogue Scholar archiviert?",
+      "7": "Muss ich alle Inhalte über Rogue Scholar bereitstellen?",
+      "8": "Unterstützt Rogue Scholar Podcasts und Vlogs?",
+      "9": "Was kostet die Archivierung meines Blogs mit Rogue Scholar?",
+      "10": "Wann bekomme ich eine Rechnung für die Archivierung meines Blogs?",
+      "11": "Was kostet die Nutzung von Rogue Scholar?",
+      "12": "Wie kann ich Rogue Scholar unterstützen?"
+    },
+    "answers": {
+      "1": "Die erste Version von Rogue Scholar wurde im April 2023 veröffentlicht. Die volle Funktionalität (Archivierung, Volltextsuche, DOIs mit Metadaten) ist seit dem 1. Juli 2023 verfügbar.",
+      "2": "Sie können sich für Rogue Scholar registrieren, indem Sie das von der Homepage verknüpfte Formular ausfüllen. Wir melden uns bei Ihnen innerhalb von zwei Werktagen zurück.",
+      "3": "Rogue Scholar ist nur für Blogs geeignet, die ihre kompletten Beiträge über einen RSS-Feed bereitstellen, und eine Creative Commons Attribution Lizenz akzeptieren.",
+      "4": "Nein, wir akzeptieren Blogs über alle Wissenschaftsdisziplinen.",
+      "5": "Rogue Scholar ist in Englisch und Deutsch verfügbar. Weitere Sprachen werden in Zukunft hinzugefügt.",
+      "6": "Wir archivieren Ihren Blog über den Atom-Feed, alternativ auch in anderen Formaten wie RSS und JSON Feed.",
+      "7": "Ja, wir benötigen den Volltext aller Beiträge, um eine Volltextsuche und Langzeitarchivierung zu ermöglichen.",
+      "8": "Podcasts und Vlogs werden in gegen eine Gebühr unterstützt. Sprechen Sie mit uns.",
+      "9": "Rogue Scholar ist für die ersten 50 Beiträge im Jahr kostenlos. Für jeden weiteren Beitrag berechnen wir einmalig $1.",
+      "10": "Sie erhalten eine Rechnung alle drei Monate, wenn Sie mehr als 50 Beiträge im Jahr veröffentlichen.",
+      "11": "Das Lesen und die Nachnutzung der Inhalte von Rogue Scholar ist immer kostenlos. Die Inhalte stehen unter einer Creative Commons Attribution Lizenz.",
+      "12": "Wir freuen uns über Spenden und andere Formen der Unterstützung. Bitte kontaktieren Sie uns per Email."
+    }
   },
   "statistics": {
     "description": "Wichtige Zahlen um die eingeschlossenen Blogs zu beschreiben.",
