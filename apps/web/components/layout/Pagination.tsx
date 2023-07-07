@@ -22,7 +22,9 @@ export default function Pagination({ pagination }: Props) {
               {t("pagination.page")}{" "}
               <span className="font-semibold">{pagination.page}</span>{" "}
               {t("pagination.of")}{" "}
-              <span className="font-semibold">{pagination.total}</span>{" "}
+              <span className="font-semibold">
+                {t("number", { val: pagination.total })}
+              </span>{" "}
               {t("pagination.results")}
             </p>
           )}

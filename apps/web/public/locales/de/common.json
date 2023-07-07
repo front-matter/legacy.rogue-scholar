@@ -68,6 +68,7 @@
   "search": {
     "placeholder": "Suche..."
   },
+  "number": "{{val, number}}",
   "subscriptionPlans": {
     "basic": {
       "name": "Basic",
