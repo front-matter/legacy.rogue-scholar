@@ -99,9 +99,7 @@ function Plan({ name, price, description, href, features, featured = false }) {
 }
 
 export function Pricing() {
-  const { t, ready } = useTranslation("home")
-
-  if (!ready) return "loading translations..."
+  const { t } = useTranslation("home")
 
   return (
     <section

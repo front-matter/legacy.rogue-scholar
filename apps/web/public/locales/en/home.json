@@ -84,7 +84,7 @@
         "description": "Perfect for larger blogs.",
         "features": {
           "1": "Everything in starter",
-          "2": "Archive an unlimited number of posts",
+          "2": "Archive an unlimited number of posts"
         }
       },
       "enterprise": {
@@ -99,7 +99,7 @@
           "5": "Custom feature development"
         }
       }
-    },
+    }
   },
   "faq": {
     "title": "Frequently asked questions"
