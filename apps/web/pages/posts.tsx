@@ -13,8 +13,8 @@ import { PaginationType, PostType } from "@/types/blog"
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || "doi.org"
+  const language = ctx.locale
   const { from, to } = getPagination(page, 15)
-
   let { data: posts, count } = await supabase
     .from("posts")
     .select(postsWithBlogSelect, { count: "exact" })
@@ -22,6 +22,7 @@ export async function getServerSideProps(ctx) {
       type: "plain",
       config: "english",
     })
+    .in("language", [language, "en"])
     .order("date_published", { ascending: false })
     .range(from, to)
 
