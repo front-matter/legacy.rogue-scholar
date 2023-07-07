@@ -1,8 +1,8 @@
-import { numberToWords } from "@humanwhocodes/number-to-words"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 
 import { Container } from "@/components/layout/Container"
+import { toWords } from "@/lib/helpers"
 import { BlogType } from "@/types/blog"
 
 type Props = {
@@ -11,12 +11,11 @@ type Props = {
 
 export default function Hero({ blogs }: Props) {
   const { t } = useTranslation("home")
-  const blogNumber = numberToWords(blogs.length)
+  const blogNumber = toWords(blogs.length)
   const blogsWithIimages = blogs.filter(
     (blog: BlogType) => blog.favicon && blog.indexed_at
   )
 
-  console.log(t)
   return (
     <Container className="pb-16 pt-10 text-center lg:pt-16">
       <h1 className="mx-auto max-w-4xl font-sans text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
@@ -38,7 +37,7 @@ export default function Hero({ blogs }: Props) {
       </p>
       <div className="mx-auto mt-10 max-w-7xl px-6 lg:px-8">
         <h2 className="text-center text-xl font-medium leading-8 text-gray-900">
-          Trusted by {blogNumber} science blogs so far, including
+          {t("hero.slogan", { number: blogNumber })}
         </h2>
         <div className="mx-auto mt-6 grid max-w-lg grid-cols-6 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6">
           {blogsWithIimages.map((blog: BlogType) => (

@@ -59,23 +59,25 @@
     "title": "Features"
   },
   "hero": {
-    "title": "Science blogging",
-    "subtitle": "on steroids.",
+    "title": "Wissenschaftliches Bloggen",
+    "subtitle": "verbessert.",
+    "slogan": "Von bisher {{number}} Blogs vertraut, unter anderem",
     "description": "Rogue Scholar verbessert Ihr Science Blog in wichtigen Punkten, einschließlich Volltextsuche, Langzeitarchivierung, DOIs und Metadaten."
   },
   "signupButton": "Ein Konto erstellen",
   "pricing": {
-    "description": "Unterstützt alle Arten von Science Blogs, vom persönlichen Blog bis zum Newsletter von Organisationen.",
-    "title": "Einfache Preise für alle",
+    "description": "Unterstützt alle Arten von Wissenschaftsblogs, vom persönlichen Blog bis zum Newsletter von Organisationen.",
+    "title": "Einfache Preise",
+    "subtitle": "für alle.",
     "plans": {
       "starter": {
         "name": "Starter",
         "price": "Kostenlos",
         "description": "Für die meisten Blogs.",
         "features": {
-          "1": "Archive up to 50 posts per year",
-          "2": "Full-text search of all posts",
-          "3": "Register DOIs with metadata"
+          "1": "Archivierung von bis zu 50 Beiträgen pro Jahr",
+          "2": "Volltextsuche in allen Beiträgen",
+          "3": "Registrierung von DOIs mit Metadaten"
         }
       },
       "team": {
@@ -83,20 +85,20 @@
         "price": "$1 per Beitrag",
         "description": "Perfekt für größere Blogs.",
         "features": {
-          "1": "Everything in Starter",
-          "2": "Archive an unlimited number of posts",
+          "1": "Alles in Starter",
+          "2": "Archivierung einer unbegrenzten Zahl von Beiträgen"
         }
       },
       "enterprise": {
-        "name": "Enterprise",
-        "price": "Kontaktieren Sie uns",
-        "description": "Having special requirements.",
+        "name": "Unternehmen",
+        "price": "Fragen Sie uns",
+        "description": "Für spezielle Anforderungen.",
         "features": {
-          "1": "Everything in Team",
-          "2": "Archive a blog without active RSS feed",
-          "3": "Support other languages",
-          "4": "Support podcasts and vlogs",
-          "5": "Custom feature development"
+          "1": "Alles in Team",
+          "2": "Archivierung von Blogs ohne aktiven RSS Feed",
+          "3": "Unterstützung weiterer Sprachen",
+          "4": "Unterstützung von Podcasts und Vlogs",
+          "5": "Entwicklung von benutzerdefinierten Eigenschaften"
         }
       }
     }

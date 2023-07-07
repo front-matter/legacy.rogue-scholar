@@ -101,7 +101,6 @@ function Plan({ name, price, description, href, features, featured = false }) {
 export function Pricing() {
   const { t } = useTranslation("home")
 
-  console.log(t)
   return (
     <section
       id="pricing"
@@ -113,9 +112,9 @@ export function Pricing() {
           <h2 className="font-sans text-3xl tracking-tight text-white sm:text-4xl">
             <span className="relative whitespace-nowrap">
               <SwirlyDoodle className="absolute left-0 top-1/2 h-[1em] w-full fill-blue-400" />
-              <span className="relative">Simple pricing</span>
+              <span className="relative">{t("pricing.title")}</span>
             </span>{" "}
-            for everyone.
+            {t("pricing.subtitle")}
           </h2>
           <p className="mt-4 text-lg text-slate-400">
             {t("pricing.description")}
@@ -129,19 +128,19 @@ export function Pricing() {
             description={t("pricing.plans.starter.description")}
             href="/signup"
             features={[
-              "Archive up to 50 posts per year",
-              "Register DOIs with metadata",
-              "Full-text search",
+              t("pricing.plans.starter.features.1"),
+              t("pricing.plans.starter.features.2"),
+              t("pricing.plans.starter.features.3"),
             ]}
           />
           <Plan
             name={t("pricing.plans.team.name")}
             price={t("pricing.plans.team.price")}
-            description={t("pricing.plans.team.price")}
+            description={t("pricing.plans.team.description")}
             href="/signup"
             features={[
-              "Everything in starter",
-              "Archive an unlimited number of posts",
+              t("pricing.plans.team.features.1"),
+              t("pricing.plans.team.features.2"),
             ]}
           />
           <Plan
@@ -150,11 +149,11 @@ export function Pricing() {
             description={t("pricing.plans.enterprise.description")}
             href="/signup"
             features={[
-              "Everything in team",
-              "Archive a blog without active RSS feed",
-              "Support other languages",
-              "Support podcasts and vlogs",
-              "Custom feature development",
+              t("pricing.plans.enterprise.features.1"),
+              t("pricing.plans.enterprise.features.2"),
+              t("pricing.plans.enterprise.features.3"),
+              t("pricing.plans.enterprise.features.4"),
+              t("pricing.plans.enterprise.features.5"),
             ]}
           />
         </div>

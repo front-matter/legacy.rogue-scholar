@@ -1200,11 +1200,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/module-importer/-/module-importer-1.0.1.tgz#af5b2691a22b44be847b0ca81641c5fb6ad0172c"
   integrity sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==
 
-"@humanwhocodes/number-to-words@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@humanwhocodes/number-to-words/-/number-to-words-1.0.0.tgz#34904e1b567b99267e40f3d135418b9bb0d8e96a"
-  integrity sha512-zHCXURwVqOaWCInLIfQvHFRCR67xItIIOlsnDeKElDrc4ZSfoUWI81kHETejAfv16Y2+Q46KJ0jcT33RpFWxVQ==
-
 "@humanwhocodes/object-schema@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
@@ -7256,6 +7251,11 @@ to-regex-range@^5.0.1:
   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
   dependencies:
     is-number "^7.0.0"
+
+to-words@^3.6.1:
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/to-words/-/to-words-3.6.1.tgz#3f895c41b27bf7146595614c3f4af08cd1ae2f16"
+  integrity sha512-X2KDRjBXM0bQ4eTblqNnVfIBGEwhSClR3eWubD6B7gY29vh1k+ntQGSaShwgrsQT3Akt/tbIjKkn8mMOYHihnw==
 
 toggle-selection@^1.0.6:
   version "1.0.6"

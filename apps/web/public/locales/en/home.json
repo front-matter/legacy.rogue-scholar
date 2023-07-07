@@ -2,6 +2,7 @@
   "hero": {
     "title": "Science blogging",
     "subtitle": "on steroids.",
+    "slogan": "Trusted by {{number}} science blogs so far, including",
     "description": "The Rogue Scholar improves your science blog in important ways, including full-text search, long-term archiving, DOIs and metadata."
   },
   "signupButton": "Create an account",
@@ -66,7 +67,8 @@
   },
   "pricing": {
     "description": "Support all kinds of science blogs, from personal blog to organizational newsletters.",
-    "title": "Simple pricing for everyone.",
+    "title": "Simple pricing",
+    "subtitle": "for everyone.",
     "plans": {
       "starter": {
         "name": "Starter",
