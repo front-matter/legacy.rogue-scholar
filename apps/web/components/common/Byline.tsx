@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
 import React from "react"
 
 import { Author } from "@/components/common/Author"
@@ -15,16 +16,19 @@ type Props = {
 }
 
 export const Byline: React.FunctionComponent<Props> = ({ post, parent }) => {
+  const { t } = useTranslation("common")
+
   return (
     <div className="text-base font-medium text-gray-500">
       {post.date_published && (
         <div>
-          Published{" "}
+          {t("posts.published")}{" "}
           <time dateTime={post.date_published.toString()}>
-            {new Date(post.date_published).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
+            {t("posts.date_published", {
+              val: new Date(post.date_published),
+              formatParams: {
+                val: { year: "numeric", month: "long", day: "numeric" },
+              },
             })}
           </time>
           {!parent && (
@@ -43,7 +47,7 @@ export const Byline: React.FunctionComponent<Props> = ({ post, parent }) => {
       )}
       {post.authors && post.authors.length > 0 && (
         <div>
-          Author{post.authors.length > 1 ? "s " : " "}
+          {t("posts.author", { count: post.authors.length })}{" "}
           {post.authors.map((author, index) => (
             <Author
               key={author.name}

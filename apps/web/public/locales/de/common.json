@@ -8,7 +8,8 @@
     "description": "Die angeforderte Seite konnte nicht gefunden werden."
   },
   "footer": {
-    "allRightsReserved": "Alle Rechte vorbehalten"
+    "authors": " und jeweilige Autoren. ",
+    "creativeCommons": "Alle Inhalte stehen unter der <a href='{{url}}'>Creative Commons Namensnennung 4.0 International Lizenz</a>."
   },
   "language": "Sprache",
   "menu": {
@@ -35,7 +36,10 @@
     "search": "Search posts...",
     "no_results": "No posts found",
     "all": "All",
-    "published": "Published",
+    "published": "Veröffentlicht",
+    "date_published": "{{val, datetime}}",
+    "author_one": "Autor",
+    "author_other": "Autoren",
     "draft": "Draft",
     "scheduled": "Scheduled",
     "errors": {

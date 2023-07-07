@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react"
+import parse from "html-react-parser"
 // import Image from "next/image"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
@@ -61,8 +62,13 @@ export default function Footer() {
             </Link>
           </div>
           <p className="mt-6 text-sm text-slate-500 sm:mt-0">
-            Copyright &copy; {new Date().getFullYear()} The Rogue Scholar.{" "}
-            {t("footer.allRightsReserved")}
+            Copyright &copy; {new Date().getFullYear()} The Rogue Scholar{" "}
+            {t("footer.authors")}
+            {parse(
+              t("footer.creativeCommons", {
+                url: "https://creativecommons.org/licenses/by/4.0/legalcode",
+              })
+            )}
           </p>
         </div>
       </Container>

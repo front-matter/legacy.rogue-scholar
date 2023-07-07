@@ -19,7 +19,7 @@ const languages = {
 }
 
 export async function getServerSideProps(ctx) {
-  const { data, error } = await supabase
+  const { data: blogs, error } = await supabase
     .from("blogs")
     .select(blogsSelect)
     .order("title", { ascending: true })
@@ -31,7 +31,7 @@ export async function getServerSideProps(ctx) {
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale!, ["common", "home"])),
-      blogs: data,
+      blogs,
     },
   }
 }

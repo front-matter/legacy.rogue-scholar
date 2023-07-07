@@ -16,6 +16,7 @@ export default function Hero({ blogs }: Props) {
     (blog: BlogType) => blog.favicon && blog.indexed_at
   )
 
+  console.log(t)
   return (
     <Container className="pb-16 pt-10 text-center lg:pt-16">
       <h1 className="mx-auto max-w-4xl font-sans text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">

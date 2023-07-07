@@ -18,7 +18,8 @@
   "language": "Language",
   "pricingPage": "Pricing",
   "footer": {
-    "allRightsReserved": "All rights reserved"
+    "authors": " and respective authors. ",
+    "creativeCommons": "All content distributed under the terms of the <a href='{{url}}'>Creative Commons Attribution 4.0 License</a>."
   },
   "menu": {
     "pricing": "Pricing",
@@ -37,6 +38,9 @@
     "no_results": "No posts found",
     "all": "All",
     "published": "Published",
+    "date_published": "{{val, datetime}}",
+    "author_one": "Author",
+    "author_other": "Authors",
     "draft": "Draft",
     "scheduled": "Scheduled",
     "errors": {

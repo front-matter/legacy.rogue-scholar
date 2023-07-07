@@ -2,7 +2,7 @@
   "hero": {
     "title": "Science blogging",
     "subtitle": "on steroids.",
-    "description": "The Rogue Scholar improves your science blog in important ways, including full-text search, DOIs and metadata, and long-term archiving."
+    "description": "The Rogue Scholar improves your science blog in important ways, including full-text search, long-term archiving, DOIs and metadata."
   },
   "signupButton": "Create an account",
   "dashboardButton": "Dashboard",

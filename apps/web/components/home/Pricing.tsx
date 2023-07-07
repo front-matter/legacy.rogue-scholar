@@ -101,6 +101,7 @@ function Plan({ name, price, description, href, features, featured = false }) {
 export function Pricing() {
   const { t } = useTranslation("home")
 
+  console.log(t)
   return (
     <section
       id="pricing"
