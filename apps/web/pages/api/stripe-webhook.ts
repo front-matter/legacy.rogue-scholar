@@ -9,7 +9,7 @@ import {
   updateUserSubscription,
   upsertPrice,
   upsertProduct,
-} from "@/lib/server/subscriptions-admin"
+} from "@/lib/subscriptions-admin"
 
 export const config = {
   api: {

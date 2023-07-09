@@ -63,7 +63,7 @@ jobs:
       - name: update Rogue Scholar post
         if: steps.random_doi.outputs.DOI != ''
         run: |
-          curl -X PATCH https://api.rogue-scholar.org/rest/v1/posts?uuid=eq.${{ steps.pending_post.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "id": "${{ steps.random_doi.outputs.DOI }}", "date_indexed": "$NOW" }'
+          curl -X PATCH https://api.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.pending_post.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "id": "${{ steps.random_doi.outputs.DOI }}", "date_indexed": "$NOW" }'
       - name: Update Front Matter blog
         if: startsWith( steps.random_doi.outputs.DOI, 'https://doi.org/10.53731/' )
         env:

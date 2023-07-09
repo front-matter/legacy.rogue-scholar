@@ -17,9 +17,9 @@ export async function getServerSideProps(ctx) {
   const { from, to } = getPagination(page, 15)
   let { data: posts, count } = await supabase
     .from("posts")
-    .select(postsWithBlogSelect, { count: "exact" })
+    .select(postsWithBlogSelect, { count: "estimated" })
     .textSearch("fts", query, {
-      type: "plain",
+      type: "websearch",
       config: "english",
     })
     .in("language", [language, "en"])

@@ -28,10 +28,10 @@ export async function getServerSideProps(ctx) {
     .single()
   let { data: posts, count } = await supabase
     .from("posts")
-    .select(postsSelect, { count: "exact" })
+    .select(postsSelect, { count: "estimated" })
     .eq("blog_id", ctx.params.slug)
     .textSearch("fts", ctx.query.query || "doi.org", {
-      type: "plain",
+      type: "websearch",
       config: "english",
     })
     .order("date_published", { ascending: false })

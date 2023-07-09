@@ -68,7 +68,7 @@ export interface Database {
           content_html?: string;
           date_modified?: string;
           date_published?: string;
-          id?: string;
+          doi?: string;
           image?: string;
           language?: string;
           references?: ReferenceType[];
@@ -76,7 +76,7 @@ export interface Database {
           tags?: string[];
           title?: string;
           url?: string;
-          uuid?: string;
+          id?: string;
         }
         Insert: {
           authors?: AuthorType[];
@@ -84,7 +84,7 @@ export interface Database {
           content_html?: string;
           date_modified?: string;
           date_published?: string;
-          id?: string;
+          doi?: string;
           image?: string;
           language?: string;
           references?: ReferenceType[];
@@ -92,7 +92,7 @@ export interface Database {
           tags?: string[];
           title?: string;
           url?: string;
-          uuid?: string;
+          id?: string;
         };
         Update: {
           authors?: AuthorType[];
@@ -100,7 +100,7 @@ export interface Database {
           content_html?: string;
           date_modified?: string;
           date_published?: string;
-          id?: string;
+          doi?: string;
           image?: string;
           language?: string;
           references?: ReferenceType[];
@@ -108,7 +108,7 @@ export interface Database {
           tags?: string[];
           title?: string;
           url?: string;
-          uuid?: string;
+          id?: string;
         };
       };
       customers: {

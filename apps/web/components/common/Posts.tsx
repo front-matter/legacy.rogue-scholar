@@ -3,7 +3,6 @@ import parse from "html-react-parser"
 import Link from "next/link"
 
 import { Byline } from "@/components/common/Byline"
-import { isDoi } from "@/lib/helpers"
 import { PostType } from "@/types/blog"
 
 type Props = {
@@ -22,7 +21,7 @@ export const Posts: React.FunctionComponent<Props> = ({
           <div className="space-t-10 lg:space-t-10 mt-4 lg:mt-6">
             {posts.map((post) => (
               <article
-                key={post.id}
+                key={post.doi}
                 className="relative mb-5 flex gap-6 lg:flex-row"
               >
                 {post.image && (
@@ -53,17 +52,17 @@ export const Posts: React.FunctionComponent<Props> = ({
                       {post.title}
                     </h3>
                     <Byline post={post} parent={parent} />
-                    {isDoi(post.id) && (
+                    {post.doi && (
                       <div className="py-1 font-medium">
                         <Link
                           className="text-base text-gray-300 group-hover:text-gray-900"
-                          href={post.id}
+                          href={post.doi}
                         >
                           <Icon
                             icon="academicons:doi"
                             className="mr-1 inline text-gray-300 hover:text-gray-900"
                           />
-                          {post.id}
+                          {post.doi}
                         </Link>
                       </div>
                     )}

@@ -23,7 +23,7 @@ export interface PaginationType {
 
 export interface PostType {
   id: string;
-  uuid?: string;
+  doi?: string;
   url?: string;
   title?: string;
   summary?: string;

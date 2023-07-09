@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { accountPath } from "@/config/auth"
 import { getBaseURL } from "@/lib/helpers"
 import { stripe } from "@/lib/server/stripe-admin"
-import { getOrCreateStripeCustomer } from "@/lib/server/subscriptions-admin"
+import { getOrCreateStripeCustomer } from "@/lib/subscriptions-admin"
 
 export default async function handler(
   req: NextApiRequest,
