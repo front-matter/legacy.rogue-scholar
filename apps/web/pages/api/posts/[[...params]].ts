@@ -44,7 +44,6 @@ export async function upsertAllPosts() {
   let posts = await Promise.all(
     configs.map((config) => extractAllPostsByBlog(config.id))
   )
-
   posts = posts.flat()
   await Promise.all(posts.map((post) => upsertSinglePost(post)))
   return posts
@@ -66,6 +65,7 @@ export default async function handler(req, res) {
 
   const query = req.query.query || "doi.org"
   const page = (req.query.page as number) || 1
+  const update = req.query.update
   const { from, to } = getPagination(page, 15)
 
   if (req.method === "GET") {
@@ -143,8 +143,13 @@ export default async function handler(req, res) {
         res.status(400).json({ message: "Post could not be updated" })
       }
     } else {
-      const posts = await upsertUpdatedPosts()
+      let posts: PostType[] = []
 
+      if (update === "all") {
+        posts = await upsertAllPosts()
+      } else {
+        posts = await upsertUpdatedPosts()
+      }
       res.status(200).json(posts)
     }
   } else {

@@ -15,7 +15,7 @@
       "name": "doi",
       "type": "string",
       "facet": false,
-      "optional": false
+      "optional": true
     },
     {
       "name": "url",
@@ -50,7 +50,7 @@
     {
       "name": "authors",
       "type": "object[]",
-      "facet": true,
+      "facet": false,
       "optional": true
     },
     {
