@@ -23,7 +23,7 @@ export async function upsertSinglePost(post: PostType) {
       date_indexed: new Date().toISOString(),
       image: post.image,
       language: post.language,
-      references: post.references,
+      reference: post.reference,
       summary: post.summary,
       tags: post.tags,
       title: post.title,

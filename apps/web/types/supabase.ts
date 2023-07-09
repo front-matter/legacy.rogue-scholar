@@ -71,7 +71,7 @@ export interface Database {
           doi?: string;
           image?: string;
           language?: string;
-          references?: ReferenceType[];
+          reference?: ReferenceType[];
           summary?: string;
           tags?: string[];
           title?: string;
@@ -87,7 +87,7 @@ export interface Database {
           doi?: string;
           image?: string;
           language?: string;
-          references?: ReferenceType[];
+          reference?: ReferenceType[];
           summary?: string;
           tags?: string[];
           title?: string;
@@ -103,7 +103,7 @@ export interface Database {
           doi?: string;
           image?: string;
           language?: string;
-          references?: ReferenceType[];
+          reference?: ReferenceType[];
           summary?: string;
           tags?: string[];
           title?: string;

@@ -235,7 +235,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         // get(feedEntry, "dc:language", null) ||
         // get(feedEntry, "language", null) ||
         // franc(content_html || "") || blog.language
-        const references = content_html ? getReferences(content_html) : []
+        const reference = content_html ? getReferences(content_html) : []
         const tags = []
           .concat(get(feedEntry, "category", []))
           .map((tag) =>
@@ -260,7 +260,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           date_published,
           image,
           language,
-          references,
+          reference,
           tags,
           title,
           url,

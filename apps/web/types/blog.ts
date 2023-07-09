@@ -33,7 +33,7 @@ export interface PostType {
   authors?: AuthorType[];
   image?: string;
   content_html?: string;
-  references?: ReferenceType[];
+  reference?: ReferenceType[];
   tags?: string[];
   language?: string;
   blog_id?: string;
