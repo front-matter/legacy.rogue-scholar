@@ -76,6 +76,7 @@
     "swr": "^2.0.0",
     "to-words": "^3.6.1",
     "turbo-ignore": "0.5.0",
+    "typesense": "^1.5.4",
     "ui": "*",
     "vega": "^5.24.0",
     "vega-embed": "^6.21.3",
