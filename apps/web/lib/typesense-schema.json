@@ -103,7 +103,6 @@
       "optional": true
     }
   ],
-  "default_sorting_field": "date_published",
+  "default_sorting_field": "published_at",
   "enable_nested_fields": true
 }
-// }

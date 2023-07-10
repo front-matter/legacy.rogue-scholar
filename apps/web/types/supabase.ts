@@ -70,6 +70,7 @@ export interface Database {
           updated_at?: number;
           published_at?: number;
           indexed_at?: number;
+          not_indexed?: boolean;
           doi?: string;
           image?: string;
           language?: string;
@@ -88,6 +89,7 @@ export interface Database {
           updated_at?: number;
           published_at?: number;
           indexed_at?: number;
+          not_indexed?: boolean;
           doi?: string;
           image?: string;
           language?: string;
@@ -102,10 +104,10 @@ export interface Database {
           authors?: AuthorType[];
           blog_id?: string;
           blog_name?: string;
-          date_published?: string;
           updated_at?: number;
           published_at?: number;
           indexed_at?: number;
+          not_indexed?: boolean;
           doi?: string;
           image?: string;
           language?: string;

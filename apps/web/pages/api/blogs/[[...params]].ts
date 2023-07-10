@@ -22,7 +22,8 @@ import {
   isDoi,
   isOrcid,
   isRor,
-  toISODateString,
+  toISODate,
+  toISOString,
   toUnixTime,
 } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
@@ -178,6 +179,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           }
         })
         const blog_id = blog.id
+        const blog_name = blog.title
         const content_html =
           get(feedEntry, "content:encoded", null) ||
           get(feedEntry, "content.#text", null) ||
@@ -191,7 +193,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         )
         let updated_at = toUnixTime(get(feedEntry, "updated", "1970-01-01"))
 
-        if (published_at && updated_at && published_at > updated_at) {
+        if (published_at > updated_at) {
           updated_at = published_at
         }
         let url: any = get(feedEntry, "link", [])
@@ -221,19 +223,10 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             "utm_source",
           ],
         })
-        // const id =
-        //   get(feedEntry, 'id.#text', null) ||
-        //   get(feedEntry, 'guid.#text', null) ||
-        //   get(feedEntry, 'id', null) ||
-        //   get(feedEntry, 'guid', null) ||
-        //   url;
         const image =
           get(feedEntry, "media:content.@_url", null) ||
           get(feedEntry, "enclosure.@_url", null)
         const language = detectLanguage(content_html || "")
-        // get(feedEntry, "dc:language", null) ||
-        // get(feedEntry, "language", null) ||
-        // franc(content_html || "") || blog.language
         const reference = content_html ? getReferences(content_html) : []
         const tags = []
           .concat(get(feedEntry, "category", []))
@@ -253,6 +246,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         return {
           authors,
           blog_id,
+          blog_name,
           content_html,
           summary,
           published_at,
@@ -281,7 +275,7 @@ export async function extractUpdatedPostsByBlog(blogSlug: string, page = 1) {
   const posts = await extractAllPostsByBlog(blogSlug, page)
 
   return posts.filter((post) => {
-    return toISODateString(post.updated_at) || "" > (blog.modified_at as string)
+    return toISOString(post.updated_at) || "" > (blog.modified_at as string)
   })
 }
 
@@ -290,7 +284,7 @@ export async function getAllPostsByBlog(blogSlug: string) {
     .from("posts")
     .select(postsWithBlogSelect)
     .eq("blog_id", blogSlug)
-    .order("date_published", { ascending: false })
+    .order("published_at", { ascending: false })
 
   if (error) {
     console.log(error)
@@ -484,7 +478,9 @@ export async function getSingleBlog(blogSlug: string) {
     .limit(1)
 
   blog.modified_at =
-    posts && posts.length > 0 ? posts[0].updated_at : "1970-01-01T00:00:00Z"
+    posts && posts.length > 0
+      ? toISOString(posts[0].updated_at) || "1970-01-01T00:00:00Z"
+      : "1970-01-01T00:00:00Z"
   blog = omit(blog, ["published", "link", "entries"])
   return blog
 }

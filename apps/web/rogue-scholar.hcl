@@ -229,14 +229,14 @@ blog {
 //   hasLicense = false
 // }
 
-blog {
-  id         = "gzqej46"
-  category   = "Engineering and Technology"
-  feed_url   = "https://opencitations.hypotheses.org/feed/atom/"
-  favicon    = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
-  indexed_at = "2023-04-19"
-  expired    = true
-}
+// blog {
+//   id         = "gzqej46"
+//   category   = "Engineering and Technology"
+//   feed_url   = "https://opencitations.hypotheses.org/feed/atom/"
+//   favicon    = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
+//   indexed_at = "2023-04-19"
+//   expired    = true
+// }
 
 blog {
   id         = "8epr274"

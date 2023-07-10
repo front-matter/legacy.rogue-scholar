@@ -2,7 +2,7 @@ import Cors from "cors"
 import { isString } from "lodash"
 const he = require("he")
 
-import { fromUnixTime, getUnixTime, parseISO } from "date-fns"
+import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
 
 export function getBaseURL() {
@@ -96,8 +96,14 @@ export const toISODate = (dstr) => {
   return fromUnixTime(dstr)
 }
 
+export const toISOString = (dstr) => {
+  const date = fromUnixTime(dstr)
+
+  return toISODateString(date)
+}
+
 export const toUnixTime = (dstr) => {
-  const date = parseISO(dstr)
+  const date = new Date(dstr)
 
   return getUnixTime(date)
 }
