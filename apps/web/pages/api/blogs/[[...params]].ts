@@ -19,7 +19,6 @@ const extractUrls = require("extract-urls")
 import {
   decodeHtmlCharCodes,
   detectLanguage,
-  getPagination,
   isDoi,
   isOrcid,
   isRor,
@@ -29,12 +28,13 @@ import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
   blogsSelect,
   blogWithPostsSelect,
-  postsSelect,
   postsWithBlogSelect,
   supabase,
 } from "@/lib/supabaseClient"
+import { typesense } from "@/lib/typesenseClient"
 import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
 import { BlogType, PostType } from "@/types/blog"
+import { PostSearchResponse } from "@/types/typesense"
 
 const optionalKeys = [
   "current_feed_url",
@@ -492,28 +492,27 @@ export default async function handler(req, res) {
   const slug = req.query.params?.[0]
   const action = req.query.params?.[1]
 
-  const query = req.query.query || "doi.org"
+  const query = req.query.query || ""
   const page = (req.query.page as number) || 1
   const update = req.query.update
-  const { from, to } = getPagination(page, 15)
 
   if (req.method === "GET") {
     if (slug) {
       if (action === "posts") {
-        const { data: posts, error } = await supabase
-          .from("posts")
-          .select(postsSelect)
-          .eq("blog_id", slug)
-          .textSearch("fts", query, {
-            type: "plain",
-            config: "english",
-          })
-          .order("date_published", { ascending: false })
-          .range(from, to)
-
-        if (error) {
-          return res.status(400).json({ message: error })
+        const searchParameters = {
+          q: query,
+          filter_by: `blog_id:=${slug}`,
+          query_by:
+            "tags,title,authors.name,authors.url,summary,content_html,reference",
+          sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
+          per_page: 15,
+          page: page && page > 0 ? page : 1,
         }
+        const data: PostSearchResponse = await typesense
+          .collections("posts")
+          .documents()
+          .search(searchParameters)
+        const posts = data.hits?.map((hit) => hit.document)
 
         if (posts) {
           res.status(200).json(posts)
