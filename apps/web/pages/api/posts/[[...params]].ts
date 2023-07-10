@@ -78,7 +78,7 @@ export default async function handler(req, res) {
         .from("posts")
         .select(postsWithBlogSelect)
         .not("blogs.prefix", "is", "null")
-        .not("id", "like", "%doi_org%")
+        .not("doi", "like", "%doi_org%")
         .limit(15)
 
       if (error) {
@@ -91,7 +91,7 @@ export default async function handler(req, res) {
         .from("posts")
         .select(postsWithBlogSelect)
         .not("blogs.prefix", "is", "null")
-        .like("id", "%doi_org%")
+        .like("doi", "%doi_org%")
         .eq("not_indexed", true)
         .limit(15)
 
