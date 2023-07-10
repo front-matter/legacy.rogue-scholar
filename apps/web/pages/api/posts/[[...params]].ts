@@ -22,7 +22,6 @@ export async function upsertSinglePost(post: PostType) {
       content_html: post.content_html,
       updated_at: post.updated_at,
       published_at: post.published_at,
-      date_indexed: new Date().toISOString(),
       image: post.image,
       language: post.language,
       reference: post.reference,
@@ -151,6 +150,21 @@ export default async function handler(req, res) {
       let posts: PostType[] = []
 
       if (update === "all") {
+        // const { data: posts_to_update } = await supabase
+        //   .from("posts")
+        //   .select("*")
+        //   .is("indexed_at", null)
+
+        // if (posts_to_update) {
+        //   await Promise.all(
+        //     posts_to_update.map((post) => {
+        //       console.log(post.title)
+        //       post.indexed_at = toUnixTime(post.date_indexed)
+        //       upsertSinglePost(post)
+        //     })
+        //   )
+        // }
+
         posts = await upsertAllPosts()
       } else {
         posts = await upsertUpdatedPosts()

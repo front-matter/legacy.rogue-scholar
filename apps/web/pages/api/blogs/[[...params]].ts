@@ -22,6 +22,7 @@ import {
   isDoi,
   isOrcid,
   isRor,
+  toISODateString,
   toUnixTime,
 } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
@@ -280,7 +281,7 @@ export async function extractUpdatedPostsByBlog(blogSlug: string, page = 1) {
   const posts = await extractAllPostsByBlog(blogSlug, page)
 
   return posts.filter((post) => {
-    return (post.date_modified as string) > (blog.modified_at as string)
+    return toISODateString(post.updated_at) || "" > (blog.modified_at as string)
   })
 }
 
@@ -477,13 +478,13 @@ export async function getSingleBlog(blogSlug: string) {
   // find timestamp from last modified post
   const { data: posts } = await supabase
     .from("posts")
-    .select("date_modified, blog_id")
+    .select("updated_at, blog_id")
     .eq("blog_id", blog.id)
-    .order("date_modified", { ascending: false })
+    .order("updated_at", { ascending: false })
     .limit(1)
 
   blog.modified_at =
-    posts && posts.length > 0 ? posts[0].date_modified : "1970-01-01T00:00:00Z"
+    posts && posts.length > 0 ? posts[0].updated_at : "1970-01-01T00:00:00Z"
   blog = omit(blog, ["published", "link", "entries"])
   return blog
 }

@@ -27,11 +27,9 @@ export interface PostType {
   url?: string;
   title?: string;
   summary?: string;
-  date_published?: string;
-  date_modified?: string;
   published_at?: number;
   updated_at?: number;
-  date_indexed?: string;
+  indexed_at?: number;
   authors?: AuthorType[];
   image?: string;
   content_html?: string;
