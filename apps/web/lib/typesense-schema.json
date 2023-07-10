@@ -1,7 +1,3 @@
-// export async function updateSchema() {
-//   // eslint-disable-next-line no-unused-vars
-//   const schema =
-
 {
   "name": "posts",
   "fields": [
@@ -24,9 +20,15 @@
       "optional": false
     },
     {
-      "name": "blog_id",
+      "name": "blog.id",
       "type": "string",
       "facet": true,
+      "optional": false
+    },
+    {
+      "name": "blog.name",
+      "type": "string",
+      "facet": false,
       "optional": false
     },
     {
@@ -48,8 +50,14 @@
       "optional": false
     },
     {
-      "name": "authors",
-      "type": "object[]",
+      "name": "authors.name",
+      "type": "string[]",
+      "facet": false,
+      "optional": true
+    },
+    {
+      "name": "authors.url",
+      "type": "string[]",
       "facet": false,
       "optional": true
     },
@@ -72,21 +80,26 @@
       "optional": true
     },
     {
-      "name": "date_published",
+      "name": "published_at",
       "type": "int64",
       "facet": true,
-      "optional": false
+      "optional": true
     },
     {
-      "name": "date_modified",
+      "name": "updated_at",
       "type": "int64",
       "facet": false,
-      "optional": false
+      "optional": true
     },
     {
-      "name": "language",
+      "name": "language.code",
       "type": "string",
-      "facet": true,
+      "facet": true
+    },
+    {
+      "name": "language.name",
+      "type": "string",
+      "facet": false,
       "optional": true
     }
   ],
