@@ -35,7 +35,7 @@ jobs:
       - name: Generate random DOI
         if: steps.pending_post.outputs.POSTID != ''
         run: |
-          echo "::set-output name=DOI::$(bundle exec commonmeta encode_by_uuid ${{ steps.pending_post.outputs.POSTID }})"
+          echo "::set-output name=DOI::$(bundle exec commonmeta encode_by_id ${{ steps.pending_post.outputs.POSTID }})"
         id: random_doi
       - name: Generate XML
         if: steps.random_doi.outputs.DOI != ''
