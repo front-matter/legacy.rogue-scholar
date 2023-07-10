@@ -29,6 +29,8 @@ export interface PostType {
   summary?: string;
   date_published?: string;
   date_modified?: string;
+  published_at?: number;
+  updated_at?: number;
   date_indexed?: string;
   authors?: AuthorType[];
   image?: string;
@@ -37,6 +39,7 @@ export interface PostType {
   tags?: string[];
   language?: string;
   blog_id?: string;
+  blog_name?: string;
   blog?: BlogParentType;
 }
 

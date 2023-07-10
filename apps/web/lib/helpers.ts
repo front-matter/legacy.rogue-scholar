@@ -2,6 +2,7 @@ import Cors from "cors"
 import { isString } from "lodash"
 const he = require("he")
 
+import { fromUnixTime, getUnixTime, parseISO } from "date-fns"
 import { franc } from "franc"
 
 export function getBaseURL() {
@@ -89,6 +90,16 @@ export const toISODateString = (dstr) => {
   } catch (err) {
     return ""
   }
+}
+
+export const toISODate = (dstr) => {
+  return fromUnixTime(dstr)
+}
+
+export const toUnixTime = (dstr) => {
+  const date = parseISO(dstr)
+
+  return getUnixTime(date)
 }
 
 // from https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript

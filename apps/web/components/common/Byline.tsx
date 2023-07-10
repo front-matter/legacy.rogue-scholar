@@ -3,6 +3,7 @@ import { useTranslation } from "next-i18next"
 import React from "react"
 
 import { Author } from "@/components/common/Author"
+import { toISODate } from "@/lib/helpers"
 import { PostType } from "@/types/blog"
 
 type Author = {
@@ -20,12 +21,12 @@ export const Byline: React.FunctionComponent<Props> = ({ post, parent }) => {
 
   return (
     <div className="text-base font-medium text-gray-500">
-      {post.date_published && (
+      {post.published_at && (
         <div>
           {t("posts.published")}{" "}
-          <time dateTime={post.date_published.toString()}>
+          <time dateTime={toISODate(post.published_at).toString()}>
             {t("posts.date_published", {
-              val: new Date(post.date_published),
+              val: new Date(toISODate(post.published_at)),
               formatParams: {
                 val: { year: "numeric", month: "long", day: "numeric" },
               },
@@ -37,9 +38,9 @@ export const Byline: React.FunctionComponent<Props> = ({ post, parent }) => {
               in{" "}
               <Link
                 className="font-semibold text-blue-600 group-hover:text-blue-800"
-                href={"/blogs/" + post.blog?.id}
+                href={"/blogs/" + post.blog_id}
               >
-                {post.blog?.title}
+                {post.blog_name}
               </Link>
             </span>
           )}

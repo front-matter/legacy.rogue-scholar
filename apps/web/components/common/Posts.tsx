@@ -56,6 +56,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                       <div className="py-1 font-medium">
                         <Link
                           className="text-base text-gray-300 group-hover:text-gray-900"
+                          target="_blank"
                           href={post.doi}
                         >
                           <Icon

@@ -10,41 +10,40 @@ import { Posts } from "@/components/common/Posts"
 import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
 import Search from "@/components/layout/Search"
-import { getPagination } from "@/lib/helpers"
-import {
-  blogWithPostsSelect,
-  postsSelect,
-  supabase,
-} from "@/lib/supabaseClient"
+import { blogWithPostsSelect, supabase } from "@/lib/supabaseClient"
+import { typesense } from "@/lib/typesenseClient"
 import { BlogType, PaginationType, PostType } from "@/types/blog"
+import { PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
+  const query = ctx.query.query || ""
   const page = parseInt(ctx.query.page || 1)
-  const { from, to } = getPagination(page, 15)
   const { data: blog } = await supabase
     .from("blogs")
     .select(blogWithPostsSelect)
     .eq("id", ctx.params.slug)
     .single()
-  let { data: posts, count } = await supabase
-    .from("posts")
-    .select(postsSelect, { count: "estimated" })
-    .eq("blog_id", ctx.params.slug)
-    .textSearch("fts", ctx.query.query || "doi.org", {
-      type: "websearch",
-      config: "english",
-    })
-    .order("date_published", { ascending: false })
-    .range(from, to)
-
-  count ??= 50 // estimating total number of posts if error fetching count
-  const pages = Math.ceil(count / 15)
+  const searchParameters = {
+    q: query,
+    filter_by: `blog_id:=${blog?.id}`,
+    query_by:
+      "tags,title,authors.name,authors.url,summary,content_html,reference",
+    sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
+    per_page: 15,
+    page: page && page > 0 ? page : 1,
+  }
+  const data: PostSearchResponse = await typesense
+    .collections("posts")
+    .documents()
+    .search(searchParameters)
+  const posts = data.hits?.map((hit) => hit.document)
+  const pages = Math.ceil(data.found / 15)
   const pagination = {
-    base_url: "/blogs/" + ctx.params.slug,
-    query: ctx.query.query || "",
+    base_url: "/posts",
+    query: query,
     page: page,
     pages: pages,
-    total: count,
+    total: data.found,
     prev: page > 1 ? page - 1 : null,
     next: page < pages ? page + 1 : null,
   }

@@ -65,9 +65,12 @@ export interface Database {
         Row: {
           authors?: AuthorType[];
           blog_id?: string;
+          blog_name?: string;
           content_html?: string;
           date_modified?: string;
           date_published?: string;
+          updated_at?: number;
+          published_at?: number;
           doi?: string;
           image?: string;
           language?: string;
@@ -81,9 +84,12 @@ export interface Database {
         Insert: {
           authors?: AuthorType[];
           blog_id?: string;
+          blog_name?: string;
           content_html?: string;
           date_modified?: string;
           date_published?: string;
+          updated_at?: number;
+          published_at?: number;
           doi?: string;
           image?: string;
           language?: string;
@@ -97,9 +103,12 @@ export interface Database {
         Update: {
           authors?: AuthorType[];
           blog_id?: string;
+          blog_name?: string;
           content_html?: string;
           date_modified?: string;
           date_published?: string;
+          updated_at?: number;
+          published_at?: number;
           doi?: string;
           image?: string;
           language?: string;

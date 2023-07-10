@@ -1,25 +1,27 @@
-import { getPagination } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
   postsSelect,
   postsWithBlogSelect,
   supabase,
 } from "@/lib/supabaseClient"
+import { typesense } from "@/lib/typesenseClient"
 import {
   extractAllPostsByBlog,
   extractUpdatedPostsByBlog,
   getAllConfigs,
 } from "@/pages/api/blogs/[[...params]]"
 import { PostType } from "@/types/blog"
+import { PostSearchResponse } from "@/types/typesense"
 
 export async function upsertSinglePost(post: PostType) {
   const { data, error } = await supabaseAdmin.from("posts").upsert(
     {
       authors: post.authors,
       blog_id: post.blog_id,
+      blog_name: post.blog_name,
       content_html: post.content_html,
-      date_modified: post.date_modified,
-      date_published: post.date_published,
+      updated_at: post.updated_at,
+      published_at: post.published_at,
       date_indexed: new Date().toISOString(),
       image: post.image,
       language: post.language,
@@ -44,6 +46,7 @@ export async function upsertAllPosts() {
   let posts = await Promise.all(
     configs.map((config) => extractAllPostsByBlog(config.id))
   )
+
   posts = posts.flat()
   await Promise.all(posts.map((post) => upsertSinglePost(post)))
   return posts
@@ -64,9 +67,10 @@ export default async function handler(req, res) {
   const slug = req.query.params?.[0]
 
   const query = req.query.query || "doi.org"
-  const page = (req.query.page as number) || 1
+  let page = (req.query.page as number) || 1
+
+  page = Number(page)
   const update = req.query.update
-  const { from, to } = getPagination(page, 15)
 
   if (req.method === "GET") {
     if (slug === "unregistered") {
@@ -109,17 +113,18 @@ export default async function handler(req, res) {
         res.status(200).json(post)
       }
     } else {
-      const { data: posts } = await supabase
-        .from("posts")
-        .select(postsSelect)
-        .textSearch("fts", query, {
-          type: "plain",
-          config: "english",
+      const data: PostSearchResponse = await typesense
+        .collections("posts")
+        .documents()
+        .search({
+          q: query,
+          query_by:
+            "tags,title,authors.name,authors.url,summary,content_html,reference",
+          per_page: 15,
+          page: page && page > 0 ? page : 1,
         })
-        .order("date_published", { ascending: false })
-        .range(from, to)
 
-      res.status(200).json(posts)
+      res.status(200).json(data)
     }
   } else if (
     !req.headers.authorization ||
@@ -146,7 +151,25 @@ export default async function handler(req, res) {
       let posts: PostType[] = []
 
       if (update === "all") {
-        posts = await upsertAllPosts()
+        // posts = await upsertAllPosts()
+        const { data: posts_to_update } = await supabase
+          .from("posts")
+          .select("*, blogs!inner(title)")
+          .is("blog_name", null)
+
+        if (posts_to_update) {
+          await Promise.all(
+            posts_to_update.map((post) => {
+              // post.published_at = toUnixTime(post.date_published)
+              // post.updated_at = toUnixTime(post.date_modified)
+              post.blog_name = post.blogs?.title
+              upsertSinglePost(post)
+            })
+          )
+          res.status(200).json(posts_to_update)
+        } else {
+          res.status(400).json({ message: "No posts to update" })
+        }
       } else {
         posts = await upsertUpdatedPosts()
       }

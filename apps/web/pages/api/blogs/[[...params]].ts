@@ -23,7 +23,7 @@ import {
   isDoi,
   isOrcid,
   isRor,
-  toISODateString,
+  toUnixTime,
 } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
@@ -184,16 +184,14 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         let summary = buildDescription(content_html, 500)
 
         summary = decodeHtmlCharCodes(summary)
-        const date_published = toISODateString(
+        const published_at = toUnixTime(
           get(feedEntry, "pubDate", null) ||
             get(feedEntry, "published", "1970-01-01")
         )
-        let date_modified = toISODateString(
-          get(feedEntry, "updated", "1970-01-01")
-        )
+        let updated_at = toUnixTime(get(feedEntry, "updated", "1970-01-01"))
 
-        if (date_published && date_modified && date_published > date_modified) {
-          date_modified = date_published
+        if (published_at && updated_at && published_at > updated_at) {
+          updated_at = published_at
         }
         let url: any = get(feedEntry, "link", [])
 
@@ -256,8 +254,8 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           blog_id,
           content_html,
           summary,
-          date_modified,
-          date_published,
+          published_at,
+          updated_at,
           image,
           language,
           reference,
