@@ -25,7 +25,7 @@ export async function getServerSideProps(ctx) {
     .single()
   const searchParameters = {
     q: query,
-    filter_by: `blog_id:=${blog?.id}`,
+    filter_by: `blog_id:=${ctx.params.slug}`,
     query_by:
       "tags,title,authors.name,authors.url,summary,content_html,reference",
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
@@ -39,7 +39,7 @@ export async function getServerSideProps(ctx) {
   const posts = data.hits?.map((hit) => hit.document)
   const pages = Math.ceil(data.found / 15)
   const pagination = {
-    base_url: "/posts",
+    base_url: "/blogs/" + ctx.params.slug,
     query: query,
     page: page,
     pages: pages,
