@@ -151,21 +151,21 @@ export default async function handler(req, res) {
       let posts: PostType[] = []
 
       if (update === "all") {
-        const { data: posts_to_update } = await supabase
-          .from("posts")
-          .select("*")
-          .is("not_indexed", null)
+        // const { data: posts_to_update } = await supabase
+        //   .from("posts")
+        //   .select("*")
+        //   .is("not_indexed", null)
 
-        if (posts_to_update) {
-          await Promise.all(
-            posts_to_update.map((post) => {
-              post.not_indexed = post.indexed_at < post.updated_at
-              upsertSinglePost(post)
-            })
-          )
-        }
+        // if (posts_to_update) {
+        //   await Promise.all(
+        //     posts_to_update.map((post) => {
+        //       post.not_indexed = post.indexed_at < post.updated_at
+        //       upsertSinglePost(post)
+        //     })
+        //   )
+        // }
 
-        // posts = await upsertAllPosts()
+        posts = await upsertAllPosts()
       } else {
         posts = await upsertUpdatedPosts()
       }
