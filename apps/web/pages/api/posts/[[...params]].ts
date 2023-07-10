@@ -151,25 +151,7 @@ export default async function handler(req, res) {
       let posts: PostType[] = []
 
       if (update === "all") {
-        // posts = await upsertAllPosts()
-        const { data: posts_to_update } = await supabase
-          .from("posts")
-          .select("*, blogs!inner(title)")
-          .is("blog_name", null)
-
-        if (posts_to_update) {
-          await Promise.all(
-            posts_to_update.map((post) => {
-              // post.published_at = toUnixTime(post.date_published)
-              // post.updated_at = toUnixTime(post.date_modified)
-              post.blog_name = post.blogs?.title
-              upsertSinglePost(post)
-            })
-          )
-          res.status(200).json(posts_to_update)
-        } else {
-          res.status(400).json({ message: "No posts to update" })
-        }
+        posts = await upsertAllPosts()
       } else {
         posts = await upsertUpdatedPosts()
       }
