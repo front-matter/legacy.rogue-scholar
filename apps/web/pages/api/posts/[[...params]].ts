@@ -78,7 +78,7 @@ export default async function handler(req, res) {
         .from("posts")
         .select(postsWithBlogSelect)
         .not("blogs.prefix", "is", "null")
-        .not("doi", "like", "%doi_org%")
+        .is("doi", null)
         .limit(15)
 
       if (error) {
