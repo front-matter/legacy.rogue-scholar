@@ -47,7 +47,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
   const feed_url = blog.current_feed_url || blog.feed_url
 
   return (
-    <div className="bg-inherit pt-4">
+    <div className="bg-inherit py-4">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="relative flex items-center gap-x-12">
@@ -86,7 +86,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </div>
             )}
           </div>
-          <div className="mt-2">
+          <div className="mt-1">
             <span className="text-gray-500">
               <Link
                 href={blog.home_page_url ?? ""}
