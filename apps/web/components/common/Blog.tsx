@@ -50,7 +50,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
     <div className="bg-inherit py-4">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
-          <div className="relative flex items-center gap-x-12">
+          <div className="relative mb-2 flex items-center gap-x-12">
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                 {parse(String(blog.title))}
