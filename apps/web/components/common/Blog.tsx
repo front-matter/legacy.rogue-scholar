@@ -75,8 +75,13 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 {languages[blog.language]}
               </span>
             )}
+            {generator && (
+              <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+                {generator}
+              </span>
+            )}
             {blog.description && (
-              <div className="mt-1 text-lg leading-normal text-gray-600">
+              <div className="mt-1 font-serif text-base text-gray-600">
                 {parse(String(blog.description))}
               </div>
             )}
@@ -104,58 +109,6 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                     {feedFormats[blog.feed_format] + " Feed"}
                   </span>
                 </Link>
-              </span>
-            )}
-            {generator && (
-              <span className="text-gray-500">
-                <Link
-                  href={generators[generator] ?? ""}
-                  target="_blank"
-                  className="relative mr-6 py-2 text-base font-medium text-gray-500"
-                >
-                  <Icon icon="fa6-solid:rocket" className="inline" />
-                  <span className="ml-2">{generator}</span>
-                </Link>
-              </span>
-            )}
-            {blog.license && (
-              <span className="text-gray-500">
-                <Link
-                  href="https://creativecommons.org/licenses/by/4.0/legalcode"
-                  target="_blank"
-                  className="relative mr-6 py-2 text-base font-medium"
-                >
-                  <Icon
-                    icon="fa6-brands:creative-commons"
-                    className="inline font-bold"
-                  />
-                  <Icon
-                    icon="fa6-brands:creative-commons-by"
-                    className="ml-0.5 inline font-bold"
-                  />
-                  <span className="ml-2">License</span>
-                </Link>
-              </span>
-            )}
-            {!blog.license && (
-              <span className="text-orange-600">
-                <Icon icon="fa-solid:copyright" className="inline" />
-                <span className="ml-2 mr-6">License not confirmed</span>
-              </span>
-            )}
-            {blog.indexed_at && (
-              <span className="font-medium text-gray-500">
-                <Icon icon="fa6-regular:calendar-plus" className="inline" />
-                <time
-                  className="ml-2 mr-6"
-                  dateTime={blog.indexed_at.toString()}
-                >
-                  {new Date(blog.indexed_at).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </time>
               </span>
             )}
             {blog.modified_at && blog.modified_at > "1970-01-02" && (
