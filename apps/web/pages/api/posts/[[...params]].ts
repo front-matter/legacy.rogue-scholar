@@ -14,6 +14,7 @@ import { PostType } from "@/types/blog"
 import { PostSearchResponse } from "@/types/typesense"
 
 export async function upsertSinglePost(post: PostType) {
+  const not_indexed = (post.indexed_at || 0) < (post.updated_at || 0)
   const { data, error } = await supabaseAdmin.from("posts").upsert(
     {
       authors: post.authors,
@@ -22,7 +23,7 @@ export async function upsertSinglePost(post: PostType) {
       content_html: post.content_html,
       updated_at: post.updated_at,
       published_at: post.published_at,
-      not_indexed: post.not_indexed,
+      not_indexed: not_indexed,
       image: post.image,
       language: post.language,
       reference: post.reference,
