@@ -488,7 +488,7 @@ export default async function handler(req, res) {
   const slug = req.query.params?.[0]
   const action = req.query.params?.[1]
 
-  const query = req.query.query || "*"
+  const query = req.query.query || ""
   const page = (req.query.page as number) || 1
   const update = req.query.update
 

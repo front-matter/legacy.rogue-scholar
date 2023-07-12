@@ -16,7 +16,7 @@ import { BlogType, PaginationType, PostType } from "@/types/blog"
 import { PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
-  const query = ctx.query.query || "*"
+  const query = ctx.query.query || ""
   const page = parseInt(ctx.query.page || 1)
   const { data: blog } = await supabase
     .from("blogs")

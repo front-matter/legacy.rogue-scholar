@@ -79,7 +79,7 @@ export async function upsertUpdatedPosts() {
 export default async function handler(req, res) {
   const slug = req.query.params?.[0]
 
-  const query = req.query.query || "*"
+  const query = req.query.query || ""
   let page = (req.query.page as number) || 1
 
   page = Number(page)
@@ -130,6 +130,7 @@ export default async function handler(req, res) {
         q: query,
         query_by:
           "tags,title,authors.name,authors.url,summary,content_html,reference",
+        sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
         per_page: 15,
         page: page && page > 0 ? page : 1,
       }
