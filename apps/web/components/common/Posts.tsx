@@ -67,6 +67,17 @@ export const Posts: React.FunctionComponent<Props> = ({
                         </Link>
                       </div>
                     )}
+                    {!post.doi && post.url && (
+                      <div className="py-1 font-medium">
+                        <Link
+                          className="text-base text-gray-300 group-hover:text-gray-900"
+                          target="_blank"
+                          href={post.url}
+                        >
+                          {post.url}
+                        </Link>
+                      </div>
+                    )}
                     {post.summary && (
                       <p className="text-medium mt-2 font-serif leading-6 text-gray-900">
                         {parse(String(post.summary))}

@@ -106,21 +106,30 @@ const BlogPage: React.FunctionComponent<Props> = ({
       <Layout>
         <div className={blog.indexed_at ? "bg-white" : "bg-blue-50"}>
           <Blog blog={blog} />
-          <Search />
-          <Pagination pagination={pagination} />
-          {posts && <Posts posts={posts} parent={true} />}
-          {pagination.total > 0 && <Pagination pagination={pagination} />}
-          {blog.home_page_url && blog.backlog && (
-            <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
-              <div className="mb-2 lg:mb-5">
-                <Link
-                  href={blog.home_page_url}
-                  target="_blank"
-                  className="text-base font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
-                >
-                  More posts via the {blog.title} Home Page …
-                </Link>
-              </div>
+          {!blog.expired && (
+            <>
+              <Search />
+              <Pagination pagination={pagination} />
+              {posts && <Posts posts={posts} parent={true} />}
+              {pagination.total > 0 && <Pagination pagination={pagination} />}
+              {blog.home_page_url && blog.backlog && (
+                <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
+                  <div className="mb-2 lg:mb-5">
+                    <Link
+                      href={blog.home_page_url}
+                      target="_blank"
+                      className="text-base font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
+                    >
+                      More posts via the {blog.title} Home Page …
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+          {blog.expired && (
+            <div className="mx-auto max-w-2xl bg-inherit pb-2 text-lg font-medium text-orange-600 lg:max-w-4xl">
+              DOIs and metadata for this blog could not be registered.
             </div>
           )}
         </div>

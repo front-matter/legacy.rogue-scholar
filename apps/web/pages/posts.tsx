@@ -17,6 +17,7 @@ export async function getServerSideProps(ctx) {
     q: query,
     query_by:
       "tags,title,authors.name,authors.url,summary,content_html,reference",
+    filter_by: "blog_id:!=[8epr274, gzqej46, k0zyf54, y3h0g22, yzgx124]",
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
     per_page: 15,
     page: page && page > 0 ? page : 1,
