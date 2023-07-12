@@ -66,7 +66,7 @@ export async function upsertUpdatedPosts() {
 export default async function handler(req, res) {
   const slug = req.query.params?.[0]
 
-  const query = req.query.query || "doi.org"
+  const query = req.query.query || "*"
   let page = (req.query.page as number) || 1
 
   page = Number(page)
@@ -91,7 +91,7 @@ export default async function handler(req, res) {
         .from("posts")
         .select(postsWithBlogSelect)
         .not("blogs.prefix", "is", "null")
-        .like("doi", "%doi_org%")
+        .not("doi", "is", "null")
         .eq("not_indexed", true)
         .limit(15)
 
@@ -113,16 +113,17 @@ export default async function handler(req, res) {
         res.status(200).json(post)
       }
     } else {
+      const searchParameters = {
+        q: query,
+        query_by:
+          "tags,title,authors.name,authors.url,summary,content_html,reference",
+        per_page: 15,
+        page: page && page > 0 ? page : 1,
+      }
       const data: PostSearchResponse = await typesense
         .collections("posts")
         .documents()
-        .search({
-          q: query,
-          query_by:
-            "tags,title,authors.name,authors.url,summary,content_html,reference",
-          per_page: 15,
-          page: page && page > 0 ? page : 1,
-        })
+        .search(searchParameters)
 
       res.status(200).json(data)
     }

@@ -12,7 +12,7 @@ import { PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
-  const query = ctx.query.query || ""
+  const query = ctx.query.query || "*"
   const searchParameters = {
     q: query,
     query_by:
