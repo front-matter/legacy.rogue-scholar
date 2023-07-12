@@ -14,32 +14,44 @@ import { PostType } from "@/types/blog"
 import { PostSearchResponse } from "@/types/typesense"
 
 export async function upsertSinglePost(post: PostType) {
-  const not_indexed = (post.indexed_at || 0) < (post.updated_at || 0)
-  const { data, error } = await supabaseAdmin.from("posts").upsert(
-    {
-      authors: post.authors,
-      blog_id: post.blog_id,
-      blog_name: post.blog_name,
-      content_html: post.content_html,
-      updated_at: post.updated_at,
-      published_at: post.published_at,
-      not_indexed: not_indexed,
-      image: post.image,
-      language: post.language,
-      reference: post.reference,
-      summary: post.summary,
-      tags: post.tags,
-      title: post.title,
-      url: post.url,
-    },
-    { onConflict: "url", ignoreDuplicates: false }
-  )
+  const { data, error } = await supabaseAdmin
+    .from("posts")
+    .upsert(
+      {
+        authors: post.authors,
+        blog_id: post.blog_id,
+        blog_name: post.blog_name,
+        content_html: post.content_html,
+        updated_at: post.updated_at,
+        published_at: post.published_at,
+        image: post.image,
+        language: post.language,
+        reference: post.reference,
+        summary: post.summary,
+        tags: post.tags,
+        title: post.title,
+        url: post.url,
+      },
+      { onConflict: "url", ignoreDuplicates: false }
+    )
+    .select("id, indexed_at, updated_at, not_indexed")
+    .single()
 
   if (error) {
     throw error
   }
 
-  return data
+  // workaround for comparing two timestamps in supabase
+  const { data: post_to_update } = await supabaseAdmin
+    .from("posts")
+    .update({
+      not_indexed: (data.indexed_at || 0) < (data.updated_at || 1),
+    })
+    .eq("id", data.id)
+    .select("id")
+    .single()
+
+  return post_to_update
 }
 
 export async function upsertAllPosts() {
