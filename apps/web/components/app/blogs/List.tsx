@@ -151,6 +151,7 @@ export default function BlogsList() {
               <Tr>
                 <Th>{t("blogs.list.columns.title")}</Th>
                 <Th>{t("blogs.list.columns.feed_url")}</Th>
+                <Th>{t("blogs.list.columns.favicon")}</Th>
                 <Th>{t("blogs.list.columns.category")}</Th>
                 <Th></Th>
               </Tr>
@@ -163,6 +164,7 @@ export default function BlogsList() {
                       <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
                     </Td>
                     <Td>{blog.feed_url}</Td>
+                    <Td>{blog.favicon}</Td>
                     <Td>{t("categories." + blog.category)}</Td>
                     <Td>
                       <HStack justify="end" spacing={1}>

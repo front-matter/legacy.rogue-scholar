@@ -47,6 +47,7 @@ export default function BlogFormModal({
     title: string
     feed_url: string
     home_page_url: string
+    favicon: string
     category: string
     user_id: string
   }>()
@@ -61,6 +62,7 @@ export default function BlogFormModal({
     setValue("id", blog.id)
     setValue("title", blog.title)
     setValue("feed_url", blog.feed_url)
+    setValue("favicon", blog.favicon)
     setValue("category", blog.category)
   }, [blog]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -135,6 +137,15 @@ export default function BlogFormModal({
                 <Input
                   type="text"
                   {...register("feed_url", { required: true })}
+                />
+              </FormControl>
+
+              {/* favicon field */}
+              <FormControl isRequired>
+                <FormLabel>{t("blogs.form.controls.favicon")}</FormLabel>
+                <Input
+                  type="text"
+                  {...register("favicon", { required: true })}
                 />
               </FormControl>
 

@@ -7,6 +7,7 @@
         "id": "ID",
         "title": "Title",
         "feed_url": "Feed URL",
+        "favicon": "Favicon",
         "category": "Category"
       },
       "add": {
@@ -24,6 +25,7 @@
         "id": "ID",
         "title": "Blog Name",
         "feed_url": "Feed URL",
+        "favicon": "Favicon",
         "category": "Category"
       },
       "empty": "You have not created any blogs yet. Click the button at the top right to add one.",

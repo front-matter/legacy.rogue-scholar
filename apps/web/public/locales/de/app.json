@@ -9,6 +9,7 @@
         "id": "ID",
         "title": "Name",
         "feed_url": "Feed URL",
+        "favicon": "Favicon",
         "category": "Kategorie"
       },
       "edit": {
@@ -22,6 +23,7 @@
       "columns": {
         "title": "Blog Name",
         "feed_url": "Feed URL",
+        "favicon": "Favicon",
         "category": "Kategorie"
       },
       "delete": "Löschen",
