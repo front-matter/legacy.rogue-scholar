@@ -22,7 +22,7 @@
     "list": {
       "columns": {
         "id": "ID",
-        "title": "Title",
+        "title": "Blog Name",
         "feed_url": "Feed URL",
         "category": "Category"
       },

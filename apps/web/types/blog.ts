@@ -55,7 +55,7 @@ export interface BlogType extends FeedData {
   current_feed_url?: string
   favicon?: string
   modified_at?: string
-  indexed_at?: string
+  created_at?: string
   generator?: string
   license?: string
   feed_format?: string

@@ -45,7 +45,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                 key={blog.id}
                 className={
                   "col-span-1 divide-y divide-gray-200 rounded-lg shadow" +
-                  (blog.indexed_at ? " bg-white" : " bg-blue-50")
+                  (blog.created_at ? " bg-white" : " bg-blue-50")
                 }
               >
                 <div className="flex w-full items-center justify-between space-x-6 p-6">

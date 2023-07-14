@@ -16,7 +16,6 @@ export interface Database {
           feed_format?: string;
           user_id?: string;
           created_at?: string;
-          indexed_at?: string;
           modified_at?: string;
           language?: string;
           favicon?: string;
@@ -34,7 +33,6 @@ export interface Database {
           feed_format?: string;
           user_id?: string;
           created_at?: string;
-          indexed_at?: string;
           modified_at?: string;
           language?: string;
           favicon?: string;
@@ -52,7 +50,6 @@ export interface Database {
           feed_format?: string;
           user_id?: string;
           created_at?: string;
-          indexed_at?: string;
           modified_at?: string;
           language?: string;
           favicon?: string;

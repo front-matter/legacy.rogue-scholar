@@ -44,16 +44,14 @@ const optionalKeys = [
   "title",
   "description",
   "language",
-  "category",
   "favicon",
   "generator",
-  "indexed_at",
   "prefix",
   "expired",
 ]
 
 export async function getAllConfigs() {
-  const env = process.env.NEXT_PUBLIC_VERCEL_ENV || "development"
+  // const env = process.env.NEXT_PUBLIC_VERCEL_ENV || "development"
   const filePath = path.resolve("rogue-scholar.hcl")
   const hclString = fs.readFileSync(filePath)
   const configs = hcl
@@ -64,9 +62,6 @@ export async function getAllConfigs() {
         config[key] = config[key] == null ? null : config[key]
       }
       return config
-    })
-    .filter((config: { indexed_at: any }) => {
-      return env != "production" || config.indexed_at
     })
 
   return configs
@@ -309,12 +304,11 @@ export async function upsertSingleBlog(blogSlug: string) {
       current_feed_url: blog.current_feed_url,
       home_page_url: blog.home_page_url,
       feed_format: blog.feed_format,
-      indexed_at: blog.indexed_at,
+      created_at: blog.created_at,
       modified_at: blog.modified_at,
       language: blog.language,
       favicon: blog.favicon,
       license: blog.license,
-      category: blog.category,
       generator: blog.generator,
       prefix: blog.prefix,
       expired: blog.expired,
@@ -384,8 +378,6 @@ export async function getSingleBlog(blogSlug: string) {
       const id = config.id
       const version = "https://jsonfeed.org/version/1.1"
       const feed_url = config.feed_url
-      const category = config.category
-      const indexed_at = config.indexed_at
       const title = decodeHtmlCharCodes(
         config.title ||
           get(feedData, "title.#text", null) ||
@@ -459,13 +451,11 @@ export async function getSingleBlog(blogSlug: string) {
         home_page_url,
         feed_format,
         title,
-        category,
         generator,
         description,
         favicon,
         language,
         license,
-        indexed_at,
         prefix,
         expired,
       }

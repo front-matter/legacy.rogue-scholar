@@ -104,7 +104,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
         />
       </Head>
       <Layout>
-        <div className={blog.indexed_at ? "bg-white" : "bg-blue-50"}>
+        <div className="bg-white">
           <Blog blog={blog} />
           {!blog.expired && (
             <>

@@ -14,8 +14,7 @@ create table if not exists blogs (
   home_page_url text,
   base_url text,
   user_id uuid not null references auth.users DEFAULT auth.uid(),
-  created_at timestamp with time zone default timezone('utc'::text, now()) not null,
-  indexed_at date
+  created_at date
 );
 -- Enable row level security for blogs
 alter table blogs enable row level security;

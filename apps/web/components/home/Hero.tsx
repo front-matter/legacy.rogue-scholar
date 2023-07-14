@@ -13,7 +13,7 @@ export default function Hero({ blogs }: Props) {
   const { t } = useTranslation("home")
   const blogNumber = toWords(blogs.length)
   const blogsWithIimages = blogs.filter(
-    (blog: BlogType) => blog.favicon && blog.indexed_at
+    (blog: BlogType) => blog.favicon && blog.created_at
   )
 
   return (

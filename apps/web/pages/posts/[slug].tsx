@@ -76,7 +76,7 @@ const PostPage: React.FunctionComponent<Props> = ({ blog, post }) => {
         />
       </Head>
       <Layout>
-        <div className={blog.indexed_at ? "bg-white" : "bg-blue-50"}>
+        <div className="bg-white">
           <Blog blog={blog} />
           {post && <Post post={post} />}
         </div>
