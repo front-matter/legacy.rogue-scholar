@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { BlogType } from "@/types/blog"
@@ -30,6 +31,8 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
   const generator = blog.generator ? blog.generator.split(" ")[0] : null
   const feed_url = blog.current_feed_url || blog.feed_url
   const { t } = useTranslation("common")
+  const router = useRouter()
+  const { locale: activeLocale } = router
 
   return (
     <div className="bg-inherit py-4">
@@ -55,13 +58,13 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 {t("categories." + blog.category)}
               </span>
             )}
-            {blog.language && (
-              <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+            {blog.language !== activeLocale && (
+              <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
                 {t("languages." + blog.language)}
               </span>
             )}
             {generator && (
-              <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+              <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-800">
                 {generator}
               </span>
             )}

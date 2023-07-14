@@ -4,7 +4,7 @@ import React from "react"
 
 import { Author } from "@/components/common/Author"
 import { toISODate } from "@/lib/helpers"
-import { PostType } from "@/types/blog"
+import { BlogType, PostType } from "@/types/blog"
 
 type Author = {
   name: string
@@ -13,10 +13,10 @@ type Author = {
 
 type Props = {
   post: PostType
-  parent: boolean
+  blog?: BlogType
 }
 
-export const Byline: React.FunctionComponent<Props> = ({ post, parent }) => {
+export const Byline: React.FunctionComponent<Props> = ({ post, blog }) => {
   const { t } = useTranslation("common")
 
   return (
@@ -32,7 +32,7 @@ export const Byline: React.FunctionComponent<Props> = ({ post, parent }) => {
               },
             })}
           </time>
-          {!parent && (
+          {!blog && (
             <span>
               {" "}
               in{" "}

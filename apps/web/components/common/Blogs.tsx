@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { feedFormats } from "@/components/common/Blog"
@@ -13,6 +14,8 @@ type Props = {
 
 export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
   const { t } = useTranslation("common")
+  const router = useRouter()
+  const { locale: activeLocale } = router
 
   return (
     <>
@@ -60,8 +63,8 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                     <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
                       {t("categories." + blog.category)}
                     </span>
-                    {blog.language && (
-                      <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+                    {blog.language !== activeLocale && (
+                      <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
                         {t("languages." + blog.language)}
                       </span>
                     )}

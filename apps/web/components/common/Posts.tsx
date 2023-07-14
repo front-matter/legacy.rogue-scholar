@@ -1,21 +1,21 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
-import { PostType } from "@/types/blog"
+import { BlogType, PostType } from "@/types/blog"
 
 type Props = {
   posts: PostType[]
-  parent?: boolean
+  blog?: BlogType
 }
 
-export const Posts: React.FunctionComponent<Props> = ({
-  posts,
-  parent = false,
-}) => {
+export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
   const { t } = useTranslation("common")
+  const router = useRouter()
+  const { locale: activeLocale } = router
 
   return (
     <>
@@ -48,19 +48,18 @@ export const Posts: React.FunctionComponent<Props> = ({
                           {tag}
                         </span>
                       ))}
-                      {post.blog_language &&
-                        post.language !== post.blog_language && (
-                          <span className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800">
-                            {t("languages." + post.language)}
-                          </span>
-                        )}
+                      {post.language !== activeLocale && (
+                        <span className="relative z-10 ml-0 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800">
+                          {t("languages." + post.language)}
+                        </span>
+                      )}
                     </div>
                   )}
                   <div className="group relative max-w-3xl">
                     <h3 className="mt-1 text-xl font-semibold text-gray-900 group-hover:text-gray-600">
                       {post.title}
                     </h3>
-                    <Byline post={post} parent={parent} />
+                    <Byline post={post} blog={blog} />
                     {post.doi && (
                       <div className="py-1 font-medium">
                         <Link

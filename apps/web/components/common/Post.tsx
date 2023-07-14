@@ -3,13 +3,14 @@ import parse from "html-react-parser"
 import Link from "next/link"
 
 import { Byline } from "@/components/common/Byline"
-import { PostType } from "@/types/blog"
+import { BlogType, PostType } from "@/types/blog"
 
 type Props = {
   post: PostType
+  blog?: BlogType
 }
 
-export const Post: React.FunctionComponent<Props> = ({ post }) => {
+export const Post: React.FunctionComponent<Props> = ({ post, blog }) => {
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -36,7 +37,7 @@ export const Post: React.FunctionComponent<Props> = ({ post }) => {
                   <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                     {post.title}
                   </h3>
-                  <Byline post={post} parent={false} />
+                  <Byline post={post} blog={blog} />
                   {post.doi && (
                     <div className="py-1">
                       <Link
