@@ -39,8 +39,6 @@ export interface PostType {
   language?: string
   blog_id?: string
   blog_name?: string
-  blog_language?: string
-  blog_category?: string
   blog?: BlogParentType
 }
 
