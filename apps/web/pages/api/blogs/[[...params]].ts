@@ -351,10 +351,6 @@ export async function getSingleBlog(blogSlug: string) {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
       // console.log(feedData)
-      // required properties from config
-      const id = config["id"]
-      const version = "https://jsonfeed.org/version/1.1"
-      const feed_url = config["feed_url"]
       const title = decodeHtmlCharCodes(
         config["title"] ||
           get(feedData, "title.#text", null) ||
@@ -412,14 +408,10 @@ export async function getSingleBlog(blogSlug: string) {
       favicon =
         favicon !== "https://s0.wp.com/i/buttonw-com.png" ? favicon : null
 
-      const license = get(feedData, "rights.#text", null)
-        ? null
-        : "https://creativecommons.org/licenses/by/4.0/legalcode"
-
       return {
-        id,
-        version,
-        feed_url,
+        id: config["id"],
+        version: "https://jsonfeed.org/version/1.1",
+        feed_url: config["feed_url"],
         current_feed_url,
         home_page_url,
         feed_format,
@@ -428,7 +420,7 @@ export async function getSingleBlog(blogSlug: string) {
         description,
         favicon,
         language,
-        license,
+        license: "https://creativecommons.org/licenses/by/4.0/legalcode",
       }
     },
   })
