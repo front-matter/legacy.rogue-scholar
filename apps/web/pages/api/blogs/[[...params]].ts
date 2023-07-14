@@ -46,7 +46,6 @@ const optionalKeys = [
   "language",
   "favicon",
   "generator",
-  "prefix",
   "expired",
 ]
 
@@ -304,13 +303,11 @@ export async function upsertSingleBlog(blogSlug: string) {
       current_feed_url: blog.current_feed_url,
       home_page_url: blog.home_page_url,
       feed_format: blog.feed_format,
-      created_at: blog.created_at,
       modified_at: blog.modified_at,
       language: blog.language,
       favicon: blog.favicon,
       license: blog.license,
       generator: blog.generator,
-      prefix: blog.prefix,
       expired: blog.expired,
     },
     { onConflict: "id", ignoreDuplicates: false }
@@ -440,7 +437,6 @@ export async function getSingleBlog(blogSlug: string) {
       const license = get(feedData, "rights.#text", null)
         ? null
         : "https://creativecommons.org/licenses/by/4.0/legalcode"
-      const prefix = config.prefix
       const expired = config.expired
 
       return {
@@ -456,7 +452,6 @@ export async function getSingleBlog(blogSlug: string) {
         favicon,
         language,
         license,
-        prefix,
         expired,
       }
     },
