@@ -12,9 +12,9 @@ export const supabase = createClient(
 )
 
 export const blogsSelect =
-  "id, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, created_at, modified_at, license, generator, category, backlog, prefix, expired"
+  "id, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, created_at, modified_at, license, generator, category, backlog, prefix, active"
 export const blogWithPostsSelect =
-  "id, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, created_at, modified_at, license, generator, category, backlog, prefix, expired, items: posts (id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference)"
+  "id, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, created_at, modified_at, license, generator, category, backlog, prefix, active, items: posts (id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference)"
 export const postsSelect =
   "id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, blog_id, blog_name"
 export const postsWithBlogSelect =

@@ -49,7 +49,6 @@ blog {
 blog {
   id         = "k0zyf54"
   feed_url   = "https://donnywinston.com/index.xml"
-  expired    = true
 }
 
 blog {
@@ -158,20 +157,17 @@ blog {
 //   id         = "gzqej46"
 //   feed_url   = "https://opencitations.hypotheses.org/feed/atom/"
 //   favicon    = "https://opencitations.hypotheses.org/files/2022/08/cropped-OpenCitations-logo-512x512-1-32x32.jpg"
-//   expired    = true
 // }
 
 blog {
   id         = "8epr274"
   feed_url   = "https://blog.joss.theoj.org/feed.xml"
   favicon    = "https://user-images.githubusercontent.com/4483/49343677-fcd32700-f63b-11e8-8883-8c07463ee2a9.png"
-  expired    = true
 }
 
 blog {
   id         = "yzgx124"
   feed_url   = "https://www.leidenmadtrics.nl/feed/"
-  expired    = true
 }
 
 blog {
@@ -296,7 +292,6 @@ blog {
   title         = "Blog on Research Software Alliance"
   feed_url      = "https://www.researchsoft.org/blog/index.xml"
   home_page_url = "https://www.researchsoft.org/blog/"
-  expired       = true
 }
 
 blog {

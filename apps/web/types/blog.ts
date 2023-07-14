@@ -60,7 +60,7 @@ export interface BlogType extends FeedData {
   license?: string
   feed_format?: string
   items?: PostType[]
-  expired?: boolean
+  active?: boolean
   backlog?: boolean
   prefix?: string
 }
