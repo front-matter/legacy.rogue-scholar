@@ -1,6 +1,6 @@
 import {
   Box,
-  Button,
+  // Button,
   Heading,
   HStack,
   IconButton,
@@ -12,22 +12,22 @@ import {
   Text,
   Th,
   Thead,
-  Tooltip,
+  // Tooltip,
   Tr,
   useColorModeValue,
   useDisclosure,
   useToast,
   VStack,
 } from "@chakra-ui/react"
-import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
-import { FaEdit, FaUserPlus } from "react-icons/fa"
+import { FaEdit } from "react-icons/fa"
 
 import BlogFormModal from "@/components/app/blogs/FormModal"
-import NoSubscriptionAlert from "@/components/app/blogs/NoSubscriptionAlert"
+// import NoSubscriptionAlert from "@/components/app/blogs/NoSubscriptionAlert"
 import ConfirmModal from "@/components/app/ConfirmModal"
 import Loader from "@/components/common/Loader"
 import { useUserPermissions } from "@/lib/blog/permissions"
@@ -37,10 +37,11 @@ type Blog = Database["public"]["Tables"]["blogs"]["Row"]
 
 export default function BlogsList() {
   const supabaseClient = useSupabaseClient<Database>()
+  const user = useUser()
   const queryClient = useQueryClient()
   const { t } = useTranslation("app")
   const toast = useToast()
-  const { isUserSubscribed, loading: loadingPermissions } = useUserPermissions()
+  const { loading: loadingPermissions } = useUserPermissions()
   const formModal = useDisclosure()
   const confirmModal = useDisclosure()
   const [selectedBlog, setSelectedBlog] = useState<null | Blog>(null)
@@ -50,6 +51,8 @@ export default function BlogsList() {
       const { data: blogs, error } = await supabaseClient
         .from("blogs")
         .select("*")
+        .eq("user_id", user?.id)
+        .order("title", { ascending: true })
 
       if (error) throw new Error("Failed to fetch blogs")
       return blogs
@@ -105,8 +108,7 @@ export default function BlogsList() {
     <Loader />
   ) : (
     <>
-      {!isUserSubscribed && !!blogs?.length && <NoSubscriptionAlert />}
-      <HStack mb={4} justify="space-between">
+      {/* <HStack mb={4} justify="space-between">
         <Heading fontSize="2xl">{t("blogs.title")}</Heading>
 
         <Tooltip
@@ -119,14 +121,14 @@ export default function BlogsList() {
           <Button
             size="sm"
             colorScheme="primary"
-            isDisabled={!isUserSubscribed && !!blogs?.length}
+            isDisabled={!isUserSubscribed}
             leftIcon={<FaUserPlus />}
             onClick={() => openBlogForm(null)}
           >
             {t("blogs.createButton")}
           </Button>
         </Tooltip>
-      </HStack>
+      </HStack> */}
       <Box
         bg={tableBg}
         rounded="xl"
@@ -161,7 +163,7 @@ export default function BlogsList() {
                       <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
                     </Td>
                     <Td>{blog.feed_url}</Td>
-                    <Td>{blog.category}</Td>
+                    <Td>{t("categories." + blog.category)}</Td>
                     <Td>
                       <HStack justify="end" spacing={1}>
                         <IconButton

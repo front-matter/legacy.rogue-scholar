@@ -20,7 +20,7 @@
     },
     "list": {
       "columns": {
-        "title": "Name",
+        "title": "Blog Name",
         "feed_url": "Feed URL",
         "category": "Kategorie"
       },
@@ -57,5 +57,6 @@
     "medicalAndHealthSciences": "Medizin und Gesundheitswissenschaften",
     "agriculturalSciences": "Agrarwissenschaften",
     "socialSciences": "Sozialwissenschaften",
-    "humanities": "Geisteswissenschaften" }
+    "humanities": "Geisteswissenschaften"
+  }
 }

@@ -1,21 +1,5 @@
 {
-  "dashboard": {
-    "pageTitle": "Dashboard",
-    "pageDescription": "This is a private page that only logged in users can see."
-  },
   "blogs": {
-    "list": {
-      "columns": {
-        "id": "ID",
-        "title": "Title",
-        "feed_url": "Feed URL",
-        "category": "Category",
-      },
-      "empty": "You have not created any blogs yet. Click the button at the top right to add one.",
-      "noResults": "No blogs found",
-      "edit": "Edit",
-      "delete": "Delete"
-    },
     "title": "Blogs",
     "createButton": "Add blog",
     "form": {
@@ -35,11 +19,27 @@
       "errorMessage": "An error occured while trying to save the blog. Please try again.",
       "successMessage": "The blog was saved successfully!"
     },
+    "list": {
+      "columns": {
+        "id": "ID",
+        "title": "Title",
+        "feed_url": "Feed URL",
+        "category": "Category"
+      },
+      "empty": "You have not created any blogs yet. Click the button at the top right to add one.",
+      "noResults": "No blogs found",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
     "upgradeToCreateMore": "You have to upgrade your plan to create more blogs."
   },
   "confirmModal": {
     "cancel": "Cancel",
     "confirm": "Confirm"
+  },
+  "dashboard": {
+    "pageTitle": "Dashboard",
+    "pageDescription": "This is a private page that only logged in users can see."
   },
   "deleteBlogModal": {
     "title": "Delete blog",

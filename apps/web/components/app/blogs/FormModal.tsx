@@ -61,7 +61,6 @@ export default function BlogFormModal({
     setValue("id", blog.id)
     setValue("title", blog.title)
     setValue("feed_url", blog.feed_url)
-    setValue("home_page_url", blog.home_page_url)
     setValue("category", blog.category)
   }, [blog]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -70,10 +69,14 @@ export default function BlogFormModal({
   }, [isOpen, reset])
 
   const upsertMutation = useMutation(
-    async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
-      const { error } = await supabaseClient.from("blogs").upsert(blog)
+    async (blog: Database["public"]["Tables"]["blogs"]["Update"]) => {
+      const { error } = await supabaseClient
+        .from("blogs")
+        .update(blog)
+        .eq("id", blog.id)
 
-      if (error) throw new Error("Could not upsert blog")
+      console.log(error)
+      if (error) throw new Error("Could not update blog")
     },
     {
       onError: () => {
@@ -83,7 +86,7 @@ export default function BlogFormModal({
           description: t("blogs.form.errorMessage"),
         })
 
-        throw new Error("Could not upsert blog")
+        throw new Error("Could not update blog")
       },
       onSuccess: () => {
         toast({
