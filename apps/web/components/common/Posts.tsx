@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
 import { PostType } from "@/types/blog"
@@ -14,6 +15,8 @@ export const Posts: React.FunctionComponent<Props> = ({
   posts,
   parent = false,
 }) => {
+  const { t } = useTranslation("common")
+
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -45,6 +48,12 @@ export const Posts: React.FunctionComponent<Props> = ({
                           {tag}
                         </span>
                       ))}
+                      {post.blog_language &&
+                        post.language !== post.blog_language && (
+                          <span className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800">
+                            {t("languages." + post.language)}
+                          </span>
+                        )}
                     </div>
                   )}
                   <div className="group relative max-w-3xl">

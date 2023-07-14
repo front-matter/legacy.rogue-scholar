@@ -21,6 +21,8 @@ export async function upsertSinglePost(post: PostType) {
         authors: post.authors,
         blog_id: post.blog_id,
         blog_name: post.blog_name,
+        blog_language: post.blog_language,
+        blog_category: post.blog_category,
         content_html: post.content_html,
         updated_at: post.updated_at,
         published_at: post.published_at,

@@ -52,5 +52,12 @@
   "noSubscriptionAlert": {
     "upgradeButton": "Upgrade subscription",
     "message": "You don't have any active subscription. On the free plan, you can only have 1 blog. Upgrade to a paid plan to add more blogs."
-  }
+  },
+  "categories": {
+    "naturalSciences": "Natural Sciences",
+    "engineeringAndTechnology": "Engineering and Technology",
+    "medicalAndHealthSciences": "Medicine and Health Sciences",
+    "agriculturalSciences": "Agricultural Sciences",
+    "socialSciences": "Social Sciences",
+    "humanities": "Humanities" }
 }

@@ -249,6 +249,8 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           authors,
           blog_id,
           blog_name,
+          blog_language: blog.language,
+          blog_category: blog.category,
           content_html,
           summary,
           published_at,

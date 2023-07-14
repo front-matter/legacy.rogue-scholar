@@ -105,6 +105,19 @@
     "placeholder": "Type to search..."
   },
   "number": "{{val, number}}",
+  "categories": {
+    "naturalSciences": "Natural Sciences",
+    "engineeringAndTechnology": "Engineering and Technology",
+    "medicalAndHealthSciences": "Medicine and Health Sciences",
+    "agriculturalSciences": "Agricultural Sciences",
+    "socialSciences": "Social Sciences",
+    "humanities": "Humanities"
+  },
+  "languages": {
+    "de": "German",
+    "en": "English",
+    "es": "Spanish"
+  },
   "common": {
     "pricingPage": "Pricing",
     "subscriptionPlans": {

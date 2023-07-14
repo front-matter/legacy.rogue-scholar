@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
 
 import { BlogType } from "@/types/blog"
 
@@ -19,23 +20,6 @@ export const generators: { [key: string]: string } = {
   Distill: "https://rstudio.github.io/distill/",
 }
 
-export const languages: { [key: string]: string } = {
-  en: "English",
-  "en-US": "English",
-  "en-GB": "English",
-  de: "Deutsch",
-  "de-DE": "Deutsch",
-  es: "Español",
-  fr: "Français",
-  it: "Italiano",
-  ja: "日本語",
-  ko: "한국어",
-  nl: "Nederlands",
-  pt: "Português",
-  ru: "Русский",
-  zh: "中文",
-}
-
 export const feedFormats: { [key: string]: string } = {
   "application/rss+xml": "RSS",
   "application/atom+xml": "Atom",
@@ -45,6 +29,7 @@ export const feedFormats: { [key: string]: string } = {
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
   const generator = blog.generator ? blog.generator.split(" ")[0] : null
   const feed_url = blog.current_feed_url || blog.feed_url
+  const { t } = useTranslation("common")
 
   return (
     <div className="bg-inherit py-4">
@@ -67,12 +52,12 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
           <div className="-mt-px">
             {blog.category && (
               <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-                {blog.category}
+                {t("categories." + blog.category)}
               </span>
             )}
             {blog.language && (
               <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-                {languages[blog.language]}
+                {t("languages." + blog.language)}
               </span>
             )}
             {generator && (

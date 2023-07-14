@@ -24,7 +24,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
-import { FaEdit, FaTrash, FaUserPlus } from "react-icons/fa"
+import { FaEdit, FaUserPlus } from "react-icons/fa"
 
 import BlogFormModal from "@/components/app/blogs/FormModal"
 import NoSubscriptionAlert from "@/components/app/blogs/NoSubscriptionAlert"
@@ -66,13 +66,13 @@ export default function BlogsList() {
     [formModal, setSelectedBlog]
   )
 
-  const openDeleteConfirm = useCallback(
-    (blog: Blog | null) => {
-      setSelectedBlog(blog)
-      confirmModal.onOpen()
-    },
-    [confirmModal, setSelectedBlog]
-  )
+  // const openDeleteConfirm = useCallback(
+  //   (blog: Blog | null) => {
+  //     setSelectedBlog(blog)
+  //     confirmModal.onOpen()
+  //   },
+  //   [confirmModal, setSelectedBlog]
+  // )
 
   const deleteBlogMutation = useMutation(
     async (id: string) => {
@@ -147,10 +147,9 @@ export default function BlogsList() {
           <Table>
             <Thead borderBottom="1px solid" borderColor={tableBorderColor}>
               <Tr>
-                <Th>{t("blogs.list.columns.id")}</Th>
                 <Th>{t("blogs.list.columns.title")}</Th>
-                <Th>{t("blog.list.columns.feed_url")}</Th>
-                <Th>{t("blog.list.columns.category")}</Th>
+                <Th>{t("blogs.list.columns.feed_url")}</Th>
+                <Th>{t("blogs.list.columns.category")}</Th>
                 <Th></Th>
               </Tr>
             </Thead>
@@ -159,12 +158,10 @@ export default function BlogsList() {
                 blogs?.map((blog) => (
                   <Tr key={`blog-${blog.id}`}>
                     <Td>
-                      <Link href={`/app/blogs/${blog.id}`}>{blog.title}</Link>
+                      <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
                     </Td>
-                    <Td>{blog.title}</Td>
                     <Td>{blog.feed_url}</Td>
                     <Td>{blog.category}</Td>
-                    <Td>{blog.created_at}</Td>
                     <Td>
                       <HStack justify="end" spacing={1}>
                         <IconButton
@@ -174,18 +171,6 @@ export default function BlogsList() {
                           icon={<FaEdit />}
                           aria-label={t("blogs.list.edit")}
                           onClick={() => openBlogForm(blog)}
-                        />
-                        <IconButton
-                          size="sm"
-                          colorScheme="red"
-                          variant="ghost"
-                          icon={<FaTrash />}
-                          aria-label={t("blogs.list.delete")}
-                          disabled={
-                            selectedBlog?.id === blog.id &&
-                            deleteBlogMutation.isLoading
-                          }
-                          onClick={() => openDeleteConfirm(blog)}
                         />
                       </HStack>
                     </Td>

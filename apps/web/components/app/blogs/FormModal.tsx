@@ -9,6 +9,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
+  Select,
   useColorModeValue,
   useToast,
   VStack,
@@ -45,8 +46,8 @@ export default function BlogFormModal({
     id: string
     title: string
     feed_url: string
+    home_page_url: string
     category: string
-    created_at: string
     user_id: string
   }>()
 
@@ -60,8 +61,8 @@ export default function BlogFormModal({
     setValue("id", blog.id)
     setValue("title", blog.title)
     setValue("feed_url", blog.feed_url)
+    setValue("home_page_url", blog.home_page_url)
     setValue("category", blog.category)
-    setValue("created_at", blog.created_at)
   }, [blog]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -125,21 +126,6 @@ export default function BlogFormModal({
           {/*eslint-disable-next-line no-empty-function */}
           <form onSubmit={(e) => onSubmit(e).catch(() => {})}>
             <VStack align="stretch" spacing={6}>
-              {/* ID field */}
-              <FormControl isRequired>
-                <FormLabel>{t("blogs.form.controls.id")}</FormLabel>
-                <Input type="text" {...register("id", { required: true })} />
-              </FormControl>
-
-              {/* Title field */}
-              <FormControl>
-                <FormLabel>{t("blogs.form.controls.title")}</FormLabel>
-                <Input
-                  type="text"
-                  {...register("title", { required: false })}
-                />
-              </FormControl>
-
               {/* Feed URL field */}
               <FormControl isRequired>
                 <FormLabel>{t("blogs.form.controls.feed_url")}</FormLabel>
@@ -152,19 +138,26 @@ export default function BlogFormModal({
               {/* Category field */}
               <FormControl isRequired>
                 <FormLabel>{t("blogs.form.controls.category")}</FormLabel>
-                <Input
-                  type="text"
-                  {...register("category", { required: true })}
-                />
-              </FormControl>
-
-              {/* Created_at field */}
-              <FormControl isRequired>
-                <FormLabel>{t("blogs.form.controls.created_at")}</FormLabel>
-                <Input
-                  type="text"
-                  {...register("created_at", { required: true })}
-                />
+                <Select {...register("category", { required: true })}>
+                  <option value="naturalSciences">
+                    {t("categories.naturalSciences")}
+                  </option>
+                  <option value="engineeringAndTechnology">
+                    {t("categories.engineeringAndTechnology")}
+                  </option>
+                  <option value="medicalAndHealthSciences">
+                    {t("categories.medicalAndHealthSciences")}
+                  </option>
+                  <option value="agriculturalSciences">
+                    {t("categories.agriculturalSciences")}
+                  </option>
+                  <option value="socialSciences">
+                    {t("categories.socialSciences")}
+                  </option>
+                  <option value="humanities">
+                    {t("categories.humanities")}
+                  </option>
+                </Select>
               </FormControl>
 
               <Button

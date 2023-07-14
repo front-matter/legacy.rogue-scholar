@@ -1,8 +1,9 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
 
-import { feedFormats, languages } from "@/components/common/Blog"
+import { feedFormats } from "@/components/common/Blog"
 import { Container } from "@/components/layout/Container"
 import { BlogType } from "@/types/blog"
 
@@ -11,6 +12,8 @@ type Props = {
 }
 
 export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
+  const { t } = useTranslation("common")
+
   return (
     <>
       <section className="bg-white">
@@ -55,11 +58,11 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                       </h3>
                     </div>
                     <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-                      {blog.category}
+                      {t("categories." + blog.category)}
                     </span>
                     {blog.language && (
                       <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-                        {languages[blog.language]}
+                        {t("languages." + blog.language)}
                       </span>
                     )}
                   </div>

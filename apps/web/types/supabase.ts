@@ -66,6 +66,8 @@ export interface Database {
           authors?: AuthorType[];
           blog_id?: string;
           blog_name?: string;
+          blog_language?: string;
+          blog_category?: string;
           content_html?: string;
           updated_at?: number;
           published_at?: number;
@@ -85,6 +87,8 @@ export interface Database {
           authors?: AuthorType[];
           blog_id?: string;
           blog_name?: string;
+          blog_language?: string;
+          blog_category?: string;
           content_html?: string;
           updated_at?: number;
           published_at?: number;
@@ -104,6 +108,8 @@ export interface Database {
           authors?: AuthorType[];
           blog_id?: string;
           blog_name?: string;
+          blog_language?: string;
+          blog_category?: string;
           updated_at?: number;
           published_at?: number;
           indexed_at?: number;
