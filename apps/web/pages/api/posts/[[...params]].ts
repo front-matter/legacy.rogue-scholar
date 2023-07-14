@@ -8,7 +8,6 @@ import { typesense } from "@/lib/typesenseClient"
 import {
   extractAllPostsByBlog,
   extractUpdatedPostsByBlog,
-  getAllConfigs,
 } from "@/pages/api/blogs/[[...params]]"
 import { PostType } from "@/types/blog"
 import { PostSearchResponse } from "@/types/typesense"
@@ -55,23 +54,39 @@ export async function upsertSinglePost(post: PostType) {
 }
 
 export async function upsertAllPosts() {
-  const configs = await getAllConfigs()
-  let posts = await Promise.all(
-    configs.map((config) => extractAllPostsByBlog(config.id))
-  )
+  const { data: blogs } = await supabase
+    .from("blogs")
+    .select("id")
+    .eq("active", true)
 
-  posts = posts.flat()
+  if (!blogs) {
+    return []
+  }
+
+  const data = await Promise.all(
+    blogs.map((blog) => extractAllPostsByBlog(blog.id))
+  )
+  const posts = data.flat()
+
   await Promise.all(posts.map((post) => upsertSinglePost(post)))
   return posts
 }
 
 export async function upsertUpdatedPosts() {
-  const configs = await getAllConfigs()
-  let posts = await Promise.all(
-    configs.map((config) => extractUpdatedPostsByBlog(config.id))
+  const { data: blogs } = await supabase
+    .from("blogs")
+    .select("id")
+    .eq("active", true)
+
+  if (!blogs) {
+    return []
+  }
+  const data = await Promise.all(
+    blogs.map((blog) => extractUpdatedPostsByBlog(blog.id))
   )
 
-  posts = posts.flat()
+  const posts = data.flat()
+
   await Promise.all(posts.map((post) => upsertSinglePost(post)))
   return posts
 }

@@ -1,7 +1,5 @@
 import { extract } from "@extractus/feed-extractor"
 import { stripTags, truncate } from "bellajs"
-import fs from "fs"
-import * as hcl from "hcl2-parser"
 import isRelativeUrl from "is-relative-url"
 import {
   capitalize,
@@ -13,7 +11,6 @@ import {
   uniq,
 } from "lodash"
 import normalizeUrl from "normalize-url"
-import path from "path"
 const extractUrls = require("extract-urls")
 
 import {
@@ -37,38 +34,17 @@ import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
 import { BlogType, PostType } from "@/types/blog"
 import { PostSearchResponse } from "@/types/typesense"
 
-const optionalKeys = [
-  "current_feed_url",
-  "home_page_url",
-  "base_url",
-  "title",
-  "description",
-  "language",
-  "favicon",
-  "generator",
-]
-
-export async function getAllConfigs() {
-  // const env = process.env.NEXT_PUBLIC_VERCEL_ENV || "development"
-  const filePath = path.resolve("rogue-scholar.hcl")
-  const hclString = fs.readFileSync(filePath)
-  const configs = hcl
-    .parseToObject(hclString)[0]
-    .blog.map((config: { [x: string]: any }) => {
-      // enforce optional keys exist
-      for (const key of optionalKeys) {
-        config[key] = config[key] == null ? null : config[key]
-      }
-      return config
-    })
-
-  return configs
-}
-
 export async function updateAllBlogs() {
-  const configs = await getAllConfigs()
+  const { data: blogs } = await supabase
+    .from("blogs")
+    .select("id")
+    .eq("active", true)
 
-  await Promise.all(configs.map((config) => upsertSingleBlog(config.id)))
+  if (!blogs) {
+    return []
+  }
+
+  await Promise.all(blogs.map((blog) => upsertSingleBlog(blog.id)))
 }
 // from https://github.com/extractus/feed-extractor/blob/main/src/utils/normalizer.js
 export const buildDescription = (val, maxlen) => {
@@ -362,25 +338,31 @@ const parseGenerator = (generator: any) => {
 }
 
 export async function getSingleBlog(blogSlug: string) {
-  const configs = await getAllConfigs()
-  const config = configs.find((config) => config.id === blogSlug)
+  const { data: config } = await supabase
+    .from("blogs")
+    .select("id, feed_url, current_feed_url, home_page_url, generator, title")
+    .eq("id", blogSlug)
 
-  let blog: BlogType = await extract(config.feed_url, {
+  if (!config) {
+    return {}
+  }
+
+  let blog: BlogType = await extract(config["feed_url"], {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
       // console.log(feedData)
       // required properties from config
-      const id = config.id
+      const id = config["id"]
       const version = "https://jsonfeed.org/version/1.1"
-      const feed_url = config.feed_url
+      const feed_url = config["feed_url"]
       const title = decodeHtmlCharCodes(
-        config.title ||
+        config["title"] ||
           get(feedData, "title.#text", null) ||
           get(feedData, "title", null)
       ).trim()
-      const current_feed_url = config.current_feed_url
+      const current_feed_url = config["current_feed_url"]
       let home_page_url =
-        config.home_page_url ||
+        config["home_page_url"] ||
         []
           .concat(get(feedData, "link", []))
           .find((link) => get(link, "@_rel", null) === "alternate")
@@ -405,10 +387,10 @@ export async function getSingleBlog(blogSlug: string) {
 
       let generator = get(feedData, "generator", null)
 
-      generator = parseGenerator(generator) || config.generator
+      generator = parseGenerator(generator) || config["generator"]
 
       let description =
-        config.description ||
+        config["description"] ||
         get(feedData, "description.#text", null) ||
         get(feedData, "description", null) ||
         get(feedData, "subtitle.#text", null) ||
@@ -418,16 +400,14 @@ export async function getSingleBlog(blogSlug: string) {
         ? decodeHtmlCharCodes(description).trim()
         : null
 
-      let language =
-        get(feedData, "language", null) ||
-        get(feedData, "@_xml:lang", null) ||
-        config.language
+      const language =
+        get(feedData, "language", null) || get(feedData, "@_xml:lang", null)
       // normalize language to ISO 639-1, e.g. en-US -> en
       // en is the default language
 
-      language = language ? language.split("-")[0] : "en"
+      // language = language ? language.split("-")[0] : "en"
 
-      let favicon = get(feedData, "image.url", null) || config.favicon
+      let favicon = get(feedData, "image.url", null) || config["favicon"]
 
       favicon =
         favicon !== "https://s0.wp.com/i/buttonw-com.png" ? favicon : null
