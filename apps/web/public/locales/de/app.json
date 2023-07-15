@@ -38,7 +38,7 @@
     "confirm": "Bestätigen"
   },
   "dashboard": {
-    "pageDescription": "Dies ist eine private Seite, die nur angemeldete Benutzer sehen können.",
+    "pageDescription": "Dies ist eine private Seite, die die von Ihnen verwalteten Blogs anzeigt.",
     "pageTitle": "Dashboard"
   },
   "deleteBlog": {

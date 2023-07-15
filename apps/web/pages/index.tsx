@@ -1,3 +1,4 @@
+import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import Faq from "@/components/home/Faq"
@@ -12,11 +13,6 @@ const countBy = (arr, prop) =>
     obj[v[prop]] = (obj[v[prop]] || 0) + 1
     return obj
   }, {})
-
-const languages = {
-  en: "English",
-  de: "Deutsch",
-}
 
 export async function getServerSideProps(ctx) {
   const { data: blogs, error } = await supabase
@@ -37,26 +33,29 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Home({ blogs }) {
+  const { t } = useTranslation("home")
+
   blogs = blogs.map((blog) => {
     if (blog.generator) {
       blog.generator = blog.generator.split(" ")[0]
     } else {
       blog.generator = "Unknown"
     }
-    blog.language = languages[blog.language] || blog.language
     return blog
   })
   const count = blogs.length
   const categoriesObject = countBy(blogs, "category")
   const categories = Object.keys(categoriesObject).map((key) => ({
-    title: key,
+    title: t("categories." + key),
     count: categoriesObject[key],
   }))
+
   const languagesObject = countBy(blogs, "language")
   const languagesList = Object.keys(languagesObject).map((key) => ({
-    title: key,
+    title: t("languages." + key),
     count: languagesObject[key],
   }))
+
   const platformsObject = countBy(blogs, "generator")
   const platforms = Object.keys(platformsObject).map((key) => ({
     title: key,

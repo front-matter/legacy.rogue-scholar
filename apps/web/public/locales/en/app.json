@@ -41,7 +41,7 @@
   },
   "dashboard": {
     "pageTitle": "Dashboard",
-    "pageDescription": "This is a private page that only logged in users can see."
+    "pageDescription": "This is a private page that shows the blogs managed by you."
   },
   "deleteBlogModal": {
     "title": "Delete blog",

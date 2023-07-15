@@ -22,15 +22,15 @@ export const languageRange = Object.values(blue).filter(function (_v, i) {
   return i % 5 == 0
 })
 
-export const languageDomain = ["English", "Deutsch"]
+export const languageDomain = ["en", "de", "es"]
 
 export const categoryDomain = [
-  "Natural Sciences",
-  "Engineering and Technology",
-  "Medical and Health Sciences",
-  "Agricultural Sciences",
-  "Social Sciences",
-  "Humanities",
+  "naturalSciences",
+  "engineeringAndTechnology",
+  "medicalAndHealthSciences",
+  "agriculturalSciences",
+  "socialSciences",
+  "humanities",
 ]
 
 export const platformDomain = [
@@ -66,6 +66,12 @@ export const Stats: React.FunctionComponent<Props> = ({
   platforms,
 }) => {
   const { t } = useTranslation("home")
+  const translatedCategoryDomain = categoryDomain.map((category) => {
+    return t("categories." + category)
+  })
+  const translatedLanguageDomain = languageDomain.map((category) => {
+    return t("languages." + category)
+  })
 
   return (
     <section
@@ -97,7 +103,7 @@ export const Stats: React.FunctionComponent<Props> = ({
                 count={count}
                 title={t("statistics.category")}
                 range={range}
-                domain={categoryDomain}
+                domain={translatedCategoryDomain}
               ></DonutChart>
             </ul>
           </li>
@@ -109,7 +115,7 @@ export const Stats: React.FunctionComponent<Props> = ({
                 count={count}
                 title={t("statistics.language")}
                 range={languageRange}
-                domain={languageDomain}
+                domain={translatedLanguageDomain}
               ></DonutChart>
             </ul>
           </li>

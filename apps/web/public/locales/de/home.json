@@ -1,6 +1,14 @@
 {
   "dashboardButton": "Dashboard",
   "documentationButton": "Dokumentation",
+  "categories": {
+    "naturalSciences": "Naturwissenschaften",
+    "engineeringAndTechnology": "Ingenieurwissenschaften und Technik",
+    "medicalAndHealthSciences": "Medizin und Gesundheitswissenschaften",
+    "agriculturalSciences": "Agrarwissenschaften",
+    "socialSciences": "Sozialwissenschaften",
+    "humanities": "Geisteswissenschaften"
+  },
   "features": {
     "authentication": {
       "highlights": {
@@ -142,5 +150,10 @@
     "category": "Kategorie",
     "language": "Sprache",
     "platform": "Plattform"
+  },
+  "languages": {
+    "de": "Deutsch",
+    "en": "Englisch",
+    "es": "Spanisch"
   }
 }

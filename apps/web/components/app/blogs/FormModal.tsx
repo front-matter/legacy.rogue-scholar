@@ -145,7 +145,7 @@ export default function BlogFormModal({
                 <FormLabel>{t("blogs.form.controls.favicon")}</FormLabel>
                 <Input
                   type="text"
-                  {...register("favicon", { required: true })}
+                  {...register("favicon", { required: false })}
                 />
               </FormControl>
 
