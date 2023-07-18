@@ -359,9 +359,9 @@ export const generateBlogId = () => {
   // With base32 there are 32 possible digits, so 5 digits gives 32^5 possible combinations
   // random_int = SecureRandom.random_number(32 ** 4..(32 ** 5) - 1)
 
-  const randomNumber = (Math.floor(Math.random() * 32 ** 5) + 1).toString()
-  const checksum = Mod97_10.checksum(randomNumber)
+  const randomNumber = Math.floor(Math.random() * 32 ** 5) + 1
   const encoded = CrockfordBase32.encode(randomNumber).toLowerCase()
+  const checksum = Mod97_10.checksum(randomNumber.toString())
 
   return encoded + checksum
 }
