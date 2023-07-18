@@ -1145,15 +1145,15 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.43.0.tgz#559ca3d9ddbd6bf907ad524320a0d14b85586af0"
   integrity sha512-s2UHCoiXfxMvmfzqoN+vrQ84ahUSYde9qNO1MdxmoEhyHWsfmwOpFlwYV+ePJEVc7gFnATGUi376WowX1N7tFg==
 
-"@extractus/feed-extractor@^6.2.1":
-  version "6.2.3"
-  resolved "https://registry.yarnpkg.com/@extractus/feed-extractor/-/feed-extractor-6.2.3.tgz#957aff7c0171a569a9eeb582a1bfd76567e0061c"
-  integrity sha512-Nr3Gmi7oeuGS13u6BDT2YNUcniCfpvZfMvgoSdmuRrk5TyevBrxn3Tt+i6tU4GYQTqOxSF79CCENdYYK6k94mg==
+"@extractus/feed-extractor@^6.2.2":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@extractus/feed-extractor/-/feed-extractor-6.3.0.tgz#e0512c2aee837ddb3afc27aa47ad2e7123a2b4cb"
+  integrity sha512-OOMrJEvPmpNNUxjVgWoABgJfiMe0Nu9WGRkeguX00ZeJh2W7YKh06lP9U/VEYu8RoQCrWJ3pJNphgIzXZsrkvw==
   dependencies:
     bellajs "^11.1.2"
-    cross-fetch "^3.1.6"
-    fast-xml-parser "^4.2.4"
-    html-entities "^2.3.6"
+    cross-fetch "^4.0.0"
+    fast-xml-parser "^4.2.5"
+    html-entities "^2.4.0"
 
 "@formatjs/ecma402-abstract@1.17.0":
   version "1.17.0"
@@ -1253,6 +1253,18 @@
   dependencies:
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
+
+"@konfirm/alphabet@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@konfirm/alphabet/-/alphabet-3.0.1.tgz#10c033ad8e7c39b7ae2588bff8e9879f094dfe1c"
+  integrity sha512-aVVOpjtDME1t4fopygU5nLIct5Dz98pwm+t4OUqTKvvQl61yLUQVZ2xEW/B58UzXCeU8EdRH4cSfgA5BUoe2fA==
+
+"@konfirm/iso7064@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@konfirm/iso7064/-/iso7064-2.1.1.tgz#32ce9c048fd99717c17e14ebd0f27426dd06d967"
+  integrity sha512-HDblUHQGKnat8hLW3jYUeem7b/NiILrkDbDwD/8cKMBB4MARtRR1TToCAKp7N4ngcjkw5pvx3EgzmP82mdRtYA==
+  dependencies:
+    "@konfirm/alphabet" "^3.0.1"
 
 "@mdx-js/mdx@^2.2.1", "@mdx-js/mdx@^2.3.0":
   version "2.3.0"
@@ -1679,6 +1691,11 @@
   version "18.11.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.10.tgz#4c64759f3c2343b7e6c4b9caf761c7a3a05cee34"
   integrity sha512-juG3RWMBOqcOuXC643OAdSA525V44cVgGV6dUDuiFtss+8Fk5x1hI93Rsld43VeJVIeqlP9I7Fn9/qaVqoEAuQ==
+
+"@types/node@^14.17.29":
+  version "14.18.53"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.18.53.tgz#42855629b8773535ab868238718745bf56c56219"
+  integrity sha512-soGmOpVBUq+gaBMwom1M+krC/NNbWlosh4AtGA03SyWNDiqSKtwp7OulO1M6+mg8YkHMvJ/y0AkCeO8d1hNb7A==
 
 "@types/nprogress@^0.2.0":
   version "0.2.0"
@@ -2545,12 +2562,26 @@ crc32-stream@^4.0.2:
     crc-32 "^1.2.0"
     readable-stream "^3.4.0"
 
-cross-fetch@^3.1.5, cross-fetch@^3.1.6:
+crockford-base32@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/crockford-base32/-/crockford-base32-1.1.0.tgz#334575babd5432af8f4f2efffd2513a884ce7806"
+  integrity sha512-GwyibpAeMoDztsaI8NamT8LWE9Mq8RbQA/3JEAW6Kd0HA3lSQbHpjHbNJePV3OUvmJP8JmrORCYvi5rov5Dc9g==
+  dependencies:
+    "@types/node" "^14.17.29"
+
+cross-fetch@^3.1.5:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.6.tgz#bae05aa31a4da760969756318feeee6e70f15d6c"
   integrity sha512-riRvo06crlE8HiqOwIpQhxwdOk4fOeR7FVM/wXoxchFEqMNUjvbs3bfo4OTgMEMHzppd4DxFBDbyySj8Cv781g==
   dependencies:
     node-fetch "^2.6.11"
+
+cross-fetch@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-4.0.0.tgz#f037aef1580bb3a1a35164ea2a848ba81b445983"
+  integrity sha512-e4a5N8lVvuLgAWgnCrLr2PP0YyDOTHa9H/Rj54dirp61qXnNq46m82bRhNqIA5VccJtWBvPTFRV3TtvHUKPB1g==
+  dependencies:
+    node-fetch "^2.6.12"
 
 cross-spawn@^5.0.1:
   version "5.1.0"
@@ -3725,10 +3756,10 @@ fast-xml-parser@^3.18.0:
   dependencies:
     strnum "^1.0.4"
 
-fast-xml-parser@^4.2.4:
-  version "4.2.5"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.2.5.tgz#a6747a09296a6cb34f2ae634019bf1738f3b421f"
-  integrity sha512-B9/wizE4WngqQftFPmdaMYlXoJlJOYxGQOanC77fq9k8+Z0v5dDSVh+3glErdIROP//s/jgb7ZuxKfB8nVyo0g==
+fast-xml-parser@^4.2.5:
+  version "4.2.6"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.2.6.tgz#30ad37b014c16e31eec0e01fbf90a85cedb4eacf"
+  integrity sha512-Xo1qV++h/Y3Ng8dphjahnYe+rGHaaNdsYOBWL9Y9GCPKpNKilJtilvWkLcI9f9X2DoKTLsZsGYAls5+JL5jfLA==
   dependencies:
     strnum "^1.0.5"
 
@@ -4268,7 +4299,7 @@ html-dom-parser@3.1.7:
     domhandler "5.0.3"
     htmlparser2 "8.0.2"
 
-html-entities@^2.1.0, html-entities@^2.3.6:
+html-entities@^2.1.0, html-entities@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.4.0.tgz#edd0cee70402584c8c76cc2c0556db09d1f45061"
   integrity sha512-igBTJcNNNhvZFRtm8uA6xMY6xYleeDwn3PeBCkDz7tHttv4F2hsDI2aPgNERWzvRcNYHNT3ymRaQzllmXj4YsQ==
@@ -5867,6 +5898,13 @@ node-fetch@^2.6.11, node-fetch@^2.6.7:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.11.tgz#cde7fc71deef3131ef80a738919f999e6edfff25"
   integrity sha512-4I6pdBY1EthSqDmJkiNk3JIT8cswwR9nfeW/cPdUagJYEQG7R95WRH74wpz7ma8Gh/9dI9FP+OU+0E4FvtA55w==
+  dependencies:
+    whatwg-url "^5.0.0"
+
+node-fetch@^2.6.12:
+  version "2.6.12"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.12.tgz#02eb8e22074018e3d5a83016649d04df0e348fba"
+  integrity sha512-C/fGU2E8ToujUivIO0H+tpQ6HWo4eEmchoPIoXtxCrVghxdKq+QOHqEZW7tuP3KlV3bC8FRMO5nMCC7Zm1VP6g==
   dependencies:
     whatwg-url "^5.0.0"
 

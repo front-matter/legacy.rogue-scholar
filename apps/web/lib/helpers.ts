@@ -1,9 +1,12 @@
-import Cors from "cors"
+// import Cors from "cors"
 import { isString } from "lodash"
 const he = require("he")
 
+import { Mod97_10 } from "@konfirm/iso7064"
 import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
+
+const { CrockfordBase32 } = require("crockford-base32")
 
 export function getBaseURL() {
   const url =
@@ -55,6 +58,16 @@ export const isUrl = (url: any) => {
   try {
     return new URL(url)
   } catch (error) {
+    return false
+  }
+}
+
+export const isValidUrl = (url = "") => {
+  try {
+    const ourl = new URL(url)
+
+    return ourl !== null && ourl.protocol.startsWith("http")
+  } catch (err) {
     return false
   }
 }
@@ -141,11 +154,11 @@ export const initMiddleware = (middleware) => {
 }
 
 // Initialize the cors middleware
-export const cors = initMiddleware(
-  Cors({
-    methods: ["GET", "POST", "OPTIONS"],
-  })
-)
+// export const cors = initMiddleware(
+//   Cors({
+//     methods: ["GET", "POST", "OPTIONS"],
+//   })
+// )
 
 // from https://github.com/wooorm/iso-639-3/blob/main/iso6393-to-1.json
 export const iso6393To1 = {
@@ -339,4 +352,16 @@ export const detectLanguage = (text: string) => {
   const iso693Language = franc(text)
 
   return iso6393To1[iso693Language]
+}
+
+export const generateBlogId = () => {
+  // generates base32 encoded string with 5 digits from random number
+  // With base32 there are 32 possible digits, so 5 digits gives 32^5 possible combinations
+  // random_int = SecureRandom.random_number(32 ** 4..(32 ** 5) - 1)
+
+  const randomNumber = (Math.floor(Math.random() * 32 ** 5) + 1).toString()
+  const checksum = Mod97_10.checksum(randomNumber)
+  const encoded = CrockfordBase32.encode(randomNumber).toLowerCase()
+
+  return encoded + checksum
 }

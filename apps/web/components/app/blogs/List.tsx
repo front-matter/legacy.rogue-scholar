@@ -1,6 +1,6 @@
 import {
   Box,
-  // Button,
+  Button,
   Heading,
   HStack,
   IconButton,
@@ -24,13 +24,14 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
-import { FaEdit } from "react-icons/fa"
+import { FaEdit, FaUserPlus } from "react-icons/fa"
 
 import BlogFormModal from "@/components/app/blogs/FormModal"
 // import NoSubscriptionAlert from "@/components/app/blogs/NoSubscriptionAlert"
 import ConfirmModal from "@/components/app/ConfirmModal"
 import Loader from "@/components/common/Loader"
 import { useUserPermissions } from "@/lib/blog/permissions"
+import { generateBlogId } from "@/lib/helpers"
 import { Database } from "@/types/supabase"
 
 type Blog = Database["public"]["Tables"]["blogs"]["Row"]
@@ -58,6 +59,15 @@ export default function BlogsList() {
       return blogs
     }
   )
+  const newBlog = {
+    id: generateBlogId(),
+    title: "",
+    feed_url: "",
+    favicon: "",
+    category: "naturalSciences",
+    status: "submitted",
+    user_id: user?.id,
+  }
   const tableBg = useColorModeValue("white", "gray.700")
   const tableBorderColor = useColorModeValue("gray.100", "gray.600")
 
@@ -108,27 +118,18 @@ export default function BlogsList() {
     <Loader />
   ) : (
     <>
-      {/* <HStack mb={4} justify="space-between">
+      <HStack mb={4} justify="space-between">
         <Heading fontSize="2xl">{t("blogs.title")}</Heading>
 
-        <Tooltip
-          label={
-            !isUserSubscribed && blogs?.length
-              ? t("blogs.upgradeToCreateMore")
-              : undefined
-          }
+        <Button
+          size="sm"
+          colorScheme="primary"
+          leftIcon={<FaUserPlus />}
+          onClick={() => openBlogForm(newBlog)}
         >
-          <Button
-            size="sm"
-            colorScheme="primary"
-            isDisabled={!isUserSubscribed}
-            leftIcon={<FaUserPlus />}
-            onClick={() => openBlogForm(null)}
-          >
-            {t("blogs.createButton")}
-          </Button>
-        </Tooltip>
-      </HStack> */}
+          {t("blogs.createButton")}
+        </Button>
+      </HStack>
       <Box
         bg={tableBg}
         rounded="xl"

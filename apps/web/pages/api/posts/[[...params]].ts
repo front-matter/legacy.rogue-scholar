@@ -57,7 +57,7 @@ export async function upsertAllPosts() {
   const { data: blogs } = await supabase
     .from("blogs")
     .select("id")
-    .eq("active", true)
+    .eq("status", "active")
 
   if (!blogs) {
     return []
@@ -76,7 +76,7 @@ export async function upsertUpdatedPosts() {
   const { data: blogs } = await supabase
     .from("blogs")
     .select("id")
-    .eq("active", true)
+    .eq("status", "active")
 
   if (!blogs) {
     return []

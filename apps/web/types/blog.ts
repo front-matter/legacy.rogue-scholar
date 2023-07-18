@@ -60,9 +60,10 @@ export interface BlogType extends FeedData {
   license?: string
   feed_format?: string
   items?: PostType[]
-  active?: boolean
+  status?: string
   backlog?: boolean
   prefix?: string
+  user_id?: string
 }
 
 export interface BlogParentType {

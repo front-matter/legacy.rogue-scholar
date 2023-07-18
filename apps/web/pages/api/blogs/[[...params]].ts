@@ -38,7 +38,7 @@ export async function updateAllBlogs() {
   const { data: blogs } = await supabase
     .from("blogs")
     .select("id")
-    .eq("active", true)
+    .eq("status", "active")
 
   if (!blogs) {
     return []
@@ -113,6 +113,32 @@ const getReferences = (content_html: string) => {
   })
   return urls
 }
+
+// export const extract = async (url, options = {}, fetchOptions = {}) => {
+//   if (!isValidUrl(url)) {
+//     throw new Error("Input param must be a valid URL")
+//   }
+//   console.log(fetchOptions)
+
+//   const data = await retrieve(url, {
+//     method: "GET",
+//     mode: "cors",
+//     headers: {
+//       "Content-Type": "application/atom+xml",
+//       //"application/rss+xml, application/atom+xml, application/json",
+//     },
+//   })
+
+//   if (!data.text && !data.json) {
+//     throw new Error(`Failed to load content from "${url}"`)
+//   }
+
+//   const { type, json, text } = data
+
+//   return type === "json"
+//     ? extractFromJson(json, options)
+//     : extractFromXml(text, options)
+// }
 
 export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   const blog: BlogType = await getSingleBlog(blogSlug)
@@ -280,9 +306,12 @@ export async function upsertSingleBlog(blogSlug: string) {
       feed_format: blog.feed_format,
       modified_at: blog.modified_at,
       language: blog.language,
+      category: blog.category,
       favicon: blog.favicon,
       license: blog.license,
       generator: blog.generator,
+      status: blog.status,
+      user_id: blog.user_id,
     },
     { onConflict: "id", ignoreDuplicates: false }
   )
@@ -340,8 +369,11 @@ const parseGenerator = (generator: any) => {
 export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
-    .select("id, feed_url, current_feed_url, home_page_url, generator, title")
+    .select(
+      "id, feed_url, current_feed_url, home_page_url, generator, title, category, status, user_id"
+    )
     .eq("id", blogSlug)
+    .maybeSingle()
 
   if (!config) {
     return {}
@@ -396,12 +428,14 @@ export async function getSingleBlog(blogSlug: string) {
         ? decodeHtmlCharCodes(description).trim()
         : null
 
-      const language =
-        get(feedData, "language", null) || get(feedData, "@_xml:lang", null)
+      let language: string =
+        get(feedData, "language", null) ||
+        get(feedData, "@_xml:lang", null) ||
+        "en"
       // normalize language to ISO 639-1, e.g. en-US -> en
       // en is the default language
 
-      // language = language ? language.split("-")[0] : "en"
+      language = language.split("-")[0]
 
       let favicon = get(feedData, "image.url", null) || config["favicon"]
 
@@ -421,6 +455,9 @@ export async function getSingleBlog(blogSlug: string) {
         favicon,
         language,
         license: "https://creativecommons.org/licenses/by/4.0/legalcode",
+        category: config["category"],
+        status: config["status"],
+        user_id: config["user_id"],
       }
     },
   })
@@ -491,6 +528,7 @@ export default async function handler(req, res) {
       const { data: blogs, error } = await supabase
         .from("blogs")
         .select(blogsSelect)
+        .eq("status", "active")
         .order("title", { ascending: true })
 
       if (error) {

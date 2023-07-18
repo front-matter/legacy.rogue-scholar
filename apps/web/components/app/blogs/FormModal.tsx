@@ -46,9 +46,9 @@ export default function BlogFormModal({
     id: string
     title: string
     feed_url: string
-    home_page_url: string
     favicon: string
     category: string
+    status: string
     user_id: string
   }>()
 
@@ -64,6 +64,8 @@ export default function BlogFormModal({
     setValue("feed_url", blog.feed_url)
     setValue("favicon", blog.favicon)
     setValue("category", blog.category)
+    setValue("status", blog.status)
+    setValue("user_id", blog.user_id)
   }, [blog]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -71,14 +73,21 @@ export default function BlogFormModal({
   }, [isOpen, reset])
 
   const upsertMutation = useMutation(
-    async (blog: Database["public"]["Tables"]["blogs"]["Update"]) => {
+    async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
       const { error } = await supabaseClient
         .from("blogs")
-        .update(blog)
-        .eq("id", blog.id)
+        .upsert(blog, { onConflict: "id", ignoreDuplicates: false })
 
       console.log(error)
-      if (error) throw new Error("Could not update blog")
+      if (error) throw new Error("Could not upsert blog")
+
+      // update blog entry based on feed metadata
+      await fetch(`/api/blogs/${blog.id}`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY}`,
+        },
+      })
     },
     {
       onError: () => {
@@ -88,7 +97,7 @@ export default function BlogFormModal({
           description: t("blogs.form.errorMessage"),
         })
 
-        throw new Error("Could not update blog")
+        throw new Error("Could not upsert blog")
       },
       onSuccess: () => {
         toast({
@@ -141,7 +150,7 @@ export default function BlogFormModal({
               </FormControl>
 
               {/* favicon field */}
-              <FormControl isRequired>
+              <FormControl>
                 <FormLabel>{t("blogs.form.controls.favicon")}</FormLabel>
                 <Input
                   type="text"
