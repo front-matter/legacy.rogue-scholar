@@ -37,6 +37,14 @@
     "cancel": "Abbrechen",
     "confirm": "Bestätigen"
   },
+  "agreementModal": {
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen",
+    "title": "Nutzungsbedingungen",
+    "description": "Bitte lesen Sie die Nutzungsbedingungen sorgfältig durch und bestätigen Sie, dass Sie damit einverstanden sind.",
+    "1": "Ich bin für die Inhalte des Blogs (mit-)verantwortlich und stimme der Nachnutzung in diesem Dienst zu.",
+    "2": "Der gesamte Text aller Blogbeiträge wird mittels Atom oder RSS-Feed  unter einer Creative Commons Namensnennung 4.0 International Lizenz zur Verfügung gestellt."
+  },
   "dashboard": {
     "pageDescription": "Dies ist eine private Seite, die die von Ihnen verwalteten Blogs anzeigt.",
     "pageTitle": "Dashboard"

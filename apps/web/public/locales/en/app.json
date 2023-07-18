@@ -39,6 +39,14 @@
     "cancel": "Cancel",
     "confirm": "Confirm"
   },
+  "agreementModal": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "title": "Terms of Use",
+    "description": "Please read the terms of use carefully and confirm before continuing.",
+    "1": "I am the (co-)owner of the blog and agree to add it to this service.",
+    "2": "The full text of all blog posts is made available via an Atom or RSS feed under the Creative Commons Attribution 4.0 International License."
+  },
   "dashboard": {
     "pageTitle": "Dashboard",
     "pageDescription": "This is a private page that shows the blogs managed by you."

@@ -136,10 +136,12 @@ export default function BlogFormModal({
           {blog ? t("blogs.form.edit.title") : t("blogs.form.add.title")}
         </ModalHeader>
         <ModalCloseButton top={4} right={6} />
-        <ModalBody p={8}>
+        <ModalBody>
+          <p>{t("agreementModal.1")}</p>
+          <p>{t("agreementModal.2")}</p>
           {/*eslint-disable-next-line no-empty-function */}
           <form onSubmit={(e) => onSubmit(e).catch(() => {})}>
-            <VStack align="stretch" spacing={6}>
+            <VStack align="stretch" spacing={6} mt={2}>
               {/* Feed URL field */}
               <FormControl isRequired>
                 <FormLabel>{t("blogs.form.controls.feed_url")}</FormLabel>
