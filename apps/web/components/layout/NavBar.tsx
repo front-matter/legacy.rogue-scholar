@@ -65,15 +65,6 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
                 <>
                   <Button
                     as={Link}
-                    href="/signup"
-                    size="sm"
-                    colorScheme="primary"
-                    variant="outline"
-                  >
-                    {t("signUp")}
-                  </Button>
-                  <Button
-                    as={Link}
                     href="/auth/signin"
                     size="sm"
                     colorScheme="primary"
