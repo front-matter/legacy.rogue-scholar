@@ -21,7 +21,7 @@ function SwirlyDoodle({ className }) {
   )
 }
 
-function CheckIcon({ className }) {
+export function CheckIcon({ className }) {
   return (
     <svg
       aria-hidden="true"

@@ -1,9 +1,15 @@
-import { extendTheme, ThemeOverride, UseToastOptions, withDefaultColorScheme } from '@chakra-ui/react';
-import { theme } from './theme';
+import {
+  extendTheme,
+  ThemeOverride,
+  UseToastOptions,
+  withDefaultColorScheme,
+} from "@chakra-ui/react"
+
+import { theme } from "./theme"
 
 export const customTheme = extendTheme(
   {
-    initialColorMode: 'light',
+    initialColorMode: "light",
     useSystemColorMode: true,
     fonts: {
       ...theme.fonts,
@@ -14,21 +20,21 @@ export const customTheme = extendTheme(
     components: {
       Button: {
         baseStyle: {
-          rounded: 'full',
+          rounded: "full",
         },
         variants: {
           outline: () => ({
-            border: '2px solid',
+            border: "2px solid",
           }),
         },
       },
     },
   } as ThemeOverride,
-  withDefaultColorScheme({ colorScheme: 'primary', components: ['Button'] })
-);
+  withDefaultColorScheme({ colorScheme: "primary", components: ["Button"] })
+)
 
 export const defaultToastOptions = {
-  position: 'top',
+  position: "top",
   duration: 5000,
   isClosable: true,
-} as UseToastOptions;
+} as UseToastOptions

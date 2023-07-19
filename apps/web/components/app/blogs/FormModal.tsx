@@ -20,6 +20,7 @@ import { useTranslation } from "next-i18next"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
+import { CheckIcon } from "@/components/home/Pricing"
 import { Database } from "@/types/supabase"
 
 export default function BlogFormModal({
@@ -133,12 +134,30 @@ export default function BlogFormModal({
       <ModalOverlay />
       <ModalContent>
         <ModalHeader bg={headerBg} roundedTop="lg" px={8}>
-          {blog ? t("blogs.form.edit.title") : t("blogs.form.add.title")}
+          {blog && blog.feed_url
+            ? t("blogs.form.edit.title")
+            : t("blogs.form.add.title")}
         </ModalHeader>
         <ModalCloseButton top={4} right={6} />
         <ModalBody>
-          <p>{t("agreementModal.1")}</p>
-          <p>{t("agreementModal.2")}</p>
+          <div>
+            <p className="mb-2 text-base font-semibold">
+              {t("terms.description")}
+            </p>
+            <ul
+              role="list"
+              className="order-last my-4 flex flex-col gap-y-1 text-base"
+            >
+              <li className="flex">
+                <CheckIcon className="text-green-600" />
+                <span className="ml-1">{t("terms.1")}</span>
+              </li>
+              <li className="flex">
+                <CheckIcon className="text-green-600" />
+                <span className="ml-1">{t("terms.2")}</span>
+              </li>
+            </ul>
+          </div>
           {/*eslint-disable-next-line no-empty-function */}
           <form onSubmit={(e) => onSubmit(e).catch(() => {})}>
             <VStack align="stretch" spacing={6} mt={2}>
