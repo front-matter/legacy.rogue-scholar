@@ -40,8 +40,9 @@
   "terms": {
     "title": "Nutzungsbedingungen",
     "description": "Ich bin für die Inhalte des Blogs (mit-)verantwortlich und stimme der Nachnutzung in diesem Dienst zu.",
-    "1": "Der gesamte Text aller Blogbeiträge wird mittels Atom (bevorzugt), RSS oder JSON Feed zur Verfügung gestellt.",
-    "2": "Der gesamte Text aller Blogbeiträge wird unter einer Creative Commons Namensnennung 4.0 International Lizenz zur Verfügung gestellt."
+    "1": "Das Blog handelt von (Natur- oder Geistes-)Wissenschaft.",
+    "2": "Der gesamte Text der Blogbeiträge ist mittels Atom (bevorzugt), RSS oder JSON Feed verfügbar.",
+    "3": "Der gesamte Text der Blogbeiträge steht unter einer Creative Commons Namensnennung 4.0 International Lizenz."
   },
   "dashboard": {
     "pageDescription": "Dies ist eine private Seite, die die von Ihnen verwalteten Blogs anzeigt.",

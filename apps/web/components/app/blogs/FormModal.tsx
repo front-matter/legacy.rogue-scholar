@@ -146,7 +146,7 @@ export default function BlogFormModal({
             </p>
             <ul
               role="list"
-              className="order-last my-4 flex flex-col gap-y-1 text-base"
+              className="order-last my-2 flex flex-col gap-y-1 text-base"
             >
               <li className="flex">
                 <CheckIcon className="text-green-600" />
@@ -155,6 +155,10 @@ export default function BlogFormModal({
               <li className="flex">
                 <CheckIcon className="text-green-600" />
                 <span className="ml-1">{t("terms.2")}</span>
+              </li>
+              <li className="flex">
+                <CheckIcon className="text-green-600" />
+                <span className="ml-1">{t("terms.3")}</span>
               </li>
             </ul>
           </div>
