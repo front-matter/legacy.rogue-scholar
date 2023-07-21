@@ -1,0 +1,149 @@
+{
+  "colorMode": {
+    "dark": "Dark",
+    "light": "Light"
+  },
+  "pageNotFound": {
+    "title": "Page not found",
+    "description": "The page you are looking for does not exist."
+  },
+  "userMenu": {
+    "message": "Hello {{user}}!",
+    "signOut": "Sign out",
+    "homepage": "Homepage",
+    "account": "Account"
+  },
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "language": "Language",
+  "pricingPage": "Pricing",
+  "footer": {
+    "authors": " and respective authors. ",
+    "creativeCommons": "All content distributed under the terms of the <a className='hover:font-semibold' href='{{url}}'>Creative Commons Attribution 4.0 License</a>.",
+    "allRightsReserved": "All rights reserved."
+  },
+  "menu": {
+    "pricing": "Pricing",
+    "faq": "FAQ",
+    "stats": "Stats",
+    "blogs": "Blogs",
+    "posts": "Posts",
+    "docs": "Docs",
+    "usage_stats": "Usage Stats",
+    "dashboard": "Dashboard"
+  },
+  "posts": {
+    "title": "Rogue Scholar Posts",
+    "description": "List of all posts",
+    "search": "Search posts...",
+    "no_results": "No posts found",
+    "all": "All",
+    "published": "Published",
+    "date_published": "{{val, datetime}}",
+    "author_one": "Author",
+    "author_other": "Authors",
+    "draft": "Draft",
+    "scheduled": "Scheduled",
+    "errors": {
+      "title": "Something went wrong",
+      "description": "We were unable to fetch your posts. Please try again later."
+    }
+  },
+  "pricing": {
+    "subscribeButton": "Subscribe",
+    "intervals": {
+      "yearly": "Yearly",
+      "monthly": "Monthly",
+      "month": "month",
+      "year": "year"
+    },
+    "manageButton": "Manage",
+    "mostPopular": "Most popular"
+  },
+  "subscriptionPlans": {
+    "basic": {
+      "name": "Basic",
+      "description": "Get started with your business",
+      "features": {
+        "0": "Feature A",
+        "1": "Feature B",
+        "2": "Feature C"
+      }
+    },
+    "pro": {
+      "name": "Pro",
+      "description": "Extends support for your business",
+      "features": {
+        "0": "Feature A",
+        "1": "Feature B",
+        "2": "Feature C"
+      }
+    },
+    "ultimate": {
+      "name": "Ultimate",
+      "description": "The ultimate bundle for your business",
+      "features": {
+        "0": "Feature A",
+        "1": "Feature B",
+        "2": "Feature C"
+      }
+    }
+  },
+  "subscriptionAlert": {
+    "title": "Your subscription",
+    "manage": "Manage subscription",
+    "text": "Hey {{ userName }}! You are currently subscribed to the {{ planName }} plan. To manage your subscription or upgrade your plan, click the button below."
+  },
+  "pagination": {
+    "page": "Page",
+    "previous": "Previous",
+    "next": "Next",
+    "of": "of",
+    "results": "results",
+    "no_results": "No results"
+  },
+  "search": {
+    "placeholder": "Type to search..."
+  },
+  "number": "{{val, number}}",
+  "categories": {
+    "naturalSciences": "Natural Sciences",
+    "engineeringAndTechnology": "Engineering and Technology",
+    "medicalAndHealthSciences": "Medicine and Health Sciences",
+    "agriculturalSciences": "Agricultural Sciences",
+    "socialSciences": "Social Sciences",
+    "humanities": "Humanities"
+  },
+  "languages": {
+    "de": "German",
+    "en": "English",
+    "es": "Spanish"
+  },
+  "common": {
+    "pricingPage": "Pricing",
+    "subscriptionPlans": {
+      "team": {
+        "features": [
+          "Everything in starter",
+          "Archive an unlimited number of posts"
+        ]
+      },
+      "starter": {
+        "features": [
+          "Archive up to 50 posts per year",
+          "Register DOIs with metadata",
+          "Full-text search"
+        ]
+      },
+      "enterprise": {
+        "features": [
+          "Everything in team",
+          "Archive a blog without active RSS feed",
+          "Support other languages",
+          "Support podcasts and vlogs",
+          "Custom feature development"
+        ]
+      }
+    }
+  }
+}

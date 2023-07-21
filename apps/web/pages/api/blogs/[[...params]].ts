@@ -390,15 +390,12 @@ export async function getSingleBlog(blogSlug: string) {
       ).trim()
       const current_feed_url = config["current_feed_url"]
       let home_page_url =
-        config["home_page_url"] ||
         []
           .concat(get(feedData, "link", []))
-          .find((link) => get(link, "@_rel", null) === "alternate")
+          .find((link) => get(link, "@_rel", null) === "alternate") ||
+        config["home_page_url"]
 
-      home_page_url =
-        get(home_page_url, "@_href", null) ||
-        get(feedData, "id", null) ||
-        get(feedData, "link", null)
+      home_page_url = get(home_page_url, "@_href", null) || home_page_url
 
       let feed_format =
         []

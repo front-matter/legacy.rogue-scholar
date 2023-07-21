@@ -1,0 +1,159 @@
+{
+  "hero": {
+    "title": "Science blogging",
+    "subtitle": "on steroids.",
+    "slogan": "Trusted by {{number}} science blogs so far, including",
+    "description": "The Rogue Scholar improves your science blog in important ways, including full-text search, long-term archiving, DOIs and metadata."
+  },
+  "signupButton": "Create an account",
+  "dashboardButton": "Dashboard",
+  "documentationButton": "Documentation",
+  "features": {
+    "title": "Features",
+    "description": "Everything you need to build your next web application!",
+    "authentication": {
+      "title": "Authentication",
+      "highlights": {
+        "1": "Ready to use authentication with supabase",
+        "2": "Email and password, magic link and all supported OAuth providers",
+        "3": "All authentication components (login, signup, password reset, profile) included"
+      }
+    },
+    "i18n": {
+      "title": "Internationalization",
+      "highlights": {
+        "1": "next-i18next integrated to support full internationalization",
+        "2": "All components prepared to be translated",
+        "3": "Translation flow ready to used with translation management tool or in VSCode via i18n-ally."
+      }
+    },
+    "dataFetching": {
+      "title": "Data fetching",
+      "highlights": {
+        "1": "tanstack-query included to enable caching and easy refetching",
+        "2": "Auto-generated types from supabase schema for typed data fetching"
+      }
+    },
+    "mailTemplates": {
+      "title": "Mail templates",
+      "highlights": {
+        "1": "Customizable MJML templates",
+        "2": "Ready-to-use templates for all supabase email notifications"
+      }
+    },
+    "dx": {
+      "title": "Developer Experience",
+      "highlights": {
+        "1": "Clean and scalable application structure",
+        "2": "Typesafe code with TypeScript",
+        "3": "ESLint and Prettier ready to be used"
+      }
+    },
+    "customization": {
+      "title": "Fully customizable",
+      "highlights": {
+        "1": "All components are fully customizable",
+        "2": "Dark mode support",
+        "3": "Chakra UI theme is easy to extend"
+      }
+    },
+    "serverless": {
+      "title": "Serverless architecture",
+      "highlights": {
+        "1": "Built to be used with serverless platforms like Vercel",
+        "2": "Scalable for every use case"
+      }
+    }
+  },
+  "pricing": {
+    "description": "Support all kinds of science blogs, from personal blog to organizational newsletters.",
+    "title": "Simple pricing",
+    "subtitle": "for everyone.",
+    "plans": {
+      "starter": {
+        "name": "Starter",
+        "price": "Free",
+        "description": "For most blogs.",
+        "features": {
+          "1": "Archive up to 50 posts per year",
+          "2": "Full-text search of all posts",
+          "3": "Register DOIs with metadata"
+        }
+      },
+      "team": {
+        "name": "Team",
+        "price": "$1 per post",
+        "description": "Perfect for larger blogs.",
+        "features": {
+          "1": "Everything in starter",
+          "2": "Archive an unlimited number of posts"
+        }
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Contact us",
+        "description": "Having special requirements.",
+        "features": {
+          "1": "Everything in team",
+          "2": "Archive a blog without active RSS feed",
+          "3": "Support other languages",
+          "4": "Support podcasts and vlogs",
+          "5": "Custom feature development"
+        }
+      }
+    }
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "more": "If you can’t find what you’re looking for, go to our ",
+    "support": "or reach out to us via the ",
+    "questions": {
+        "1": "When does the Rogue Scholar launch?",
+        "2": "How can I sign up for the Rogue Scholar?",
+        "3": "Why would the Rogue Scholar not accept my blog?",
+        "4": "Does the Rogue Scholar accept blogs about scholarship?",
+        "5": "What languages does the Rogue Scholar support?",
+        "6": "How does the Rogue Scholar archive my blog?",
+        "7": "My RSS feed only contains summaries of blog posts.",
+        "8": "Does the Rogue Scholar support podcasts and vlogs?",
+        "9": "What does archiving my blog with the Rogue Scholar cost?",
+        "10": "When do I pay for my posts?",
+        "11": "What costs are there for users of the Rogue Scholar?",
+        "12": "Can I sponsor or otherwise support the Rogue Scholar?"
+    },
+    "answers": {
+      "1": "The Rogue Scholar is available with limited functionality since April 1, 2023, and full functionality (DOI and metadata registration, archiving of full-text content, and full-text search) since July 1, 2023.",
+      "2": "Fill out the form linked from the homepage. We will add your blog to the Rogue Scholar and notify you within two business days.",
+      "3": "We only cover blogs that write about science, and where the full-text content is made available via RSS feed and distributed under the terms of the Creative Commons Attribution (CC-BY) license.",
+      "4": "Yes. We accept blogs about all forms of scholarship. The term “science” is used in the broadest sense.",
+      "5": "The initial release supports English and German. Additional languages will be added based on user requests.",
+      "6": "We will harvest your content and metadata using your Atom feed (or feed in other format such as RSS or JSON Feed).",
+      "7": "You need to provide all content via RSS feed, so that can we implement archiving and full-text search.",
+      "8": "Podcasts and vlogs are supported, but at an additional cost. Reach out to us via email.",
+      "9": "The Rogue Scholar is free for the first 50 posts per year. After that, it costs $1 per post.",
+      "10": "We will send you quarterly invoices for the posts we have archived in the previous three months if there are more than 50 posts per year.",
+      "11": "The Rogue Scholar is and will always be free to use and reuse, all content is distributed under the terms of the Creative Commons Attribution (CC-BY) license.",
+      "12": "We appreciate donations and other forms of support. Reach out to us via email."
+    }
+  },
+  "statistics": {
+    "description": "Fundamental numbers describing the included blogs.",
+    "title": "Statistics",
+    "category": "Category",
+    "language": "Language",
+    "platform": "Platform"
+  },
+  "categories": {
+    "naturalSciences": "Natural Sciences",
+    "engineeringAndTechnology": "Engineering and Technology",
+    "medicalAndHealthSciences": "Medicine and Health Sciences",
+    "agriculturalSciences": "Agricultural Sciences",
+    "socialSciences": "Social Sciences",
+    "humanities": "Humanities"
+  },
+  "languages": {
+    "de": "German",
+    "en": "English",
+    "es": "Spanish"
+  }
+}

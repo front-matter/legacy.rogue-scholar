@@ -1,0 +1,73 @@
+{
+  "blogs": {
+    "title": "Blogs",
+    "createButton": "Add blog",
+    "form": {
+      "controls": {
+        "id": "ID",
+        "title": "Title",
+        "feed_url": "Feed URL",
+        "favicon": "Favicon",
+        "category": "Category"
+      },
+      "add": {
+        "title": "Add blog"
+      },
+      "edit": {
+        "title": "Edit blog"
+      },
+      "submitButton": "Save blog",
+      "errorMessage": "An error occured while trying to save the blog. Please try again.",
+      "successMessage": "The blog was saved successfully!"
+    },
+    "list": {
+      "columns": {
+        "id": "ID",
+        "title": "Blog Name",
+        "feed_url": "Feed URL",
+        "favicon": "Favicon",
+        "category": "Category"
+      },
+      "empty": "You have not created any blogs yet. Click the button at the top right to add one.",
+      "noResults": "No blogs found",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "upgradeToCreateMore": "You have to upgrade your plan to create more blogs."
+  },
+  "confirmModal": {
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "terms": {
+    "title": "Terms of Use",
+    "description": "I am the (co-)owner of the blog and agree to its reuse in this service.",
+    "1": "The blog is about science or scholarship.",
+    "2": "The full text of blog posts is made available via an Atom (preferred), RSS or JSON feed.",
+    "3": "The full text of blog posts is made available under the Creative Commons Attribution 4.0 International License."
+  },
+  "dashboard": {
+    "pageTitle": "Dashboard",
+    "pageDescription": "This is a private page that shows the blogs managed by you."
+  },
+  "deleteBlogModal": {
+    "title": "Delete blog",
+    "description": "Do you really want to delete this blog? This action cannot be undone."
+  },
+  "deleteBlog": {
+    "errorMessage": "There was an error trying to delete the blog. Please try again.",
+    "successMessage": "The blog was deleted successfully."
+  },
+  "noSubscriptionAlert": {
+    "upgradeButton": "Upgrade subscription",
+    "message": "You don't have any active subscription. On the free plan, you can only have 1 blog. Upgrade to a paid plan to add more blogs."
+  },
+  "categories": {
+    "naturalSciences": "Natural Sciences",
+    "engineeringAndTechnology": "Engineering and Technology",
+    "medicalAndHealthSciences": "Medicine and Health Sciences",
+    "agriculturalSciences": "Agricultural Sciences",
+    "socialSciences": "Social Sciences",
+    "humanities": "Humanities"
+  }
+}
