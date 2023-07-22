@@ -1,12 +1,12 @@
 {
   "account": "Cuenta",
   "changeMyPassword": "Cambiar mi contraseña",
-  "manageSubscription": "Manage subscription",
-  "password": "Password",
-  "subscription.currentlySubscribed": "You are currently subscribed to the following plan:",
-  "subscription.notSubscribed": "You are not currently subscribed to a plan.",
-  "subscription.title": "Subscription",
-  "updateUserName.errorMessage": "Your name could not be updated. Please try again.",
-  "updateUserName.successMessage": "Your name has been updated.",
-  "upgradeAccount": "Upgrade account"
+  "manageSubscription": "Administrar suscripción",
+  "password": "Contraseña",
+  "subscription.currentlySubscribed": "Actualmente estás suscrito al siguiente plan:",
+  "subscription.notSubscribed": "Actualmente no estás suscrito a ningún plan.",
+  "subscription.title": "Suscripción",
+  "updateUserName.errorMessage": "No se pudo actualizar su nombre. Inténtalo de nuevo.",
+  "updateUserName.successMessage": "Tu nombre ha sido actualizado.",
+  "upgradeAccount": "Actualizar cuenta"
 }

@@ -8,5 +8,5 @@
   "subscription.title": "Abonnement",
   "updateUserName.errorMessage": "Ihr Name konnte nicht aktualisiert werden. Bitte versuche es erneut.",
   "updateUserName.successMessage": "Ihr Name wurde aktualisiert.",
-  "upgradeAccount": ""
+  "upgradeAccount": "Konto aktualisieren"
 }
