@@ -1,10 +1,10 @@
 {
-  "categories.agriculturalSciences": "Agricultural Sciences",
+  "categories.agriculturalSciences": "Ciencias Agrícolas",
   "categories.engineeringAndTechnology": "Engineering and Technology",
   "categories.humanities": "Humanities",
   "categories.medicalAndHealthSciences": "Medicine and Health Sciences",
-  "categories.naturalSciences": "Natural Sciences",
-  "categories.socialSciences": "Social Sciences",
+  "categories.naturalSciences": "Ciencias Naturales",
+  "categories.socialSciences": "Ciencias Sociales",
   "colorMode.dark": "Dark",
   "colorMode.light": "Light",
   "common.pricingPage": "Pricing",
