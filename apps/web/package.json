@@ -57,6 +57,7 @@
     "next-mdx-remote": "^4.4.1",
     "next-plausible": "^3.8.0",
     "next-sitemap": "^4.1.3",
+    "next-translate": "^2.5.2",
     "next-usequerystate": "^1.7.3",
     "nextjs-progressbar": "^0.0.16",
     "nextjs-redirect": "^6.0.1",

@@ -1,149 +1,91 @@
 {
-  "colorMode": {
-    "dark": "Dark",
-    "light": "Light"
-  },
-  "pageNotFound": {
-    "title": "Page not found",
-    "description": "The page you are looking for does not exist."
-  },
-  "userMenu": {
-    "message": "Hello {{user}}!",
-    "signOut": "Sign out",
-    "homepage": "Homepage",
-    "account": "Account"
-  },
+  "categories.agriculturalSciences": "Agricultural Sciences",
+  "categories.engineeringAndTechnology": "Engineering and Technology",
+  "categories.humanities": "Humanities",
+  "categories.medicalAndHealthSciences": "Medicine and Health Sciences",
+  "categories.naturalSciences": "Natural Sciences",
+  "categories.socialSciences": "Social Sciences",
+  "colorMode.dark": "Dark",
+  "colorMode.light": "Light",
+  "common.pricingPage": "Pricing",
+  "common.subscriptionPlans.enterprise.features[0]": "Everything in team",
+  "common.subscriptionPlans.enterprise.features[1]": "Archive a blog without active RSS feed",
+  "common.subscriptionPlans.enterprise.features[2]": "Support other languages",
+  "common.subscriptionPlans.enterprise.features[3]": "Support podcasts and vlogs",
+  "common.subscriptionPlans.enterprise.features[4]": "Custom feature development",
+  "common.subscriptionPlans.starter.features[0]": "Archive up to 50 posts per year",
+  "common.subscriptionPlans.starter.features[1]": "Register DOIs with metadata",
+  "common.subscriptionPlans.starter.features[2]": "Full-text search",
+  "common.subscriptionPlans.team.features[0]": "Everything in starter",
+  "common.subscriptionPlans.team.features[1]": "Archive an unlimited number of posts",
+  "footer.allRightsReserved": "All rights reserved.",
+  "footer.authors": " and respective authors. ",
+  "footer.creativeCommons": "All content distributed under the terms of the <a className='hover:font-semibold' href='{{url}}'>Creative Commons Attribution 4.0 License</a>.",
+  "language": "Language",
+  "languages.de": "German",
+  "languages.en": "English",
+  "languages.es": "Spanish",
+  "menu.blogs": "Blogs",
+  "menu.dashboard": "Dashboard",
+  "menu.docs": "Docs",
+  "menu.faq": "FAQ",
+  "menu.posts": "Posts",
+  "menu.pricing": "Pricing",
+  "menu.stats": "Stats",
+  "menu.usage_stats": "Usage Stats",
+  "number": "{{val, number}}",
+  "pageNotFound.description": "The page you are looking for does not exist.",
+  "pageNotFound.title": "Page not found",
+  "pagination.next": "Next",
+  "pagination.no_results": "No results",
+  "pagination.of": "of",
+  "pagination.page": "Page",
+  "pagination.previous": "Previous",
+  "pagination.results": "results",
+  "posts.all": "All",
+  "posts.author_one": "Author",
+  "posts.author_other": "Authors",
+  "posts.date_published": "{{val, datetime}}",
+  "posts.description": "List of all posts",
+  "posts.draft": "Draft",
+  "posts.errors.description": "We were unable to fetch your posts. Please try again later.",
+  "posts.errors.title": "Something went wrong",
+  "posts.no_results": "No posts found",
+  "posts.published": "Published",
+  "posts.scheduled": "Scheduled",
+  "posts.search": "Search posts...",
+  "posts.title": "Rogue Scholar Posts",
+  "pricing.intervals.month": "month",
+  "pricing.intervals.monthly": "Monthly",
+  "pricing.intervals.year": "year",
+  "pricing.intervals.yearly": "Yearly",
+  "pricing.manageButton": "Manage",
+  "pricing.mostPopular": "Most popular",
+  "pricing.subscribeButton": "Subscribe",
+  "pricingPage": "Pricing",
+  "search.placeholder": "Type to search...",
   "signIn": "Sign in",
   "signUp": "Sign up",
-  "language": "Language",
-  "pricingPage": "Pricing",
-  "footer": {
-    "authors": " and respective authors. ",
-    "creativeCommons": "All content distributed under the terms of the <a className='hover:font-semibold' href='{{url}}'>Creative Commons Attribution 4.0 License</a>.",
-    "allRightsReserved": "All rights reserved."
-  },
-  "menu": {
-    "pricing": "Pricing",
-    "faq": "FAQ",
-    "stats": "Stats",
-    "blogs": "Blogs",
-    "posts": "Posts",
-    "docs": "Docs",
-    "usage_stats": "Usage Stats",
-    "dashboard": "Dashboard"
-  },
-  "posts": {
-    "title": "Rogue Scholar Posts",
-    "description": "List of all posts",
-    "search": "Search posts...",
-    "no_results": "No posts found",
-    "all": "All",
-    "published": "Published",
-    "date_published": "{{val, datetime}}",
-    "author_one": "Author",
-    "author_other": "Authors",
-    "draft": "Draft",
-    "scheduled": "Scheduled",
-    "errors": {
-      "title": "Something went wrong",
-      "description": "We were unable to fetch your posts. Please try again later."
-    }
-  },
-  "pricing": {
-    "subscribeButton": "Subscribe",
-    "intervals": {
-      "yearly": "Yearly",
-      "monthly": "Monthly",
-      "month": "month",
-      "year": "year"
-    },
-    "manageButton": "Manage",
-    "mostPopular": "Most popular"
-  },
-  "subscriptionPlans": {
-    "basic": {
-      "name": "Basic",
-      "description": "Get started with your business",
-      "features": {
-        "0": "Feature A",
-        "1": "Feature B",
-        "2": "Feature C"
-      }
-    },
-    "pro": {
-      "name": "Pro",
-      "description": "Extends support for your business",
-      "features": {
-        "0": "Feature A",
-        "1": "Feature B",
-        "2": "Feature C"
-      }
-    },
-    "ultimate": {
-      "name": "Ultimate",
-      "description": "The ultimate bundle for your business",
-      "features": {
-        "0": "Feature A",
-        "1": "Feature B",
-        "2": "Feature C"
-      }
-    }
-  },
-  "subscriptionAlert": {
-    "title": "Your subscription",
-    "manage": "Manage subscription",
-    "text": "Hey {{ userName }}! You are currently subscribed to the {{ planName }} plan. To manage your subscription or upgrade your plan, click the button below."
-  },
-  "pagination": {
-    "page": "Page",
-    "previous": "Previous",
-    "next": "Next",
-    "of": "of",
-    "results": "results",
-    "no_results": "No results"
-  },
-  "search": {
-    "placeholder": "Type to search..."
-  },
-  "number": "{{val, number}}",
-  "categories": {
-    "naturalSciences": "Natural Sciences",
-    "engineeringAndTechnology": "Engineering and Technology",
-    "medicalAndHealthSciences": "Medicine and Health Sciences",
-    "agriculturalSciences": "Agricultural Sciences",
-    "socialSciences": "Social Sciences",
-    "humanities": "Humanities"
-  },
-  "languages": {
-    "de": "German",
-    "en": "English",
-    "es": "Spanish"
-  },
-  "common": {
-    "pricingPage": "Pricing",
-    "subscriptionPlans": {
-      "team": {
-        "features": [
-          "Everything in starter",
-          "Archive an unlimited number of posts"
-        ]
-      },
-      "starter": {
-        "features": [
-          "Archive up to 50 posts per year",
-          "Register DOIs with metadata",
-          "Full-text search"
-        ]
-      },
-      "enterprise": {
-        "features": [
-          "Everything in team",
-          "Archive a blog without active RSS feed",
-          "Support other languages",
-          "Support podcasts and vlogs",
-          "Custom feature development"
-        ]
-      }
-    }
-  }
+  "subscriptionAlert.manage": "Manage subscription",
+  "subscriptionAlert.text": "Hey {{ userName }}! You are currently subscribed to the {{ planName }} plan. To manage your subscription or upgrade your plan, click the button below.",
+  "subscriptionAlert.title": "Your subscription",
+  "subscriptionPlans.basic.description": "Get started with your business",
+  "subscriptionPlans.basic.features.0": "Feature A",
+  "subscriptionPlans.basic.features.1": "Feature B",
+  "subscriptionPlans.basic.features.2": "Feature C",
+  "subscriptionPlans.basic.name": "Basic",
+  "subscriptionPlans.pro.description": "Extends support for your business",
+  "subscriptionPlans.pro.features.0": "Feature A",
+  "subscriptionPlans.pro.features.1": "Feature B",
+  "subscriptionPlans.pro.features.2": "Feature C",
+  "subscriptionPlans.pro.name": "Pro",
+  "subscriptionPlans.ultimate.description": "The ultimate bundle for your business",
+  "subscriptionPlans.ultimate.features.0": "Feature A",
+  "subscriptionPlans.ultimate.features.1": "Feature B",
+  "subscriptionPlans.ultimate.features.2": "Feature C",
+  "subscriptionPlans.ultimate.name": "Ultimate",
+  "userMenu.account": "Account",
+  "userMenu.homepage": "Homepage",
+  "userMenu.message": "Hello {{user}}!",
+  "userMenu.signOut": "Sign out"
 }

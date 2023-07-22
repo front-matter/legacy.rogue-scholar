@@ -1,71 +1,45 @@
 {
-  "blogs": {
-    "createButton": "Blog hinzufügen",
-    "form": {
-      "add": {
-        "title": "Blog hinzufügen"
-      },
-      "controls": {
-        "id": "ID",
-        "title": "Name",
-        "feed_url": "Feed URL",
-        "favicon": "Favicon",
-        "category": "Kategorie"
-      },
-      "edit": {
-        "title": "Blog bearbeiten"
-      },
-      "errorMessage": "Beim Versuch, das Blog zu speichern, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-      "submitButton": "Blog speichern",
-      "successMessage": "Das Blog wurde erfolgreich gespeichert!"
-    },
-    "list": {
-      "columns": {
-        "title": "Blog Name",
-        "feed_url": "Feed URL",
-        "favicon": "Favicon",
-        "category": "Kategorie"
-      },
-      "delete": "Löschen",
-      "edit": "Bearbeiten",
-      "empty": "Sie haben noch keine Blogs angelegt. Klicken Sie auf den Button oben rechts, um einen neuen hinzuzufügen.",
-      "noResults": "Es wurden keine Blogs gefunden"
-    },
-    "title": "Blogs"
-  },
-  "confirmModal": {
-    "cancel": "Abbrechen",
-    "confirm": "Bestätigen"
-  },
-  "terms": {
-    "title": "Nutzungsbedingungen",
-    "description": "Ich bin für die Inhalte des Blogs (mit-)verantwortlich und stimme der Nachnutzung in diesem Dienst zu.",
-    "1": "Das Blog handelt von (Natur- oder Geistes-)Wissenschaft.",
-    "2": "Der gesamte Text der Blogbeiträge ist mittels Atom (bevorzugt), RSS oder JSON Feed verfügbar.",
-    "3": "Der gesamte Text der Blogbeiträge steht unter einer Creative Commons Namensnennung 4.0 International Lizenz."
-  },
-  "dashboard": {
-    "pageDescription": "Dies ist eine private Seite, die die von Ihnen verwalteten Blogs anzeigt.",
-    "pageTitle": "Dashboard"
-  },
-  "deleteBlog": {
-    "errorMessage": "Beim Versuch, das Blog zu löschen, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
-    "successMessage": "Das Blog wurde erfolgreich gelöscht."
-  },
-  "deleteBlogModal": {
-    "description": "Möchten Sie dieses Blog wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
-    "title": "Blog löschen"
-  },
-  "noSubscriptionAlert": {
-    "upgradeButton": "Upgrade subscription",
-    "message": "You don't have any active subscription. On the free plan, you can only have 1 blog. Upgrade to a paid plan to add more blogs."
-  },
-  "categories": {
-    "naturalSciences": "Naturwissenschaften",
-    "engineeringAndTechnology": "Ingenieurwissenschaften und Technik",
-    "medicalAndHealthSciences": "Medizin und Gesundheitswissenschaften",
-    "agriculturalSciences": "Agrarwissenschaften",
-    "socialSciences": "Sozialwissenschaften",
-    "humanities": "Geisteswissenschaften"
-  }
+  "blogs.createButton": "Blog hinzufügen",
+  "blogs.form.add.title": "Blog hinzufügen",
+  "blogs.form.controls.category": "Kategorie",
+  "blogs.form.controls.favicon": "Favicon",
+  "blogs.form.controls.feed_url": "Feed URL",
+  "blogs.form.controls.id": "ID",
+  "blogs.form.controls.title": "Name",
+  "blogs.form.edit.title": "Blog bearbeiten",
+  "blogs.form.errorMessage": "Beim Versuch, das Blog zu speichern, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+  "blogs.form.submitButton": "Blog speichern",
+  "blogs.form.successMessage": "Das Blog wurde erfolgreich gespeichert!",
+  "blogs.list.columns.category": "Kategorie",
+  "blogs.list.columns.favicon": "Favicon",
+  "blogs.list.columns.feed_url": "Feed URL",
+  "blogs.list.columns.id": "",
+  "blogs.list.columns.title": "Blog Name",
+  "blogs.list.delete": "Löschen",
+  "blogs.list.edit": "Bearbeiten",
+  "blogs.list.empty": "Sie haben noch keine Blogs angelegt. Klicken Sie auf den Button oben rechts, um einen neuen hinzuzufügen.",
+  "blogs.list.noResults": "Es wurden keine Blogs gefunden",
+  "blogs.title": "Blogs",
+  "blogs.upgradeToCreateMore": "",
+  "categories.agriculturalSciences": "Agrarwissenschaften",
+  "categories.engineeringAndTechnology": "Ingenieurwissenschaften und Technik",
+  "categories.humanities": "Geisteswissenschaften",
+  "categories.medicalAndHealthSciences": "Medizin und Gesundheitswissenschaften",
+  "categories.naturalSciences": "Naturwissenschaften",
+  "categories.socialSciences": "Sozialwissenschaften",
+  "confirmModal.cancel": "Abbrechen",
+  "confirmModal.confirm": "Bestätigen",
+  "dashboard.pageDescription": "Dies ist eine private Seite, die die von Ihnen verwalteten Blogs anzeigt.",
+  "dashboard.pageTitle": "Dashboard",
+  "deleteBlog.errorMessage": "Beim Versuch, das Blog zu löschen, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
+  "deleteBlog.successMessage": "Das Blog wurde erfolgreich gelöscht.",
+  "deleteBlogModal.description": "Möchten Sie dieses Blog wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.",
+  "deleteBlogModal.title": "Blog löschen",
+  "noSubscriptionAlert.message": "You don't have any active subscription. On the free plan, you can only have 1 blog. Upgrade to a paid plan to add more blogs.",
+  "noSubscriptionAlert.upgradeButton": "Upgrade subscription",
+  "terms.1": "Das Blog handelt von (Natur- oder Geistes-)Wissenschaft.",
+  "terms.2": "Der gesamte Text der Blogbeiträge ist mittels Atom (bevorzugt), RSS oder JSON Feed verfügbar.",
+  "terms.3": "Der gesamte Text der Blogbeiträge steht unter einer Creative Commons Namensnennung 4.0 International Lizenz.",
+  "terms.description": "Ich bin für die Inhalte des Blogs (mit-)verantwortlich und stimme der Nachnutzung in diesem Dienst zu.",
+  "terms.title": "Nutzungsbedingungen"
 }

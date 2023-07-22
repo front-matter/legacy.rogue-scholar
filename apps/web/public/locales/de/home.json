@@ -1,159 +1,99 @@
 {
+  "categories.agriculturalSciences": "Agrarwissenschaften",
+  "categories.engineeringAndTechnology": "Ingenieurwissenschaften und Technik",
+  "categories.humanities": "Geisteswissenschaften",
+  "categories.medicalAndHealthSciences": "Medizin und Gesundheitswissenschaften",
+  "categories.naturalSciences": "Naturwissenschaften",
+  "categories.socialSciences": "Sozialwissenschaften",
   "dashboardButton": "Dashboard",
   "documentationButton": "Dokumentation",
-  "categories": {
-    "naturalSciences": "Naturwissenschaften",
-    "engineeringAndTechnology": "Ingenieurwissenschaften und Technik",
-    "medicalAndHealthSciences": "Medizin und Gesundheitswissenschaften",
-    "agriculturalSciences": "Agrarwissenschaften",
-    "socialSciences": "Sozialwissenschaften",
-    "humanities": "Geisteswissenschaften"
-  },
-  "features": {
-    "authentication": {
-      "highlights": {
-        "1": "Einsatzbereite Authentifizierung mit Supabase",
-        "2": "E-Mail und Passwort, Magic Link und alle unterstützten OAuth-Anbieter",
-        "3": "Alle Authentifizierungs-Komponenten (Anmeldung, Konto erstellen, Passwort zurücksetzen, Profil) enthalten"
-      },
-      "title": "Authentifizierung"
-    },
-    "customization": {
-      "highlights": {
-        "1": "Alle Komponenten sind vollständig anpassbar",
-        "2": "Unterstützung für den Dark-Mode",
-        "3": "Chakra-UI-Theme ist einfach zu erweitern"
-      },
-      "title": "Vollständig anpassbar"
-    },
-    "dataFetching": {
-      "highlights": {
-        "1": "tanstack-query integriert, um Caching und einfaches Neuladen zu ermöglichen",
-        "2": "Automatisch generierte Types aus dem Supabase-Schema"
-      },
-      "title": "Daten-Abfrage"
-    },
-    "description": "Alles, was Sie zum Erstellen Ihrer nächsten Webanwendung benötigen!",
-    "dx": {
-      "highlights": {
-        "1": "Saubere und skalierbare Anwendungsstruktur",
-        "2": "Typsicherer Code mit Typescript",
-        "3": "ESLint und Prettier integriert"
-      },
-      "title": "Developer Experience"
-    },
-    "i18n": {
-      "highlights": {
-        "1": "next-i18next integriert zur Unterstützung der vollständigen Internationalisierung",
-        "2": "Alle Komponenten sind für die Übersetzung vorbereitet",
-        "3": "Übersetzungs-Flow bereit zur Verwendung mit einem Übersetzungsmanagement-Tool oder in VSCode über i18n-ally"
-      },
-      "title": "Internationalisierung"
-    },
-    "mailTemplates": {
-      "highlights": {
-        "1": "Anpassbare MJML-Vorlagen",
-        "2": "Gebrauchsfertige Vorlagen für alle Supabase-E-Mail-Benachrichtigungen"
-      },
-      "title": "E-Mail-Vorlagen"
-    },
-    "serverless": {
-      "highlights": {
-        "1": "Entwickelt für die Verwendung mit Serverless-Plattformen wie Vercel",
-        "2": "Skalierbar für jeden Anwendungsfall"
-      },
-      "title": "Serverless-Architektur"
-    },
-    "title": "Features"
-  },
-  "hero": {
-    "title": "Wissenschaftliches Bloggen",
-    "subtitle": "verbessert.",
-    "slogan": "Vetraut von bisher {{number}} Wissenschaftsblogs, unter anderem",
-    "description": "Rogue Scholar verbessert Ihr Wissenschaftsblog in wichtigen Punkten, einschließlich Volltextsuche, Langzeitarchivierung, DOIs und Metadaten."
-  },
+  "faq.answers.1": "Die erste Version von Rogue Scholar wurde im April 2023 veröffentlicht. Die volle Funktionalität (Archivierung, Volltextsuche, DOIs mit Metadaten) ist seit dem 1. Juli 2023 verfügbar.",
+  "faq.answers.10": "Sie erhalten eine Rechnung alle drei Monate, wenn Sie mehr als 50 Beiträge im Jahr veröffentlichen.",
+  "faq.answers.11": "Das Lesen und die Nachnutzung der Inhalte von Rogue Scholar ist immer kostenlos. Die Inhalte stehen unter einer Creative Commons Attribution Lizenz.",
+  "faq.answers.12": "Wir freuen uns über Spenden und andere Formen der Unterstützung. Bitte kontaktieren Sie uns per Email.",
+  "faq.answers.2": "Sie können sich für Rogue Scholar registrieren, indem Sie zu der von Hder omepage verknüpften Registrierung gehen. Wir melden uns bei Ihnen innerhalb von zwei Werktagen zurück.",
+  "faq.answers.3": "Rogue Scholar ist nur für Blogs geeignet, die ihre kompletten Beiträge über einen RSS-Feed bereitstellen, und eine Creative Commons Attribution Lizenz akzeptieren.",
+  "faq.answers.4": "Nein, wir akzeptieren Blogs aus und über alle Wissenschaftsdisziplinen.",
+  "faq.answers.5": "Rogue Scholar ist in Englisch und Deutsch verfügbar. Weitere Sprachen werden in Zukunft folgen.",
+  "faq.answers.6": "Wir archivieren Ihren Blog über den Atom-Feed, alternativ auch in anderen Formaten wie RSS und JSON Feed. Sprechen Sie mit uns wenn sie Ihre ORCID ID oder Referenzen hinzufügen möchten.",
+  "faq.answers.7": "Ja, wir benötigen den Volltext aller Beiträge, um eine Volltextsuche, Langzeitarchivierung, und die Registrierung von Referenzen zu ermöglichen.",
+  "faq.answers.8": "Podcasts und Vlogs werden in gegen eine Gebühr nach Rücksprache unterstützt.",
+  "faq.answers.9": "Rogue Scholar ist für die ersten 50 Beiträge im Jahr kostenlos. Für jeden weiteren Beitrag berechnen wir einmalig $1.",
+  "faq.more": "Wenn Sie nicht finden, wonach Sie suchen, gehen Sie zu unserer ",
+  "faq.questions.1": "Wann ist Rogue Scholar verfügbar?",
+  "faq.questions.10": "Wann bekomme ich eine Rechnung für die Archivierung meines Blogs?",
+  "faq.questions.11": "Was kostet die Nutzung von Rogue Scholar?",
+  "faq.questions.12": "Wie kann ich Rogue Scholar unterstützen?",
+  "faq.questions.2": "Wie kann ich mein Blog mit bei Rogue Scholar anmelden?",
+  "faq.questions.3": "Warum könnte mein Blog nicht für Rogue Scholar geeignet sein?",
+  "faq.questions.4": "Unterstützt Rogue Scholar nur Blogs über Naturwissenschaft?",
+  "faq.questions.5": "In welchen Sprachen ist Rogue Scholar verfügbar?",
+  "faq.questions.6": "Wie wird mein Blog von Rogue Scholar archiviert?",
+  "faq.questions.7": "Muss ich alle Inhalte über Rogue Scholar bereitstellen?",
+  "faq.questions.8": "Unterstützt Rogue Scholar Podcasts und Vlogs?",
+  "faq.questions.9": "Was kostet die Archivierung meines Blogs mit Rogue Scholar?",
+  "faq.support": "oder wenden sich an das ",
+  "faq.title": "Häufig gestellte Fragen",
+  "features.authentication.highlights.1": "Einsatzbereite Authentifizierung mit Supabase",
+  "features.authentication.highlights.2": "E-Mail und Passwort, Magic Link und alle unterstützten OAuth-Anbieter",
+  "features.authentication.highlights.3": "Alle Authentifizierungs-Komponenten (Anmeldung, Konto erstellen, Passwort zurücksetzen, Profil) enthalten",
+  "features.authentication.title": "Authentifizierung",
+  "features.customization.highlights.1": "Alle Komponenten sind vollständig anpassbar",
+  "features.customization.highlights.2": "Unterstützung für den Dark-Mode",
+  "features.customization.highlights.3": "Chakra-UI-Theme ist einfach zu erweitern",
+  "features.customization.title": "Vollständig anpassbar",
+  "features.dataFetching.highlights.1": "tanstack-query integriert, um Caching und einfaches Neuladen zu ermöglichen",
+  "features.dataFetching.highlights.2": "Automatisch generierte Types aus dem Supabase-Schema",
+  "features.dataFetching.title": "Daten-Abfrage",
+  "features.description": "Alles, was Sie zum Erstellen Ihrer nächsten Webanwendung benötigen!",
+  "features.dx.highlights.1": "Saubere und skalierbare Anwendungsstruktur",
+  "features.dx.highlights.2": "Typsicherer Code mit Typescript",
+  "features.dx.highlights.3": "ESLint und Prettier integriert",
+  "features.dx.title": "Developer Experience",
+  "features.i18n.highlights.1": "next-i18next integriert zur Unterstützung der vollständigen Internationalisierung",
+  "features.i18n.highlights.2": "Alle Komponenten sind für die Übersetzung vorbereitet",
+  "features.i18n.highlights.3": "Übersetzungs-Flow bereit zur Verwendung mit einem Übersetzungsmanagement-Tool oder in VSCode über i18n-ally",
+  "features.i18n.title": "Internationalisierung",
+  "features.mailTemplates.highlights.1": "Anpassbare MJML-Vorlagen",
+  "features.mailTemplates.highlights.2": "Gebrauchsfertige Vorlagen für alle Supabase-E-Mail-Benachrichtigungen",
+  "features.mailTemplates.title": "E-Mail-Vorlagen",
+  "features.serverless.highlights.1": "Entwickelt für die Verwendung mit Serverless-Plattformen wie Vercel",
+  "features.serverless.highlights.2": "Skalierbar für jeden Anwendungsfall",
+  "features.serverless.title": "Serverless-Architektur",
+  "features.title": "Features",
+  "hero.description": "Rogue Scholar verbessert Ihr Wissenschaftsblog in wichtigen Punkten, einschließlich Volltextsuche, Langzeitarchivierung, DOIs und Metadaten.",
+  "hero.slogan": "Vetraut von bisher {{number}} Wissenschaftsblogs, unter anderem",
+  "hero.subtitle": "verbessert.",
+  "hero.title": "Wissenschaftliches Bloggen",
+  "languages.de": "Deutsch",
+  "languages.en": "Englisch",
+  "languages.es": "Spanisch",
+  "pricing.description": "Unterstützt alle Arten von Wissenschaftsblogs, vom persönlichen Blog bis zum Newsletter von Organisationen.",
+  "pricing.plans.enterprise.description": "Für spezielle Anforderungen.",
+  "pricing.plans.enterprise.features.1": "Alles in Team",
+  "pricing.plans.enterprise.features.2": "Archivierung von Blogs ohne aktiven RSS-Feed",
+  "pricing.plans.enterprise.features.3": "Unterstützung weiterer Sprachen",
+  "pricing.plans.enterprise.features.4": "Unterstützung von Podcasts und Vlogs",
+  "pricing.plans.enterprise.features.5": "Entwicklung von benutzerdefinierten Funktionen",
+  "pricing.plans.enterprise.name": "Unternehmen",
+  "pricing.plans.enterprise.price": "Fragen Sie uns",
+  "pricing.plans.starter.description": "Für die meisten Blogs.",
+  "pricing.plans.starter.features.1": "Archivierung von bis zu 50 Beiträgen pro Jahr",
+  "pricing.plans.starter.features.2": "Volltextsuche in allen Beiträgen",
+  "pricing.plans.starter.features.3": "Registrierung von DOIs mit Metadaten",
+  "pricing.plans.starter.name": "Starter",
+  "pricing.plans.starter.price": "Kostenlos",
+  "pricing.plans.team.description": "Perfekt für größere Blogs.",
+  "pricing.plans.team.features.1": "Alles in Starter",
+  "pricing.plans.team.features.2": "Archivierung einer unbegrenzten Zahl von Beiträgen",
+  "pricing.plans.team.name": "Team",
+  "pricing.plans.team.price": "$1 per Beitrag",
+  "pricing.subtitle": "für alle.",
+  "pricing.title": "Unkomplizierte Preise",
   "signupButton": "Ein Konto erstellen",
-  "pricing": {
-    "description": "Unterstützt alle Arten von Wissenschaftsblogs, vom persönlichen Blog bis zum Newsletter von Organisationen.",
-    "title": "Unkomplizierte Preise",
-    "subtitle": "für alle.",
-    "plans": {
-      "starter": {
-        "name": "Starter",
-        "price": "Kostenlos",
-        "description": "Für die meisten Blogs.",
-        "features": {
-          "1": "Archivierung von bis zu 50 Beiträgen pro Jahr",
-          "2": "Volltextsuche in allen Beiträgen",
-          "3": "Registrierung von DOIs mit Metadaten"
-        }
-      },
-      "team": {
-        "name": "Team",
-        "price": "$1 per Beitrag",
-        "description": "Perfekt für größere Blogs.",
-        "features": {
-          "1": "Alles in Starter",
-          "2": "Archivierung einer unbegrenzten Zahl von Beiträgen"
-        }
-      },
-      "enterprise": {
-        "name": "Unternehmen",
-        "price": "Fragen Sie uns",
-        "description": "Für spezielle Anforderungen.",
-        "features": {
-          "1": "Alles in Team",
-          "2": "Archivierung von Blogs ohne aktiven RSS-Feed",
-          "3": "Unterstützung weiterer Sprachen",
-          "4": "Unterstützung von Podcasts und Vlogs",
-          "5": "Entwicklung von benutzerdefinierten Funktionen"
-        }
-      }
-    }
-  },
-  "faq": {
-    "title": "Häufig gestellte Fragen",
-    "more": "Wenn Sie nicht finden, wonach Sie suchen, gehen Sie zu unserer ",
-    "support": "oder wenden sich an das ",
-    "questions": {
-      "1": "Wann ist Rogue Scholar verfügbar?",
-      "2": "Wie kann ich mein Blog mit bei Rogue Scholar anmelden?",
-      "3": "Warum könnte mein Blog nicht für Rogue Scholar geeignet sein?",
-      "4": "Unterstützt Rogue Scholar nur Blogs über Naturwissenschaft?",
-      "5": "In welchen Sprachen ist Rogue Scholar verfügbar?",
-      "6": "Wie wird mein Blog von Rogue Scholar archiviert?",
-      "7": "Muss ich alle Inhalte über Rogue Scholar bereitstellen?",
-      "8": "Unterstützt Rogue Scholar Podcasts und Vlogs?",
-      "9": "Was kostet die Archivierung meines Blogs mit Rogue Scholar?",
-      "10": "Wann bekomme ich eine Rechnung für die Archivierung meines Blogs?",
-      "11": "Was kostet die Nutzung von Rogue Scholar?",
-      "12": "Wie kann ich Rogue Scholar unterstützen?"
-    },
-    "answers": {
-      "1": "Die erste Version von Rogue Scholar wurde im April 2023 veröffentlicht. Die volle Funktionalität (Archivierung, Volltextsuche, DOIs mit Metadaten) ist seit dem 1. Juli 2023 verfügbar.",
-      "2": "Sie können sich für Rogue Scholar registrieren, indem Sie zu der von Hder omepage verknüpften Registrierung gehen. Wir melden uns bei Ihnen innerhalb von zwei Werktagen zurück.",
-      "3": "Rogue Scholar ist nur für Blogs geeignet, die ihre kompletten Beiträge über einen RSS-Feed bereitstellen, und eine Creative Commons Attribution Lizenz akzeptieren.",
-      "4": "Nein, wir akzeptieren Blogs aus und über alle Wissenschaftsdisziplinen.",
-      "5": "Rogue Scholar ist in Englisch und Deutsch verfügbar. Weitere Sprachen werden in Zukunft folgen.",
-      "6": "Wir archivieren Ihren Blog über den Atom-Feed, alternativ auch in anderen Formaten wie RSS und JSON Feed. Sprechen Sie mit uns wenn sie Ihre ORCID ID oder Referenzen hinzufügen möchten.",
-      "7": "Ja, wir benötigen den Volltext aller Beiträge, um eine Volltextsuche, Langzeitarchivierung, und die Registrierung von Referenzen zu ermöglichen.",
-      "8": "Podcasts und Vlogs werden in gegen eine Gebühr nach Rücksprache unterstützt.",
-      "9": "Rogue Scholar ist für die ersten 50 Beiträge im Jahr kostenlos. Für jeden weiteren Beitrag berechnen wir einmalig $1.",
-      "10": "Sie erhalten eine Rechnung alle drei Monate, wenn Sie mehr als 50 Beiträge im Jahr veröffentlichen.",
-      "11": "Das Lesen und die Nachnutzung der Inhalte von Rogue Scholar ist immer kostenlos. Die Inhalte stehen unter einer Creative Commons Attribution Lizenz.",
-      "12": "Wir freuen uns über Spenden und andere Formen der Unterstützung. Bitte kontaktieren Sie uns per Email."
-    }
-  },
-  "statistics": {
-    "description": "Wichtige Kennzahlen um die Blogs in Rogue Scholar zu beschreiben.",
-    "title": "Statistiken",
-    "category": "Kategorie",
-    "language": "Sprache",
-    "platform": "Plattform"
-  },
-  "languages": {
-    "de": "Deutsch",
-    "en": "Englisch",
-    "es": "Spanisch"
-  }
+  "statistics.category": "Kategorie",
+  "statistics.description": "Wichtige Kennzahlen um die Blogs in Rogue Scholar zu beschreiben.",
+  "statistics.language": "Sprache",
+  "statistics.platform": "Plattform",
+  "statistics.title": "Statistiken"
 }

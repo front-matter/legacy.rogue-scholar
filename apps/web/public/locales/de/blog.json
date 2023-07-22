@@ -1,8 +1,8 @@
 {
-  "title": "Blog",
+  "blog": "Blog",
   "description": "Lesen Sie die neusten Geschichten von unseren fantastischen Autoren!",
-  "readMore": "Mehr lesen",
-  "writtenBy": "Geschrieben von",
   "publishedOn": "Veröffentlicht am",
-  "blog": "Blog"
+  "readMore": "Mehr lesen",
+  "title": "Blog",
+  "writtenBy": "Geschrieben von"
 }

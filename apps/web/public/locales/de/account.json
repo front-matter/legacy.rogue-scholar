@@ -1,15 +1,12 @@
 {
-  "account": "Account",
-  "updateUserName": {
-    "errorMessage": "Ihr Name konnte nicht aktualisiert werden. Bitte versuche es erneut.",
-    "successMessage": "Ihr Name wurde aktualisiert."
-  },
-  "subscription": {
-    "title": "Abonnement",
-    "currentlySubscribed": "Sie haben aktuell folgenden Plan abonniert:",
-    "notSubscribed": "Sie haben aktuell keinen Plan abonniert."
-  },
-  "password": "Passwort",
+  "account": "Konto",
   "changeMyPassword": "Mein Passwort ändern",
-  "manageSubscription": "Abonnement verwalten"
+  "manageSubscription": "Abonnement verwalten",
+  "password": "Passwort",
+  "subscription.currentlySubscribed": "Sie haben aktuell folgenden Plan abonniert:",
+  "subscription.notSubscribed": "Sie haben aktuell keinen Plan abonniert.",
+  "subscription.title": "Abonnement",
+  "updateUserName.errorMessage": "Ihr Name konnte nicht aktualisiert werden. Bitte versuche es erneut.",
+  "updateUserName.successMessage": "Ihr Name wurde aktualisiert.",
+  "upgradeAccount": ""
 }

@@ -1,115 +1,91 @@
 {
-  "colorMode": {
-    "dark": "Dunkel",
-    "light": "Hell"
-  },
-  "pageNotFound": {
-    "title": "Seite nicht gefunden...",
-    "description": "Die angeforderte Seite konnte nicht gefunden werden."
-  },
-  "footer": {
-    "authors": " und jeweilige Autoren. ",
-    "creativeCommons": "Alle Inhalte stehen unter der <a className='hover:font-semibold' href='{{url}}'>Creative Commons Namensnennung 4.0 International Lizenz</a>.",
-    "allRightsReserved": "Alle Rechte vorbehalten."
-  },
+  "categories.agriculturalSciences": "Agrarwissenschaften",
+  "categories.engineeringAndTechnology": "Ingenieurwissenschaften und Technik",
+  "categories.humanities": "Geisteswissenschaften",
+  "categories.medicalAndHealthSciences": "Medizin und Gesundheitswissenschaften",
+  "categories.naturalSciences": "Naturwissenschaften",
+  "categories.socialSciences": "Sozialwissenschaften",
+  "colorMode.dark": "Dunkel",
+  "colorMode.light": "Hell",
+  "common.pricingPage": "",
+  "common.subscriptionPlans.enterprise.features[0]": "",
+  "common.subscriptionPlans.enterprise.features[1]": "",
+  "common.subscriptionPlans.enterprise.features[2]": "",
+  "common.subscriptionPlans.enterprise.features[3]": "",
+  "common.subscriptionPlans.enterprise.features[4]": "",
+  "common.subscriptionPlans.starter.features[0]": "",
+  "common.subscriptionPlans.starter.features[1]": "",
+  "common.subscriptionPlans.starter.features[2]": "",
+  "common.subscriptionPlans.team.features[0]": "",
+  "common.subscriptionPlans.team.features[1]": "",
+  "footer.allRightsReserved": "Alle Rechte vorbehalten.",
+  "footer.authors": " und jeweilige Autoren. ",
+  "footer.creativeCommons": "Alle Inhalte stehen unter der <a className='hover:font-semibold' href='{{url}}'>Creative Commons Namensnennung 4.0 International Lizenz</a>.",
   "language": "Sprache",
-  "menu": {
-    "pricing": "Preise",
-    "faq": "Häufig gestellte Fragen",
-    "stats": "Statistiken",
-    "blogs": "Blogs",
-    "posts": "Beiträge",
-    "docs": "Dokumentation",
-    "usage_stats": "Nutzungsstatistiken",
-    "dashboard": "Dashboard"
-  },
+  "languages.de": "Deutsch",
+  "languages.en": "Englisch",
+  "languages.es": "Spanisch",
+  "menu.blogs": "Blogs",
+  "menu.dashboard": "Dashboard",
+  "menu.docs": "Dokumentation",
+  "menu.faq": "Häufig gestellte Fragen",
+  "menu.posts": "Beiträge",
+  "menu.pricing": "Preise",
+  "menu.stats": "Statistiken",
+  "menu.usage_stats": "Nutzungsstatistiken",
+  "number": "{{val, number}}",
+  "pageNotFound.description": "Die angeforderte Seite konnte nicht gefunden werden.",
+  "pageNotFound.title": "Seite nicht gefunden...",
+  "pagination.next": "Nächste Seite",
+  "pagination.no_results": "Keine Ergebnisse",
+  "pagination.of": "von",
+  "pagination.page": "Seite",
+  "pagination.previous": "Vorherige Seite",
+  "pagination.results": "Ergebnissen",
+  "posts.all": "All",
+  "posts.author_one": "Autor",
+  "posts.author_other": "Autoren",
+  "posts.date_published": "{{val, datetime}}",
+  "posts.description": "List of all posts",
+  "posts.draft": "Draft",
+  "posts.errors.description": "We were unable to fetch your posts. Please try again later.",
+  "posts.errors.title": "Something went wrong",
+  "posts.no_results": "No posts found",
+  "posts.published": "Veröffentlicht",
+  "posts.scheduled": "Scheduled",
+  "posts.search": "Search posts...",
+  "posts.title": "Rogue Scholar Beiträge",
+  "pricing.intervals.month": "Monat",
+  "pricing.intervals.monthly": "Monatlich",
+  "pricing.intervals.year": "Jahr",
+  "pricing.intervals.yearly": "Jährlich",
+  "pricing.manageButton": "Verwalten",
+  "pricing.mostPopular": "",
+  "pricing.subscribeButton": "Abonnieren",
+  "pricingPage": "",
+  "search.placeholder": "Suche...",
   "signIn": "Anmelden",
   "signUp": "Registrieren",
-  "userMenu": {
-    "homepage": "Startseite",
-    "message": "Hallo {{user}}!",
-    "account": "Konto",
-    "signOut": "Abmelden"
-  },
-  "posts": {
-    "title": "Rogue Scholar Beiträge",
-    "description": "List of all posts",
-    "search": "Search posts...",
-    "no_results": "No posts found",
-    "all": "All",
-    "published": "Veröffentlicht",
-    "date_published": "{{val, datetime}}",
-    "author_one": "Autor",
-    "author_other": "Autoren",
-    "draft": "Draft",
-    "scheduled": "Scheduled",
-    "errors": {
-      "title": "Something went wrong",
-      "description": "We were unable to fetch your posts. Please try again later."
-    }
-  },
-  "pricing": {
-    "subscribeButton": "Abonnieren",
-    "intervals": {
-      "yearly": "Jährlich",
-      "monthly": "Monatlich",
-      "month": "Monat",
-      "year": "Jahr"
-    },
-    "manageButton": "Verwalten"
-  },
-  "pagination": {
-    "page": "Seite",
-    "previous": "Vorherige Seite",
-    "next": "Nächste Seite",
-    "of": "von",
-    "results": "Ergebnissen",
-    "no_results": "Keine Ergebnisse"
-  },
-  "search": {
-    "placeholder": "Suche..."
-  },
-  "number": "{{val, number}}",
-  "categories": {
-    "naturalSciences": "Naturwissenschaften",
-    "engineeringAndTechnology": "Ingenieurwissenschaften und Technik",
-    "medicalAndHealthSciences": "Medizin und Gesundheitswissenschaften",
-    "agriculturalSciences": "Agrarwissenschaften",
-    "socialSciences": "Sozialwissenschaften",
-    "humanities": "Geisteswissenschaften"
-  },
-  "languages": {
-    "de": "Deutsch",
-    "en": "Englisch",
-    "es": "Spanisch"
-  },
-  "subscriptionPlans": {
-    "basic": {
-      "name": "Basic",
-      "description": "Der Start für Ihr Business",
-      "features": {
-        "0": "Funktion A",
-        "1": "Funktion B",
-        "2": "Funktion C"
-      }
-    },
-    "pro": {
-      "name": "Pro",
-      "description": "Erweiterte Funktionen für Ihr Business",
-      "features": {
-        "0": "Funktion A",
-        "1": "Funktion B",
-        "2": "Funktion C"
-      }
-    },
-    "ultimate": {
-      "name": "Ultimate",
-      "description": "Das ultimative Paket für Ihr Business",
-      "features": {
-        "0": "Funktion A",
-        "1": "Funktion B",
-        "2": "Funktion C"
-      }
-    }
-  }
+  "subscriptionAlert.manage": "",
+  "subscriptionAlert.text": "",
+  "subscriptionAlert.title": "",
+  "subscriptionPlans.basic.description": "Der Start für Ihr Business",
+  "subscriptionPlans.basic.features.0": "Funktion A",
+  "subscriptionPlans.basic.features.1": "Funktion B",
+  "subscriptionPlans.basic.features.2": "Funktion C",
+  "subscriptionPlans.basic.name": "Basic",
+  "subscriptionPlans.pro.description": "Erweiterte Funktionen für Ihr Business",
+  "subscriptionPlans.pro.features.0": "Funktion A",
+  "subscriptionPlans.pro.features.1": "Funktion B",
+  "subscriptionPlans.pro.features.2": "Funktion C",
+  "subscriptionPlans.pro.name": "Pro",
+  "subscriptionPlans.ultimate.description": "Das ultimative Paket für Ihr Business",
+  "subscriptionPlans.ultimate.features.0": "Funktion A",
+  "subscriptionPlans.ultimate.features.1": "Funktion B",
+  "subscriptionPlans.ultimate.features.2": "Funktion C",
+  "subscriptionPlans.ultimate.name": "Ultimate",
+  "userMenu.account": "Konto",
+  "userMenu.homepage": "Startseite",
+  "userMenu.message": "Hallo {{user}}!",
+  "userMenu.signOut": "Abmelden"
 }
