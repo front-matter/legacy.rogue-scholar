@@ -87,7 +87,7 @@ export const Stats: React.FunctionComponent<Props> = ({
           >
             {t("statistics.title")}
           </h2>
-          <p className="mt-2 text-lg tracking-tight text-slate-700">
+          <p className="mt-2 text-lg tracking-tight text-slate-700 dark:text-slate-200">
             {t("statistics.description")}
           </p>
         </div>

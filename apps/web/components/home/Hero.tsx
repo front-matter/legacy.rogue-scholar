@@ -16,7 +16,7 @@ export default function Hero({ blogs }: Props) {
 
   return (
     <Container className="pb-16 pt-10 text-center lg:pt-16">
-      <h1 className="mx-auto max-w-4xl font-sans text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
+      <h1 className="mx-auto max-w-4xl font-sans text-5xl font-medium tracking-tight text-slate-900 dark:text-slate-100 sm:text-7xl">
         {t("hero.title")}{" "}
         <span className="relative whitespace-nowrap text-blue-600">
           <svg
@@ -30,11 +30,11 @@ export default function Hero({ blogs }: Props) {
           <span className="relative">{t("hero.subtitle")}</span>
         </span>
       </h1>
-      <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
+      <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700 dark:text-slate-200">
         {t("hero.description")}
       </p>
       <div className="mx-auto mt-10 max-w-7xl px-6 lg:px-8">
-        <h2 className="text-center text-xl font-medium leading-8 text-gray-900">
+        <h2 className="text-center text-xl font-medium leading-8 text-gray-900 dark:text-slate-100">
           {t("hero.slogan", { number: blogNumber })}
         </h2>
         <div className="mx-auto mt-6 grid max-w-lg grid-cols-6 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6">

@@ -48,7 +48,7 @@ export default function Search() {
         >
           <Icon
             icon="fa6-solid:xmark"
-            className="absolute right-3 top-3 h-5 w-5 text-gray-500"
+            className="absolute right-3 top-3 h-5 w-5 text-gray-500 dark:text-gray-300"
           />
         </span>
       )}
@@ -57,7 +57,7 @@ export default function Search() {
         placeholder={t("search.placeholder")}
         value={searchInput}
         onChange={onSearchChange}
-        className="mt-3 block w-full rounded-md border border-gray-400 bg-white py-2 pl-10 text-base placeholder-gray-500 focus:border-blue-500 focus:text-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        className="mt-3 block w-full rounded-md border border-gray-400 bg-white py-2 pl-10 text-base placeholder-gray-500 focus:border-blue-500 focus:text-gray-900 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-slate-800 dark:placeholder-gray-300 dark:focus:text-gray-100"
         onSubmit={onSubmit}
         onKeyDown={onKeyDown}
         ref={inputRef}

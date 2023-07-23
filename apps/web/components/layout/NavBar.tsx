@@ -13,6 +13,7 @@ import { useTranslation } from "next-i18next"
 import { useEffect } from "react"
 import { FaBars } from "react-icons/fa"
 
+import ColorModeSwitch from "@/components/common/ColorModeSwitch"
 import LanguageSwitch from "@/components/common/LanguageSwitch"
 import Logo from "@/components/layout/Logo"
 import Menu from "@/components/layout/Menu"
@@ -58,6 +59,7 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
             <HStack spacing={4}>
               <HStack>
                 <LanguageSwitch />
+                <ColorModeSwitch />
               </HStack>
               {user ? (
                 <UserMenu />

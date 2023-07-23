@@ -76,7 +76,7 @@ const PostPage: React.FunctionComponent<Props> = ({ blog, post }) => {
         />
       </Head>
       <Layout>
-        <div className="bg-white">
+        <div className="bg-white dark:bg-slate-800">
           <Blog blog={blog} />
           {post && <Post post={post} />}
         </div>

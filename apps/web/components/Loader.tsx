@@ -3,7 +3,7 @@ import ContentLoader from "react-content-loader"
 
 export function Loader() {
   return (
-    <div className="bg-white py-6 sm:py-8">
+    <div className="bg-white py-6 dark:bg-slate-800 sm:py-8">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <ContentLoader
           speed={2}

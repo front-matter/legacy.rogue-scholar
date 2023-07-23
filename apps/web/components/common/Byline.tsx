@@ -20,7 +20,7 @@ export const Byline: React.FunctionComponent<Props> = ({ post, blog }) => {
   const { t } = useTranslation("common")
 
   return (
-    <div className="text-base font-medium text-gray-500">
+    <div className="text-base font-medium text-gray-500 dark:text-gray-200">
       {post.published_at && (
         <div>
           {t("posts.published")}{" "}
@@ -37,7 +37,7 @@ export const Byline: React.FunctionComponent<Props> = ({ post, blog }) => {
               {" "}
               in{" "}
               <Link
-                className="font-semibold text-blue-600 group-hover:text-blue-800"
+                className="font-semibold text-blue-600 hover:text-blue-800"
                 href={"/blogs/" + post.blog_id}
               >
                 {post.blog_name}

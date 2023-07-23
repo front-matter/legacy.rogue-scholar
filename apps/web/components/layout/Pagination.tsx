@@ -13,12 +13,12 @@ export default function Pagination({ pagination }: Props) {
   return (
     <div className="mx-auto max-w-2xl lg:max-w-4xl">
       <nav
-        className="flex items-center justify-between bg-white pb-3 pt-1"
+        className="flex items-center justify-between bg-transparent pb-3 pt-1"
         aria-label="Pagination"
       >
         <div className="hidden sm:block">
           {pagination.total > 0 && (
-            <p className="text-sm text-gray-700">
+            <p className="text-sm text-gray-700 dark:text-gray-200">
               {t("pagination.page")}{" "}
               <span className="font-semibold">{pagination.page}</span>{" "}
               {t("pagination.of")}{" "}
@@ -29,7 +29,7 @@ export default function Pagination({ pagination }: Props) {
             </p>
           )}
           {pagination.total === 0 && (
-            <p className="text-sm text-gray-700">
+            <p className="text-sm text-gray-700 dark:text-gray-200">
               {t("pagination.no_results")}
             </p>
           )}

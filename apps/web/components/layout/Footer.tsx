@@ -11,7 +11,7 @@ export default function Footer() {
   const { t } = useTranslation("common")
 
   return (
-    <footer className="bg-slate-100">
+    <footer className="bg-slate-100 dark:bg-black dark:text-white">
       <Container className="relative">
         <div className="py-6">
           <nav className="text-sm" aria-label="quick links">
@@ -31,37 +31,37 @@ export default function Footer() {
           </nav>
         </div>
         <div className="flex flex-col items-center border-t border-slate-400/10 py-6 sm:flex-row-reverse sm:justify-between">
-          <div className="flex gap-x-6">
+          <div className="flex gap-x-6 text-gray-500 dark:text-gray-200">
             <Link
               href="mailto:info..front-matter.io"
-              className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
+              className="border-b-0 text-lg hover:text-gray-400 dark:hover:text-gray-100"
             >
               <span className="sr-only">Mail</span>
               <Icon icon="fa6-solid:envelope" className="inline" />
             </Link>
             <Link
               href="https://discord.gg/HvbD4dNPFh"
-              className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
+              className="border-b-0 text-lg hover:text-gray-400 dark:hover:text-gray-100"
             >
               <span className="sr-only">Discord</span>
               <Icon icon="fa6-brands:discord" className="inline" />
             </Link>
             <Link
               href="https://hachyderm.io/@mfenner"
-              className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
+              className="border-b-0 text-lg hover:text-gray-400 dark:hover:text-gray-100"
             >
               <span className="sr-only">Mastodon</span>
               <Icon icon="fa6-brands:mastodon" className="inline" />
             </Link>
             <Link
               href="https://github.com/front-matter/rogue-scholar"
-              className="border-b-0 text-lg text-gray-500 hover:text-gray-400"
+              className="border-b-0 text-lg hover:text-gray-400 dark:hover:text-gray-100"
             >
               <span className="sr-only">GitHub</span>
               <Icon icon="fa6-brands:github" className="inline" />
             </Link>
           </div>
-          <p className="mt-6 text-sm text-slate-500 sm:mt-0">
+          <p className="mt-6 text-sm text-slate-500 dark:text-slate-200 sm:mt-0">
             Copyright &copy; {new Date().getFullYear()} The Rogue Scholar{" "}
             {t("footer.authors")}
             {parse(

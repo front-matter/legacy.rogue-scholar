@@ -43,33 +43,33 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
                       {post.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800"
+                          className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
                         >
                           {tag}
                         </span>
                       ))}
                       {post.language !== activeLocale && (
-                        <span className="relative z-10 ml-0 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800">
+                        <span className="relative z-10 ml-0 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800 dark:bg-green-700 dark:text-green-200">
                           {t("languages." + post.language)}
                         </span>
                       )}
                     </div>
                   )}
                   <div className="group relative max-w-3xl">
-                    <h3 className="mt-1 text-xl font-semibold text-gray-900 group-hover:text-gray-600">
+                    <h3 className="mt-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
                       {post.title}
                     </h3>
                     <Byline post={post} blog={blog} />
                     {post.doi && (
                       <div className="py-1 font-medium">
                         <Link
-                          className="text-base text-gray-300 group-hover:text-gray-900"
+                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                           target="_blank"
                           href={post.doi}
                         >
                           <Icon
                             icon="academicons:doi"
-                            className="mr-1 inline text-gray-300 hover:text-gray-900"
+                            className="mr-1 inline text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                           />
                           {post.doi}
                         </Link>
@@ -78,7 +78,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
                     {!post.doi && post.url && (
                       <div className="py-1 font-medium">
                         <Link
-                          className="text-base text-gray-300 group-hover:text-gray-900"
+                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                           target="_blank"
                           href={post.url}
                         >
@@ -87,7 +87,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
                       </div>
                     )}
                     {post.summary && (
-                      <p className="text-medium mt-2 font-serif leading-6 text-gray-900">
+                      <p className="text-medium mt-2 font-serif leading-6 text-gray-900 dark:text-white">
                         {parse(String(post.summary))}
                       </p>
                     )}

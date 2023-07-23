@@ -77,18 +77,18 @@ export default function Faqs() {
           >
             {t("faq.title")}
           </h2>
-          <p className="mt-2 text-lg tracking-tight text-slate-700">
+          <p className="mt-2 text-lg tracking-tight text-slate-700 dark:text-slate-200">
             {t("faq.more")}{" "}
             <Link
               href="https://docs.rogue-scholar.org"
-              className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
+              className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
             >
               Documentation
             </Link>{" "}
             {t("faq.support")}{" "}
             <Link
               href="https://discord.gg/HvbD4dNPFh"
-              className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400"
+              className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
             >
               Rogue Scholar Discord Forum
             </Link>
@@ -104,10 +104,10 @@ export default function Faqs() {
               <ul role="list" className="flex flex-col gap-y-8">
                 {column.map((faq, faqIndex) => (
                   <li key={faqIndex}>
-                    <h3 className="font-sans text-lg font-semibold leading-7 text-slate-900">
+                    <h3 className="font-sans text-lg font-semibold leading-7 text-slate-900 dark:text-slate-100">
                       {faq.question}
                     </h3>
-                    <p className="mt-0 font-serif text-base text-slate-700">
+                    <p className="mt-0 font-serif text-base text-slate-700 dark:text-slate-200">
                       {faq.answer}
                     </p>
                   </li>

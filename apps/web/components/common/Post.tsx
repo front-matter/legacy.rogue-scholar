@@ -34,19 +34,19 @@ export const Post: React.FunctionComponent<Props> = ({ post, blog }) => {
                   </div>
                 )}
                 <div className="group relative max-w-3xl">
-                  <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                  <h3 className="mt-2 text-xl font-semibold leading-6 text-gray-900 hover:text-gray-600">
                     {post.title}
                   </h3>
                   <Byline post={post} blog={blog} />
                   {post.doi && (
                     <div className="py-1">
                       <Link
-                        className="text-base text-gray-500 group-hover:text-gray-900"
+                        className="text-base text-gray-500 hover:text-gray-900 dark:text-gray-200"
                         href={post.doi}
                       >
                         <Icon
                           icon="academicons:doi"
-                          className="mr-1 inline text-gray-300"
+                          className="mr-1 inline text-gray-500 dark:text-gray-200"
                         />
                         {post.doi}
                       </Link>

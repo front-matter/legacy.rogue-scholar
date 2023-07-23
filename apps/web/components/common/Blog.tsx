@@ -40,7 +40,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="relative mb-2 flex items-center gap-x-12">
             <div>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
                 {parse(String(blog.title))}
               </h2>
             </div>
@@ -54,12 +54,12 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
           </div>
           <div className="-mt-px">
             {blog.category && (
-              <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
+              <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
                 {t("categories." + blog.category)}
               </span>
             )}
             {blog.language !== activeLocale && (
-              <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
+              <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800 dark:bg-green-700 dark:text-green-200">
                 {t("languages." + blog.language)}
               </span>
             )}
@@ -69,13 +69,13 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </span>
             )}
             {blog.description && (
-              <div className="mt-1 font-serif text-base text-gray-600">
+              <div className="mt-1 font-serif text-base text-gray-600 dark:text-gray-200">
                 {parse(String(blog.description))}
               </div>
             )}
           </div>
           <div className="mt-1">
-            <span className="text-gray-500">
+            <span className="text-gray-500 dark:text-gray-200">
               <Link
                 href={blog.home_page_url ?? ""}
                 target="_blank"
@@ -86,7 +86,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </Link>
             </span>
             {feed_url && blog.feed_format && (
-              <span className="-ml-px text-gray-500">
+              <span className="-ml-px text-gray-500 dark:text-gray-200">
                 <Link
                   href={feed_url}
                   target="_blank"
@@ -102,7 +102,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </span>
             )}
             {blog.modified_at && blog.modified_at > "1970-01-02" && (
-              <span className="font-medium text-gray-500">
+              <span className="font-medium text-gray-500 dark:text-gray-200">
                 <Icon icon="fa6-regular:calendar-check" className="inline" />
                 <time
                   className="ml-2 mr-6"

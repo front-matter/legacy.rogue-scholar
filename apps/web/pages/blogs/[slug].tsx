@@ -1,5 +1,6 @@
 import Head from "next/head"
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
 import { jsonLdScriptProps } from "react-schemaorg"
@@ -69,6 +70,8 @@ const BlogPage: React.FunctionComponent<Props> = ({
   posts,
   pagination,
 }) => {
+  const { t } = useTranslation("common")
+
   return (
     <>
       <Head>
@@ -104,7 +107,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
         />
       </Head>
       <Layout>
-        <div className="bg-white">
+        <div className="bg-white dark:bg-slate-800">
           <Blog blog={blog} />
           {blog.status == "active" && (
             <>
@@ -118,9 +121,9 @@ const BlogPage: React.FunctionComponent<Props> = ({
                     <Link
                       href={blog.home_page_url}
                       target="_blank"
-                      className="text-base font-semibold text-gray-700 hover:text-gray-400 sm:text-xl"
+                      className="text-base font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200 sm:text-xl"
                     >
-                      More posts via the {blog.title} Home Page …
+                      {t("posts.viaHomepage", { homepage: blog.title })}
                     </Link>
                   </div>
                 </div>
