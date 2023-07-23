@@ -1,5 +1,6 @@
 import { extract } from "@extractus/feed-extractor"
 import { stripTags, truncate } from "bellajs"
+import fetch from "cross-fetch"
 import isRelativeUrl from "is-relative-url"
 import {
   capitalize,
@@ -323,6 +324,29 @@ export async function upsertSingleBlog(blogSlug: string) {
   return data
 }
 
+export async function validateFeedUrl(url: string) {
+  const res = await fetch(url)
+
+  if (res.status === 200) {
+    const contentType = res.headers.get("content-type")?.split(";")[0]
+
+    if (
+      [
+        "application/rss+xml",
+        "application/atom+xml",
+        "text/xml",
+        "application/json+feed",
+      ].includes(contentType as string)
+    ) {
+      return url
+    } else {
+      throw new Error("Invalid feed format")
+    }
+  } else {
+    return null
+  }
+}
+
 const parseGenerator = (generator: any) => {
   if (isObject(generator)) {
     let name = generator["#text"]
@@ -379,7 +403,13 @@ export async function getSingleBlog(blogSlug: string) {
     return {}
   }
 
-  let blog: BlogType = await extract(config["feed_url"], {
+  const feed_url = await validateFeedUrl(config["feed_url"])
+
+  if (!feed_url) {
+    throw new Error(`Failed to validate feed_url: ${config["feed_url"]}`)
+  }
+
+  let blog: BlogType = await extract(feed_url, {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
       // console.log(feedData)
