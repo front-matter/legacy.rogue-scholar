@@ -12,12 +12,12 @@ import {
   Stack,
   useToast,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 import { FormEvent, useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
-import { FaEye, FaEyeSlash, FaLock } from "react-icons/fa"
 
 import AuthFormWrapper from "@/components/auth/AuthFormWrapper"
 import { redirectPath } from "@/config/auth"
@@ -73,7 +73,7 @@ function ResetPasswordForm() {
             <FormLabel>{t("fields.newPassword")}</FormLabel>
             <InputGroup>
               <InputLeftElement color="gray.300">
-                <FaLock />
+                <Icon icon="fa6-solid:lock" />
               </InputLeftElement>
               <Input
                 required
@@ -87,7 +87,11 @@ function ResetPasswordForm() {
                 type="button"
                 onClick={togglePassword}
               >
-                {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                {isPasswordVisible ? (
+                  <Icon icon="fa6-solid:eye-slash" />
+                ) : (
+                  <Icon icon="fa6-solid:eye" />
+                )}
               </InputRightElement>
             </InputGroup>
           </FormControl>

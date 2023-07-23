@@ -1,6 +1,6 @@
 import { IconButton, useColorMode } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useTranslation } from "next-i18next"
-import { FaMoon, FaSun } from "react-icons/fa"
 
 export default function ColorModeSwitch() {
   const { t } = useTranslation("common")
@@ -12,7 +12,13 @@ export default function ColorModeSwitch() {
       aria-label={
         colorMode === "light" ? t("colorMode.dark") : t("colorMode.light")
       }
-      icon={colorMode === "light" ? <FaMoon /> : <FaSun />}
+      icon={
+        colorMode === "light" ? (
+          <Icon icon="fa6-solid:moon" />
+        ) : (
+          <Icon icon="fa6-solid:sun" />
+        )
+      }
       onClick={toggleColorMode}
       variant="ghost"
     ></IconButton>

@@ -8,7 +8,7 @@ import {
   Input,
   useEditableControls,
 } from "@chakra-ui/react"
-import { FaCheck, FaEdit, FaTimes } from "react-icons/fa"
+import { Icon } from "@iconify/react"
 
 function EditableControls() {
   const {
@@ -22,13 +22,13 @@ function EditableControls() {
     <ButtonGroup justifyContent="center" size="sm">
       <IconButton
         aria-label="Save"
-        icon={<FaCheck />}
+        icon={<Icon icon="fa6-solid:check" />}
         {...getSubmitButtonProps()}
       />
       <IconButton
         variant="outline"
         aria-label="Cancel"
-        icon={<FaTimes />}
+        icon={<Icon icon="fa6-solid:xmark" />}
         {...getCancelButtonProps()}
       />
     </ButtonGroup>
@@ -38,7 +38,7 @@ function EditableControls() {
         variant="outline"
         aria-label="edit"
         size="sm"
-        icon={<FaEdit />}
+        icon={<Icon icon="fa6-solid:pen-to-square" />}
         {...getEditButtonProps()}
       />
     </Flex>

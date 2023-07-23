@@ -7,11 +7,11 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useUser } from "@supabase/auth-helpers-react"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useEffect } from "react"
-import { FaBars } from "react-icons/fa"
 
 import ColorModeSwitch from "@/components/common/ColorModeSwitch"
 import LanguageSwitch from "@/components/common/LanguageSwitch"
@@ -82,7 +82,7 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
                   variant="outline"
                   onClick={mobileDrawerDisclosure.onToggle}
                 >
-                  <FaBars />
+                  <Icon icon="fa6-solid:bars" />
                 </IconButton>
               )}
             </HStack>

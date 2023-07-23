@@ -11,12 +11,12 @@ import {
   Link,
   Stack,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import NextLink from "next/link"
 import { useTranslation } from "next-i18next"
 import { FormEvent } from "react"
 import { useForm } from "react-hook-form"
-import { FaAt } from "react-icons/fa"
 
 import AuthFormWrapper from "@/components/auth/AuthFormWrapper"
 import { useAuthRedirectUrl } from "@/lib/blog/auth"
@@ -72,7 +72,7 @@ function ForgotPasswordForm() {
                 <FormLabel>{t("fields.email")}</FormLabel>
                 <InputGroup>
                   <InputLeftElement color="gray.300">
-                    <FaAt />
+                    <Icon icon="fa6-solid:at" />
                   </InputLeftElement>
 
                   <Input

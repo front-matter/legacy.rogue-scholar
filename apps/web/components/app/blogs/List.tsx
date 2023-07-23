@@ -19,12 +19,12 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
-import { FaEdit, FaUserPlus } from "react-icons/fa"
 
 import BlogFormModal from "@/components/app/blogs/FormModal"
 // import NoSubscriptionAlert from "@/components/app/blogs/NoSubscriptionAlert"
@@ -123,7 +123,7 @@ export default function BlogsList() {
         <Button
           size="sm"
           colorScheme="primary"
-          leftIcon={<FaUserPlus />}
+          leftIcon={<Icon icon="fa6-regular:square-plus" />}
           onClick={() => openBlogForm(newBlog)}
         >
           {t("blogs.createButton")}
@@ -178,7 +178,7 @@ export default function BlogsList() {
                           size="sm"
                           colorScheme="primary"
                           variant="ghost"
-                          icon={<FaEdit />}
+                          icon={<Icon icon="fa6-solid:pen-to-square" />}
                           aria-label={t("blogs.list.edit")}
                           onClick={() => openBlogForm(blog)}
                         />

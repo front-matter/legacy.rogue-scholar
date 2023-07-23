@@ -8,8 +8,8 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useTranslation } from "next-i18next"
-import { FaStar } from "react-icons/fa"
 
 import { useUserName } from "@/lib/blog/auth"
 import {
@@ -28,7 +28,7 @@ export default function UserSubscriptionAlert() {
     <Alert colorScheme="primary" variant="left-accent" p={8} rounded="md">
       <Stack direction={{ base: "column", md: "row" }} gap={5}>
         <Box color={highlightColor} fontSize="7xl">
-          <FaStar />
+          <Icon icon="fa6-solid:star" />
         </Box>
         <VStack align="start" spacing={3}>
           <Heading as="h3" fontSize="xl">

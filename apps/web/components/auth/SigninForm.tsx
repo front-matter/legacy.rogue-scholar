@@ -12,13 +12,13 @@ import {
   Link,
   Stack,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 import { FormEvent, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import { FaAt, FaLock } from "react-icons/fa"
 
 import AuthFormWrapper from "@/components/auth/AuthFormWrapper"
 import SigninModeSwitch, {
@@ -136,7 +136,7 @@ function SigninForm() {
                 <FormLabel>{t("fields.email")}</FormLabel>
                 <InputGroup>
                   <InputLeftElement color="gray.300">
-                    <FaAt />
+                    <Icon icon="fa6-solid:at" />
                   </InputLeftElement>
 
                   <Input
@@ -155,7 +155,7 @@ function SigninForm() {
                   <FormLabel>{t("fields.password")}</FormLabel>
                   <InputGroup>
                     <InputLeftElement color="gray.300">
-                      <FaLock />
+                      <Icon icon="fa6-solid:lock" />
                     </InputLeftElement>
                     <Input
                       type="password"

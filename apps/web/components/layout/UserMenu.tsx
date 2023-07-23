@@ -6,12 +6,12 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 import { useCallback } from "react"
-import { FaSignOutAlt, FaUser } from "react-icons/fa"
 
 import { useUserName } from "@/lib/blog/auth"
 
@@ -32,17 +32,24 @@ export default function UserMenu() {
         as={IconButton}
         size="sm"
         aria-label="Options"
-        icon={<FaUser />}
+        icon={<Icon icon="fa6-solid:user" />}
         rounded="full"
         colorScheme="primary"
       />
       <MenuList>
         <MenuGroup title={t("userMenu.message", { user: userName })}>
-          <MenuItem as={Link} href="/account" icon={<FaUser />}>
+          <MenuItem
+            as={Link}
+            href="/account"
+            icon={<Icon icon="fa6-solid:user" />}
+          >
             {t("userMenu.account")}
           </MenuItem>
 
-          <MenuItem icon={<FaSignOutAlt />} onClick={() => signOut?.()}>
+          <MenuItem
+            icon={<Icon icon="fa6-solid:arrow-right-from-bracket" />}
+            onClick={() => signOut?.()}
+          >
             {t("userMenu.signOut")}
           </MenuItem>
         </MenuGroup>

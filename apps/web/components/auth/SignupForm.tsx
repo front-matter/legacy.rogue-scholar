@@ -12,13 +12,13 @@ import {
   Link,
   Stack,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import NextLink from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 import { FormEvent, useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
-import { FaAt, FaEye, FaEyeSlash, FaLock, FaUserAlt } from "react-icons/fa"
 
 import AuthFormWrapper from "@/components/auth/AuthFormWrapper"
 import { redirectPath } from "@/config/auth"
@@ -111,7 +111,7 @@ function SignupForm() {
                 <FormLabel>{t("fields.name")}</FormLabel>
                 <InputGroup>
                   <InputLeftElement color="gray.300">
-                    <FaUserAlt />
+                    <Icon icon="fa6-solid:circle-user" />
                   </InputLeftElement>
                   <Input
                     autoComplete="name"
@@ -125,7 +125,7 @@ function SignupForm() {
                 <FormLabel>{t("fields.email")}</FormLabel>
                 <InputGroup>
                   <InputLeftElement color="gray.300">
-                    <FaAt />
+                    <Icon icon="fa6-solid:at" />
                   </InputLeftElement>
 
                   <Input
@@ -142,7 +142,7 @@ function SignupForm() {
                 <FormLabel>{t("fields.newPassword")}</FormLabel>
                 <InputGroup>
                   <InputLeftElement color="gray.300">
-                    <FaLock />
+                    <Icon icon="fa6-solid:lock" />
                   </InputLeftElement>
                   <Input
                     required
@@ -156,7 +156,11 @@ function SignupForm() {
                     type="button"
                     onClick={togglePassword}
                   >
-                    {isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+                    {isPasswordVisible ? (
+                      <Icon icon="fa6-solid:eye-slash" />
+                    ) : (
+                      <Icon icon="fa6-solid:eye" />
+                    )}
                   </InputRightElement>
                 </InputGroup>
               </FormControl>

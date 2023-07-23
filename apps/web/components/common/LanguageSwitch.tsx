@@ -6,10 +6,10 @@ import {
   MenuList,
   MenuOptionGroup,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 import { useCallback } from "react"
-import { FaGlobeAmericas } from "react-icons/fa"
 
 import { LocaleCode, localeNames } from "@/config/i18n"
 
@@ -32,7 +32,7 @@ export default function LanguageSwitch() {
         as={IconButton}
         variant="ghost"
         size="sm"
-        icon={<FaGlobeAmericas />}
+        icon={<Icon icon="fa6-solid:earth-americas" />}
         aria-label={t("language")}
       ></MenuButton>
       <MenuList>

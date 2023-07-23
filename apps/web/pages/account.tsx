@@ -6,12 +6,12 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { GetStaticProps } from "next"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useCallback } from "react"
-import { FaUser } from "react-icons/fa"
 
 import Password from "@/components/account/Password"
 import EditableText from "@/components/common/EditableText"
@@ -73,7 +73,7 @@ export default function AccountPage() {
             justify="center"
             color="white"
           >
-            <FaUser />
+            <Icon icon="fa6-solid:user" />
           </Flex>
           <Heading as="h1">
             {!!userName && (

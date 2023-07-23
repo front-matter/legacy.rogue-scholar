@@ -70,7 +70,6 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
     "react-i18next": "^13.0.1",
-    "react-icons": "^4.8.0",
     "react-schemaorg": "^2.0.0",
     "react-vega": "^7.6.0",
     "rehype-img-size": "^1.0.1",

@@ -9,16 +9,8 @@ import {
   useColorModeValue,
   VStack,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useTranslation } from "next-i18next"
-import {
-  FaCloud,
-  FaEnvelope,
-  FaLanguage,
-  FaPaintBrush,
-  FaSync,
-  FaTools,
-  FaUsersCog,
-} from "react-icons/fa"
 
 import SectionHeadline from "@/components/home/SectionHeadline"
 
@@ -29,7 +21,7 @@ export default function Features() {
   const featureItems = [
     {
       title: t("features.authentication.title"),
-      icon: <FaUsersCog />,
+      icon: <Icon icon="fa6-solid:user-gear" />,
       highlights: [
         t("features.authentication.highlights.1"),
         t("features.authentication.highlights.2"),
@@ -38,7 +30,7 @@ export default function Features() {
     },
     {
       title: t("features.i18n.title"),
-      icon: <FaLanguage />,
+      icon: <Icon icon="fa6-solid:language" />,
       highlights: [
         t("features.i18n.highlights.1"),
         t("features.i18n.highlights.2"),
@@ -47,7 +39,7 @@ export default function Features() {
     },
     {
       title: t("features.dataFetching.title"),
-      icon: <FaSync />,
+      icon: <Icon icon="fa6-solid:rotate" />,
       highlights: [
         t("features.dataFetching.highlights.1"),
         t("features.dataFetching.highlights.2"),
@@ -55,7 +47,7 @@ export default function Features() {
     },
     {
       title: t("features.mailTemplates.title"),
-      icon: <FaEnvelope />,
+      icon: <Icon icon="fa6-solid:envelope" />,
       highlights: [
         t("features.mailTemplates.highlights.1"),
         t("features.mailTemplates.highlights.2"),
@@ -63,7 +55,7 @@ export default function Features() {
     },
     {
       title: t("features.dx.title"),
-      icon: <FaTools />,
+      icon: <Icon icon="fa6-solid:toolbox" />,
       highlights: [
         t("features.dx.highlights.1"),
         t("features.dx.highlights.2"),
@@ -72,7 +64,7 @@ export default function Features() {
     },
     {
       title: t("features.customization.title"),
-      icon: <FaPaintBrush />,
+      icon: <Icon icon="fa6-solid:paintbrush" />,
       highlights: [
         t("features.customization.highlights.1"),
         t("features.customization.highlights.2"),
@@ -81,7 +73,7 @@ export default function Features() {
     },
     {
       title: t("features.serverless.title"),
-      icon: <FaCloud />,
+      icon: <Icon icon="fa6-solid:cloud" />,
       highlights: [
         t("features.serverless.highlights.1"),
         t("features.serverless.highlights.2"),
