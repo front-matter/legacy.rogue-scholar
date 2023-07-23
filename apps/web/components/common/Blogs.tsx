@@ -83,7 +83,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                       >
                         <Icon icon="fa6-solid:house" className="inline" />
-                        Home Page
+                        {t("posts.homepage")}
                       </Link>
                     </div>
                     {(blog.current_feed_url || blog.feed_url || "") &&
@@ -95,7 +95,9 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                             className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500"
                           >
                             <Icon icon="fa6-solid:rss" className="inline" />
-                            {feedFormats[blog.feed_format] + " Feed"}
+                            {t("posts.feed", {
+                              format: feedFormats[blog.feed_format],
+                            })}
                           </Link>
                         </div>
                       )}

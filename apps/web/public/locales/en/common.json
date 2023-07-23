@@ -50,6 +50,8 @@
   "posts.draft": "Draft",
   "posts.errors.description": "We were unable to fetch your posts. Please try again later.",
   "posts.errors.title": "Something went wrong",
+  "posts.feed": "{{format}} Feed",
+  "posts.homepage": "Home Page",
   "posts.no_results": "No posts found",
   "posts.published": "Published",
   "posts.scheduled": "Scheduled",

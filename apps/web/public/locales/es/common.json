@@ -50,6 +50,8 @@
   "posts.draft": "Borrador",
   "posts.errors.description": "No pudimos obtener sus publicaciones. Por favor, inténtelo de nuevo más tarde.",
   "posts.errors.title": "Algo salió mal",
+  "posts.feed": "Feed {{format}}",
+  "posts.homepage": "Página de inicio",
   "posts.no_results": "No se han encontrado publicaciones",
   "posts.published": "Publicado",
   "posts.scheduled": "Programado",

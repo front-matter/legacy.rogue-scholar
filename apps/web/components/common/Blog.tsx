@@ -82,7 +82,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 className="relative mr-6 w-0 py-2 text-base font-medium"
               >
                 <Icon icon="fa6-solid:house" className="inline" />
-                <span className="ml-2">Home Page</span>
+                <span className="ml-2">{t("posts.homepage")}</span>
               </Link>
             </span>
             {feed_url && blog.feed_format && (
@@ -94,7 +94,9 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 >
                   <Icon icon="fa6-solid:rss" className="inline" />
                   <span className="ml-2">
-                    {feedFormats[blog.feed_format] + " Feed"}
+                    {t("posts.feed", {
+                      format: feedFormats[blog.feed_format],
+                    })}
                   </span>
                 </Link>
               </span>
@@ -106,10 +108,11 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                   className="ml-2 mr-6"
                   dateTime={blog.modified_at.toString()}
                 >
-                  {new Date(blog.modified_at).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
+                  {t("posts.date_published", {
+                    val: new Date(blog.modified_at),
+                    formatParams: {
+                      val: { year: "numeric", month: "long", day: "numeric" },
+                    },
                   })}
                 </time>
               </span>
