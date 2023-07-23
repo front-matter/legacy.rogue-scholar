@@ -47,7 +47,6 @@ export default function BlogFormModal({
     id: string
     title: string
     feed_url: string
-    favicon: string
     category: string
     status: string
     user_id: string
@@ -63,7 +62,6 @@ export default function BlogFormModal({
     setValue("id", blog.id)
     setValue("title", blog.title)
     setValue("feed_url", blog.feed_url)
-    setValue("favicon", blog.favicon)
     setValue("category", blog.category)
     setValue("status", blog.status)
     setValue("user_id", blog.user_id)
@@ -171,15 +169,6 @@ export default function BlogFormModal({
                 <Input
                   type="text"
                   {...register("feed_url", { required: true })}
-                />
-              </FormControl>
-
-              {/* favicon field */}
-              <FormControl>
-                <FormLabel>{t("blogs.form.controls.favicon")}</FormLabel>
-                <Input
-                  type="text"
-                  {...register("favicon", { required: false })}
                 />
               </FormControl>
 
