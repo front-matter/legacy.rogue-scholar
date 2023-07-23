@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 
@@ -40,10 +41,10 @@ export default function Hero({ blogs }: Props) {
         <div className="mx-auto mt-6 grid max-w-lg grid-cols-6 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-6">
           {blogsWithIimages.map((blog: BlogType) => (
             <Link key={blog.id} href={"/blogs/" + blog.id}>
-              <img
+              <Image
                 className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
-                src={blog.favicon}
-                alt={blog.title}
+                src={blog.favicon || "/favicon.ico"}
+                alt={blog.title || "Blog"}
                 width={64}
                 height={64}
               />

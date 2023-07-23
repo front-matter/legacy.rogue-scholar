@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
+import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
@@ -29,10 +30,11 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
               >
                 {post.image && (
                   <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
-                    <img
+                    <Image
                       src={post.image}
                       alt=""
                       className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
+                      fill={true}
                     />
                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                   </div>

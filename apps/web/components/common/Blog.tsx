@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
+import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
@@ -45,10 +46,12 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </h2>
             </div>
             {blog.favicon && (
-              <img
+              <Image
                 className="h-10 w-10 rounded-full bg-transparent"
-                src={blog.favicon}
-                alt={blog.title}
+                src={blog.favicon || "/favicon.ico"}
+                alt={blog.title || "Favicon"}
+                width={64}
+                height={64}
               />
             )}
           </div>
