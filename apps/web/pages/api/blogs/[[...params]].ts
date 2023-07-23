@@ -334,11 +334,21 @@ export async function validateFeedUrl(url: string) {
       [
         "application/rss+xml",
         "application/atom+xml",
+        "application/xml",
         "text/xml",
         "application/json+feed",
       ].includes(contentType as string)
     ) {
       return url
+    } else if (contentType === "text/html") {
+      // parse homepage for feed url
+      const html = await res.text()
+      const feedLink = html.match(
+        /<link[^>]+(type="application\/(rss\+xml|atom\+xml)"|type="application\/(rss|atom)"[^>]+(rel="alternate"|rel="alternate feed"))[^>]+(href="([^"]+)")[^>]*>/gi
+      )?.[0] as string
+      const feedUrl = feedLink.match(/href="([^"]+)"/i)?.[1] as string
+
+      return feedUrl
     } else {
       throw new Error("Invalid feed format")
     }
@@ -406,7 +416,7 @@ export async function getSingleBlog(blogSlug: string) {
   const feed_url = await validateFeedUrl(config["feed_url"])
 
   if (!feed_url) {
-    throw new Error(`Failed to validate feed_url: ${config["feed_url"]}`)
+    return {}
   }
 
   let blog: BlogType = await extract(feed_url, {
@@ -472,7 +482,7 @@ export async function getSingleBlog(blogSlug: string) {
       return {
         id: config["id"],
         version: "https://jsonfeed.org/version/1.1",
-        feed_url: config["feed_url"],
+        feed_url,
         current_feed_url,
         home_page_url,
         feed_format,
