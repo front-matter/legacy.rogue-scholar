@@ -159,10 +159,19 @@ export default function BlogsList() {
                 blogs?.map((blog) => (
                   <Tr key={`blog-${blog.id}`}>
                     <Td>
-                      <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
+                      <Link
+                        className="hover:font-semibold"
+                        href={`/blogs/${blog.id}`}
+                      >
+                        {blog.title}
+                      </Link>
                     </Td>
                     <Td>{blog.feed_url}</Td>
-                    <Td>{t("categories." + blog.category)}</Td>
+                    <Td>
+                      <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
+                        {t("categories." + blog.category)}
+                      </span>
+                    </Td>
                     <Td>
                       <HStack justify="end" spacing={1}>
                         <IconButton
