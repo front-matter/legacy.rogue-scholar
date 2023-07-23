@@ -1,0 +1,12 @@
+{
+  "account": "Compte",
+  "changeMyPassword": "Changer mon mot de passe",
+  "manageSubscription": "Gérer l'abonnement",
+  "password": "Mot de passe",
+  "subscription.currentlySubscribed": "Vous êtes actuellement abonné au forfait suivant :",
+  "subscription.notSubscribed": "Vous n'êtes actuellement abonné à aucun plan.",
+  "subscription.title": "Abonnement",
+  "updateUserName.errorMessage": "Votre nom n'a pas pu être mis à jour. Veuillez réessayer.",
+  "updateUserName.successMessage": "Votre nom a été mis à jour.",
+  "upgradeAccount": "Compte mis à jour"
+}

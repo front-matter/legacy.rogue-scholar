@@ -1,0 +1,12 @@
+{
+  "account": "Conta",
+  "changeMyPassword": "Mudar minha senha",
+  "manageSubscription": "Gerenciar assinatura",
+  "password": "Senha",
+  "subscription.currentlySubscribed": "Você está atualmente inscrito no seguinte plano:",
+  "subscription.notSubscribed": "No momento, você não está inscrito em nenhum plano.",
+  "subscription.title": "Inscrição",
+  "updateUserName.errorMessage": "Seu nome não pôde ser atualizado. Por favor, tente novamente.",
+  "updateUserName.successMessage": "Seu nome foi atualizado.",
+  "upgradeAccount": "Atualizar conta"
+}

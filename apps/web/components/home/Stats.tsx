@@ -22,7 +22,7 @@ export const languageRange = Object.values(blue).filter(function (_v, i) {
   return i % 5 == 0
 })
 
-export const languageDomain = ["en", "de", "es"]
+export const languageDomain = ["en", "de", "es", "pt", "fr"]
 
 export const categoryDomain = [
   "naturalSciences",
