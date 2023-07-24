@@ -53,7 +53,7 @@ export default function BlogsList() {
         const { data: blogs, error } = await supabaseClient
           .from("blogs")
           .select("*")
-          .order("title", { ascending: true })
+          .order("status", { ascending: true })
 
         if (error) throw new Error("Failed to fetch blogs")
         return blogs
@@ -62,7 +62,7 @@ export default function BlogsList() {
           .from("blogs")
           .select("*")
           .eq("user_id", user?.id)
-          .order("title", { ascending: true })
+          .order("status", { ascending: false })
 
         if (error) throw new Error("Failed to fetch blogs")
         return blogs
@@ -153,6 +153,7 @@ export default function BlogsList() {
             <Skeleton rounded="lg" height="24px" />
             <Skeleton rounded="lg" height="32px" />
             <Skeleton rounded="lg" height="32px" />
+            <Skeleton rounded="lg" height="32px" />
           </Stack>
         ) : (
           <Table>
@@ -161,6 +162,7 @@ export default function BlogsList() {
                 <Th>{t("blogs.list.columns.title")}</Th>
                 <Th>{t("blogs.list.columns.feed_url")}</Th>
                 <Th>{t("blogs.list.columns.category")}</Th>
+                <Th>{t("blogs.list.columns.status")}</Th>
                 <Th></Th>
               </Tr>
             </Thead>
@@ -182,6 +184,7 @@ export default function BlogsList() {
                         {t("categories." + blog.category)}
                       </span>
                     </Td>
+                    <Td>{t("status." + blog.status)}</Td>
                     <Td>
                       <HStack justify="end" spacing={1}>
                         <IconButton

@@ -22,6 +22,7 @@ export interface Database {
           license?: string;
           generator?: string;
           prefix?: string;
+          status?: string;
         };
         Insert: {
           category?: string;
@@ -39,6 +40,7 @@ export interface Database {
           license?: string;
           generator?: string;
           prefix?: string;
+          status?: string;
         };
         Update: {
           category?: string;
@@ -56,6 +58,7 @@ export interface Database {
           license?: string;
           generator?: string;
           prefix?: string;
+          status?: string;
         };
       };
       posts: {
