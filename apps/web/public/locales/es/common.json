@@ -53,6 +53,7 @@
   "posts.errors.title": "Algo salió mal",
   "posts.feed": "Feed {{format}}",
   "posts.homepage": "Página de inicio",
+  "posts.inactive": "No se pudieron registrar los DOI y los metadatos de las publicaciones de este blog.",
   "posts.no_results": "No se han encontrado publicaciones",
   "posts.published": "Publicado",
   "posts.scheduled": "Programado",

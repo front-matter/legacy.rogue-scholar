@@ -53,6 +53,7 @@
   "posts.errors.title": "algo deu errado",
   "posts.feed": "Feed {{format}}",
   "posts.homepage": "Pagina inicial",
+  "posts.inactive": "Não foi possível registrar DOIs e metadados para postagens deste blog.",
   "posts.no_results": "Nenhuma postagem encontrada",
   "posts.published": "Publicados",
   "posts.scheduled": "Agendado",

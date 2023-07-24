@@ -53,6 +53,7 @@
   "posts.errors.title": "Something went wrong",
   "posts.feed": "{{format}}-Feed",
   "posts.homepage": "Startseite",
+  "posts.inactive": "DOIs und Metadaten für Beiträge aus diesem Blog konnten nicht registriert werden.",
   "posts.no_results": "Keine Einträge gefunden",
   "posts.published": "Veröffentlicht",
   "posts.scheduled": "Geplant",

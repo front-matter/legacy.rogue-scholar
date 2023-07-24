@@ -53,6 +53,7 @@
   "posts.errors.title": "Quelque chose s'est mal passé",
   "posts.feed": "Flux {{format}}",
   "posts.homepage": "Page d'accueil",
+  "posts.inactive": "Les DOI et les métadonnées des messages de ce blog n'ont pas pu être enregistrés.",
   "posts.no_results": "Aucun article trouvé",
   "posts.published": "Publié",
   "posts.scheduled": "Programmé",

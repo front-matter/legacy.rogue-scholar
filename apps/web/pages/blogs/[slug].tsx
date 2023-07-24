@@ -132,8 +132,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
           )}
           {blog.status != "active" && (
             <div className="mx-auto max-w-2xl bg-inherit pb-2 text-lg font-medium text-orange-600 lg:max-w-4xl">
-              DOIs and metadata for posts from this blog could not be
-              registered.
+              {t("posts.inactive")}
             </div>
           )}
         </div>
