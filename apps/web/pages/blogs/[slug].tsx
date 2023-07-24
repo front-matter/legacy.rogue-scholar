@@ -22,8 +22,16 @@ export async function getServerSideProps(ctx) {
   const { data: blog } = await supabase
     .from("blogs")
     .select(blogWithPostsSelect)
+    .in("status", ["approved", "active"])
     .eq("id", ctx.params.slug)
-    .single()
+    .maybeSingle()
+
+  if (!blog) {
+    return {
+      notFound: true,
+    }
+  }
+
   const searchParameters = {
     q: query,
     filter_by: `blog_id:=${ctx.params.slug}`,

@@ -47,6 +47,7 @@ export async function updateAllBlogs() {
 
   await Promise.all(blogs.map((blog) => upsertSingleBlog(blog.id)))
 }
+
 // from https://github.com/extractus/feed-extractor/blob/main/src/utils/normalizer.js
 export const buildDescription = (val, maxlen) => {
   const stripped = stripTags(String(val))

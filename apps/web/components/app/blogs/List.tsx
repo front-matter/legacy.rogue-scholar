@@ -49,14 +49,24 @@ export default function BlogsList() {
   const { data: blogs, isLoading: loadingBlogs } = useQuery(
     ["blogs"],
     async () => {
-      const { data: blogs, error } = await supabaseClient
-        .from("blogs")
-        .select("*")
-        .eq("user_id", user?.id)
-        .order("title", { ascending: true })
+      if (user?.id === process.env.NEXT_PUBLIC_SUPABASE_ADMIN_USER_ID) {
+        const { data: blogs, error } = await supabaseClient
+          .from("blogs")
+          .select("*")
+          .order("title", { ascending: true })
 
-      if (error) throw new Error("Failed to fetch blogs")
-      return blogs
+        if (error) throw new Error("Failed to fetch blogs")
+        return blogs
+      } else {
+        const { data: blogs, error } = await supabaseClient
+          .from("blogs")
+          .select("*")
+          .eq("user_id", user?.id)
+          .order("title", { ascending: true })
+
+        if (error) throw new Error("Failed to fetch blogs")
+        return blogs
+      }
     }
   )
   const newBlog = {
