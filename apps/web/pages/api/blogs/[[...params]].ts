@@ -39,7 +39,7 @@ export async function updateAllBlogs() {
   const { data: blogs } = await supabase
     .from("blogs")
     .select("id")
-    .eq("status", "active")
+    .in("status", ["approved", "active"])
 
   if (!blogs) {
     return []
@@ -565,7 +565,7 @@ export default async function handler(req, res) {
       const { data: blogs, error } = await supabase
         .from("blogs")
         .select(blogsSelect)
-        .eq("status", "active")
+        .in("status", ["approved", "active"])
         .order("title", { ascending: true })
 
       if (error) {
