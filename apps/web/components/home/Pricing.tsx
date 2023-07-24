@@ -126,7 +126,7 @@ export function Pricing() {
             name={t("pricing.plans.starter.name")}
             price={t("pricing.plans.starter.price")}
             description={t("pricing.plans.starter.description")}
-            href="/signup"
+            href="/auth/signup"
             features={[
               t("pricing.plans.starter.features.1"),
               t("pricing.plans.starter.features.2"),
@@ -137,7 +137,7 @@ export function Pricing() {
             name={t("pricing.plans.team.name")}
             price={t("pricing.plans.team.price")}
             description={t("pricing.plans.team.description")}
-            href="/signup"
+            href="/auth/signup"
             features={[
               t("pricing.plans.team.features.1"),
               t("pricing.plans.team.features.2"),
@@ -147,7 +147,7 @@ export function Pricing() {
             name={t("pricing.plans.enterprise.name")}
             price={t("pricing.plans.enterprise.price")}
             description={t("pricing.plans.enterprise.description")}
-            href="/signup"
+            href="/auth/signup"
             features={[
               t("pricing.plans.enterprise.features.1"),
               t("pricing.plans.enterprise.features.2"),
