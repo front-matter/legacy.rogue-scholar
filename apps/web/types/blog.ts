@@ -61,7 +61,7 @@ export interface BlogType extends FeedData {
   feed_format?: string
   items?: PostType[]
   status?: string
-  backlog?: boolean
+  backlog?: number
   prefix?: string
   user_id?: string
 }
