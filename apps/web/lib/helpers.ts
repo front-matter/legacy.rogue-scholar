@@ -3,6 +3,7 @@ import { isString } from "lodash"
 const he = require("he")
 
 import { Mod97_10 } from "@konfirm/iso7064"
+import fetch from "cross-fetch"
 import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
 
@@ -364,4 +365,18 @@ export const generateBlogId = () => {
   const checksum = Mod97_10.checksum(randomNumber.toString())
 
   return encoded + checksum
+}
+
+export function validateUrl(url: string) {
+  const response = fetch(url)
+    .then((response) => {
+      if (!response.ok) throw new Error("Not found")
+      else return url
+    })
+    .catch((error) => {
+      console.log(error)
+      return null
+    })
+
+  return response
 }

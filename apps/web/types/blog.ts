@@ -64,6 +64,7 @@ export interface BlogType extends FeedData {
   backlog?: number
   prefix?: string
   user_id?: string
+  authors?: AuthorType[]
 }
 
 export interface BlogParentType {

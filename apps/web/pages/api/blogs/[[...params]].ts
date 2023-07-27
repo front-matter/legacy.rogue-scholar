@@ -6,6 +6,8 @@ import {
   capitalize,
   get,
   isArray,
+  isEmpty,
+  isNull,
   isObject,
   isString,
   omit,
@@ -20,6 +22,7 @@ import {
   isDoi,
   isOrcid,
   isRor,
+  isValidUrl,
   toISOString,
   toUnixTime,
 } from "@/lib/helpers"
@@ -144,7 +147,21 @@ const getReferences = (content_html: string) => {
 
 export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   const blog: BlogType = await getSingleBlog(blogSlug)
-  const feed_url = page > 1 ? `${blog.feed_url}?paged=${page}` : blog.feed_url
+
+  let feed_url = blog.feed_url
+  const generator = blog.generator?.split(" ")[0]
+
+  // handle pagination depending on blogging platform
+  switch (generator) {
+    case "WordPress":
+      feed_url = `${blog.feed_url}?paged=${page}`
+      break
+    case "Blogger":
+      const startPage = page > 0 ? (page - 1) * 10 + 1 : 1
+
+      feed_url = `${blog.feed_url}?start-index=${startPage}&max-results=10`
+      break
+  }
 
   try {
     const blogWithPosts = await extract(feed_url as string, {
@@ -161,9 +178,15 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             uri: null,
           }
         }
+
+        if (isEmpty(author) || isNull(get(author, "name", null))) {
+          author = blog.authors || []
+        }
+
         if (!isArray(author)) {
           author = [author]
         }
+
         const authors = author.map((auth) => {
           let url = authorIDs[auth["name"]] || null
 
@@ -222,10 +245,14 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             "utm_source",
           ],
         })
-        const image =
+        let image: any =
           get(feedEntry, "media:content.@_url", null) ||
           get(feedEntry, "enclosure.@_url", null)
-        const language = detectLanguage(content_html || "")
+
+        if (isString(image) && isValidUrl(image)) {
+          image = decodeURIComponent(image)
+        }
+        const language = detectLanguage(content_html || "en")
         const reference = content_html ? getReferences(content_html) : []
         const tags = []
           .concat(get(feedEntry, "category", []))
@@ -260,7 +287,21 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       },
     })
 
-    const posts: PostType[] = blogWithPosts["entries"] || []
+    // handle pagination depending on blogging platform
+    let posts: PostType[] = []
+
+    const startPage = page > 0 ? (page - 1) * 10 : 0
+    const endPage = page > 0 ? page * 10 : 10
+
+    switch (generator) {
+      case "Jekyll":
+      case "Hugo":
+      case "Ghost":
+        posts = (blogWithPosts["entries"] || []).slice(startPage, endPage)
+        break
+      default:
+        posts = blogWithPosts["entries"] || []
+    }
 
     return posts
   } catch (error) {
@@ -405,7 +446,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, feed_url, current_feed_url, home_page_url, generator, title, category, status, user_id"
+      "id, feed_url, current_feed_url, home_page_url, generator, title, category, status, user_id, authors"
     )
     .eq("id", blogSlug)
     .maybeSingle()
@@ -496,6 +537,7 @@ export async function getSingleBlog(blogSlug: string) {
         category: config["category"],
         status: config["status"],
         user_id: config["user_id"],
+        authors: config["authors"],
       }
     },
   })

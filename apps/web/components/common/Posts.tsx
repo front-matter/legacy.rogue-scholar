@@ -1,3 +1,5 @@
+// import { Fragment, useState } from "react"
+// import { Dialog, Transition } from "@headlessui/react"
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
 // import Image from "next/image"
@@ -25,7 +27,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
           <div className="space-t-10 lg:space-t-10 mt-4 lg:mt-6">
             {posts.map((post) => (
               <article
-                key={post.doi}
+                key={post.doi || post.url}
                 className="relative mb-5 flex gap-6 lg:flex-row"
               >
                 {post.image && (
@@ -74,6 +76,18 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
                           />
                           {post.doi}
                         </Link>
+                        {/* <button
+                          className="ml-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                          type="button"
+                          data-modal-target="citationBox"
+                          data-modal-show="citationBox"
+                        >
+                          <Icon
+                            icon="fa6-solid:quote-left"
+                            className="mb-0.5 mr-1 inline"
+                          />
+                          Cite
+                        </button> */}
                       </div>
                     )}
                     {!post.doi && post.url && (

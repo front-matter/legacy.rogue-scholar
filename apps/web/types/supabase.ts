@@ -23,6 +23,7 @@ export interface Database {
           generator?: string;
           prefix?: string;
           status?: string;
+          authors?: AuthorType[];
         };
         Insert: {
           category?: string;
@@ -41,6 +42,7 @@ export interface Database {
           generator?: string;
           prefix?: string;
           status?: string;
+          authors?: AuthorType[];
         };
         Update: {
           category?: string;
@@ -59,6 +61,7 @@ export interface Database {
           generator?: string;
           prefix?: string;
           status?: string;
+          authors?: AuthorType[];
         };
       };
       posts: {
