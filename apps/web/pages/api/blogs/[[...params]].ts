@@ -179,7 +179,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           }
         }
 
-        if (isEmpty(author) || isNull(get(author, "name", null))) {
+        if (isNull(author) || isEmpty(author)) {
           author = blog.authors || []
         }
 
