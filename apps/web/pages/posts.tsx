@@ -1,3 +1,5 @@
+import { uniq } from "lodash"
+import Negotiator from "negotiator"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
@@ -11,13 +13,20 @@ import { PaginationType, PostType } from "@/types/blog"
 import { PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
+  const negotiator = new Negotiator(ctx.req)
+  const locales = ["en", "de", "es", "pt", "fr"]
+  let languages = negotiator.languages(locales)
+
+  languages.push(ctx.locale)
+  languages = uniq(languages).toString()
+
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
   const searchParameters = {
     q: query,
     query_by:
       "tags,title,authors.name,authors.url,summary,content_html,reference",
-    filter_by: "blog_id:!=[gzqej46, y3h0g22]",
+    filter_by: `blog_id:!=[gzqej46, y3h0g22] && language:=[${languages}]`,
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
     per_page: 15,
     page: page && page > 0 ? page : 1,

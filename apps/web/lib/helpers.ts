@@ -380,3 +380,8 @@ export function validateUrl(url: string) {
 
   return response
 }
+
+// available translations
+export const supportedLocales = () => {
+  return ["en", "de", "es", "pt", "fr"]
+}

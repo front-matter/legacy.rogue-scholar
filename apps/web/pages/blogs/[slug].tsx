@@ -1,3 +1,5 @@
+import { uniq } from "lodash"
+import Negotiator from "negotiator"
 import Head from "next/head"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
@@ -17,6 +19,13 @@ import { BlogType, PaginationType, PostType } from "@/types/blog"
 import { PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
+  const negotiator = new Negotiator(ctx.req)
+  const locales = ["en", "de", "es", "pt", "fr"]
+  let languages = negotiator.languages(locales)
+
+  languages.push(ctx.locale)
+  languages = uniq(languages).toString()
+
   const query = ctx.query.query || ""
   const page = parseInt(ctx.query.page || 1)
   const { data: blog } = await supabase
@@ -34,7 +43,7 @@ export async function getServerSideProps(ctx) {
 
   const searchParameters = {
     q: query,
-    filter_by: `blog_id:=${ctx.params.slug}`,
+    filter_by: `blog_id:=${ctx.params.slug} && language:=[${languages}]`,
     query_by:
       "tags,title,authors.name,authors.url,summary,content_html,reference",
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
