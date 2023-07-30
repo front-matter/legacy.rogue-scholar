@@ -1,6 +1,8 @@
 import GhostAdminAPI from "@tryghost/admin-api"
-import { subDays } from "date-fns"
+import { fromUnixTime, subDays } from "date-fns"
+import parse from "html-react-parser"
 import { isEmpty } from "lodash"
+import { v4 as uuidv4 } from "uuid"
 
 import { toUnixTime } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
@@ -23,16 +25,65 @@ const ghostAdmin = new GhostAdminAPI({
   version: "v5.0",
 })
 
-export async function createGhostPost(post: PostType) {
+export async function createGhostPost(data) {
+  const content_html = data
+    ?.map((post) => {
+      const authors = post.authors?.map((author) => author.name).join(", ")
+      const published_at = fromUnixTime(
+        post.published_at || 0
+      ).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+
+      return `<h3>${post.title}</h3> <p>Published ${published_at} in ${
+        post.blog_name
+      }</br>${authors}<br/><a href="${post.doi || post.url}">${
+        post.doi || post.url
+      }</a><p> ${parse(String(post.summary))}`
+    })
+    .join("<br/>")
+
+  const today = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  })
+  const images = data?.map((post) => post.image)
+  const image = images[Math.floor(Math.random() * images.length)]
+
+  const post: PostType = {
+    id: uuidv4(),
+    title: `Rogue Scholar Digest ${today}`,
+    content_html: `This is a summary of the Rogue Scholar blog posts published last week. Find out more (including search for other posts) via <a href="https://rogue-scholar.org/posts">Rogue Scholar</a>. ${content_html}`,
+    authors: [
+      {
+        name: "Martin Fenner",
+        email: "martin@front-matter.io",
+        url: "https://orcid.org/0000-0003-1419-2405",
+      },
+    ],
+    tags: ["Digest"],
+    image: image,
+    published_at: toUnixTime(today),
+  }
+  const html = post.content_html
   const response = await ghostAdmin.posts.add(
     {
       title: post.title,
-      html: post.content_html,
+      summary: post.summary,
+      authors: post.authors?.map((author) => author.email),
+      tags: post.tags,
+      status: "draft",
+      feature_image: post.image,
+      published_at: fromUnixTime(post.published_at || Date.now()),
+      html,
     },
     { source: "html" }
   )
 
-  console.log(response)
+  return response
 }
 
 export async function createDigest() {
@@ -47,7 +98,7 @@ export async function createDigest() {
       SevenDaysAgo
     )} && blog_id:!=[gzqej46, y3h0g22] && language:=[en]`,
     sort_by: "published_at:asc",
-    per_page: 25,
+    per_page: 15,
   }
 
   const data: PostSearchResponse = await typesense
@@ -216,8 +267,9 @@ export default async function handler(req, res) {
   } else if (req.method === "POST") {
     if (slug === "digest") {
       const data = await createDigest()
+      const response = await createGhostPost(data)
 
-      res.status(200).json(data)
+      res.status(200).json(response)
     } else if (slug) {
       const { data: post } = await supabase
         .from("posts")

@@ -3,6 +3,7 @@ import { FeedData } from "@extractus/feed-extractor"
 export interface AuthorType {
   name: string
   url?: string
+  email?: string
   avatar?: string
 }
 export interface ReferenceType {
