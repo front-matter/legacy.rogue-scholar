@@ -36,7 +36,7 @@ import {
 import { typesense } from "@/lib/typesenseClient"
 import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
 import { BlogType, PostType } from "@/types/blog"
-import { PostSearchResponse } from "@/types/typesense"
+import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function updateAllBlogs() {
   const { data: blogs } = await supabase
@@ -568,7 +568,7 @@ export default async function handler(req, res) {
   if (req.method === "GET") {
     if (slug) {
       if (action === "posts") {
-        const searchParameters = {
+        const searchParameters: PostSearchParams = {
           q: query,
           filter_by: `blog_id:=${slug}`,
           query_by:

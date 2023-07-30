@@ -16,7 +16,7 @@ import Search from "@/components/layout/Search"
 import { blogWithPostsSelect, supabase } from "@/lib/supabaseClient"
 import { typesense } from "@/lib/typesenseClient"
 import { BlogType, PaginationType, PostType } from "@/types/blog"
-import { PostSearchResponse } from "@/types/typesense"
+import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
   const negotiator = new Negotiator(ctx.req)
@@ -41,7 +41,7 @@ export async function getServerSideProps(ctx) {
     }
   }
 
-  const searchParameters = {
+  const searchParameters: PostSearchParams = {
     q: query,
     filter_by: `blog_id:=${ctx.params.slug} && language:=[${languages}]`,
     query_by:

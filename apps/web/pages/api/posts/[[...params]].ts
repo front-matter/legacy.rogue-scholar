@@ -1,3 +1,7 @@
+import GhostAdminAPI from "@tryghost/admin-api"
+import { subDays } from "date-fns"
+
+import { toUnixTime } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
   postsSelect,
@@ -10,7 +14,49 @@ import {
   extractUpdatedPostsByBlog,
 } from "@/pages/api/blogs/[[...params]]"
 import { PostType } from "@/types/blog"
-import { PostSearchResponse } from "@/types/typesense"
+import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
+
+const ghostAdmin = new GhostAdminAPI({
+  url: process.env.NEXT_PUBLIC_GHOST_API_URL,
+  key: process.env.NEXT_PUBLIC_GHOST_ADMIN_API_KEY,
+  version: "v5.0",
+})
+
+export async function createGhostPost(post: PostType) {
+  const response = await ghostAdmin.posts.add(
+    {
+      title: post.title,
+      html: post.content_html,
+    },
+    { source: "html" }
+  )
+
+  console.log(response)
+}
+
+export async function createDigest() {
+  const midnight = new Date().setHours(2, 0, 0, 0) // TODO get UTC time
+  const SevenDaysAgo = subDays(midnight, 7)
+
+  const searchParameters: PostSearchParams = {
+    q: "*",
+    query_by:
+      "tags,title,authors.name,authors.url,summary,content_html,reference",
+    filter_by: `published_at:>${toUnixTime(
+      SevenDaysAgo
+    )} && blog_id:!=[gzqej46, y3h0g22] && language:=[en]`,
+    sort_by: "published_at:asc",
+    per_page: 25,
+  }
+
+  const data: PostSearchResponse = await typesense
+    .collections("posts")
+    .documents()
+    .search(searchParameters)
+  const posts = data.hits?.map((hit) => hit.document)
+
+  return posts
+}
 
 export async function upsertSinglePost(post: PostType) {
   const { data, error } = await supabaseAdmin
@@ -141,7 +187,7 @@ export default async function handler(req, res) {
         res.status(200).json(post)
       }
     } else {
-      const searchParameters = {
+      const searchParameters: PostSearchParams = {
         q: query,
         query_by:
           "tags,title,authors.name,authors.url,summary,content_html,reference",
@@ -163,7 +209,11 @@ export default async function handler(req, res) {
   ) {
     res.status(401).json({ message: "Unauthorized" })
   } else if (req.method === "POST") {
-    if (slug) {
+    if (slug === "digest") {
+      const data = await createDigest()
+
+      res.status(200).json(data)
+    } else if (slug) {
       const { data: post } = await supabase
         .from("posts")
         .select(postsSelect)

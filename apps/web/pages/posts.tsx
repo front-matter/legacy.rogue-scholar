@@ -10,7 +10,7 @@ import Pagination from "@/components/layout/Pagination"
 import Search from "@/components/layout/Search"
 import { typesense } from "@/lib/typesenseClient"
 import { PaginationType, PostType } from "@/types/blog"
-import { PostSearchResponse } from "@/types/typesense"
+import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
   const negotiator = new Negotiator(ctx.req)
@@ -22,7 +22,7 @@ export async function getServerSideProps(ctx) {
 
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
-  const searchParameters = {
+  const searchParameters: PostSearchParams = {
     q: query,
     query_by:
       "tags,title,authors.name,authors.url,summary,content_html,reference",

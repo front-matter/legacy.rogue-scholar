@@ -30,6 +30,15 @@ const nextConfig = {
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: "/signup",
+        destination: "/auth/signup",
+        permanent: true,
+      },
+    ]
+  },
   async rewrites() {
     return [
       {
