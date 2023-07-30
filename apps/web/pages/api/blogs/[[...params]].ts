@@ -267,7 +267,11 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           get(feedEntry, "title", null) ||
           ""
 
-        title = decodeHtmlCharCodes(title).trim()
+        if (isString(title)) {
+          title = decodeHtmlCharCodes(title).trim()
+        } else {
+          title = ""
+        }
 
         return {
           authors,

@@ -1,5 +1,6 @@
 import GhostAdminAPI from "@tryghost/admin-api"
 import { subDays } from "date-fns"
+import { isEmpty } from "lodash"
 
 import { toUnixTime } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
@@ -59,6 +60,10 @@ export async function createDigest() {
 }
 
 export async function upsertSinglePost(post: PostType) {
+  if (isEmpty(post.title)) {
+    return null
+  }
+
   const { data, error } = await supabaseAdmin
     .from("posts")
     .upsert(
