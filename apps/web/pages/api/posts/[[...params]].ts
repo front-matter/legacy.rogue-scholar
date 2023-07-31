@@ -37,11 +37,13 @@ export async function createGhostPost(data) {
         day: "numeric",
       })
 
-      return `<h3>${post.title}</h3> <p>Published ${published_at} in ${
-        post.blog_name
-      }</br>${authors}<br/><a href="${post.doi || post.url}">${
+      return `<h3>${
+        post.title
+      }</h3> <p>Published ${published_at} in <a href="https://rogue-scholar.org/blogs/${
+        post.blog_id
+      }">${post.blog_name}</a></br>${authors}<br/><a href="${
         post.doi || post.url
-      }</a><p> ${parse(String(post.summary))}`
+      }">${post.doi || post.url}</a><p> ${parse(String(post.summary))}`
     })
     .join("<br/>")
 

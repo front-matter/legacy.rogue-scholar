@@ -41,9 +41,17 @@ export default function UserMenu() {
           <MenuItem
             as={Link}
             href="/account"
-            icon={<Icon icon="fa6-solid:user" />}
+            icon={<Icon icon="fa6-solid:user-gear" />}
           >
             {t("userMenu.account")}
+          </MenuItem>
+
+          <MenuItem
+            as={Link}
+            href="/app"
+            icon={<Icon icon="fa6-solid:list-check" />}
+          >
+            {t("menu.dashboard")}
           </MenuItem>
 
           <MenuItem
