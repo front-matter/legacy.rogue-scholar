@@ -2,6 +2,8 @@
   "account": "Konto",
   "changeMyPassword": "Mein Passwort ändern",
   "manageSubscription": "Abonnement verwalten",
+  "newsletter.description": "Wöchentliche Zusammenfassung (Mittwoch) der Blogbeiträge von Rogue Scholar.",
+  "newsletter.title": "Newsletter",
   "password": "Passwort",
   "subscription.currentlySubscribed": "Sie haben aktuell folgenden Plan abonniert:",
   "subscription.notSubscribed": "Sie haben aktuell keinen Plan abonniert.",

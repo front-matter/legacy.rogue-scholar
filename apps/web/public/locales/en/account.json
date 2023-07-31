@@ -2,6 +2,8 @@
   "account": "Account",
   "changeMyPassword": "Change my password",
   "manageSubscription": "Manage subscription",
+  "newsletter.description": "Weekly digest (Wednesday) of Rogue Scholar blog posts.",
+  "newsletter.title": "Newsletter",
   "password": "Password",
   "subscription.currentlySubscribed": "You are currently subscribed to the following plan:",
   "subscription.notSubscribed": "You are not currently subscribed to a plan.",

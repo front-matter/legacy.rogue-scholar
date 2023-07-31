@@ -38,7 +38,7 @@ export default function Pagination({ pagination }: Props) {
           {pagination.prev && (
             <Link
               className="relative inline-flex items-center px-1 py-1 text-sm focus-visible:outline-offset-0"
-              href={`${pagination.base_url}?page=${pagination.prev}&query=${pagination.query}`}
+              href={`${pagination.base_url}?page=${pagination.prev}&query=${pagination.query}&tags=${pagination.tags}`}
             >
               {t("pagination.previous")}
             </Link>
@@ -49,7 +49,7 @@ export default function Pagination({ pagination }: Props) {
           {pagination.next && (
             <Link
               className="relative ml-1 inline-flex items-center px-1 py-1 text-sm focus-visible:outline-offset-0"
-              href={`${pagination.base_url}?page=${pagination.next}&query=${pagination.query}`}
+              href={`${pagination.base_url}?page=${pagination.next}&query=${pagination.query}&tags=${pagination.tags}`}
             >
               {t("pagination.next")}
             </Link>

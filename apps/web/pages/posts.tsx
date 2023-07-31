@@ -18,15 +18,20 @@ export async function getServerSideProps(ctx) {
   let languages = negotiator.languages(locales)
 
   languages.push(ctx.locale)
+  languages.push("en")
   languages = uniq(languages).toString()
 
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
+  const tags = ctx.query.tags || ""
+  let filterBy = `blog_id:!=[gzqej46, y3h0g22] && language:=[${languages}]`
+
+  filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
   const searchParameters: PostSearchParams = {
     q: query,
     query_by:
       "tags,title,authors.name,authors.url,summary,content_html,reference",
-    filter_by: `blog_id:!=[gzqej46, y3h0g22] && language:=[${languages}]`,
+    filter_by: filterBy,
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
     per_page: 15,
     page: page && page > 0 ? page : 1,
@@ -40,6 +45,7 @@ export async function getServerSideProps(ctx) {
   const pagination = {
     base_url: "/posts",
     query: query,
+    tags: tags,
     page: page,
     pages: pages,
     total: data.found,
@@ -72,9 +78,9 @@ const PostsPage: React.FunctionComponent<Props> = ({ posts, pagination }) => {
             {t("posts.title")}
           </h2>
         </div>
-        <Search />
+        <Search pagination={pagination} />
         <Pagination pagination={pagination} />
-        <Posts posts={posts} />
+        <Posts posts={posts} pagination={pagination} />
         {pagination.total > 0 && <Pagination pagination={pagination} />}
       </Layout>
     </>

@@ -8,17 +8,24 @@ import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
-import { BlogType, PostType } from "@/types/blog"
+import { BlogType, PaginationType, PostType } from "@/types/blog"
 
 type Props = {
   posts: PostType[]
+  pagination: PaginationType
   blog?: BlogType
 }
 
-export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
+export const Posts: React.FunctionComponent<Props> = ({
+  posts,
+  pagination,
+  blog,
+}) => {
   const { t } = useTranslation("common")
   const router = useRouter()
   const { locale: activeLocale } = router
+
+  console.log(pagination)
 
   return (
     <>
@@ -44,12 +51,19 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
                   {post.tags && (
                     <div className="flex items-center gap-x-1 text-xs">
                       {post.tags.map((tag) => (
-                        <span
+                        <Link
                           key={tag}
-                          className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
+                          href={`${pagination.base_url}?page=1&query=${
+                            pagination.query
+                          }&tags=${tag.replace("#", "")}`}
                         >
-                          {tag}
-                        </span>
+                          <span
+                            key={tag}
+                            className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
+                          >
+                            {tag}
+                          </span>
+                        </Link>
                       ))}
                       {post.language !== activeLocale && (
                         <span className="relative z-10 ml-0 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800 dark:bg-green-700 dark:text-green-200">

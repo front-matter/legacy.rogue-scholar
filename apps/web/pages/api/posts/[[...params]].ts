@@ -112,6 +112,20 @@ export async function createDigest() {
   return posts
 }
 
+export async function createGhostMember(user) {
+  const response = await ghostAdmin.members.edit({
+    name: user.name,
+    email: user.email,
+    newsletters: [
+      {
+        id: process.env.NEXT_PUBLIC_GHOST_API_DIGEST_NEWSLETTER_ID,
+      },
+    ],
+  })
+
+  return response
+}
+
 export async function upsertSinglePost(post: PostType) {
   if (isEmpty(post.title)) {
     return null

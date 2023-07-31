@@ -24,9 +24,14 @@ export async function getServerSideProps(ctx) {
   let languages = negotiator.languages(locales)
 
   languages.push(ctx.locale)
+  languages.push("en")
   languages = uniq(languages).toString()
 
   const query = ctx.query.query || ""
+  const tags = ctx.query.tags || ""
+  let filterBy = `blog_id:=${ctx.params.slug} && language:=[${languages}]`
+
+  filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
   const page = parseInt(ctx.query.page || 1)
   const { data: blog } = await supabase
     .from("blogs")
@@ -43,7 +48,7 @@ export async function getServerSideProps(ctx) {
 
   const searchParameters: PostSearchParams = {
     q: query,
-    filter_by: `blog_id:=${ctx.params.slug} && language:=[${languages}]`,
+    filter_by: filterBy,
     query_by:
       "tags,title,authors.name,authors.url,summary,content_html,reference",
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
@@ -59,6 +64,7 @@ export async function getServerSideProps(ctx) {
   const pagination = {
     base_url: "/blogs/" + ctx.params.slug,
     query: query,
+    tags: tags,
     page: page,
     pages: pages,
     total: data.found,
@@ -128,9 +134,11 @@ const BlogPage: React.FunctionComponent<Props> = ({
           <Blog blog={blog} />
           {blog.status == "active" && (
             <>
-              <Search />
+              <Search pagination={pagination} />
               <Pagination pagination={pagination} />
-              {posts && <Posts posts={posts} blog={blog} />}
+              {posts && (
+                <Posts posts={posts} pagination={pagination} blog={blog} />
+              )}
               {pagination.total > 0 && <Pagination pagination={pagination} />}
               {blog.home_page_url && blog.backlog && blog.backlog > 0 && (
                 <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">

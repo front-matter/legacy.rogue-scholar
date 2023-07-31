@@ -3,12 +3,20 @@ import { useTranslation } from "next-i18next"
 import { queryTypes, useQueryState } from "next-usequerystate"
 import { useRef, useState } from "react"
 
-export default function Search() {
+import { PaginationType } from "@/types/blog"
+
+type Props = {
+  pagination: PaginationType
+}
+
+export default function Search({ pagination }: Props) {
   const { t } = useTranslation("common")
   const [query, setQuery] = useQueryState("query")
+  const [tags, setTags] = useQueryState("tags")
   const [page, setPage] = useQueryState("page", queryTypes.integer)
 
   console.log(query, page)
+  console.log(pagination)
   const [searchInput, setSearchInput] = useState("")
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -30,6 +38,7 @@ export default function Search() {
   const onSearchClear = () => {
     setQuery("")
     setSearchInput("")
+    setTags("")
     inputRef.current?.focus()
   }
 
@@ -39,7 +48,7 @@ export default function Search() {
         icon="fa6-solid:magnifying-glass"
         className="absolute left-3 top-3 h-5 w-5 text-gray-500"
       />
-      {searchInput !== "" && (
+      {(searchInput !== "" || tags !== "") && (
         <span
           id="search-clear"
           title="Clear"
