@@ -154,6 +154,11 @@ const nextConfig = {
         hostname: "elephantinthelab.org",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "www.scholcommlab.ca",
+        pathname: "/**",
+      },
     ],
   },
 }
