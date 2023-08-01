@@ -13,7 +13,7 @@ import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { useCallback } from "react"
 
-import Newsletter from "@/components/account/Newsletter"
+// import Newsletter from "@/components/account/Newsletter"
 import Password from "@/components/account/Password"
 import EditableText from "@/components/common/EditableText"
 import Layout from "@/components/layout/Layout"

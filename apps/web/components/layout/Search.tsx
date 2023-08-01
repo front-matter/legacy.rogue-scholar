@@ -3,20 +3,13 @@ import { useTranslation } from "next-i18next"
 import { queryTypes, useQueryState } from "next-usequerystate"
 import { useRef, useState } from "react"
 
-import { PaginationType } from "@/types/blog"
-
-type Props = {
-  pagination: PaginationType
-}
-
-export default function Search({ pagination }: Props) {
+export default function Search() {
   const { t } = useTranslation("common")
   const [query, setQuery] = useQueryState("query")
   const [tags, setTags] = useQueryState("tags")
   const [page, setPage] = useQueryState("page", queryTypes.integer)
 
   console.log(query, page)
-  console.log(pagination)
   const [searchInput, setSearchInput] = useState("")
   const inputRef = useRef<HTMLInputElement | null>(null)
 

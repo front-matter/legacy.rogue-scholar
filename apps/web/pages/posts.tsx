@@ -78,7 +78,7 @@ const PostsPage: React.FunctionComponent<Props> = ({ posts, pagination }) => {
             {t("posts.title")}
           </h2>
         </div>
-        <Search pagination={pagination} />
+        <Search />
         <Pagination pagination={pagination} />
         <Posts posts={posts} pagination={pagination} />
         {pagination.total > 0 && <Pagination pagination={pagination} />}

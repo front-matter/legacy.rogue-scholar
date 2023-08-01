@@ -25,8 +25,6 @@ export const Posts: React.FunctionComponent<Props> = ({
   const router = useRouter()
   const { locale: activeLocale } = router
 
-  console.log(pagination)
-
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">

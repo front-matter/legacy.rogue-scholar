@@ -134,7 +134,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
           <Blog blog={blog} />
           {blog.status == "active" && (
             <>
-              <Search pagination={pagination} />
+              <Search />
               <Pagination pagination={pagination} />
               {posts && (
                 <Posts posts={posts} pagination={pagination} blog={blog} />
