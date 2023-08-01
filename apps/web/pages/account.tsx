@@ -89,12 +89,6 @@ export default function AccountPage() {
           <Password />
         </VStack>
       </Box>
-
-      <Box maxW="3xl" mx="auto" p={4}>
-        <VStack align="stretch" gap={4}>
-          <Newsletter />
-        </VStack>
-      </Box>
     </Layout>
   )
 }
