@@ -51,6 +51,7 @@
     "i18next": "^23.2.8",
     "image-size": "^1.0.2",
     "is-relative-url": "^4.0.0",
+    "jsdom": "^22.1.0",
     "jsonify-that-feed": "^1.2.2",
     "lodash": "^4.17.21",
     "negotiator": "^0.6.3",
