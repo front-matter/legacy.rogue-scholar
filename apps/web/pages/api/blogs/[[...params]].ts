@@ -11,10 +11,13 @@ import {
   isObject,
   isString,
   omit,
+  startCase,
   uniq,
 } from "lodash"
 import normalizeUrl from "normalize-url"
 const extractUrls = require("extract-urls")
+const jsdom = require("jsdom")
+const { JSDOM } = jsdom
 
 import {
   decodeHtmlCharCodes,
@@ -61,7 +64,24 @@ export const buildDescription = (val, maxlen) => {
 export const authorIDs = {
   "Kristian Garza": "https://orcid.org/0000-0003-3484-6875",
   "Roderic Page": "https://orcid.org/0000-0002-7101-9767",
+  "Tejas S. Sathe, MD": "https://orcid.org/0000-0003-0449-4469",
+  "Meghal Shah, MD": "https://orcid.org/0000-0002-2085-659X",
   "Liberate Science": "https://ror.org/0342dzm54",
+}
+
+const getImage = (content_html: string) => {
+  const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
+
+  const images = dom.window.document.querySelectorAll("img")
+  let image_url = null
+
+  for (let i = 0; i < images.length; i++) {
+    if (images[i].getAttribute("width") >= 150) {
+      image_url = images[i].getAttribute("src")
+      break
+    }
+  }
+  return image_url
 }
 
 const getReferences = (content_html: string) => {
@@ -117,6 +137,35 @@ const getReferences = (content_html: string) => {
     }
   })
   return urls
+}
+
+const normalizeTag = (tag: string) => {
+  const fixedTags = {
+    aPKC: "aPKC",
+    CrossRef: "Crossref",
+    DataCite: "DataCite",
+    ElasticSearch: "ElasticSearch",
+    FoxP: "FoxP",
+    GigaByte: "GigaByte",
+    GigaDB: "GigaDB",
+    GraphQL: "GraphQL",
+    "JSON-LD": "JSON-LD",
+    microCT: "MicroCT",
+    MTE14: "MTE14",
+    "Pre-Print": "Preprint",
+    "Q&A": "Q&A",
+    ResearchGate: "ResearchGate",
+    RStats: "RStats",
+    ScienceEurope: "Science Europe",
+    TreeBASE: "TreeBASE",
+    "Web 2.0": "Web 2.0",
+    WikiCite: "WikiCite",
+    WikiData: "WikiData",
+  }
+
+  tag = tag.replace("#", "")
+  tag = get(fixedTags, tag, startCase(tag))
+  return tag
 }
 
 // export const extract = async (url, options = {}, fetchOptions = {}) => {
@@ -188,6 +237,11 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         }
 
         const authors = author.map((auth) => {
+          // workaround for https://doi.org/10.59350/h4fhq-2t215
+          if (auth["name"] === "GPT-4") {
+            auth["name"] = "Tejas S. Sathe, MD"
+          }
+
           let url = authorIDs[auth["name"]] || null
 
           url ??= isOrcid(get(auth, "uri", null))
@@ -202,10 +256,11 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         })
         const blog_id = blog.id
         const blog_name = blog.title
-        const content_html =
+        const content_html: string =
           get(feedEntry, "content:encoded", null) ||
           get(feedEntry, "content.#text", null) ||
-          get(feedEntry, "description", null)
+          get(feedEntry, "description", null) ||
+          ""
         let summary = buildDescription(content_html, 500)
 
         summary = decodeHtmlCharCodes(summary)
@@ -247,7 +302,8 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         })
         let image: any =
           get(feedEntry, "media:content.@_url", null) ||
-          get(feedEntry, "enclosure.@_url", null)
+          get(feedEntry, "enclosure.@_url", null) ||
+          getImage(content_html)
 
         if (isString(image) && isValidUrl(image)) {
           image = decodeURIComponent(image)
@@ -256,11 +312,13 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         const reference = content_html ? getReferences(content_html) : []
         const tags = []
           .concat(get(feedEntry, "category", []))
-          .map((tag) =>
-            decodeHtmlCharCodes(
+          .map((tag: string) => {
+            tag = decodeHtmlCharCodes(
               get(tag, "@_term", null) || get(tag, "#text", null) || tag
             )
-          )
+            tag = normalizeTag(tag)
+            return tag
+          })
           .slice(0, 5)
         let title =
           get(feedEntry, "title.#text", null) ||
@@ -459,13 +517,14 @@ export async function getSingleBlog(blogSlug: string) {
     return {}
   }
 
-  const feed_url = await validateFeedUrl(config["feed_url"])
+  // validation fails for Medium blogs
+  // const feed_url = await validateFeedUrl(config["feed_url"])
 
-  if (!feed_url) {
-    return {}
-  }
+  // if (!feed_url) {
+  //   return {}
+  // }
 
-  let blog: BlogType = await extract(feed_url, {
+  let blog: BlogType = await extract(config["feed_url"], {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
       // console.log(feedData)
@@ -528,7 +587,7 @@ export async function getSingleBlog(blogSlug: string) {
       return {
         id: config["id"],
         version: "https://jsonfeed.org/version/1.1",
-        feed_url,
+        feed_url: config["feed_url"],
         current_feed_url,
         home_page_url,
         feed_format,
