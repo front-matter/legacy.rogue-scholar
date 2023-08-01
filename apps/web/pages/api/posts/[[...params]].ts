@@ -171,7 +171,7 @@ export async function upsertSinglePost(post: PostType) {
   return post_to_update
 }
 
-export async function upsertAllPosts() {
+export async function upsertAllPosts(page: number = 1) {
   const { data: blogs } = await supabase
     .from("blogs")
     .select("id")
@@ -182,7 +182,7 @@ export async function upsertAllPosts() {
   }
 
   const data = await Promise.all(
-    blogs.map((blog) => extractAllPostsByBlog(blog.id))
+    blogs.map((blog) => extractAllPostsByBlog(blog.id, page))
   )
   const posts = data.flat()
 
@@ -190,7 +190,7 @@ export async function upsertAllPosts() {
   return posts
 }
 
-export async function upsertUpdatedPosts() {
+export async function upsertUpdatedPosts(page: number = 1) {
   const { data: blogs } = await supabase
     .from("blogs")
     .select("id")
@@ -200,7 +200,7 @@ export async function upsertUpdatedPosts() {
     return []
   }
   const data = await Promise.all(
-    blogs.map((blog) => extractUpdatedPostsByBlog(blog.id))
+    blogs.map((blog) => extractUpdatedPostsByBlog(blog.id, page))
   )
 
   const posts = data.flat()
@@ -318,9 +318,9 @@ export default async function handler(req, res) {
         //   )
         // }
 
-        posts = await upsertAllPosts()
+        posts = await upsertAllPosts(page)
       } else {
-        posts = await upsertUpdatedPosts()
+        posts = await upsertUpdatedPosts(page)
       }
       res.status(200).json(posts)
     }
