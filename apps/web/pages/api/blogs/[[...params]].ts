@@ -240,6 +240,8 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           // workaround for https://doi.org/10.59350/h4fhq-2t215
           if (auth["name"] === "GPT-4") {
             auth["name"] = "Tejas S. Sathe, MD"
+          } else if (auth["name"] === "juan") {
+            auth["name"] = "Juan Pablo Alperin"
           }
 
           let url = authorIDs[auth["name"]] || null
