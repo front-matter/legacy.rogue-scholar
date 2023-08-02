@@ -6,8 +6,12 @@ import { Mod97_10 } from "@konfirm/iso7064"
 import fetch from "cross-fetch"
 import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
-
+const jsdom = require("jsdom")
+const { JSDOM } = jsdom
 const { CrockfordBase32 } = require("crockford-base32")
+
+import { supabaseAdmin } from "@/lib/server/supabase-admin"
+import { BlogType, PostType } from "@/types/blog"
 
 export function getBaseURL() {
   const url =
@@ -379,4 +383,55 @@ export function validateUrl(url: string) {
     })
 
   return response
+}
+
+export async function extractImages(blog: BlogType, posts: PostType[]) {
+  if (!blog || !blog.images_folder || !posts) return null
+
+  const extractedImages = await Promise.all(
+    posts.map(async (post) => {
+      const dom = new JSDOM(`<!DOCTYPE html>${post.content_html}`)
+
+      const images = dom.window.document.querySelectorAll("img")
+
+      return images.forEach(async (image) => {
+        const src = image.getAttribute("src")
+
+        if (src.startsWith(blog.images_folder)) {
+          const filename = src.substring(String(blog.images_folder).length)
+          const response = await fetch(src)
+          const blob = await response.blob()
+
+          const { data, error } = await supabaseAdmin.storage
+            .from("images")
+            .upload(`${blog.id}/${filename}`, blob)
+
+          if (error) {
+            throw error
+          }
+          console.log(data)
+
+          // save filename in images table
+          const res = await supabaseAdmin
+            .from("images")
+            .upsert(
+              {
+                name: filename,
+                blog_id: blog.id,
+                created_at: new Date(),
+              },
+              { onConflict: "id", ignoreDuplicates: false }
+            )
+            .select("id, name")
+            .maybeSingle()
+
+          console.log(res)
+          return filename
+        }
+      })
+    })
+  )
+
+  console.log(extractedImages)
+  return null
 }

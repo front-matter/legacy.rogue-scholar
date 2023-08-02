@@ -22,6 +22,7 @@ const { JSDOM } = jsdom
 import {
   decodeHtmlCharCodes,
   detectLanguage,
+  // extractImages,
   isDoi,
   isOrcid,
   isRor,
@@ -262,7 +263,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             url: url,
           }
         })
-        const blog_id = blog.id
+        const blog_id = blogSlug
         const blog_name = blog.title
         const content_html: string =
           get(feedEntry, "content:encoded", null) ||
@@ -272,6 +273,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         let summary = buildDescription(content_html, 500)
 
         summary = decodeHtmlCharCodes(summary)
+
         const published_at = toUnixTime(
           get(feedEntry, "pubDate", null) ||
             get(feedEntry, "published", "1970-01-01")
@@ -372,6 +374,11 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       default:
         posts = blogWithPosts["entries"] || []
     }
+
+    // extract images from content_html and store in supabase storage
+    // if (blog.images_folder) {
+    //   await extractImages(blog, posts)
+    // }
 
     return posts
   } catch (error) {
@@ -516,7 +523,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, feed_url, current_feed_url, home_page_url, generator, title, category, status, user_id, authors"
+      "id, feed_url, current_feed_url, home_page_url, images_folder, generator, title, category, status, user_id, authors"
     )
     .eq("id", blogSlug)
     .maybeSingle()
@@ -609,6 +616,7 @@ export async function getSingleBlog(blogSlug: string) {
         status: config["status"],
         user_id: config["user_id"],
         authors: config["authors"],
+        images_folder: config["images_folder"],
       }
     },
   })

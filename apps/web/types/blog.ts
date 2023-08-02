@@ -67,6 +67,7 @@ export interface BlogType extends FeedData {
   prefix?: string
   user_id?: string
   authors?: AuthorType[]
+  images_folder?: string
 }
 
 export interface BlogParentType {
