@@ -38,7 +38,7 @@ import {
 } from "@/lib/supabaseClient"
 import { typesense } from "@/lib/typesenseClient"
 import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
-import { BlogType, PostType } from "@/types/blog"
+import { AuthorType, BlogType, PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function updateAllBlogs() {
@@ -64,9 +64,20 @@ export const buildDescription = (val, maxlen) => {
 export const authorIDs = {
   "Kristian Garza": "https://orcid.org/0000-0003-3484-6875",
   "Roderic Page": "https://orcid.org/0000-0002-7101-9767",
-  "Tejas S. Sathe, MD": "https://orcid.org/0000-0003-0449-4469",
-  "Meghal Shah, MD": "https://orcid.org/0000-0002-2085-659X",
+  "Tejas S. Sathe": "https://orcid.org/0000-0003-0449-4469",
+  "Meghal Shah": "https://orcid.org/0000-0002-2085-659X",
   "Liberate Science": "https://ror.org/0342dzm54",
+}
+
+const normalizeAuthor = (author: AuthorType) => {
+  // workaround for https://doi.org/10.59350/h4fhq-2t215
+  if (author["name"] === "GPT-4") {
+    author["name"] = "Tejas S. Sathe"
+  } else if (author["name"] === "juan") {
+    author["name"] = "Juan Pablo Alperin"
+  }
+  author["name"] = author["name"].replace(/, MD$/, "")
+  return author
 }
 
 const getImage = (content_html: string) => {
@@ -237,12 +248,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         }
 
         const authors = author.map((auth) => {
-          // workaround for https://doi.org/10.59350/h4fhq-2t215
-          if (auth["name"] === "GPT-4") {
-            auth["name"] = "Tejas S. Sathe, MD"
-          } else if (auth["name"] === "juan") {
-            auth["name"] = "Juan Pablo Alperin"
-          }
+          auth = normalizeAuthor(auth)
 
           let url = authorIDs[auth["name"]] || null
 
