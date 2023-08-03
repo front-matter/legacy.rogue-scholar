@@ -284,7 +284,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             alt: image.getAttribute("alt"),
           }
         })
-        let image = images.find((image) => image.width >= 300)
+        let image = images.find((image) => image.width >= 200)
 
         image =
           get(image, "src", null) ||
