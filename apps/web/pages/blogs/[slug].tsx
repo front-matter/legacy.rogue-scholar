@@ -136,9 +136,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
             <>
               <Search />
               <Pagination pagination={pagination} />
-              {posts && (
-                <Posts posts={posts} pagination={pagination} blog={blog} />
-              )}
+              {posts && <Posts posts={posts} blog={blog} />}
               {pagination.total > 0 && <Pagination pagination={pagination} />}
               {blog.home_page_url && blog.backlog && blog.backlog > 0 && (
                 <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">

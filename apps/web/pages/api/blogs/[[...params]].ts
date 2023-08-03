@@ -22,7 +22,6 @@ const { JSDOM } = jsdom
 import {
   decodeHtmlCharCodes,
   detectLanguage,
-  // extractImages,
   isDoi,
   isOrcid,
   isRor,
@@ -79,21 +78,6 @@ const normalizeAuthor = (author: AuthorType) => {
   }
   author["name"] = author["name"].replace(/, MD$/, "")
   return author
-}
-
-const getImage = (content_html: string) => {
-  const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
-
-  const images = dom.window.document.querySelectorAll("img")
-  let image_url = null
-
-  for (let i = 0; i < images.length; i++) {
-    if (images[i].getAttribute("width") >= 150) {
-      image_url = images[i].getAttribute("src")
-      break
-    }
-  }
-  return image_url
 }
 
 const getReferences = (content_html: string) => {
@@ -270,9 +254,42 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           get(feedEntry, "content.#text", null) ||
           get(feedEntry, "description", null) ||
           ""
+        const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
+
         let summary = buildDescription(content_html, 500)
 
         summary = decodeHtmlCharCodes(summary)
+
+        const images = Array.from(
+          dom.window.document.querySelectorAll("img")
+        ).map((image: any) => {
+          const src = image.getAttribute("src")
+          let srcset = image.getAttribute("srcset")
+
+          if (isString(srcset)) {
+            srcset = srcset
+              .split(", ")
+              .map((src) =>
+                isValidUrl(src) ? src : `${blog.home_page_url}${src}`
+              )
+              .join(", ")
+          }
+
+          return {
+            src: isValidUrl(src) ? src : `${blog.home_page_url}${src}`,
+            srcset: srcset,
+            width: image.getAttribute("width"),
+            height: image.getAttribute("height"),
+            sizes: image.getAttribute("sizes"),
+            alt: image.getAttribute("alt"),
+          }
+        })
+        let image = images.find((image) => image.width >= 300)
+
+        image =
+          get(image, "src", null) ||
+          get(feedEntry, "media:content.@_url", null) ||
+          get(feedEntry, "enclosure.@_url", null)
 
         const published_at = toUnixTime(
           get(feedEntry, "pubDate", null) ||
@@ -310,14 +327,6 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             "utm_source",
           ],
         })
-        let image: any =
-          get(feedEntry, "media:content.@_url", null) ||
-          get(feedEntry, "enclosure.@_url", null) ||
-          getImage(content_html)
-
-        if (isString(image) && isValidUrl(image)) {
-          image = decodeURIComponent(image)
-        }
         const language = detectLanguage(content_html || "en")
         const reference = content_html ? getReferences(content_html) : []
         const tags = []
@@ -340,6 +349,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         } else {
           title = ""
         }
+        console.log(images)
 
         return {
           authors,
@@ -350,6 +360,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           published_at,
           updated_at,
           image,
+          images,
           language,
           reference,
           tags,
@@ -374,11 +385,6 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       default:
         posts = blogWithPosts["entries"] || []
     }
-
-    // extract images from content_html and store in supabase storage
-    // if (blog.images_folder) {
-    //   await extractImages(blog, posts)
-    // }
 
     return posts
   } catch (error) {
@@ -556,7 +562,7 @@ export async function getSingleBlog(blogSlug: string) {
         config["home_page_url"]
 
       home_page_url = get(home_page_url, "@_href", null) || home_page_url
-
+      home_page_url = home_page_url.replace(/\/+$/g, "")
       let feed_format =
         []
           .concat(get(feedData, "link", []))

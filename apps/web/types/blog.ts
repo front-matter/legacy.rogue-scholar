@@ -37,6 +37,7 @@ export interface PostType {
   image?: string
   content_html?: string
   reference?: ReferenceType[]
+  images?: string[]
   tags?: string[]
   language?: string
   blog_id?: string

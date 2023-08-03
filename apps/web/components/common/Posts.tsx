@@ -2,25 +2,20 @@
 // import { Dialog, Transition } from "@headlessui/react"
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
-// import Image from "next/image"
+import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
-import { BlogType, PaginationType, PostType } from "@/types/blog"
+import { BlogType, PostType } from "@/types/blog"
 
 type Props = {
   posts: PostType[]
-  pagination: PaginationType
   blog?: BlogType
 }
 
-export const Posts: React.FunctionComponent<Props> = ({
-  posts,
-  pagination,
-  blog,
-}) => {
+export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
   const { t } = useTranslation("common")
   const router = useRouter()
   const { locale: activeLocale } = router
@@ -37,9 +32,10 @@ export const Posts: React.FunctionComponent<Props> = ({
               >
                 {post.image && (
                   <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
-                    <img
+                    <Image
                       src={post.image}
                       alt=""
+                      fill={true}
                       className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
                     />
                     <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
@@ -49,19 +45,12 @@ export const Posts: React.FunctionComponent<Props> = ({
                   {post.tags && (
                     <div className="flex items-center gap-x-1 text-xs">
                       {post.tags.map((tag) => (
-                        <Link
+                        <span
                           key={tag}
-                          href={`${pagination.base_url}?page=1&query=${
-                            pagination.query
-                          }&tags=${tag.replace("#", "")}`}
+                          className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
                         >
-                          <span
-                            key={tag}
-                            className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
-                          >
-                            {tag}
-                          </span>
-                        </Link>
+                          {tag}
+                        </span>
                       ))}
                       {post.language !== activeLocale && (
                         <span className="relative z-10 ml-0 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800 dark:bg-green-700 dark:text-green-200">

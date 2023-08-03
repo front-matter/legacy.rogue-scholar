@@ -74,6 +74,12 @@
       "optional": true
     },
     {
+      "name": "images",
+      "type": "object[]",
+      "facet": false,
+      "optional": true
+    },
+    {
       "name": "image",
       "type": "string",
       "facet": false,

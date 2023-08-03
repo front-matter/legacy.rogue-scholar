@@ -139,6 +139,7 @@ export async function upsertSinglePost(post: PostType) {
         blog_id: post.blog_id,
         blog_name: post.blog_name,
         content_html: post.content_html,
+        images: post.images,
         updated_at: post.updated_at,
         published_at: post.published_at,
         image: post.image,

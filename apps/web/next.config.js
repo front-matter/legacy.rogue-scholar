@@ -95,7 +95,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "user-images.githubusercontent.com",
+        hostname: "*.githubusercontent.com",
         pathname: "/**",
       },
       {
@@ -120,6 +120,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "s0.wp.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
         hostname: "www.samuelmoore.org",
         pathname: "/**",
       },
@@ -135,12 +140,108 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "blogger.googleusercontent.com",
+        hostname: "*.googleusercontent.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "bjoern.brembs.net",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "lab.sub.uni-goettingen.de",
+        pathname: "/**",
+      },
+      {
+        hostname: "*.blogspot.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "pbs.twimg.com",
+        pathname: "/**",
+      },
+      {
+        hostname: "*.files.wordpress.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "wp.biologos.org",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "tarleb.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "blog.dini.de",
+        pathname: "/**",
+      },
+      {
+        hostname: "blogs.tib.eu",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.unh.edu",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.staticflickr.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "static.businessinsider.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.s3.amazonaws.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "citation.js.org",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.basicbooks.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "farrellmedia.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "digitalpress.fra1.cdn.digitaloceanspaces.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "pics.filmaffinity.com",
+        pathname: "/**",
+      },
+      {
+        hostname: "upload.wikimedia.org",
         pathname: "/**",
       },
       {
         protocol: "https",
         hostname: "upstream.force11.org",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "grieve-smith.com",
         pathname: "/**",
       },
       {
@@ -161,6 +262,26 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "www.scholcommlab.ca",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "gigasciencejournal.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "s.w.org",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.leidenmadtrics.nl",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "eve.gd",
         pathname: "/**",
       },
     ],
