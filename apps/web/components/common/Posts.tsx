@@ -8,7 +8,7 @@ import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
-import { loaderProp } from "@/lib/helpers"
+// import { loaderProp } from "@/lib/helpers"
 import { BlogType, PostType } from "@/types/blog"
 
 type Props = {
@@ -97,10 +97,8 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
                         <div className="relative mr-4 h-48 w-64 lg:shrink-0">
                           <Image
                             src={post.image}
-                            loader={loaderProp}
                             alt=""
                             fill={true}
-                            sizes="100vw"
                             className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
                           />
                           <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
