@@ -529,3 +529,7 @@ export function parseGenerator(generator: any) {
     return null
   }
 }
+
+export const loaderProp = ({ src }) => {
+  return src
+}

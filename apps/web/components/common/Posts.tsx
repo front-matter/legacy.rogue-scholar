@@ -8,6 +8,7 @@ import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
+import { loaderProp } from "@/lib/helpers"
 import { BlogType, PostType } from "@/types/blog"
 
 type Props = {
@@ -96,6 +97,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
                         <div className="relative mr-4 h-48 w-64 lg:shrink-0">
                           <Image
                             src={post.image}
+                            loader={loaderProp}
                             alt=""
                             fill={true}
                             sizes="100vw"
