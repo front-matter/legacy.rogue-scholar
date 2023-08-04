@@ -15,7 +15,7 @@ import { typesense } from "@/lib/typesenseClient"
 import {
   extractAllPostsByBlog,
   extractUpdatedPostsByBlog,
-} from "@/pages/api/blogs/[[...params]]"
+} from "@/pages/api/blogs/[...params]"
 import { PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 

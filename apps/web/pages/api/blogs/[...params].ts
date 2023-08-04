@@ -1,9 +1,6 @@
 import { extract } from "@extractus/feed-extractor"
-import { stripTags, truncate } from "bellajs"
-import fetch from "cross-fetch"
 import isRelativeUrl from "is-relative-url"
 import {
-  capitalize,
   get,
   isArray,
   isEmpty,
@@ -20,47 +17,27 @@ const jsdom = require("jsdom")
 const { JSDOM } = jsdom
 
 import {
+  buildDescription,
   decodeHtmlCharCodes,
   detectLanguage,
   isDoi,
   isOrcid,
   isRor,
   isValidUrl,
-  normalizeImage,
+  parseGenerator,
   toISOString,
   toUnixTime,
 } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
-  blogsSelect,
   blogWithPostsSelect,
   postsWithBlogSelect,
   supabase,
 } from "@/lib/supabaseClient"
 import { typesense } from "@/lib/typesenseClient"
-import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
+import { upsertSinglePost } from "@/pages/api/posts/[...params]"
 import { AuthorType, BlogType, PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
-
-export async function updateAllBlogs() {
-  const { data: blogs } = await supabase
-    .from("blogs")
-    .select("id")
-    .in("status", ["approved", "active"])
-
-  if (!blogs) {
-    return []
-  }
-
-  await Promise.all(blogs.map((blog) => upsertSingleBlog(blog.id)))
-}
-
-// from https://github.com/extractus/feed-extractor/blob/main/src/utils/normalizer.js
-export const buildDescription = (val, maxlen) => {
-  const stripped = stripTags(String(val))
-
-  return truncate(stripped, maxlen).replace(/\n+/g, " ")
-}
 
 export const authorIDs = {
   "Kristian Garza": "https://orcid.org/0000-0003-3484-6875",
@@ -164,32 +141,6 @@ const normalizeTag = (tag: string) => {
   tag = get(fixedTags, tag, startCase(tag))
   return tag
 }
-
-// export const extract = async (url, options = {}, fetchOptions = {}) => {
-//   if (!isValidUrl(url)) {
-//     throw new Error("Input param must be a valid URL")
-//   }
-//   console.log(fetchOptions)
-
-//   const data = await retrieve(url, {
-//     method: "GET",
-//     mode: "cors",
-//     headers: {
-//       "Content-Type": "application/atom+xml",
-//       //"application/rss+xml, application/atom+xml, application/json",
-//     },
-//   })
-
-//   if (!data.text && !data.json) {
-//     throw new Error(`Failed to load content from "${url}"`)
-//   }
-
-//   const { type, json, text } = data
-
-//   return type === "json"
-//     ? extractFromJson(json, options)
-//     : extractFromXml(text, options)
-// }
 
 export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   const blog: BlogType = await getSingleBlog(blogSlug)
@@ -295,15 +246,12 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             }
           }
         )
-        let image =
+        const image =
           get(feedEntry, "media:content.@_url", null) ||
           get(feedEntry, "enclosure.@_url", null) ||
           (images || [])
             .filter((image) => image.width >= 200)
             .map((image) => image.src)[0]
-
-        console.log(image)
-        image = normalizeImage(image)
 
         const published_at = toUnixTime(
           get(feedEntry, "pubDate", null) ||
@@ -462,82 +410,6 @@ export async function upsertSingleBlog(blogSlug: string) {
   return data
 }
 
-export async function validateFeedUrl(url: string) {
-  const res = await fetch(url)
-
-  if (res.status === 200) {
-    const contentType = res.headers.get("content-type")?.split(";")[0]
-
-    if (
-      [
-        "application/rss+xml",
-        "application/atom+xml",
-        "application/xml",
-        "text/xml",
-        "application/json+feed",
-      ].includes(contentType as string)
-    ) {
-      return url
-    } else if (contentType === "text/html") {
-      // parse homepage for feed url
-      const html = await res.text()
-      const feedLink = html.match(
-        /<link[^>]+(type="application\/(rss\+xml|atom\+xml)"|type="application\/(rss|atom)"[^>]+(rel="alternate"|rel="alternate feed"))[^>]+(href="([^"]+)")[^>]*>/gi
-      )?.[0] as string
-      const feedUrl = feedLink.match(/href="([^"]+)"/i)?.[1] as string
-
-      return feedUrl
-    } else {
-      throw new Error("Invalid feed format")
-    }
-  } else {
-    return null
-  }
-}
-
-const parseGenerator = (generator: any) => {
-  if (isObject(generator)) {
-    let name = generator["#text"]
-
-    if (name === "WordPress.com") {
-      name = "WordPress (.com)"
-    } else if (name === "Wordpress") {
-      // versions prior to 6.1
-      name = "WordPress"
-    }
-    const version = generator["@_version"]
-
-    return name + (version ? " " + version : "")
-  } else if (isString(generator)) {
-    if (generator === "Wowchemy (https://wowchemy.com)") {
-      return "Hugo"
-    }
-    try {
-      const url = new URL(generator)
-
-      if (url.hostname === "wordpress.org") {
-        const name = "WordPress"
-        const version = url.searchParams.get("v")
-
-        return name + (version ? " " + version : "")
-      } else if (url.hostname === "wordpress.com") {
-        const name = "WordPress (.com)"
-
-        return name
-      }
-    } catch (error) {
-      // console.log(error)
-    }
-    generator = generator.replace(
-      /^(\w+)(.+)(-?v?\d{1,2}\.\d{1,2}\.\d{1,3})$/gm,
-      "$1 $3"
-    )
-    return capitalize(generator)
-  } else {
-    return null
-  }
-}
-
 export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
@@ -550,13 +422,6 @@ export async function getSingleBlog(blogSlug: string) {
   if (!config) {
     return {}
   }
-
-  // validation fails for Medium blogs
-  // const feed_url = await validateFeedUrl(config["feed_url"])
-
-  // if (!feed_url) {
-  //   return {}
-  // }
 
   let blog: BlogType = await extract(config["feed_url"], {
     useISODateFormat: true,
@@ -665,56 +530,42 @@ export default async function handler(req, res) {
   const update = req.query.update
 
   if (req.method === "GET") {
-    if (slug) {
-      if (action === "posts") {
-        const searchParameters: PostSearchParams = {
-          q: query,
-          filter_by: `blog_id:=${slug}`,
-          query_by:
-            "tags,title,authors.name,authors.url,summary,content_html,reference",
-          sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
-          per_page: 15,
-          page: page && page > 0 ? page : 1,
-        }
-        const data: PostSearchResponse = await typesense
-          .collections("posts")
-          .documents()
-          .search(searchParameters)
-        const posts = data.hits?.map((hit) => hit.document)
+    if (action === "posts") {
+      const searchParameters: PostSearchParams = {
+        q: query,
+        filter_by: `blog_id:=${slug}`,
+        query_by:
+          "tags,title,authors.name,authors.url,summary,content_html,reference",
+        sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
+        per_page: 15,
+        page: page && page > 0 ? page : 1,
+      }
+      const data: PostSearchResponse = await typesense
+        .collections("posts")
+        .documents()
+        .search(searchParameters)
+      const posts = data.hits?.map((hit) => hit.document)
 
-        if (posts) {
-          res.status(200).json(posts)
-        } else {
-          res.status(404).json({ message: "Not Found" })
-        }
+      if (posts) {
+        res.status(200).json(posts)
       } else {
-        const { data: blog, error } = await supabase
-          .from("blogs")
-          .select(blogWithPostsSelect)
-          .eq("id", slug)
-
-        if (error) {
-          return res.status(400).json({ message: error })
-        }
-
-        if (blog) {
-          res.status(200).json(blog[0])
-        } else {
-          res.status(404).json({ message: "Not Found" })
-        }
+        res.status(404).json({ message: "Not Found" })
       }
     } else {
-      const { data: blogs, error } = await supabase
+      const { data: blog, error } = await supabase
         .from("blogs")
-        .select(blogsSelect)
-        .in("status", ["approved", "active"])
-        .order("title", { ascending: true })
+        .select(blogWithPostsSelect)
+        .eq("id", slug)
 
       if (error) {
-        console.log(error)
+        return res.status(400).json({ message: error })
       }
 
-      res.status(200).json(blogs)
+      if (blog) {
+        res.status(200).json(blog[0])
+      } else {
+        res.status(404).json({ message: "Not Found" })
+      }
     }
   } else if (
     !req.headers.authorization ||
@@ -723,30 +574,24 @@ export default async function handler(req, res) {
   ) {
     res.status(401).json({ message: "Unauthorized" })
   } else if (req.method === "POST") {
-    if (slug) {
-      if (action === "posts") {
-        let posts: PostType[] = []
+    if (action === "posts") {
+      let posts: PostType[] = []
 
-        if (update === "all") {
-          posts = await extractAllPostsByBlog(slug, page)
-        } else {
-          posts = await extractUpdatedPostsByBlog(slug, page)
-        }
-        if (posts) {
-          await Promise.all(posts.map((post) => upsertSinglePost(post)))
-          res.status(200).json(posts)
-        } else {
-          res.status(404).json({ message: "Posts not found" })
-        }
+      if (update === "all") {
+        posts = await extractAllPostsByBlog(slug, page)
       } else {
-        const blog = await upsertSingleBlog(slug)
-
-        res.status(200).json(blog)
+        posts = await extractUpdatedPostsByBlog(slug, page)
+      }
+      if (posts) {
+        await Promise.all(posts.map((post) => upsertSinglePost(post)))
+        res.status(200).json(posts)
+      } else {
+        res.status(404).json({ message: "Posts not found" })
       }
     } else {
-      const blogs = await updateAllBlogs()
+      const blog = await upsertSingleBlog(slug)
 
-      res.status(200).json(blogs)
+      res.status(200).json(blog)
     }
   }
 }

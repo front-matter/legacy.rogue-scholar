@@ -1,8 +1,9 @@
 // import Cors from "cors"
-import { isString } from "lodash"
+import { capitalize, isObject, isString } from "lodash"
 const he = require("he")
 
 import { Mod97_10 } from "@konfirm/iso7064"
+import { stripTags, truncate } from "bellajs"
 import fetch from "cross-fetch"
 import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
@@ -388,9 +389,45 @@ export function validateUrl(url: string) {
   return response
 }
 
-export function normalizeImage(image: string) {
-  return image
-}
+// export async function validateFeedUrl(url: string) {
+//   const res = await fetch(url)
+
+//   if (res.status === 200) {
+//     const contentType = res.headers.get("content-type")?.split(";")[0]
+
+//     if (
+//       [
+//         "application/rss+xml",
+//         "application/atom+xml",
+//         "application/xml",
+//         "text/xml",
+//         "application/json+feed",
+//       ].includes(contentType as string)
+//     ) {
+//       return url
+//     } else if (contentType === "text/html") {
+//       // parse homepage for feed url
+//       const html = await res.text()
+//       const feedLink = html.match(
+//         /<link[^>]+(type="application\/(rss\+xml|atom\+xml)"|type="application\/(rss|atom)"[^>]+(rel="alternate"|rel="alternate feed"))[^>]+(href="([^"]+)")[^>]*>/gi
+//       )?.[0] as string
+//       const feedUrl = feedLink.match(/href="([^"]+)"/i)?.[1] as string
+
+//       return feedUrl
+//     } else {
+//       throw new Error("Invalid feed format")
+//     }
+//   } else {
+//     return null
+//   }
+// }
+
+// export function normalizeImage(image: string) {
+//   const imageUrl = new URL(image)
+//   if (imageUrl.hostname === "images.unsplash.com") {
+
+//   return image
+// }
 
 export async function extractImages(blog: BlogType, posts: PostType[]) {
   if (!blog || !blog.images_folder || !posts) return null
@@ -441,4 +478,54 @@ export async function extractImages(blog: BlogType, posts: PostType[]) {
 
   console.log(extractedImages)
   return null
+}
+
+// from https://github.com/extractus/feed-extractor/blob/main/src/utils/normalizer.js
+export function buildDescription(val, maxlen) {
+  const stripped = stripTags(String(val))
+
+  return truncate(stripped, maxlen).replace(/\n+/g, " ")
+}
+
+export function parseGenerator(generator: any) {
+  if (isObject(generator)) {
+    let name = generator["#text"]
+
+    if (name === "WordPress.com") {
+      name = "WordPress (.com)"
+    } else if (name === "Wordpress") {
+      // versions prior to 6.1
+      name = "WordPress"
+    }
+    const version = generator["@_version"]
+
+    return name + (version ? " " + version : "")
+  } else if (isString(generator)) {
+    if (generator === "Wowchemy (https://wowchemy.com)") {
+      return "Hugo"
+    }
+    try {
+      const url = new URL(generator)
+
+      if (url.hostname === "wordpress.org") {
+        const name = "WordPress"
+        const version = url.searchParams.get("v")
+
+        return name + (version ? " " + version : "")
+      } else if (url.hostname === "wordpress.com") {
+        const name = "WordPress (.com)"
+
+        return name
+      }
+    } catch (error) {
+      // console.log(error)
+    }
+    generator = generator.replace(
+      /^(\w+)(.+)(-?v?\d{1,2}\.\d{1,2}\.\d{1,3})$/gm,
+      "$1 $3"
+    )
+    return capitalize(generator)
+  } else {
+    return null
+  }
 }
