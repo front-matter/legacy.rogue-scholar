@@ -196,6 +196,9 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   let feed_url = blog.feed_url
   const generator = blog.generator?.split(" ")[0]
 
+  // limit number of pages for free plan to 5 (50 posts)
+  page = blog.plan === "Starter" ? Math.min(page, 5) : page
+
   // handle pagination depending on blogging platform
   switch (generator) {
     case "WordPress":
@@ -349,7 +352,6 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         } else {
           title = ""
         }
-        console.log(images)
 
         return {
           authors,
@@ -529,7 +531,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, feed_url, current_feed_url, home_page_url, images_folder, generator, title, category, status, user_id, authors"
+      "id, feed_url, current_feed_url, home_page_url, images_folder, generator, title, category, status, user_id, authors, plan"
     )
     .eq("id", blogSlug)
     .maybeSingle()
@@ -620,6 +622,7 @@ export async function getSingleBlog(blogSlug: string) {
         license: "https://creativecommons.org/licenses/by/4.0/legalcode",
         category: config["category"],
         status: config["status"],
+        plan: config["plan"],
         user_id: config["user_id"],
         authors: config["authors"],
         images_folder: config["images_folder"],
