@@ -211,7 +211,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           ""
         const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
 
-        let summary = buildDescription(content_html, 500)
+        let summary = buildDescription(content_html, 600)
 
         summary = decodeHtmlCharCodes(summary)
 

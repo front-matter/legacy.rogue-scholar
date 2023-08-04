@@ -483,8 +483,14 @@ export async function extractImages(blog: BlogType, posts: PostType[]) {
 // from https://github.com/extractus/feed-extractor/blob/main/src/utils/normalizer.js
 export function buildDescription(val, maxlen) {
   const stripped = stripTags(String(val))
+  const truncated = truncate(stripped, maxlen).replace(/\n+/g, " ")
+  const sentences = truncated.split(/(?<=[.!?])\s+/)
 
-  return truncate(stripped, maxlen).replace(/\n+/g, " ")
+  // remove last sentence if it ends with ...
+  if (sentences[sentences.length - 1].endsWith("...")) {
+    sentences.pop()
+  }
+  return sentences.join(" ")
 }
 
 export function parseGenerator(generator: any) {
