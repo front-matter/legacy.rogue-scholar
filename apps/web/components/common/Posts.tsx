@@ -93,7 +93,7 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
                     )}
                     <div className="flex py-2">
                       {post.image && (
-                        <div className="relative mr-3 h-48 w-72 lg:shrink-0">
+                        <div className="relative mr-4 h-48 w-64 lg:shrink-0">
                           <Image
                             src={post.image}
                             alt=""
