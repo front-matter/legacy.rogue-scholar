@@ -71,7 +71,10 @@ export const isValidUrl = (url = "") => {
   try {
     const ourl = new URL(url)
 
-    return ourl !== null && ourl.protocol.startsWith("http")
+    return (
+      ourl !== null &&
+      ["https:", "http:", "data:", "mailto:"].includes(ourl.protocol)
+    )
   } catch (err) {
     return false
   }

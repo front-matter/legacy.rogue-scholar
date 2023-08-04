@@ -263,36 +263,43 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
 
         summary = decodeHtmlCharCodes(summary)
 
-        const images = Array.from(
-          dom.window.document.querySelectorAll("img")
-        ).map((image: any) => {
-          const src = image.getAttribute("src")
-          let srcset = image.getAttribute("srcset")
+        const images: Array<{
+          src: string
+          srcset: string
+          width: number
+          height: number
+          sizes: string
+          alt: string
+        }> = Array.from(dom.window.document.querySelectorAll("img")).map(
+          (image: any) => {
+            const src = image.getAttribute("src")
+            let srcset = image.getAttribute("srcset")
 
-          if (isString(srcset)) {
-            srcset = srcset
-              .split(", ")
-              .map((src) =>
-                isValidUrl(src) ? src : `${blog.home_page_url}${src}`
-              )
-              .join(", ")
+            if (isString(srcset)) {
+              srcset = srcset
+                .split(", ")
+                .map((src) =>
+                  isValidUrl(src) ? src : `${blog.home_page_url}${src}`
+                )
+                .join(", ")
+            }
+
+            return {
+              src: isValidUrl(src) ? src : `${blog.home_page_url}${src}`,
+              srcset: srcset,
+              width: image.getAttribute("width"),
+              height: image.getAttribute("height"),
+              sizes: image.getAttribute("sizes"),
+              alt: image.getAttribute("alt"),
+            }
           }
-
-          return {
-            src: isValidUrl(src) ? src : `${blog.home_page_url}${src}`,
-            srcset: srcset,
-            width: image.getAttribute("width"),
-            height: image.getAttribute("height"),
-            sizes: image.getAttribute("sizes"),
-            alt: image.getAttribute("alt"),
-          }
-        })
-        let image = images.find((image) => image.width >= 200)
-
-        image =
-          get(image, "src", null) ||
+        )
+        const image =
           get(feedEntry, "media:content.@_url", null) ||
-          get(feedEntry, "enclosure.@_url", null)
+          get(feedEntry, "enclosure.@_url", null) ||
+          (images || [])
+            .filter((image) => image.width >= 200)
+            .map((image) => image.src)[0]
 
         const published_at = toUnixTime(
           get(feedEntry, "pubDate", null) ||
