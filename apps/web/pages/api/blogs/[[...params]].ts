@@ -26,6 +26,7 @@ import {
   isOrcid,
   isRor,
   isValidUrl,
+  normalizeImage,
   toISOString,
   toUnixTime,
 } from "@/lib/helpers"
@@ -294,12 +295,15 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             }
           }
         )
-        const image =
+        let image =
           get(feedEntry, "media:content.@_url", null) ||
           get(feedEntry, "enclosure.@_url", null) ||
           (images || [])
             .filter((image) => image.width >= 200)
             .map((image) => image.src)[0]
+
+        console.log(image)
+        image = normalizeImage(image)
 
         const published_at = toUnixTime(
           get(feedEntry, "pubDate", null) ||

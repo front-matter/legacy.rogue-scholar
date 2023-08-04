@@ -388,6 +388,10 @@ export function validateUrl(url: string) {
   return response
 }
 
+export function normalizeImage(image: string) {
+  return image
+}
+
 export async function extractImages(blog: BlogType, posts: PostType[]) {
   if (!blog || !blog.images_folder || !posts) return null
 
