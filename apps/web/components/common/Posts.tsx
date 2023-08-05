@@ -8,7 +8,6 @@ import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
-// import { loaderProp } from "@/lib/helpers"
 import { BlogType, PostType } from "@/types/blog"
 
 type Props = {

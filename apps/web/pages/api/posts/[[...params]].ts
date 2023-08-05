@@ -219,6 +219,10 @@ export default async function handler(req, res) {
   page = Number(page)
   const update = req.query.update
 
+  console.log(update)
+  console.log(slug)
+  console.log(query)
+  console.log(page)
   if (req.method === "GET") {
     if (slug === "unregistered") {
       const { data: posts, error } = await supabase

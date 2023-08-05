@@ -1,12 +1,12 @@
 // import Cors from "cors"
-import { capitalize, isObject, isString } from "lodash"
+import { capitalize, isObject, isString, truncate } from "lodash"
 const he = require("he")
 
 import { Mod97_10 } from "@konfirm/iso7064"
-import { stripTags, truncate } from "bellajs"
 import fetch from "cross-fetch"
 import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
+import sanitizeHtml from "sanitize-html"
 const jsdom = require("jsdom")
 const { JSDOM } = jsdom
 const { CrockfordBase32 } = require("crockford-base32")
@@ -480,17 +480,25 @@ export async function extractImages(blog: BlogType, posts: PostType[]) {
   return null
 }
 
-// from https://github.com/extractus/feed-extractor/blob/main/src/utils/normalizer.js
-export function buildDescription(val, maxlen) {
-  const stripped = stripTags(String(val))
-  const truncated = truncate(stripped, maxlen).replace(/\n+/g, " ")
-  const sentences = truncated.split(/(?<=[.!?])\s+/)
+export function getAbstract(html: string, maxlen: number = 600) {
+  html = html
+    .replace(/(<br>|<p>)/g, " ")
+    .replace(/(h1>|h2>|h3>|h4>)/g, "strong>")
+  const sanitized = sanitizeHtml(html, {
+    allowedTags: ["b", "i", "em", "strong", "sub", "sup"],
+    allowedAttributes: {},
+  })
 
-  // remove last sentence if it ends with ...
-  if (sentences[sentences.length - 1].endsWith("...")) {
-    sentences.pop()
-  }
-  return sentences.join(" ")
+  // use separator regex to split on sentence boundary
+  const truncated = truncate(sanitized, {
+    length: maxlen,
+    omission: "",
+    separator: /(?<=\w{3}[.!?])\s+/,
+  })
+    .replace(/\n+/g, " ")
+    .trim()
+
+  return truncated
 }
 
 export function parseGenerator(generator: any) {
@@ -534,8 +542,4 @@ export function parseGenerator(generator: any) {
   } else {
     return null
   }
-}
-
-export const loaderProp = ({ src }) => {
-  return src
 }

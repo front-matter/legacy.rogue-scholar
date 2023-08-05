@@ -17,9 +17,9 @@ const jsdom = require("jsdom")
 const { JSDOM } = jsdom
 
 import {
-  buildDescription,
   decodeHtmlCharCodes,
   detectLanguage,
+  getAbstract,
   isDoi,
   isOrcid,
   isRor,
@@ -35,7 +35,7 @@ import {
   supabase,
 } from "@/lib/supabaseClient"
 import { typesense } from "@/lib/typesenseClient"
-import { upsertSinglePost } from "@/pages/api/posts/[...params]"
+import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
 import { AuthorType, BlogType, PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
@@ -211,7 +211,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           ""
         const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
 
-        let summary = buildDescription(content_html, 600)
+        let summary = getAbstract(content_html)
 
         summary = decodeHtmlCharCodes(summary)
 
