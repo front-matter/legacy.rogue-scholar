@@ -1,0 +1,14 @@
+{
+  "account": "Account",
+  "changeMyPassword": "Cambia la mia password",
+  "manageSubscription": "Gestisci abbonamento",
+  "newsletter.description": "Riassunto settimanale (mercoledì) dei post del blog di Rogue Scholar.",
+  "newsletter.title": "Notiziario",
+  "password": "Parola d'ordine",
+  "subscription.currentlySubscribed": "Al momento sei abbonato al seguente piano:",
+  "subscription.notSubscribed": "Al momento non sei abbonato a un piano.",
+  "subscription.title": "Sottoscrizione",
+  "updateUserName.errorMessage": "Non è stato possibile aggiornare il tuo nome. Per favore riprova.",
+  "updateUserName.successMessage": "Il tuo nome è stato aggiornato.",
+  "upgradeAccount": "Aggiorna l'account"
+}

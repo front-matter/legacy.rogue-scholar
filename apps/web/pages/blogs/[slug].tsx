@@ -20,7 +20,7 @@ import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
   const negotiator = new Negotiator(ctx.req)
-  const locales = ["en", "de", "es", "pt", "fr"]
+  const locales = ["en", "de", "es", "pt", "fr", "it"]
   let languages = negotiator.languages(locales)
 
   languages.push(ctx.locale)
