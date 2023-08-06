@@ -47,8 +47,16 @@ export function CheckIcon({ className }) {
   )
 }
 
-function Plan({ name, price, description, href, features, featured = false }) {
-  href = href || "#"
+function Plan({
+  name,
+  price,
+  href = "#",
+  description,
+  features,
+  featured = false,
+}) {
+  const { t } = useTranslation("home")
+
   return (
     <section
       className={clsx(
@@ -82,18 +90,19 @@ function Plan({ name, price, description, href, features, featured = false }) {
           </li>
         ))}
       </ul>
-      {price == "Free" && (
+      {name === t("pricing.plans.team.name") && (
         <Button
           href={href}
+          target="_blank"
           variant={featured ? "solid" : "outline"}
           color="white"
           className="mt-8"
           aria-label={`Register with the ${name} plan for ${price}`}
         >
-          Sign up
+          {t("pricing.plans.team.button")}
         </Button>
       )}
-      {price != "Free" && <div className="my-9"></div>}
+      {name !== t("pricing.plans.team.name") && <div className="my-9"></div>}
     </section>
   )
 }
@@ -122,11 +131,10 @@ export function Pricing() {
         </div>
         <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
           <Plan
-            featured
+            key="starter"
             name={t("pricing.plans.starter.name")}
             price={t("pricing.plans.starter.price")}
             description={t("pricing.plans.starter.description")}
-            href="/auth/signup"
             features={[
               t("pricing.plans.starter.features.1"),
               t("pricing.plans.starter.features.2"),
@@ -134,20 +142,22 @@ export function Pricing() {
             ]}
           />
           <Plan
+            featured
+            key="team"
             name={t("pricing.plans.team.name")}
             price={t("pricing.plans.team.price")}
             description={t("pricing.plans.team.description")}
-            href="/auth/signup"
+            href="https://ko-fi.com/kofisupporter70187/shop"
             features={[
               t("pricing.plans.team.features.1"),
               t("pricing.plans.team.features.2"),
             ]}
           />
           <Plan
+            key="enterprise"
             name={t("pricing.plans.enterprise.name")}
             price={t("pricing.plans.enterprise.price")}
             description={t("pricing.plans.enterprise.description")}
-            href="/auth/signup"
             features={[
               t("pricing.plans.enterprise.features.1"),
               t("pricing.plans.enterprise.features.2"),

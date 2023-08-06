@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react"
 import { Icon } from "@iconify/react"
 import { useUser } from "@supabase/auth-helpers-react"
+import Image from "next/image"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useEffect } from "react"
@@ -58,6 +59,15 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
 
             <HStack spacing={4}>
               <HStack>
+                <Link href="https://ko-fi.com/R5R4GID21" target="_blank">
+                  <Image
+                    height={36}
+                    width={144}
+                    src="https://storage.ko-fi.com/cdn/kofi5.png?v=23"
+                    alt="Buy Me a Coffee at ko-fi.com"
+                    className="mr-12"
+                  />
+                </Link>
                 <LanguageSwitch />
                 <ColorModeSwitch />
               </HStack>
