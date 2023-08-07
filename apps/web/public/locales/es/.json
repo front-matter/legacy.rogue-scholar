@@ -1,6 +1,6 @@
 {
   "colorMode.dark": "Oscuro",
-  "colorMode.light": "Luz",
+  "colorMode.light": "Claro",
   "common.subscriptionPlans.enterprise.features.0": "Todo en equipo",
   "common.subscriptionPlans.enterprise.features.1": "Archivar un blog sin fuente RSS activa",
   "footer.allRightsReserved": "Reservados todos los derechos.",
@@ -16,5 +16,5 @@
   "userMenu.account": "Cuenta",
   "userMenu.homepage": "Página principal",
   "userMenu.message": "Hola {{user}}!",
-  "userMenu.signOut": "desconectar"
+  "userMenu.signOut": "Cerrar sesión"
 }
