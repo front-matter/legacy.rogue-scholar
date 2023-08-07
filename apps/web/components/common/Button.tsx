@@ -29,6 +29,7 @@ export function Button({
   color = "slate",
   className,
   href,
+  target,
   ...props
 }) {
   className = clsx(
@@ -38,7 +39,7 @@ export function Button({
   )
 
   return href ? (
-    <Link href={href} className={className} {...props} />
+    <Link href={href} className={className} target={target} {...props} />
   ) : (
     <button className={className} {...props} />
   )

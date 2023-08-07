@@ -147,7 +147,7 @@ export function Pricing() {
             name={t("pricing.plans.team.name")}
             price={t("pricing.plans.team.price")}
             description={t("pricing.plans.team.description")}
-            href="https://ko-fi.com/rogue_scholar"
+            href="https://ko-fi.com/rogue_scholar/shop"
             features={[
               t("pricing.plans.team.features.1"),
               t("pricing.plans.team.features.2"),
