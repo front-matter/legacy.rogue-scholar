@@ -33,7 +33,7 @@ export const Posts: React.FunctionComponent<Props> = ({
             {posts.map((post) => (
               <article
                 key={post.doi || post.url}
-                className="relative mb-5 flex gap-6 lg:flex-row"
+                className="relative mb-5 gap-6"
               >
                 <div>
                   {post.tags && (
@@ -57,7 +57,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                       )}
                     </div>
                   )}
-                  <div className="group relative max-w-3xl">
+                  <div className="group relative max-w-4xl">
                     <h3 className="mt-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
                       {post.title}
                     </h3>
@@ -100,7 +100,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         </Link>
                       </div>
                     )}
-                    <div className="flex py-2">
+                    <div className="flex max-w-2xl py-2 lg:max-w-4xl">
                       {post.image && (
                         <div className="relative mr-4 h-48 w-64 shrink-0">
                           <Image
@@ -113,7 +113,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         </div>
                       )}
                       {post.summary && (
-                        <p className="text-medium font-serif leading-6 text-gray-900 dark:text-white">
+                        <p className="text-medium max-w-3xl font-serif leading-6 text-gray-900 dark:text-white">
                           {parse(String(post.summary))}
                         </p>
                       )}

@@ -250,7 +250,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           get(feedEntry, "media:content.@_url", null) ||
           get(feedEntry, "enclosure.@_url", null) ||
           (images || [])
-            .filter((image) => image.width >= 250)
+            .filter((image) => image.width >= 200)
             .map((image) => image.src)[0]
 
         const published_at = toUnixTime(
