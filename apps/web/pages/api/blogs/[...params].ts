@@ -51,8 +51,6 @@ const normalizeAuthor = (author: AuthorType) => {
   // workaround for https://doi.org/10.59350/h4fhq-2t215
   if (author["name"] === "GPT-4") {
     author["name"] = "Tejas S. Sathe"
-  } else if (author["name"] === "juan") {
-    author["name"] = "Juan Pablo Alperin"
   }
   author["name"] = author["name"].replace(/, MD$/, "")
   return author
