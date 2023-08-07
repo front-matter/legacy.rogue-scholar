@@ -8,14 +8,19 @@ import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
-import { BlogType, PostType } from "@/types/blog"
+import { BlogType, PaginationType, PostType } from "@/types/blog"
 
 type Props = {
   posts: PostType[]
   blog?: BlogType
+  pagination: PaginationType
 }
 
-export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
+export const Posts: React.FunctionComponent<Props> = ({
+  posts,
+  blog,
+  pagination,
+}) => {
   const { t } = useTranslation("common")
   const router = useRouter()
   const { locale: activeLocale } = router
@@ -38,7 +43,11 @@ export const Posts: React.FunctionComponent<Props> = ({ posts, blog }) => {
                           key={tag}
                           className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
                         >
-                          {tag}
+                          <Link
+                            href={`${pagination.base_url}?page=${pagination.page}&query=${pagination.query}&tags=${tag}`}
+                          >
+                            {tag}
+                          </Link>
                         </span>
                       ))}
                       {post.language !== activeLocale && (
