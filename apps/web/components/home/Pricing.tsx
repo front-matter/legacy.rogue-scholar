@@ -60,20 +60,32 @@ function Plan({
   return (
     <section
       className={clsx(
-        "mb-10 flex flex-col rounded-3xl px-6 py-8 sm:px-8",
-        featured ? "order-first bg-blue-600  lg:order-none" : ""
+        "mb-5 flex flex-col rounded-3xl px-6 py-8 sm:px-8",
+        featured ? "order-first bg-blue-600 lg:order-none" : ""
       )}
     >
-      <h3 className="mt-5 font-sans text-lg text-white">{name}</h3>
+      <h3
+        className={clsx(
+          "mt-5 font-sans text-lg",
+          featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+        )}
+      >
+        {name}
+      </h3>
       <p
         className={clsx(
           "mb-5 mt-2 text-base",
-          featured ? "text-white" : "text-slate-400"
+          featured ? "text-white" : "text-slate-700 dark:text-slate-200"
         )}
       >
         {description}
       </p>
-      <p className="order-first font-sans text-5xl font-light tracking-tight text-white">
+      <p
+        className={clsx(
+          "order-first font-sans text-5xl font-light tracking-tight",
+          featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+        )}
+      >
         {price}
       </p>
       <ul
@@ -86,7 +98,14 @@ function Plan({
         {features.map((feature) => (
           <li key={feature} className="flex">
             <CheckIcon className={featured ? "text-white" : "text-slate-400"} />
-            <span className="ml-4">{feature}</span>
+            <span
+              className={clsx(
+                "ml-4",
+                featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+              )}
+            >
+              {feature}
+            </span>
           </li>
         ))}
       </ul>
@@ -95,7 +114,6 @@ function Plan({
           href={href}
           target="_blank"
           variant={featured ? "solid" : "outline"}
-          color={featured ? "white" : "slate"}
           aria-label={`Register with the ${name} plan for ${price}`}
         >
           {t("pricing.plans.team.button")}
@@ -113,18 +131,18 @@ export function Pricing() {
     <section
       id="pricing"
       aria-label="Pricing"
-      className="bg-slate-900 py-10 sm:py-16"
+      className="bg-slate-300 py-5 dark:bg-slate-800 sm:py-8"
     >
       <Container className="">
         <div className="md:text-center">
-          <h2 className="font-sans text-3xl tracking-tight text-white sm:text-4xl">
+          <h2 className="font-sans text-3xl tracking-tight text-slate-900 dark:text-white sm:text-4xl">
             <span className="relative whitespace-nowrap">
               <SwirlyDoodle className="absolute left-0 top-1/2 h-[1em] w-full fill-blue-400" />
               <span className="relative">{t("pricing.title")}</span>
             </span>{" "}
             {t("pricing.subtitle")}
           </h2>
-          <p className="mt-4 text-lg text-slate-400">
+          <p className="mt-4 text-lg text-slate-700 dark:text-slate-400">
             {t("pricing.description")}
           </p>
         </div>

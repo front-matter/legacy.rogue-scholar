@@ -1,5 +1,4 @@
-import { VegaLite } from "react-vega"
-import { VisualizationSpec } from "vega-embed"
+import { VegaLite, VisualizationSpec } from "react-vega"
 
 import useWindowDimensions from "@/utils/useWindowDimensions"
 
@@ -63,6 +62,7 @@ const DonutChart: React.FunctionComponent<Props> = ({
     data: {
       name: "table",
     },
+    background: "transparent",
     layer: [
       {
         mark: {
