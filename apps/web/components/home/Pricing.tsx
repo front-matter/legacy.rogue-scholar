@@ -60,14 +60,14 @@ function Plan({
   return (
     <section
       className={clsx(
-        "mb-10 flex flex-col rounded-3xl px-6 sm:px-8",
-        featured ? "order-first bg-blue-600 py-8 lg:order-none" : "lg:py-8"
+        "mb-10 flex flex-col rounded-3xl px-6 py-8 sm:px-8",
+        featured ? "order-first bg-blue-600  lg:order-none" : ""
       )}
     >
       <h3 className="mt-5 font-sans text-lg text-white">{name}</h3>
       <p
         className={clsx(
-          "mt-2 text-base",
+          "mb-5 mt-2 text-base",
           featured ? "text-white" : "text-slate-400"
         )}
       >
@@ -79,7 +79,7 @@ function Plan({
       <ul
         role="list"
         className={clsx(
-          "order-last mt-10 flex flex-col gap-y-3 text-sm",
+          "order-last mt-5 flex flex-col gap-y-3 text-sm",
           featured ? "text-white" : "text-slate-200"
         )}
       >
@@ -95,14 +95,13 @@ function Plan({
           href={href}
           target="_blank"
           variant={featured ? "solid" : "outline"}
-          color="white"
-          className="mt-8 dark:bg-slate-100"
+          color={featured ? "white" : "slate"}
           aria-label={`Register with the ${name} plan for ${price}`}
         >
           {t("pricing.plans.team.button")}
         </Button>
       )}
-      {name !== t("pricing.plans.team.name") && <div className="my-9"></div>}
+      {name !== t("pricing.plans.team.name") && <div className="md:my-5"></div>}
     </section>
   )
 }
