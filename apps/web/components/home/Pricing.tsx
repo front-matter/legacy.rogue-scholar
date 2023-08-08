@@ -96,7 +96,7 @@ function Plan({
           target="_blank"
           variant={featured ? "solid" : "outline"}
           color="white"
-          className="mt-8"
+          className="mt-8 dark:bg-slate-100"
           aria-label={`Register with the ${name} plan for ${price}`}
         >
           {t("pricing.plans.team.button")}
