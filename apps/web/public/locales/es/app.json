@@ -40,7 +40,7 @@
   "noSubscriptionAlert.upgradeButton": "Ampliar suscripción",
   "status.active": "activo",
   "status.approved": "aprobado",
-  "status.expired": "venció",
+  "status.expired": "vencido",
   "status.submitted": "enviado",
   "terms.1": "El blog trata sobre ciencias (naturales o humanas).",
   "terms.2": "Todo el texto de la publicación del blog está disponible a través de Atom (preferido), RSS o JSON.",

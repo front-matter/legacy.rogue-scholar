@@ -6,7 +6,7 @@
   "categories.naturalSciences": "Ciencias Naturales",
   "categories.socialSciences": "Ciencias Sociales",
   "colorMode.dark": "Oscuro",
-  "colorMode.light": "Infierno",
+  "colorMode.light": "Claro",
   "common.pricingPage": "Precios",
   "common.subscriptionPlans.enterprise.features[0]": "Everything in team",
   "common.subscriptionPlans.enterprise.features[1]": "Archive a blog without active RSS feed",
@@ -78,5 +78,5 @@
   "userMenu.account": "Cuenta",
   "userMenu.homepage": "Página de inicio",
   "userMenu.message": "Hola {{user}}!",
-  "userMenu.signOut": "Dar de baja"
+  "userMenu.signOut": "Desconectar"
 }
