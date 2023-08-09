@@ -271,10 +271,8 @@ export default async function handler(req, res) {
         if (format === "json") {
           res.status(200).json(post)
         } else if (format === "epub") {
-          const filePath = await getEpub(post)
-
-          console.log(filePath)
           try {
+            const filePath = await getEpub(post)
             const imageBuffer = fs.readFileSync(filePath)
 
             res.setHeader("Content-Type", "application/epub+zip")
