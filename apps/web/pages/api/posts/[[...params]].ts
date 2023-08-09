@@ -270,7 +270,10 @@ export default async function handler(req, res) {
       } else {
         if (format === "json") {
           res.status(200).json(post)
-        } else if (format === "epub") {
+        } else if (
+          process.env.NODE_ENV === "development" &&
+          format === "epub"
+        ) {
           try {
             const filePath = await getEpub(post)
             const imageBuffer = fs.readFileSync(filePath)
