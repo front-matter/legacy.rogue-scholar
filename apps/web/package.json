@@ -9,6 +9,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
+    "install:pandoc": "cd /home && yum install wget tar gzip texlive-xetex -y && wget hhttps://github.com/jgm/pandoc/releases/download/3.1.6.1/pandoc-3.1.6.1-linux-amd64.tar.gz && tar -xvf pandoc-3.1.6.1-linux-amd64.tar.gz && ln -s /home/pandoc-3.1.6.1/bin/pandoc /usr/bin/pandoc && pandoc -v",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev",
     "generate:types": "npx ts-node --project ./scripts/tsconfig.json ./scripts/generate-supabase-types.ts"
   },
   "dependencies": {
@@ -65,6 +67,7 @@
     "next-usequerystate": "^1.7.3",
     "nextjs-progressbar": "^0.0.16",
     "nextjs-redirect": "^6.0.1",
+    "node-pandoc-promise": "^0.0.6",
     "normalize-url": "^8.0.0",
     "pascal-case": "^3.1.2",
     "postcss-focus-visible": "^6.0.4",

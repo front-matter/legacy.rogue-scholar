@@ -19,3 +19,5 @@ export const postsSelect =
   "id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, blog_id, blog_name"
 export const postsWithBlogSelect =
   "id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, blog_id, blog_name, blog: blogs!inner(*)"
+export const postsWithContentSelect =
+  "id, doi, url, title, summary, content_html, published_at, updated_at, indexed_at, authors, image, tags, language, reference, blog_id, blog_name, blog: blogs!inner(*)"

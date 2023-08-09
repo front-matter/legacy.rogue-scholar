@@ -1,11 +1,13 @@
 // import Cors from "cors"
 import { capitalize, isObject, isString, truncate } from "lodash"
+import path from "path"
 const he = require("he")
 
 import { Mod97_10 } from "@konfirm/iso7064"
 import fetch from "cross-fetch"
 import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
+import nodePandoc from "node-pandoc-promise"
 import sanitizeHtml from "sanitize-html"
 const jsdom = require("jsdom")
 const { JSDOM } = jsdom
@@ -542,4 +544,42 @@ export function parseGenerator(generator: any) {
   } else {
     return null
   }
+}
+
+export async function getEpub(post: any) {
+  const doi = post.doi.substring(16).replace("/", "-")
+  const src: string = post.content_html
+
+  /* eslint-disable no-unused-vars */
+  const title = post.title
+  const author = post.authors?.[0]?.name
+  const date = new Date(toISODate(post.published_at)).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+  )
+  const publisher = "Rogue Scholar"
+  /* eslint-enable no-unused-vars */
+
+  const args = [
+    "-f",
+    "html",
+    "-t",
+    "epub",
+    "-o",
+    "./public/epub/" + doi + ".epub",
+    "--standalone",
+    "--template",
+    "./lib/default.epub3",
+    "--data-dir",
+    "./",
+  ]
+
+  await nodePandoc(src, args)
+  const filePath = path.join(process.cwd(), `/public/epub/${doi}.epub`)
+
+  return filePath
 }
