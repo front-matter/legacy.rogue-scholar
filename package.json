@@ -6,9 +6,7 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev": "turbo run dev --parallel",
-    "install:pandoc": "cd /home && yum install wget tar gzip texlive-xetex -y && wget hhttps://github.com/jgm/pandoc/releases/download/3.1.6.1/pandoc-3.1.6.1-linux-amd64.tar.gz && tar -xvf pandoc-3.1.6.1-linux-amd64.tar.gz && ln -s /home/pandoc-3.1.6.1/bin/pandoc /usr/bin/pandoc && pandoc -v",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev"
+    "dev": "turbo run dev --parallel"
   },
   "devDependencies": {
     "eslint": "^8.43.0",
