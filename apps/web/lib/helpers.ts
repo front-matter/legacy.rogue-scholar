@@ -550,7 +550,6 @@ export async function getEpub(post: any) {
   const doi = post.doi.substring(16).replace("/", "-")
   const src: string = post.content_html
 
-  /* eslint-disable no-unused-vars */
   const title = post.title
   const author = post.authors?.[0]?.name
   const date = new Date(toISODate(post.published_at)).toLocaleDateString(
@@ -561,8 +560,10 @@ export async function getEpub(post: any) {
       day: "numeric",
     }
   )
-  const publisher = "Rogue Scholar"
-  /* eslint-enable no-unused-vars */
+  const publisher = post.blog_name
+  const rights = `Copyright © ${new Date(
+    toISODate(post.published_at)
+  ).getFullYear()} ${author}. Distributed under the terms of the Creative Commons Attribution License.`
 
   const args = [
     "-f",
@@ -578,8 +579,8 @@ export async function getEpub(post: any) {
     // "false",
     "--data-dir",
     "./lib",
-    "--extract-media",
-    "./public/epub/media",
+    // "--extract-media",
+    // "./public/epub/media",
     "--metadata",
     `title=${title}`,
     "--metadata",
@@ -597,7 +598,7 @@ export async function getEpub(post: any) {
     "--metadata",
     `abstract=${post.summary}`,
     "--metadata",
-    `rights=Creative Commons Attribution 4.0 International License (CC-BY 4.0)`,
+    `rights=${rights}`,
     "--css",
     "./lib/epub.css",
   ]

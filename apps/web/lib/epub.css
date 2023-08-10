@@ -98,21 +98,22 @@ dd {
 }
 html {
   line-height: 1.2;
-  font-family: "Source Serif", Georgia, serif;
+  font-family: ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
   color: #1a1a1a;
   background-color: #fdfdfd;
 }
 p {
   text-indent: 0;
-  margin: 1em 0;
+  margin: 0.5em 0 0 0;
+  line-height: 1.5rem;
   widows: 2;
   orphans: 2;
 }
 a {
-  color: #1a1a1a;
+  color: rgb(37 99 235);
 }
 a:visited {
-  color: #1a1a1a;
+  color: rgb(37 99 235);
 }
 img {
   max-width: 100%;
@@ -120,49 +121,52 @@ img {
 h1 {
   text-indent: 0;
   text-align: left;
-  margin: 3em 0 0 0;
+  margin: 2em 0 0 0;
   font-size: 2em;
   font-weight: bold;
   page-break-before: always;
-  line-height: 150%;
-  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  line-height: 125%;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
 }
 h2 {
   text-indent: 0;
   text-align: left;
-  margin: 1.5em 0 0 0;
+  margin: 1em 0 -0.25em 0;
   font-size: 1.5em;
   font-weight: bold;
-  line-height: 135%;
-  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  line-height: 125%;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
 }
 h3 {
   text-indent: 0;
   text-align: left;
-  margin: 1.3em 0 0 0;
+  margin: 0.5em 0 -0.25em 0;
   font-size: 1.3em;
   font-weight: bold;
-  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
 }
 h4 {
   text-indent: 0;
   text-align: left;
-  margin: 1.2em 0 0 0;
+  margin: 0.5em 0 -0.25em 0;
   font-size: 1.2em;
   font-weight: bold;
-  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
 }
 h5 {
   text-indent: 0;
   text-align: left;
-  margin: 1.1em 0 0 0;
   font-size: 1.1em;
   font-weight: bold;
 }
-h5 {
+h6 {
   text-indent: 0;
   text-align: left;
-  font-size: 1em;
+  font-size: 0.5em;
   font-weight: bold;
 }
 h1,
@@ -171,20 +175,21 @@ h3,
 h4,
 h5,
 h6 {
-  page-break-after: avoid;
-  page-break-inside: avoid;
+  break-after: avoid;
+  break-inside: avoid;
 }
 
 ol,
 ul {
-  margin: 1em 0 0 1.7em;
+  margin: 1em 0 0 1em;
 }
 li > ol,
 li > ul {
   margin-top: 0;
+  line-height: 1.5rem;
 }
 blockquote {
-  margin: 1em 0 1em 1.7em;
+  margin: 1em 0 1em 1em;
 }
 code {
   font-family: Menlo, Monaco, "Lucida Console", Consolas, monospace;
@@ -292,18 +297,22 @@ ul.task-list li input[type="checkbox"] {
 }
 /* For title, author, and date on the cover page */
 h1.title {
+  font-weight: bold;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
 }
 p.author {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
+  margin: 0.5em 0 0 0;
 }
-p.date {
+p.byline {
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
+  margin: 0.1em 0 0 0;
 }
-/* for the abstract */
-div.abstract {
-  margin: 1em 0 0.5em 0;
-}
-div.abstract-title {
-  font-weight: bold;
-  font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+p.rights {
+  margin: 0.5em 0 1em 0;
 }
 nav#toc ol,
 nav#landmarks ol {

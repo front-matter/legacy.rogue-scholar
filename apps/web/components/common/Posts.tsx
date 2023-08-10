@@ -75,20 +75,19 @@ export const Posts: React.FunctionComponent<Props> = ({
                           />
                           {post.doi}
                         </Link>
-                        {process.env.NODE_ENV !== "production" && (
-                          <Link
-                            className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                            href={`/api/posts/${post.doi.substring(
-                              16
-                            )}?format=epub`}
-                          >
-                            <Icon
-                              icon="fa6-solid:download"
-                              className="ml-5 mr-1 inline text-sm"
-                            />
-                            ePub
-                          </Link>
-                        )}
+                        {/* {process.env.NODE_ENV !== "production" && ( */}
+                        <Link
+                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                          href={`/api/posts/${post.doi.substring(
+                            16
+                          )}?format=epub`}
+                        >
+                          <Icon
+                            icon="fa6-solid:download"
+                            className="ml-5 mr-1 inline text-sm"
+                          />
+                          ePub
+                        </Link>
                         {/* <button
                           className="ml-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                           type="button"

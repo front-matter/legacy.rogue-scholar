@@ -41,20 +41,20 @@ $endfor$
 $for(creator)$
 <p class="$creator.role$">$creator.text$</p>
 $endfor$
-$if(publisher)$
-<p class="publisher">$publisher$</p>
-$endif$
+<p class="byline">
 $if(date)$
-<p class="date">$date$</p>
+Published <span>$date$</span>
 $endif$
+$if(publisher)$
+in <span>$publisher$</span>
+$endif$
+</p>
 $if(rights)$
-<div class="rights">$rights$</div>
+<p class="rights">$rights$</p>
 $endif$
 $if(abstract)$
-<div class="abstract">
-  <div class="abstract-title">$abstract-title$</div>
-$abstract$
-</div>
+<h4>$abstract-title$</h4>
+<p>$abstract$</p>
 $endif$
 </section>
 $else$
