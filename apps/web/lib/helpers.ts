@@ -602,8 +602,9 @@ export async function getEpub(post: any) {
     "--css",
     "./lib/epub.css",
   ]
+  const pandocPath = process.env.NEXT_PUBLIC_PANDOC_BINARY_PATH
 
-  await nodePandoc(src, args)
+  await nodePandoc(src, args, pandocPath)
   const filePath = path.join(process.cwd(), `/public/epub/${doi}.epub`)
 
   return filePath
