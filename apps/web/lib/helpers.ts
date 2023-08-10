@@ -551,7 +551,7 @@ export async function getEpub(post: any) {
   const src: string = post.content_html
 
   const title = post.title
-  const author = post.authors?.[0]?.name
+  const author = post.authors?.map((a: any) => a.name).join(", ")
   const date = new Date(toISODate(post.published_at)).toLocaleDateString(
     "en-US",
     {
