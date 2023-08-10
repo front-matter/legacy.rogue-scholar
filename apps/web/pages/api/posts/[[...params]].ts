@@ -277,8 +277,11 @@ export default async function handler(req, res) {
 
             res.setHeader("Content-Type", "application/epub+zip")
             res.send(imageBuffer)
-          } catch (e) {
-            res.status(400).json({ error: true, message: "ePub not found" })
+          } catch (e: any) {
+            if (!(e instanceof Error)) {
+              e = new Error(e)
+            }
+            res.status(400).json({ error: true, message: e.message })
           }
         }
       }
