@@ -12,6 +12,7 @@ import {
   uniq,
 } from "lodash"
 import normalizeUrl from "normalize-url"
+import sanitizeHtml from "sanitize-html"
 const extractUrls = require("extract-urls")
 const jsdom = require("jsdom")
 const { JSDOM } = jsdom
@@ -45,12 +46,15 @@ export const authorIDs = {
   "Tejas S. Sathe": "https://orcid.org/0000-0003-0449-4469",
   "Meghal Shah": "https://orcid.org/0000-0002-2085-659X",
   "Liberate Science": "https://ror.org/0342dzm54",
+  "David M. Shotton": "https://orcid.org/0000-0001-5506-523X",
 }
 
 const normalizeAuthor = (author: AuthorType) => {
   // workaround for https://doi.org/10.59350/h4fhq-2t215
   if (author["name"] === "GPT-4") {
     author["name"] = "Tejas S. Sathe"
+  } else if (author["name"] === "davidshotton") {
+    author["name"] = "David M. Shotton"
   }
   author["name"] = author["name"].replace(/, MD$/, "")
   return author
@@ -202,11 +206,15 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         })
         const blog_id = blogSlug
         const blog_name = blog.title
-        const content_html: string =
+        let content_html: string =
           get(feedEntry, "content:encoded", null) ||
           get(feedEntry, "content.#text", null) ||
           get(feedEntry, "description", null) ||
           ""
+
+        content_html = sanitizeHtml(content_html, {
+          allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+        })
         const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
 
         let summary = getAbstract(content_html)
