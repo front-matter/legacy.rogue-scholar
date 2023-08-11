@@ -9,7 +9,7 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
-    "install:pandoc": "cd /home && yum install wget tar gzip pandoc -y && pandoc -v",
+    "install:pandoc": "cd /home && yum install wget tar gzip epel-release -y && yum install pandoc --enablerepo=epel -y && pandoc -v",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev",
     "generate:types": "npx ts-node --project ./scripts/tsconfig.json ./scripts/generate-supabase-types.ts"
   },
