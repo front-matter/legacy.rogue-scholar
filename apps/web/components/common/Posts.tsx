@@ -71,9 +71,47 @@ export const Posts: React.FunctionComponent<Props> = ({
                         >
                           <Icon
                             icon="academicons:doi"
-                            className="mr-1 inline text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                            className="mb-1 mr-1 inline text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                           />
                           {post.doi}
+                        </Link>
+                        {process.env.NODE_ENV !== "production" && (
+                          <Link
+                            className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                            href={`/api/posts/${post.doi.substring(
+                              16
+                            )}?format=epub`}
+                          >
+                            <Icon
+                              icon="fa6-solid:file-zipper"
+                              className="mb-1 ml-5 mr-1 inline text-sm"
+                            />
+                            ePub
+                          </Link>
+                        )}
+                        <Link
+                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                          href={`/api/posts/${post.doi.substring(
+                            16
+                          )}?format=bibtex`}
+                        >
+                          <Icon
+                            icon="fa6-solid:file-code"
+                            className="mb-1 ml-5 mr-1 inline text-sm"
+                          />
+                          BibTex
+                        </Link>
+                        <Link
+                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                          href={`/api/posts/${post.doi.substring(
+                            16
+                          )}?format=citation&style=apa&locale=${activeLocale}`}
+                        >
+                          <Icon
+                            icon="fa6-solid:file-lines"
+                            className="mb-1 ml-5 mr-1 inline text-sm"
+                          />
+                          Citation (APA)
                         </Link>
                         {/* <button
                           className="ml-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"

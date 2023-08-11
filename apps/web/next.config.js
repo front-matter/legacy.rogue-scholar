@@ -49,6 +49,10 @@ const nextConfig = {
         source: "/:slug.json",
         destination: "/api/blogs/:slug",
       },
+      {
+        source: "/posts/:slug.bib",
+        destination: "/api/posts/:slug?format=bibtex",
+      },
     ]
   },
   images: {

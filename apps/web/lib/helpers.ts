@@ -1,11 +1,13 @@
 // import Cors from "cors"
 import { capitalize, isObject, isString, truncate } from "lodash"
+import path from "path"
 const he = require("he")
 
 import { Mod97_10 } from "@konfirm/iso7064"
 import fetch from "cross-fetch"
 import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
+import nodePandoc from "node-pandoc-promise"
 import sanitizeHtml from "sanitize-html"
 const jsdom = require("jsdom")
 const { JSDOM } = jsdom
@@ -542,4 +544,98 @@ export function parseGenerator(generator: any) {
   } else {
     return null
   }
+}
+
+// use DOI content negotiation to get metadata in various formats
+export async function getMetadata({
+  doi,
+  contentType,
+}: {
+  doi: string
+  contentType: string
+}) {
+  const res = await fetch(doi, {
+    headers: { Accept: contentType },
+  })
+
+  if (res.status < 400) {
+    return await res.text()
+  } else {
+    return null
+  }
+}
+
+export async function getEpub(post: any) {
+  const doi = post.doi.substring(16).replace("/", "-")
+
+  // sanitize html for epub conversion
+  const src: string = sanitizeHtml(post.content_html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  })
+  // console.log(post.content_html)
+  // const dom = new JSDOM(`<!DOCTYPE html>${post.content_html}`)
+
+  // // remove data-image-meta attribute, as it breaks epub conversion
+  // dom.window.document.querySelectorAll("img").forEach(async (image) => {
+  //   image.removeAttribute("data-image-meta")
+  // })
+  const title = post.title
+  const author = post.authors?.map((a: any) => a.name).join(", ")
+  const date = new Date(toISODate(post.published_at)).toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }
+  )
+  const publisher = post.blog_name
+  const rights = `Copyright © ${new Date(
+    toISODate(post.published_at)
+  ).getFullYear()} ${author}.`
+  const abstract = sanitizeHtml(post.summary, {
+    allowedTags: [],
+    allowedAttributes: {},
+  })
+  const args = [
+    "-f",
+    "html",
+    "-t",
+    "epub",
+    "-o",
+    "./public/epub/" + doi + ".epub",
+    "--standalone",
+    "--template",
+    "./lib/default.epub3",
+    "--data-dir",
+    "./lib",
+    "--extract-media",
+    "./public/epub/media",
+    "--metadata",
+    `title=${title}`,
+    "--metadata",
+    `author=${author}`,
+    "--metadata",
+    `date=${date}`,
+    "--metadata",
+    `publisher=${publisher}`,
+    "--metadata",
+    `identifier=${post.doi}`,
+    "--metadata",
+    `lang=${post.language}`,
+    "--metadata",
+    `subject=${post.tags?.join(", ")}`,
+    "--metadata",
+    `abstract=${abstract}`,
+    "--metadata",
+    `rights=${rights}`,
+    "--css",
+    "./lib/epub.css",
+  ]
+  // const pandocPath = process.env.NEXT_PUBLIC_PANDOC_BINARY_PATH
+
+  await nodePandoc(src, args)
+  const filePath = path.join(process.cwd(), `/public/epub/${doi}.epub`)
+
+  return filePath
 }

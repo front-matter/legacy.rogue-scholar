@@ -9,6 +9,8 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",
+    "install:pandoc": "cd /home && yum install wget tar gzip pandoc -y && wget https://github.com/jgm/pandoc/releases/download/3.1.6.1/pandoc-3.1.6.1-linux-amd64.tar.gz && tar -xvf pandoc-3.1.6.1-linux-amd64.tar.gz --strip-components 1 -C /usr/local/ && rm -rf pandoc-3.1.6.1* && pandoc -v",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev",
     "generate:types": "npx ts-node --project ./scripts/tsconfig.json ./scripts/generate-supabase-types.ts"
   },
   "dependencies": {
@@ -65,6 +67,7 @@
     "next-usequerystate": "^1.7.3",
     "nextjs-progressbar": "^0.0.16",
     "nextjs-redirect": "^6.0.1",
+    "node-pandoc-promise": "^0.0.6",
     "normalize-url": "^8.0.0",
     "pascal-case": "^3.1.2",
     "postcss-focus-visible": "^6.0.4",
@@ -86,9 +89,8 @@
     "turbo-ignore": "0.5.0",
     "typesense": "^1.5.4",
     "ui": "*",
-    "vega": "^5.24.0",
-    "vega-embed": "^6.21.3",
-    "vega-lite": "^5.6.1"
+    "vega": "^5.25.0",
+    "vega-lite": "^5.14.1"
   },
   "devDependencies": {
     "@iconify/react": "^4.1.0",

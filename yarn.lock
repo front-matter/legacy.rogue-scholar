@@ -6109,6 +6109,11 @@ node-gyp-build@^4.3.0:
   resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.6.0.tgz#0c52e4cbf54bbd28b709820ef7b6a3c2d6209055"
   integrity sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==
 
+node-pandoc-promise@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/node-pandoc-promise/-/node-pandoc-promise-0.0.6.tgz#8410de8e42ed966d570ea730a3c9f731a4dc7a1d"
+  integrity sha512-3+8hezyBOaWqUWypHtfv8sPa0Yo0sE/KUvjLN1gm48wrwqG2B45fhgIU73H1adF33FXiXkPeTW3lw5cjicemdg==
+
 node-releases@^2.0.12:
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-2.0.12.tgz#35627cc224a23bfb06fb3380f2b3afaaa7eb1039"
@@ -8037,7 +8042,7 @@ vega-dataflow@^5.7.3, vega-dataflow@^5.7.5, vega-dataflow@~5.7.5:
     vega-loader "^4.5.1"
     vega-util "^1.17.1"
 
-vega-embed@^6.21.3, vega-embed@^6.5.1:
+vega-embed@^6.5.1:
   version "6.22.1"
   resolved "https://registry.yarnpkg.com/vega-embed/-/vega-embed-6.22.1.tgz#102a1c80b00c2dffd85d3492b4216686f94b0484"
   integrity sha512-5a3SVhPwG5/Mz3JbcJV4WE38s/7AFrkANtPxoln7E8fbNLIbrurIennaAxB9+l0QOAg63lPSuJBNMUkM6yXvLA==
@@ -8150,10 +8155,10 @@ vega-label@~1.2.1:
     vega-scenegraph "^4.9.2"
     vega-util "^1.15.2"
 
-vega-lite@^5.6.1:
-  version "5.11.1"
-  resolved "https://registry.yarnpkg.com/vega-lite/-/vega-lite-5.11.1.tgz#d701febde8d21f950406249b9c23de62c67243cc"
-  integrity sha512-kRIjgz79pBmjI2kaavj7XJ887NZlcfy522NKUCKXw/pIG083V3Oe0qBET7kg+TcOyoR1xcFIXDPW7K2NrmItmA==
+vega-lite@^5.14.1:
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/vega-lite/-/vega-lite-5.14.1.tgz#02177cb04af85c7011ab302a441d17e0bb6ac810"
+  integrity sha512-VFvi0QtUoLQqwfAXTGjo0Acw/OTjiK3zOrcO/HyksGnnNDBHWM1GTcFryiWZYoAi99ehvv7tI/q94O46+fGRSQ==
   dependencies:
     "@types/clone" "~2.1.1"
     clone "~2.1.2"
@@ -8349,7 +8354,7 @@ vega-wordcloud@~4.1.4:
     vega-statistics "^1.8.1"
     vega-util "^1.17.1"
 
-vega@^5.24.0:
+vega@^5.25.0:
   version "5.25.0"
   resolved "https://registry.yarnpkg.com/vega/-/vega-5.25.0.tgz#086a799dfcd6958b6ca8eb41c92673ea591db323"
   integrity sha512-lr+uj0mhYlSN3JOKbMNp1RzZBenWp9DxJ7kR3lha58AFNCzzds7pmFa7yXPbtbaGhB7Buh/t6n+Bzk3Y0VnF5g==

@@ -1,14 +1,16 @@
 import GhostAdminAPI from "@tryghost/admin-api"
 import { fromUnixTime, subDays } from "date-fns"
+import fs from "fs"
 import parse from "html-react-parser"
 import { isEmpty } from "lodash"
 import { v4 as uuidv4 } from "uuid"
 
-import { toUnixTime } from "@/lib/helpers"
+import { getEpub, getMetadata, toUnixTime } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
   postsSelect,
   postsWithBlogSelect,
+  postsWithContentSelect,
   supabase,
 } from "@/lib/supabaseClient"
 import { typesense } from "@/lib/typesenseClient"
@@ -212,17 +214,25 @@ export async function upsertUpdatedPosts(page: number = 1) {
 
 export default async function handler(req, res) {
   const slug = req.query.params?.[0]
-
   const query = req.query.query || ""
   let page = (req.query.page as number) || 1
 
   page = Number(page)
   const update = req.query.update
+  const format = req.query.format || "json"
+  const locale = req.query.locale || "en-US"
+  const style = req.query.style || "apa"
+  const prefixes = [
+    "10.34732",
+    "10.53731",
+    "10.54900",
+    "10.57689",
+    "10.59348",
+    "10.59349",
+    "10.59350",
+  ]
+  const formats = ["bibtex", "ris", "csl", "citation"]
 
-  console.log(update)
-  console.log(slug)
-  console.log(query)
-  console.log(page)
   if (req.method === "GET") {
     if (slug === "unregistered") {
       const { data: posts, error } = await supabase
@@ -251,17 +261,52 @@ export default async function handler(req, res) {
       }
 
       res.status(200).json(posts)
-    } else if (slug) {
+    } else if (prefixes.includes(slug)) {
+      const doi = `https://doi.org/${slug}/${req.query.params?.[1]}`
       const { data: post } = await supabase
         .from("posts")
-        .select(postsWithBlogSelect)
-        .eq("id", slug)
+        .select(postsWithContentSelect)
+        .eq("doi", doi)
         .single()
 
       if (!post) {
         res.status(404).json({ message: "Post not found" })
       } else {
-        res.status(200).json(post)
+        if (format === "json") {
+          res.status(200).json(post)
+        } else if (format === "epub" && process.env.NODE_ENV !== "production") {
+          try {
+            const filePath = await getEpub(post)
+            const imageBuffer = fs.readFileSync(filePath)
+
+            res.setHeader("Content-Type", "application/epub+zip")
+            res.send(imageBuffer)
+          } catch (e: any) {
+            if (!(e instanceof Error)) {
+              e = new Error(e)
+            }
+            res.status(400).json({ error: true, message: e.message })
+          }
+        } else if (formats.includes(format)) {
+          const contentTypes = {
+            bibtex: "application/x-bibtex",
+            ris: "application/x-research-info-systems",
+            csl: "application/vnd.citationstyles.csl+json",
+            citation: `text/x-bibliography; style=${style}; locale=${locale}`,
+          }
+          const contentType = contentTypes[format]
+          const metadata = await getMetadata({
+            doi: post.doi,
+            contentType: contentType,
+          })
+
+          if (metadata) {
+            res.setHeader("Content-Type", contentType)
+            res.send(metadata)
+          } else {
+            res.status(404).json({ error: true, message: "Metdata not found" })
+          }
+        }
       }
     } else {
       const searchParameters: PostSearchParams = {
