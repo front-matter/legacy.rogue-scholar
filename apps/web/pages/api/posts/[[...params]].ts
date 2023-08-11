@@ -308,6 +308,18 @@ export default async function handler(req, res) {
           }
         }
       }
+    } else if (slug) {
+      const { data: post } = await supabase
+        .from("posts")
+        .select(postsWithContentSelect)
+        .eq("id", slug)
+        .single()
+
+      if (!post) {
+        res.status(404).json({ message: "Post not found" })
+      } else {
+        res.status(200).json(post)
+      }
     } else {
       const searchParameters: PostSearchParams = {
         q: query,
