@@ -118,6 +118,7 @@ a:visited {
 }
 img {
   max-width: 100%;
+  margin: 0.5em 0;
 }
 h1 {
   text-indent: 0;
@@ -192,7 +193,11 @@ ul li {
   line-height: 1.5rem;
 }
 blockquote {
-  margin: 1em 0 1em 1em;
+  font-style: italic;
+  font-size: 85%;
+  border-left: 0.25em solid #cbd5e1;
+  padding-left: 0.5em;
+  margin: 0.5em 0;
 }
 code {
   font-family: Menlo, Monaco, "Lucida Console", Consolas, monospace;
@@ -219,6 +224,14 @@ hr {
   height: 1px;
   margin: 1em 0;
 }
+figure,
+figcaption {
+  font-size: 125%;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
+  text-align: left;
+  margin: 0.5em 0;
+}
 table {
   margin: 1em 0;
   border-collapse: collapse;
@@ -231,8 +244,6 @@ table caption {
 }
 tbody {
   margin-top: 0.5em;
-  border-top: 1px solid #1a1a1a;
-  border-bottom: 1px solid #1a1a1a;
 }
 th {
   border-top: 1px solid #1a1a1a;
@@ -323,7 +334,7 @@ p.byline {
   margin: 0.1em 0 0 0;
 }
 p.rights {
-  margin: 0.5em 0 1em 0;
+  margin: 1em 0 1em 0;
 }
 nav#toc ol,
 nav#landmarks ol {

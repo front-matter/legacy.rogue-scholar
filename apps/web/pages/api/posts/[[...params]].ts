@@ -5,7 +5,7 @@ import parse from "html-react-parser"
 import { isEmpty } from "lodash"
 import { v4 as uuidv4 } from "uuid"
 
-import { getEpub, toUnixTime } from "@/lib/helpers"
+import { getEpub, getMetadata, toUnixTime } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
   postsSelect,
@@ -220,14 +220,18 @@ export default async function handler(req, res) {
   page = Number(page)
   const update = req.query.update
   const format = req.query.format || "json"
+  const locale = req.query.locale || "en-US"
+  const style = req.query.style || "apa"
   const prefixes = [
     "10.34732",
     "10.53731",
     "10.54900",
     "10.57689",
+    "10.59348",
     "10.59349",
     "10.59350",
   ]
+  const formats = ["bibtex", "ris", "csl", "citation"]
 
   if (req.method === "GET") {
     if (slug === "unregistered") {
@@ -270,7 +274,7 @@ export default async function handler(req, res) {
       } else {
         if (format === "json") {
           res.status(200).json(post)
-        } else if (format === "epub") {
+        } else if (format === "epub" && process.env.NODE_ENV !== "production") {
           try {
             const filePath = await getEpub(post)
             const imageBuffer = fs.readFileSync(filePath)
@@ -282,6 +286,25 @@ export default async function handler(req, res) {
               e = new Error(e)
             }
             res.status(400).json({ error: true, message: e.message })
+          }
+        } else if (formats.includes(format)) {
+          const contentTypes = {
+            bibtex: "application/x-bibtex",
+            ris: "application/x-research-info-systems",
+            csl: "application/vnd.citationstyles.csl+json",
+            citation: `text/x-bibliography; style=${style}; locale=${locale}`,
+          }
+          const contentType = contentTypes[format]
+          const metadata = await getMetadata({
+            doi: post.doi,
+            contentType: contentType,
+          })
+
+          if (metadata) {
+            res.setHeader("Content-Type", contentType)
+            res.send(metadata)
+          } else {
+            res.status(404).json({ error: true, message: "Metdata not found" })
           }
         }
       }

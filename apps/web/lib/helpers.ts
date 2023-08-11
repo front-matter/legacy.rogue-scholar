@@ -546,10 +546,39 @@ export function parseGenerator(generator: any) {
   }
 }
 
+// use DOI content negotiation to get metadata in various formats
+export async function getMetadata({
+  doi,
+  contentType,
+}: {
+  doi: string
+  contentType: string
+}) {
+  const res = await fetch(doi, {
+    headers: { Accept: contentType },
+  })
+
+  if (res.status < 400) {
+    return await res.text()
+  } else {
+    return null
+  }
+}
+
 export async function getEpub(post: any) {
   const doi = post.doi.substring(16).replace("/", "-")
-  const src: string = post.content_html
 
+  // sanitize html for epub conversion
+  const src: string = sanitizeHtml(post.content_html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  })
+  // console.log(post.content_html)
+  // const dom = new JSDOM(`<!DOCTYPE html>${post.content_html}`)
+
+  // // remove data-image-meta attribute, as it breaks epub conversion
+  // dom.window.document.querySelectorAll("img").forEach(async (image) => {
+  //   image.removeAttribute("data-image-meta")
+  // })
   const title = post.title
   const author = post.authors?.map((a: any) => a.name).join(", ")
   const date = new Date(toISODate(post.published_at)).toLocaleDateString(
@@ -563,8 +592,11 @@ export async function getEpub(post: any) {
   const publisher = post.blog_name
   const rights = `Copyright © ${new Date(
     toISODate(post.published_at)
-  ).getFullYear()} ${author}. Distributed under the terms of the Creative Commons Attribution License.`
-
+  ).getFullYear()} ${author}.`
+  const abstract = sanitizeHtml(post.summary, {
+    allowedTags: [],
+    allowedAttributes: {},
+  })
   const args = [
     "-f",
     "html",
@@ -575,12 +607,10 @@ export async function getEpub(post: any) {
     "--standalone",
     "--template",
     "./lib/default.epub3",
-    // "--epub-title-page",
-    // "false",
     "--data-dir",
     "./lib",
-    // "--extract-media",
-    // "./public/epub/media",
+    "--extract-media",
+    "./public/epub/media",
     "--metadata",
     `title=${title}`,
     "--metadata",
@@ -592,11 +622,11 @@ export async function getEpub(post: any) {
     "--metadata",
     `identifier=${post.doi}`,
     "--metadata",
-    `language=${post.language}`,
+    `lang=${post.language}`,
     "--metadata",
     `subject=${post.tags?.join(", ")}`,
     "--metadata",
-    `abstract=${post.summary}`,
+    `abstract=${abstract}`,
     "--metadata",
     `rights=${rights}`,
     "--css",
