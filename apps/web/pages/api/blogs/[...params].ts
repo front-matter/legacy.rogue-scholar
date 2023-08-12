@@ -47,6 +47,7 @@ export const authorIDs = {
   "Meghal Shah": "https://orcid.org/0000-0002-2085-659X",
   "Liberate Science": "https://ror.org/0342dzm54",
   "David M. Shotton": "https://orcid.org/0000-0001-5506-523X",
+  "Lars Willighagen": "https://orcid.org/0000-0002-4751-4637",
 }
 
 const normalizeAuthor = (author: AuthorType) => {
