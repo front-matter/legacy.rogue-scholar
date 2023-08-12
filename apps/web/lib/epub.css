@@ -185,7 +185,7 @@ h6 {
 
 ol,
 ul {
-  margin: 1em 0 0 1em;
+  margin: 0.5em 0 0 0.5em;
 }
 ol li,
 ul li {
@@ -196,8 +196,7 @@ blockquote {
   font-style: italic;
   font-size: 85%;
   border-left: 0.25em solid #cbd5e1;
-  padding-left: 0.5em;
-  margin: 0.5em 0;
+  margin: 0.5em 0 0 0.5em;
 }
 code {
   font-family: Menlo, Monaco, "Lucida Console", Consolas, monospace;

@@ -55,6 +55,8 @@ const normalizeAuthor = (author: AuthorType) => {
     author["name"] = "Tejas S. Sathe"
   } else if (author["name"] === "davidshotton") {
     author["name"] = "David M. Shotton"
+  } else if (author["name"] === "Morgan & Ethan") {
+    author["name"] = "Morgan Ernest"
   }
   author["name"] = author["name"].replace(/, MD$/, "")
   return author
@@ -257,7 +259,18 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           get(feedEntry, "enclosure.@_url", null) ||
           (images || [])
             .filter((image) => image.width >= 200)
-            .map((image) => image.src)[0]
+            .map((image) => image.src)[0] ||
+          (images || [])
+            .filter((image: any) => {
+              const url = new URL(image["src"])
+
+              if (["s.w.org", "i.creativecommons.org"].includes(url.host)) {
+                return false
+              } else {
+                return true
+              }
+            })
+            .map((image) => image.src)[0] || null
 
         const published_at = toUnixTime(
           get(feedEntry, "pubDate", null) ||
