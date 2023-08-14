@@ -256,11 +256,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       })
       const blog_id = blogSlug
       const blog_name = blog.title
-      const content_html = getContent(
-        feedEntry,
-        String(blog.home_page_url),
-        String(blog_id)
-      )
+      const content_html = getContent(feedEntry)
       const summary = getAbstract(content_html)
       const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
       const images: Array<{
