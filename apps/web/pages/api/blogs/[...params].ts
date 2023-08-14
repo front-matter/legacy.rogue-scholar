@@ -20,7 +20,6 @@ const { JSDOM } = jsdom
 import {
   decodeHtmlCharCodes,
   detectLanguage,
-  extractImage,
   getAbstract,
   isDoi,
   isOrcid,
@@ -148,11 +147,7 @@ const normalizeTag = (tag: string) => {
   return tag
 }
 
-export function getContent(
-  feedEntry: any,
-  blog_home_page_url: string,
-  blog_id: string
-) {
+export function getContent(feedEntry: any) {
   let content_html =
     get(feedEntry, "content:encoded", null) ||
     get(feedEntry, "content.#text", null) ||
@@ -163,21 +158,17 @@ export function getContent(
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
   })
 
-  const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
+  // const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
 
-  // extract images from content and store locally
-  dom.window.document.querySelectorAll("img").forEach(async (image) => {
-    return await getImage(image, blog_home_page_url, blog_id)
-  })
+  // // extract images from content and store locally
+  // dom.window.document.querySelectorAll("img").forEach(async (image) => {
+  //   return await getImage(image, blog_home_page_url)
+  // })
 
   return content_html
 }
 
-export async function getImage(
-  image: any,
-  blog_home_page_url: string,
-  blog_id: string
-) {
+export async function getImage(image: any, blog_home_page_url: string) {
   const src = image.getAttribute("src")
   let srcset = image.getAttribute("srcset")
 
@@ -188,14 +179,14 @@ export async function getImage(
       .join(", ")
   }
   // store image locally
-  const imagePath = await extractImage(
-    src,
-    String(blog_home_page_url),
-    String(blog_id)
-  )
+  // const imagePath = await extractImage(
+  //   src,
+  //   String(blog_home_page_url),
+  //   String(blog_id)
+  // )
 
   return {
-    src: imagePath || src,
+    src: src,
     srcset: srcset,
     width: image.getAttribute("width"),
     height: image.getAttribute("height"),

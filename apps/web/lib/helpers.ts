@@ -433,7 +433,12 @@ export async function extractImage(
   blog_home_page_url: string,
   blog_id: string
 ) {
-  // determine path to image
+  if (!src) return null
+
+  // determine host, only store images hosted by blog
+  if (new URL(src).hostname !== new URL(blog_home_page_url).hostname)
+    return null
+
   let pathname = src.substring(0, src.lastIndexOf("/"))
 
   // replace host path with local folder
@@ -448,9 +453,14 @@ export async function extractImage(
   }
 
   // download image
-  const file = await download.image({ url: src, dest: dest })
+  download
+    .image({ url: src, dest: dest })
+    .then(({ filename }) => {
+      console.log("Saved to", filename) // saved to /path/to/dest/image.jpg
+    })
+    .catch((err) => console.error(err))
 
-  return file.filename
+  return pathname
   // .then(({ filename }) => {
   //   console.log("Saved to", filename)
   //   return filename
