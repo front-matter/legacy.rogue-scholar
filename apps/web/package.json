@@ -50,6 +50,7 @@
     "he": "^1.2.0",
     "html-react-parser": "^3.0.15",
     "i18next": "^23.2.8",
+    "image-downloader": "^4.3.0",
     "image-size": "^1.0.2",
     "intl-segmenter-polyfill": "^0.4.4",
     "is-relative-url": "^4.0.0",
