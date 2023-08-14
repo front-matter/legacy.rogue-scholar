@@ -2,6 +2,8 @@
 import { capitalize, isObject, isString, truncate } from "lodash"
 import path from "path"
 const he = require("he")
+const fs = require("fs")
+const download = require("image-downloader")
 
 import { Mod97_10 } from "@konfirm/iso7064"
 import fetch from "cross-fetch"
@@ -9,12 +11,7 @@ import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
 import nodePandoc from "node-pandoc-promise"
 import sanitizeHtml from "sanitize-html"
-const jsdom = require("jsdom")
-const { JSDOM } = jsdom
 const { CrockfordBase32 } = require("crockford-base32")
-
-import { supabaseAdmin } from "@/lib/server/supabase-admin"
-import { BlogType, PostType } from "@/types/blog"
 
 export function getBaseURL() {
   const url =
@@ -431,56 +428,86 @@ export function validateUrl(url: string) {
 //   return image
 // }
 
-export async function extractImages(blog: BlogType, posts: PostType[]) {
-  if (!blog || !blog.images_folder || !posts) return null
+export async function extractImage(
+  src: string,
+  blog_home_page_url: string,
+  blog_id: string
+) {
+  // determine path to image
+  let pathname = src.substring(0, src.lastIndexOf("/"))
 
-  const extractedImages = await Promise.all(
-    posts.map(async (post) => {
-      const dom = new JSDOM(`<!DOCTYPE html>${post.content_html}`)
+  // replace host path with local folder
+  pathname = pathname.replace(blog_home_page_url, `/public/images/${blog_id}`)
 
-      const images = dom.window.document.querySelectorAll("img")
+  // use full path
+  const dest = path.join(process.cwd(), pathname)
 
-      return images.forEach(async (image) => {
-        const src = image.getAttribute("src")
+  // create folder if it doesn't exist
+  if (!fs.existsSync(dest)) {
+    fs.mkdirSync(dest, { recursive: true })
+  }
 
-        if (src.startsWith(blog.images_folder)) {
-          const filename = src.substring(String(blog.images_folder).length)
-          const response = await fetch(src)
-          const blob = await response.blob()
+  // download image
+  const file = await download.image({ url: src, dest: dest })
 
-          const { data, error } = await supabaseAdmin.storage
-            .from("images")
-            .upload(`${blog.id}/${filename}`, blob)
-
-          if (error) {
-            throw error
-          }
-          console.log(data)
-
-          // save filename in images table
-          const res = await supabaseAdmin
-            .from("images")
-            .upsert(
-              {
-                name: filename,
-                blog_id: blog.id,
-                created_at: new Date(),
-              },
-              { onConflict: "id", ignoreDuplicates: false }
-            )
-            .select("id, name")
-            .maybeSingle()
-
-          console.log(res)
-          return filename
-        }
-      })
-    })
-  )
-
-  console.log(extractedImages)
-  return null
+  return file.filename
+  // .then(({ filename }) => {
+  //   console.log("Saved to", filename)
+  //   return filename
+  // })
+  // .catch((err) => console.error(err))
 }
+
+// export async function extractImages(blog: BlogType, posts: PostType[]) {
+//   if (!blog || !blog.images_folder || !posts) return null
+
+//   const extractedImages = await Promise.all(
+//     posts.map(async (post) => {
+//       const dom = new JSDOM(`<!DOCTYPE html>${post.content_html}`)
+
+//       const images = dom.window.document.querySelectorAll("img")
+
+//       return images.forEach(async (image) => {
+//         const src = image.getAttribute("src")
+
+//         if (src.startsWith(blog.images_folder)) {
+//           const filename = src.substring(String(blog.images_folder).length)
+//           const response = await fetch(src)
+//           const blob = await response.blob()
+
+//           const { data, error } = await supabaseAdmin.storage
+//             .from("images")
+//             .upload(`${blog.id}/${filename}`, blob)
+
+//           if (error) {
+//             throw error
+//           }
+//           console.log(data)
+
+//           // save filename in images table
+//           const res = await supabaseAdmin
+//             .from("images")
+//             .upsert(
+//               {
+//                 name: filename,
+//                 blog_id: blog.id,
+//                 created_at: new Date(),
+//               },
+//               { onConflict: "id", ignoreDuplicates: false }
+//             )
+//             .select("id, name")
+//             .maybeSingle()
+
+//           console.log(res)
+//           return filename
+//         }
+//       })
+//     })
+//   )
+
+//   console.log(extractedImages)
+//   return null
+// }
 
 export function getAbstract(html: string, maxlen: number = 600) {
   html = html
@@ -500,7 +527,7 @@ export function getAbstract(html: string, maxlen: number = 600) {
     .replace(/\n+/g, " ")
     .trim()
 
-  return truncated
+  return decodeHtmlCharCodes(truncated)
 }
 
 export function parseGenerator(generator: any) {

@@ -20,6 +20,7 @@ const { JSDOM } = jsdom
 import {
   decodeHtmlCharCodes,
   detectLanguage,
+  extractImage,
   getAbstract,
   isDoi,
   isOrcid,
@@ -147,6 +148,62 @@ const normalizeTag = (tag: string) => {
   return tag
 }
 
+export function getContent(
+  feedEntry: any,
+  blog_home_page_url: string,
+  blog_id: string
+) {
+  let content_html =
+    get(feedEntry, "content:encoded", null) ||
+    get(feedEntry, "content.#text", null) ||
+    get(feedEntry, "description", null) ||
+    ""
+
+  content_html = sanitizeHtml(content_html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  })
+
+  const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
+
+  // extract images from content and store locally
+  dom.window.document.querySelectorAll("img").forEach(async (image) => {
+    return await getImage(image, blog_home_page_url, blog_id)
+  })
+
+  return content_html
+}
+
+export async function getImage(
+  image: any,
+  blog_home_page_url: string,
+  blog_id: string
+) {
+  const src = image.getAttribute("src")
+  let srcset = image.getAttribute("srcset")
+
+  if (isString(srcset)) {
+    srcset = srcset
+      .split(", ")
+      .map((src) => (isValidUrl(src) ? src : `${blog_home_page_url}${src}`))
+      .join(", ")
+  }
+  // store image locally
+  const imagePath = await extractImage(
+    src,
+    String(blog_home_page_url),
+    String(blog_id)
+  )
+
+  return {
+    src: imagePath || src,
+    srcset: srcset,
+    width: image.getAttribute("width"),
+    height: image.getAttribute("height"),
+    sizes: image.getAttribute("sizes"),
+    alt: image.getAttribute("alt"),
+  }
+}
+
 export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   const blog: BlogType = await getSingleBlog(blogSlug)
 
@@ -168,210 +225,200 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       break
   }
 
-  try {
-    const blogWithPosts = await extract(feed_url as string, {
-      useISODateFormat: true,
-      descriptionMaxLen: 500,
-      getExtraEntryFields: (feedEntry) => {
-        // console.log(feedEntry)
-        let author: any =
-          get(feedEntry, "author", null) || get(feedEntry, "dc:creator", [])
+  const blogWithPosts = await extract(feed_url as string, {
+    useISODateFormat: true,
+    descriptionMaxLen: 500,
+    getExtraEntryFields: (feedEntry) => {
+      // console.log(feedEntry)
+      let author: any =
+        get(feedEntry, "author", null) || get(feedEntry, "dc:creator", [])
 
-        if (isString(author)) {
-          author = {
-            name: author,
-            uri: null,
-          }
+      if (isString(author)) {
+        author = {
+          name: author,
+          uri: null,
         }
+      }
 
-        if (isNull(author) || isEmpty(author)) {
-          author = blog.authors || []
-        }
+      if (isNull(author) || isEmpty(author)) {
+        author = blog.authors || []
+      }
 
-        if (!isArray(author)) {
-          author = [author]
-        }
+      if (!isArray(author)) {
+        author = [author]
+      }
 
-        const authors = author.map((auth) => {
-          auth = normalizeAuthor(auth)
+      const authors = author.map((auth) => {
+        auth = normalizeAuthor(auth)
 
-          let url = authorIDs[auth["name"]] || null
+        let url = authorIDs[auth["name"]] || null
 
-          url ??= isOrcid(get(auth, "uri", null))
-            ? get(auth, "uri")
-            : null || isRor(get(auth, "uri", null))
-            ? get(auth, "uri")
-            : null
-          return {
-            name: get(auth, "name", null),
-            url: url,
-          }
-        })
-        const blog_id = blogSlug
-        const blog_name = blog.title
-        let content_html: string =
-          get(feedEntry, "content:encoded", null) ||
-          get(feedEntry, "content.#text", null) ||
-          get(feedEntry, "description", null) ||
-          ""
-
-        content_html = sanitizeHtml(content_html, {
-          allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
-        })
-        const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
-
-        let summary = getAbstract(content_html)
-
-        summary = decodeHtmlCharCodes(summary)
-
-        const images: Array<{
-          src: string
-          srcset: string
-          width: number
-          height: number
-          sizes: string
-          alt: string
-        }> = Array.from(dom.window.document.querySelectorAll("img")).map(
-          (image: any) => {
-            const src = image.getAttribute("src")
-            let srcset = image.getAttribute("srcset")
-
-            if (isString(srcset)) {
-              srcset = srcset
-                .split(", ")
-                .map((src) =>
-                  isValidUrl(src) ? src : `${blog.home_page_url}${src}`
-                )
-                .join(", ")
-            }
-
-            return {
-              src: isValidUrl(src) ? src : `${blog.home_page_url}${src}`,
-              srcset: srcset,
-              width: image.getAttribute("width"),
-              height: image.getAttribute("height"),
-              sizes: image.getAttribute("sizes"),
-              alt: image.getAttribute("alt"),
-            }
-          }
-        )
-        const image =
-          get(feedEntry, "media:content.@_url", null) ||
-          get(feedEntry, "enclosure.@_url", null) ||
-          (images || [])
-            .filter((image) => image.width >= 200)
-            .map((image) => image.src)[0] ||
-          (images || [])
-            .filter((image: any) => {
-              const url = new URL(image["src"])
-
-              if (["s.w.org", "i.creativecommons.org"].includes(url.host)) {
-                return false
-              } else {
-                return true
-              }
-            })
-            .map((image) => image.src)[0] || null
-
-        const published_at = toUnixTime(
-          get(feedEntry, "pubDate", null) ||
-            get(feedEntry, "published", "1970-01-01")
-        )
-        let updated_at = toUnixTime(get(feedEntry, "updated", "1970-01-01"))
-
-        if (published_at > updated_at) {
-          updated_at = published_at
-        }
-        let url: any = get(feedEntry, "link", [])
-
-        if (isArray(url) && url.length > 0) {
-          url = url.find((link) => get(link, "@_rel", null) === "alternate")
-          url = get(url, "@_href", null)
-        }
-        if (isObject(url)) {
-          url = get(url, "@_href", null)
-        }
-        // feed contains relative urls
-        if (isRelativeUrl(url)) {
-          url = blog.base_url + url
-        }
-        url = decodeHtmlCharCodes(url)
-        url = normalizeUrl(url, {
-          stripWWW: false,
-          removeQueryParameters: [
-            "ref",
-            "referrer",
-            "origin",
-            "source",
-            "utm_content",
-            "utm_medium",
-            "utm_campaign",
-            "utm_source",
-          ],
-        })
-        const language = detectLanguage(content_html || "en")
-        const reference = content_html ? getReferences(content_html) : []
-        const tags = []
-          .concat(get(feedEntry, "category", []))
-          .map((tag: string) => {
-            tag = decodeHtmlCharCodes(
-              get(tag, "@_term", null) || get(tag, "#text", null) || tag
-            )
-            tag = normalizeTag(tag)
-            return tag
-          })
-          .slice(0, 5)
-        let title =
-          get(feedEntry, "title.#text", null) ||
-          get(feedEntry, "title", null) ||
-          ""
-
-        if (isString(title)) {
-          title = decodeHtmlCharCodes(title).trim()
-        } else {
-          title = ""
-        }
-
+        url ??= isOrcid(get(auth, "uri", null))
+          ? get(auth, "uri")
+          : null || isRor(get(auth, "uri", null))
+          ? get(auth, "uri")
+          : null
         return {
-          authors,
-          blog_id,
-          blog_name,
-          content_html,
-          summary,
-          published_at,
-          updated_at,
-          image,
-          images,
-          language,
-          reference,
-          tags,
-          title,
-          url,
+          name: get(auth, "name", null),
+          url: url,
         }
-      },
-    })
+      })
+      const blog_id = blogSlug
+      const blog_name = blog.title
+      const content_html = getContent(
+        feedEntry,
+        String(blog.home_page_url),
+        String(blog_id)
+      )
+      const summary = getAbstract(content_html)
+      const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
+      const images: Array<{
+        src: string
+        srcset: string
+        width: number
+        height: number
+        sizes: string
+        alt: string
+      }> = Array.from(dom.window.document.querySelectorAll("img")).map(
+        (image: any) => {
+          const src = image.getAttribute("src")
+          let srcset = image.getAttribute("srcset")
 
-    // handle pagination depending on blogging platform
-    let posts: PostType[] = []
+          if (isString(srcset)) {
+            srcset = srcset
+              .split(", ")
+              .map((src) =>
+                isValidUrl(src) ? src : `${blog.home_page_url}${src}`
+              )
+              .join(", ")
+          }
 
-    const startPage = page > 0 ? (page - 1) * 10 : 0
-    const endPage = page > 0 ? page * 10 : 10
+          return {
+            src: isValidUrl(src) ? src : `${blog.home_page_url}${src}`,
+            srcset: srcset,
+            width: image.getAttribute("width"),
+            height: image.getAttribute("height"),
+            sizes: image.getAttribute("sizes"),
+            alt: image.getAttribute("alt"),
+          }
+        }
+      )
 
-    switch (generator) {
-      case "Jekyll":
-      case "Hugo":
-      case "Ghost":
-        posts = (blogWithPosts["entries"] || []).slice(startPage, endPage)
-        break
-      default:
-        posts = blogWithPosts["entries"] || []
-    }
+      const image =
+        get(feedEntry, "media:content.@_url", null) ||
+        get(feedEntry, "enclosure.@_url", null) ||
+        (images || [])
+          .filter((image) => image.width >= 200)
+          .map((image) => image.src)[0] ||
+        (images || [])
+          .filter((image: any) => {
+            const url = new URL(image["src"])
 
-    return posts
-  } catch (error) {
-    console.error(error)
-    return []
+            if (["s.w.org", "i.creativecommons.org"].includes(url.host)) {
+              return false
+            } else {
+              return true
+            }
+          })
+          .map((image) => image.src)[0] ||
+        null
+
+      const published_at = toUnixTime(
+        get(feedEntry, "pubDate", null) ||
+          get(feedEntry, "published", "1970-01-01")
+      )
+      let updated_at = toUnixTime(get(feedEntry, "updated", "1970-01-01"))
+
+      if (published_at > updated_at) {
+        updated_at = published_at
+      }
+      let url: any = get(feedEntry, "link", [])
+
+      if (isArray(url) && url.length > 0) {
+        url = url.find((link) => get(link, "@_rel", null) === "alternate")
+        url = get(url, "@_href", null)
+      }
+      if (isObject(url)) {
+        url = get(url, "@_href", null)
+      }
+      // feed contains relative urls
+      if (isRelativeUrl(url)) {
+        url = blog.base_url + url
+      }
+      url = decodeHtmlCharCodes(url)
+      url = normalizeUrl(url, {
+        stripWWW: false,
+        removeQueryParameters: [
+          "ref",
+          "referrer",
+          "origin",
+          "source",
+          "utm_content",
+          "utm_medium",
+          "utm_campaign",
+          "utm_source",
+        ],
+      })
+
+      const language = detectLanguage(content_html || "en")
+      const reference = content_html ? getReferences(content_html) : []
+      const tags = []
+        .concat(get(feedEntry, "category", []))
+        .map((tag: string) => {
+          tag = decodeHtmlCharCodes(
+            get(tag, "@_term", null) || get(tag, "#text", null) || tag
+          )
+          tag = normalizeTag(tag)
+          return tag
+        })
+        .slice(0, 5)
+      let title =
+        get(feedEntry, "title.#text", null) ||
+        get(feedEntry, "title", null) ||
+        ""
+
+      if (isString(title)) {
+        title = decodeHtmlCharCodes(title).trim()
+      } else {
+        title = ""
+      }
+
+      return {
+        authors,
+        blog_id,
+        blog_name,
+        content_html,
+        summary,
+        published_at,
+        updated_at,
+        image,
+        images,
+        language,
+        reference,
+        tags,
+        title,
+        url,
+      }
+    },
+  })
+
+  // handle pagination depending on blogging platform
+  let posts: PostType[] = []
+
+  const startPage = page > 0 ? (page - 1) * 10 : 0
+  const endPage = page > 0 ? page * 10 : 10
+
+  switch (generator) {
+    case "Jekyll":
+    case "Hugo":
+    case "Ghost":
+      posts = (blogWithPosts["entries"] || []).slice(startPage, endPage)
+      break
+    default:
+      posts = blogWithPosts["entries"] || []
   }
+
+  return posts
 }
 
 export async function extractUpdatedPostsByBlog(blogSlug: string, page = 1) {
