@@ -45,6 +45,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         >
                           <Link
                             href={`${pagination.base_url}?page=${pagination.page}&query=${pagination.query}&tags=${tag}`}
+                            className="whitespace-no-wrap"
                           >
                             {tag}
                           </Link>
@@ -138,14 +139,14 @@ export const Posts: React.FunctionComponent<Props> = ({
                         </Link>
                       </div>
                     )}
-                    <div className="flex max-w-2xl py-2 lg:max-w-4xl">
+                    <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
                       {post.image && (
                         <div className="relative mr-4 h-48 w-64 shrink-0">
                           <Image
                             src={post.image}
                             alt=""
                             fill={true}
-                            className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
+                            className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 md:object-cover"
                           />
                           <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                         </div>

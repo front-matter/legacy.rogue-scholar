@@ -48,6 +48,7 @@ export const authorIDs = {
   "Liberate Science": "https://ror.org/0342dzm54",
   "David M. Shotton": "https://orcid.org/0000-0001-5506-523X",
   "Lars Willighagen": "https://orcid.org/0000-0002-4751-4637",
+  "Marco Tullney": "https://orcid.org/0000-0002-5111-2788",
 }
 
 const normalizeAuthor = (author: AuthorType) => {
@@ -58,6 +59,8 @@ const normalizeAuthor = (author: AuthorType) => {
     author["name"] = "David M. Shotton"
   } else if (author["name"] === "Morgan & Ethan") {
     author["name"] = "Morgan Ernest"
+  } else if (author["name"] === "Marco") {
+    author["name"] = "Marco Tullney"
   }
   author["name"] = author["name"].replace(/, MD$/, "")
   return author
