@@ -461,63 +461,7 @@ export async function extractImage(
     .catch((err) => console.error(err))
 
   return pathname
-  // .then(({ filename }) => {
-  //   console.log("Saved to", filename)
-  //   return filename
-  // })
-  // .catch((err) => console.error(err))
 }
-
-// export async function extractImages(blog: BlogType, posts: PostType[]) {
-//   if (!blog || !blog.images_folder || !posts) return null
-
-//   const extractedImages = await Promise.all(
-//     posts.map(async (post) => {
-//       const dom = new JSDOM(`<!DOCTYPE html>${post.content_html}`)
-
-//       const images = dom.window.document.querySelectorAll("img")
-
-//       return images.forEach(async (image) => {
-//         const src = image.getAttribute("src")
-
-//         if (src.startsWith(blog.images_folder)) {
-//           const filename = src.substring(String(blog.images_folder).length)
-//           const response = await fetch(src)
-//           const blob = await response.blob()
-
-//           const { data, error } = await supabaseAdmin.storage
-//             .from("images")
-//             .upload(`${blog.id}/${filename}`, blob)
-
-//           if (error) {
-//             throw error
-//           }
-//           console.log(data)
-
-//           // save filename in images table
-//           const res = await supabaseAdmin
-//             .from("images")
-//             .upsert(
-//               {
-//                 name: filename,
-//                 blog_id: blog.id,
-//                 created_at: new Date(),
-//               },
-//               { onConflict: "id", ignoreDuplicates: false }
-//             )
-//             .select("id, name")
-//             .maybeSingle()
-
-//           console.log(res)
-//           return filename
-//         }
-//       })
-//     })
-//   )
-
-//   console.log(extractedImages)
-//   return null
-// }
 
 export function getAbstract(html: string, maxlen: number = 600) {
   html = html

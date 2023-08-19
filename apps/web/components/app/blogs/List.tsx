@@ -75,6 +75,7 @@ export default function BlogsList() {
     feed_url: "",
     category: "naturalSciences",
     status: "submitted",
+    mastodon: "",
     user_id: user?.id,
   }
   const tableBg = useColorModeValue("white", "gray.700")
@@ -154,6 +155,7 @@ export default function BlogsList() {
             <Skeleton rounded="lg" height="32px" />
             <Skeleton rounded="lg" height="32px" />
             <Skeleton rounded="lg" height="32px" />
+            <Skeleton rounded="lg" height="32px" />
           </Stack>
         ) : (
           <Table>
@@ -162,6 +164,7 @@ export default function BlogsList() {
                 <Th>{t("blogs.list.columns.title")}</Th>
                 <Th>{t("blogs.list.columns.feed_url")}</Th>
                 <Th>{t("blogs.list.columns.category")}</Th>
+                <Th>{t("blogs.list.columns.mastodon")}</Th>
                 <Th>{t("blogs.list.columns.status")}</Th>
                 <Th></Th>
               </Tr>
@@ -180,9 +183,20 @@ export default function BlogsList() {
                     </Td>
                     <Td>{blog.feed_url}</Td>
                     <Td>
-                      <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
+                      <span className="whitespace-no-wrap inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
                         {t("categories." + blog.category)}
                       </span>
+                    </Td>
+                    <Td>
+                      {blog.mastodon && (
+                        <Link
+                          className="hover:font-semibold"
+                          href={`https://rogue-scholar.social/@${blog.mastodon}`}
+                          target="_blank"
+                        >
+                          {blog.mastodon}
+                        </Link>
+                      )}
                     </Td>
                     <Td>{t("status." + blog.status)}</Td>
                     <Td>

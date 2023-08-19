@@ -69,7 +69,7 @@ export interface BlogType extends FeedData {
   user_id?: string
   authors?: AuthorType[]
   plan?: string
-  images_folder?: string
+  mastodon?: string
 }
 
 export interface BlogParentType {

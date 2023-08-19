@@ -471,7 +471,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, feed_url, current_feed_url, home_page_url, images_folder, generator, title, category, status, user_id, authors, plan"
+      "id, feed_url, current_feed_url, home_page_url, mastodon, generator, title, category, status, user_id, authors, plan"
     )
     .eq("id", blogSlug)
     .maybeSingle()
@@ -558,7 +558,7 @@ export async function getSingleBlog(blogSlug: string) {
         plan: config["plan"],
         user_id: config["user_id"],
         authors: config["authors"],
-        images_folder: config["images_folder"],
+        mastodon: config["mastodon"],
       }
     },
   })

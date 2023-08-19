@@ -48,6 +48,7 @@ export default function BlogFormModal({
     title: string
     feed_url: string
     category: string
+    mastodon: string
     status: string
     user_id: string
   }>()
@@ -64,6 +65,7 @@ export default function BlogFormModal({
     setValue("feed_url", blog.feed_url)
     setValue("category", blog.category)
     setValue("status", blog.status)
+    setValue("mastodon", blog.mastodon)
     setValue("user_id", blog.user_id)
   }, [blog]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -195,6 +197,15 @@ export default function BlogFormModal({
                     {t("categories.humanities")}
                   </option>
                 </Select>
+              </FormControl>
+
+              {/* Mastodon accounts field */}
+              <FormControl>
+                <FormLabel>{t("blogs.form.controls.mastodon")}</FormLabel>
+                <Input
+                  type="text"
+                  {...register("mastodon", { required: false })}
+                />
               </FormControl>
 
               <Button
