@@ -463,7 +463,7 @@ export async function extractImage(
   return pathname
 }
 
-export function getAbstract(html: string, maxlen: number = 600) {
+export function getAbstract(html: string, maxlen: number = 450) {
   html = html
     .replace(/(<br>|<p>)/g, " ")
     .replace(/(h1>|h2>|h3>|h4>)/g, "strong>")
