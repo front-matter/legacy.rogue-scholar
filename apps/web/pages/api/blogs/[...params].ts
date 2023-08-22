@@ -29,6 +29,7 @@ import {
   toISOString,
   toUnixTime,
 } from "@/lib/helpers"
+import { masto } from "@/lib/mastoClient"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import {
   blogWithPostsSelect,
@@ -577,6 +578,17 @@ export async function getSingleBlog(blogSlug: string) {
   blog = omit(blog, ["published", "link", "entries"])
   return blog
 }
+
+// export async function getMastodonBot(blog: BlogType) {
+//   const mastodon = get(blog, "mastodon", null)
+
+//   if (mastodon) {
+//     const data = await masto.v1.statuses.get
+//     ({
+//       id: mastodon,
+//     })
+//   }
+// }
 
 export default async function handler(req, res) {
   const slug = req.query.params?.[0]

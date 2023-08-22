@@ -100,7 +100,7 @@ export async function createDigest() {
       "tags,title,authors.name,authors.url,summary,content_html,reference",
     filter_by: `published_at:>${toUnixTime(
       SevenDaysAgo
-    )} && blog_id:!=[gzqej46, y3h0g22] && language:=[en]`,
+    )} && blog_id:!=[y3h0g22] && language:=[en]`,
     sort_by: "published_at:asc",
     per_page: 15,
   }
