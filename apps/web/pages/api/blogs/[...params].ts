@@ -402,6 +402,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   switch (generator) {
     case "Jekyll":
     case "Hugo":
+    case "Quarto":
     case "Ghost":
       posts = (blogWithPosts["entries"] || []).slice(startPage, endPage)
       break
