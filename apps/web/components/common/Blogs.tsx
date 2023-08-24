@@ -104,6 +104,18 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                           </Link>
                         </div>
                       )}
+                    {blog.use_mastodon && (
+                      <div className="-ml-px flex w-0 flex-1">
+                        <Link
+                          href={"https://rogue-scholar.social/@" + blog.slug}
+                          target="_blank"
+                          className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500 dark:text-gray-200"
+                        >
+                          <Icon icon="fa6-brands:mastodon" className="inline" />
+                          Mastodon
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </li>
