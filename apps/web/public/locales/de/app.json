@@ -23,6 +23,7 @@
   "blogs.list.empty": "Sie haben noch keine Blogs angelegt. Klicken Sie auf den Button oben rechts, um einen neuen hinzuzufügen.",
   "blogs.list.noResults": "Es wurden keine Blogs gefunden",
   "blogs.title": "Blogs",
+  "blogs.untitled": "Ohne Titel",
   "blogs.upgradeToCreateMore": "Sie müssen Ihren Plan aktualisieren, um mehr Blogs zu erstellen.",
   "categories.agriculturalSciences": "Agrarwissenschaften",
   "categories.engineeringAndTechnology": "Ingenieurwissenschaften und Technik",

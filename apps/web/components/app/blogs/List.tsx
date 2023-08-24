@@ -171,13 +171,23 @@ export default function BlogsList() {
                 blogs?.map((blog) => (
                   <Tr key={`blog-${blog.id}`}>
                     <Td>
-                      <Link
-                        className="hover:font-semibold"
-                        href={`/blogs/${blog.slug}`}
-                      >
-                        <Icon icon="fa6-regular:eye" className="mr-1 inline" />
-                        {blog.title}
-                      </Link>
+                      {blog.slug && (
+                        <Link
+                          className="hover:font-semibold"
+                          href={`/blogs/${blog.slug}`}
+                        >
+                          <Icon
+                            icon="fa6-regular:eye"
+                            className="mr-1 inline"
+                          />
+                          {blog.title}
+                        </Link>
+                      )}
+                      {!blog.slug && (
+                        <span className="text-orange-600 dark:text-gray-200">
+                          {t("blogs.untitled")}
+                        </span>
+                      )}
                     </Td>
                     <Td>
                       {blog.use_mastodon && (
