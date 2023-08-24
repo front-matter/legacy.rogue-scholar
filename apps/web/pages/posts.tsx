@@ -24,7 +24,7 @@ export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
   const tags = ctx.query.tags || ""
-  let filterBy = `blog_id:!=[y3h0g22] && language:=[${languages}]`
+  let filterBy = `blog_slug:!=[researchsoft] && language:=[${languages}]`
 
   filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
   const searchParameters: PostSearchParams = {

@@ -20,13 +20,19 @@
       "optional": false
     },
     {
-      "name": "blog.id",
+      "name": "blog_id",
       "type": "string",
       "facet": true,
       "optional": false
     },
     {
-      "name": "blog.name",
+      "name": "blog_slug",
+      "type": "string",
+      "facet": false,
+      "optional": false
+    },
+    {
+      "name": "blog_name",
       "type": "string",
       "facet": false,
       "optional": false

@@ -10,6 +10,7 @@ export interface Database {
           category?: string;
           description?: string;
           id?: string;
+          slug?: string;
           title?: string;
           feed_url?: string;
           home_page_url?: string;
@@ -30,6 +31,7 @@ export interface Database {
           category?: string;
           description?: string;
           id?: string;
+          slug?: string;
           title?: string;
           feed_url?: string;
           home_page_url?: string;

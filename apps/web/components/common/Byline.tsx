@@ -38,7 +38,7 @@ export const Byline: React.FunctionComponent<Props> = ({ post, blog }) => {
               in{" "}
               <Link
                 className="font-semibold text-blue-600 hover:text-blue-800"
-                href={"/blogs/" + post.blog_id}
+                href={"/blogs/" + post.blog_slug}
               >
                 {post.blog_name}
               </Link>

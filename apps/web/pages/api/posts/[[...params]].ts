@@ -100,7 +100,7 @@ export async function createDigest() {
       "tags,title,authors.name,authors.url,summary,content_html,reference",
     filter_by: `published_at:>${toUnixTime(
       SevenDaysAgo
-    )} && blog_id:!=[y3h0g22] && language:=[en]`,
+    )} && blog_slug:!=[researchsoft] && language:=[en]`,
     sort_by: "published_at:asc",
     per_page: 15,
   }
@@ -128,6 +128,47 @@ export async function createGhostMember(user) {
   return response
 }
 
+export async function updateSinglePost(post: PostType) {
+  const { data, error } = await supabaseAdmin
+    .from("posts")
+    .update({
+      authors: post.authors,
+      blog_id: post.blog_id,
+      blog_name: post.blog_name,
+      blog_slug: post.blog_slug,
+      content_html: post.content_html,
+      images: post.images,
+      updated_at: post.updated_at,
+      published_at: post.published_at,
+      image: post.image,
+      language: post.language,
+      reference: post.reference,
+      summary: post.summary,
+      tags: post.tags,
+      title: post.title,
+      url: post.url,
+    })
+    .eq("url", post.url)
+    .select("id, indexed_at, updated_at, not_indexed")
+    .single()
+
+  if (error) {
+    throw error
+  }
+
+  // workaround for comparing two timestamps in supabase
+  const { data: post_to_update } = await supabaseAdmin
+    .from("posts")
+    .update({
+      not_indexed: (data.indexed_at || 0) < (data.updated_at || 1),
+    })
+    .eq("id", data.id)
+    .select("id")
+    .single()
+
+  return post_to_update
+}
+
 export async function upsertSinglePost(post: PostType) {
   if (isEmpty(post.title)) {
     return null
@@ -140,6 +181,7 @@ export async function upsertSinglePost(post: PostType) {
         authors: post.authors,
         blog_id: post.blog_id,
         blog_name: post.blog_name,
+        blog_slug: post.blog_slug,
         content_html: post.content_html,
         images: post.images,
         updated_at: post.updated_at,
@@ -172,6 +214,25 @@ export async function upsertSinglePost(post: PostType) {
     .single()
 
   return post_to_update
+}
+
+export async function updateAllPosts(page: number = 1) {
+  const { data: blogs } = await supabase
+    .from("blogs")
+    .select("id")
+    .eq("status", "active")
+
+  if (!blogs) {
+    return []
+  }
+
+  const data = await Promise.all(
+    blogs.map((blog) => extractAllPostsByBlog(blog.id, page))
+  )
+  const posts = data.flat()
+
+  await Promise.all(posts.map((post) => updateSinglePost(post)))
+  return posts
 }
 
 export async function upsertAllPosts(page: number = 1) {
@@ -380,6 +441,7 @@ export default async function handler(req, res) {
         //   )
         // }
 
+        // posts = await updateAllPosts(page)
         posts = await upsertAllPosts(page)
       } else {
         posts = await upsertUpdatedPosts(page)

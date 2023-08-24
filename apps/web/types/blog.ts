@@ -42,12 +42,14 @@ export interface PostType {
   language?: string
   blog_id?: string
   blog_name?: string
+  blog_slug?: string
   blog?: BlogParentType
 }
 
 export interface BlogType extends FeedData {
   version?: string
   id?: string
+  slug?: string
   title?: string
   category?: string
   description?: string

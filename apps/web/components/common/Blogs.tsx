@@ -51,7 +51,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                     <div className="flex items-center space-x-3">
                       <h3 className="text-semibold truncate font-medium text-gray-900 dark:text-slate-100">
                         <Link
-                          href={"/blogs/" + blog.id}
+                          href={"/blogs/" + blog.slug}
                           className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
                         >
                           {parse(String(blog.title))}

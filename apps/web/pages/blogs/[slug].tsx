@@ -29,7 +29,7 @@ export async function getServerSideProps(ctx) {
 
   const query = ctx.query.query || ""
   const tags = ctx.query.tags || ""
-  let filterBy = `blog_id:=${ctx.params.slug} && language:=[${languages}]`
+  let filterBy = `blog_slug:=${ctx.params.slug} && language:=[${languages}]`
 
   filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
   const page = parseInt(ctx.query.page || 1)
@@ -37,7 +37,7 @@ export async function getServerSideProps(ctx) {
     .from("blogs")
     .select(blogWithPostsSelect)
     .in("status", ["approved", "active"])
-    .eq("id", ctx.params.slug)
+    .eq("slug", ctx.params.slug)
     .maybeSingle()
 
   if (!blog) {
