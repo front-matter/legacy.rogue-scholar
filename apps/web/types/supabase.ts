@@ -23,7 +23,7 @@ export interface Database {
           license?: string;
           generator?: string;
           prefix?: string;
-          mastodon?: string;
+          use_mastodon?: boolean;
           status?: string;
           authors?: AuthorType[];
         };
@@ -44,7 +44,7 @@ export interface Database {
           license?: string;
           generator?: string;
           prefix?: string;
-          mastodon?: string;
+          use_mastodon?: boolean;
           status?: string;
           authors?: AuthorType[];
         };
@@ -64,7 +64,7 @@ export interface Database {
           license?: string;
           generator?: string;
           prefix?: string;
-          mastodon?: string;
+          use_mastodon?: boolean;
           status?: string;
           authors?: AuthorType[];
         };

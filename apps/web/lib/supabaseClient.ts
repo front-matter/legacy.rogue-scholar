@@ -12,9 +12,9 @@ export const supabase = createClient(
 )
 
 export const blogsSelect =
-  "id, slug, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, mastodon, created_at, modified_at, license, generator, category, backlog, prefix, status, plan"
+  "id, slug, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, use_mastodon, created_at, modified_at, license, generator, category, backlog, prefix, status, plan"
 export const blogWithPostsSelect =
-  "id, slug, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, mastodon, created_at, modified_at, license, generator, category, backlog, prefix, status, plan, items: posts (id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference)"
+  "id, slug, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, use_mastodon, created_at, modified_at, license, generator, category, backlog, prefix, status, plan, items: posts (id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference)"
 export const postsSelect =
   "id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, blog_id, blog_name, blog_slug"
 export const postsWithBlogSelect =

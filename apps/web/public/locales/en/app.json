@@ -5,7 +5,7 @@
   "blogs.form.controls.favicon": "Favicon",
   "blogs.form.controls.feed_url": "Feed URL",
   "blogs.form.controls.id": "ID",
-  "blogs.form.controls.mastodon": "Mastodon",
+  "blogs.form.controls.mastodon": "Announce new posts on Mastodon?",
   "blogs.form.controls.title": "Title",
   "blogs.form.edit.title": "Edit blog",
   "blogs.form.errorMessage": "An error occured while trying to save the blog. Please try again.",

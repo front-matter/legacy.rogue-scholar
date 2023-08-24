@@ -5,7 +5,7 @@
   "blogs.form.controls.favicon": "Icône de favori",
   "blogs.form.controls.feed_url": "URL du flux",
   "blogs.form.controls.id": "ID",
-  "blogs.form.controls.mastodon": "Mastodon",
+  "blogs.form.controls.mastodon": "Annoncer de nouveaux articles sur Mastodon ?",
   "blogs.form.controls.title": "Nom",
   "blogs.form.edit.title": "Modifier le blog",
   "blogs.form.errorMessage": "Une erreur s'est produite lors de la tentative d'enregistrement du blog. Veuillez réessayer.",

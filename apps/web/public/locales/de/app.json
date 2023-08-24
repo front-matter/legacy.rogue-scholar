@@ -5,7 +5,7 @@
   "blogs.form.controls.favicon": "Favicon",
   "blogs.form.controls.feed_url": "Feed URL",
   "blogs.form.controls.id": "ID",
-  "blogs.form.controls.mastodon": "Mastodon",
+  "blogs.form.controls.mastodon": "Neue Beiträge auf Mastodon ankündigen?",
   "blogs.form.controls.title": "Name",
   "blogs.form.edit.title": "Blog bearbeiten",
   "blogs.form.errorMessage": "Beim Versuch, das Blog zu speichern, ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",

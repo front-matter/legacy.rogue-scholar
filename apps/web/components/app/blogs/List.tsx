@@ -75,7 +75,7 @@ export default function BlogsList() {
     feed_url: "",
     category: "naturalSciences",
     status: "submitted",
-    mastodon: "",
+    use_mastodon: false,
     user_id: user?.id,
   }
   const tableBg = useColorModeValue("white", "gray.700")
@@ -176,7 +176,7 @@ export default function BlogsList() {
                     <Td>
                       <Link
                         className="hover:font-semibold"
-                        href={`/blogs/${blog.id}`}
+                        href={`/blogs/${blog.slug}`}
                       >
                         {blog.title}
                       </Link>
@@ -188,13 +188,13 @@ export default function BlogsList() {
                       </span>
                     </Td>
                     <Td>
-                      {blog.mastodon && (
+                      {blog.use_mastodon && (
                         <Link
                           className="hover:font-semibold"
-                          href={`https://rogue-scholar.social/@${blog.mastodon}`}
+                          href={`https://rogue-scholar.social/@${blog.slug}`}
                           target="_blank"
                         >
-                          {blog.mastodon}
+                          {blog.slug}
                         </Link>
                       )}
                     </Td>
