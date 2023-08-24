@@ -46,10 +46,10 @@ export default function BlogFormModal({
     formState: { isSubmitting },
   } = useForm<{
     id: string
+    slug: string
     title: string
     feed_url: string
     category: string
-    use_mastodon: boolean
     status: string
     user_id: string
   }>()
@@ -62,11 +62,11 @@ export default function BlogFormModal({
     }
 
     setValue("id", blog.id)
+    setValue("slug", blog.slug)
     setValue("title", blog.title)
     setValue("feed_url", blog.feed_url)
     setValue("category", blog.category)
     setValue("status", blog.status)
-    setValue("use_mastodon", blog.use_mastodon)
     setValue("user_id", blog.user_id)
   }, [blog]) // eslint-disable-line react-hooks/exhaustive-deps
 

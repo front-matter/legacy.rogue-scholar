@@ -152,21 +152,18 @@ export default function BlogsList() {
         {loadingBlogs && !blogs ? (
           <Stack w="full" p={4}>
             <Skeleton rounded="lg" height="24px" />
-            <Skeleton rounded="lg" height="32px" />
-            <Skeleton rounded="lg" height="32px" />
+            <Skeleton rounded="lg" height="24px" />
             <Skeleton rounded="lg" height="32px" />
             <Skeleton rounded="lg" height="32px" />
           </Stack>
         ) : (
-          <Table>
+          <Table className="table-fixed">
             <Thead borderBottom="1px solid" borderColor={tableBorderColor}>
               <Tr>
-                <Th>{t("blogs.list.columns.title")}</Th>
-                <Th>{t("blogs.list.columns.feed_url")}</Th>
-                <Th>{t("blogs.list.columns.category")}</Th>
-                <Th>{t("blogs.list.columns.mastodon")}</Th>
-                <Th>{t("blogs.list.columns.status")}</Th>
-                <Th></Th>
+                <Th className="w-6/12">{t("blogs.list.columns.title")}</Th>
+                <Th className="w-3/12">{t("blogs.list.columns.mastodon")}</Th>
+                <Th className="w-2/12">{t("blogs.list.columns.status")}</Th>
+                <Th className="w-1/12"></Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -178,14 +175,9 @@ export default function BlogsList() {
                         className="hover:font-semibold"
                         href={`/blogs/${blog.slug}`}
                       >
+                        <Icon icon="fa6-regular:eye" className="mr-1 inline" />
                         {blog.title}
                       </Link>
-                    </Td>
-                    <Td>{blog.feed_url}</Td>
-                    <Td>
-                      <span className="whitespace-no-wrap inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
-                        {t("categories." + blog.category)}
-                      </span>
                     </Td>
                     <Td>
                       {blog.use_mastodon && (
@@ -194,6 +186,10 @@ export default function BlogsList() {
                           href={`https://rogue-scholar.social/@${blog.slug}`}
                           target="_blank"
                         >
+                          <Icon
+                            icon="fa6-brands:mastodon"
+                            className="mr-1 inline"
+                          />
                           {blog.slug}
                         </Link>
                       )}
