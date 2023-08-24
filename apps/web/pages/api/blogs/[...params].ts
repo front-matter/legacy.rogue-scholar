@@ -465,6 +465,7 @@ export async function upsertSingleBlog(blogSlug: string) {
       generator: blog.generator,
       status: blog.status,
       user_id: blog.user_id,
+      use_mastodon: blog.use_mastodon,
     },
     { onConflict: "id", ignoreDuplicates: false }
   )
@@ -480,7 +481,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, slug, feed_url, current_feed_url, home_page_url, mastodon, generator, title, category, status, user_id, authors, plan"
+      "id, slug, feed_url, current_feed_url, home_page_url, use_mastodon, generator, title, category, status, user_id, authors, plan"
     )
     .eq("id", blogSlug)
     .maybeSingle()
@@ -568,7 +569,7 @@ export async function getSingleBlog(blogSlug: string) {
         plan: config["plan"],
         user_id: config["user_id"],
         authors: config["authors"],
-        mastodon: config["mastodon"],
+        use_mastodon: config["use_mastodon"],
       }
     },
   })

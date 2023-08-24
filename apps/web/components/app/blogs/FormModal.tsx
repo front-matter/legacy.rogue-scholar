@@ -76,6 +76,7 @@ export default function BlogFormModal({
 
   const upsertMutation = useMutation(
     async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
+      console.log(blog)
       const { error } = await supabaseClient
         .from("blogs")
         .upsert(blog, { onConflict: "id", ignoreDuplicates: false })
@@ -200,12 +201,12 @@ export default function BlogFormModal({
                 </Select>
               </FormControl>
 
-              {/* Mastodon accounts field */}
+              {/* Mastodon enabled field */}
               <FormControl>
                 <FormLabel htmlFor="use_mastodon">
                   {t("blogs.form.controls.mastodon")}
                 </FormLabel>
-                <Switch id="use_mastodon" />
+                <Switch id="use_mastodon" isDisabled={true} isChecked={false} />
               </FormControl>
 
               <Button
