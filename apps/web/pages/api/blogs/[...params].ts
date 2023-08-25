@@ -21,11 +21,13 @@ import {
   decodeHtmlCharCodes,
   detectLanguage,
   getAbstract,
+  getMastodonAccount,
   isDoi,
   isOrcid,
   isRor,
   isValidUrl,
   parseGenerator,
+  registerMastodonAccount,
   toISOString,
   toUnixTime,
 } from "@/lib/helpers"
@@ -50,6 +52,7 @@ export const authorIDs = {
   "David M. Shotton": "https://orcid.org/0000-0001-5506-523X",
   "Lars Willighagen": "https://orcid.org/0000-0002-4751-4637",
   "Marco Tullney": "https://orcid.org/0000-0002-5111-2788",
+  "Andrew Heiss": "https://orcid.org/0000-0002-3948-3914",
 }
 
 const normalizeAuthor = (author: AuthorType) => {
@@ -589,16 +592,12 @@ export async function getSingleBlog(blogSlug: string) {
   return blog
 }
 
-// export async function getMastodonBot(blog: BlogType) {
-//   const mastodon = get(blog, "mastodon", null)
+export async function getMastodonBot(blog: BlogType) {
+  const acct = get(blog, "slug", "")
+  const data = await getMastodonAccount(acct)
 
-//   if (mastodon) {
-//     const data = await masto.v1.statuses.get
-//     ({
-//       id: mastodon,
-//     })
-//   }
-// }
+  return data
+}
 
 export default async function handler(req, res) {
   const slug = req.query.params?.[0]
@@ -627,6 +626,17 @@ export default async function handler(req, res) {
 
       if (posts) {
         res.status(200).json(posts)
+      } else {
+        res.status(404).json({ message: "Not Found" })
+      }
+    }
+    if (action === "mastodon") {
+      // const blog: BlogType = await getSingleBlog(slug)
+      // const data = await getMastodonAccount(blog.slug || "")
+      const data = await registerMastodonAccount(slug)
+
+      if (data) {
+        res.status(200).json(data)
       } else {
         res.status(404).json({ message: "Not Found" })
       }
@@ -670,6 +680,22 @@ export default async function handler(req, res) {
         res.status(200).json(posts)
       } else {
         res.status(404).json({ message: "Posts not found" })
+      }
+    } else if (action === "mastodon") {
+      const blog: BlogType = await getSingleBlog(slug)
+
+      const data = await getMastodonAccount(blog.slug || "")
+
+      if (data) {
+        res.status(200).json(data)
+      } else {
+        const data = await registerMastodonAccount(blog)
+
+        if (data) {
+          res.status(200).json(data)
+        } else {
+          res.status(404).json({ message: "Not Found" })
+        }
       }
     } else {
       const blog = await upsertSingleBlog(slug)

@@ -13,6 +13,8 @@ import nodePandoc from "node-pandoc-promise"
 import sanitizeHtml from "sanitize-html"
 const { CrockfordBase32 } = require("crockford-base32")
 
+import { BlogType } from "@/types/blog"
+
 export function getBaseURL() {
   const url =
     process?.env?.NEXT_PUBLIC_SITE_URL ||
@@ -619,4 +621,81 @@ export async function getEpub(post: any) {
   const filePath = path.join(process.cwd(), `/public/epub/${doi}.epub`)
 
   return filePath
+}
+
+export async function getMastodonAccount(acct: string) {
+  const url = `https://rogue-scholar.social/api/v1/accounts/lookup?acct=${acct}`
+  const res = await fetch(url)
+
+  if (res.status < 400) {
+    return await res.json()
+  } else {
+    return null
+  }
+}
+
+export async function getMastodonAccessToken() {
+  const url = `${process.env.NEXT_PUBLIC_MASTODON_API_URL}/oauth/token`
+  const res = await fetch(url, {
+    method: "POST",
+    body: `grant_type=client_credentials&client_id=${process.env.NEXT_PUBLIC_MASTODON_CLIENT_KEY}&client_secret=${process.env.NEXT_PUBLIC_MASTODON_CLIENT_SECRET}&redirect_uri=urn:ietf:wg:oauth:2.0:oob&scope=read+write+follow+admin:read+admin:write`,
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  })
+
+  return await res.json()
+}
+
+export async function verifyMastodonAccount() {
+  const token = await getMastodonAccessToken()
+
+  console.log(token)
+  const url = `${process.env.NEXT_PUBLIC_MASTODON_API_URL}/api/v1/accounts/verify_credentials`
+  const res = await fetch(url, {
+    headers: {
+      Authentication: `Bearer ${token.access_token}`,
+      "Content-Type": "application/json",
+    },
+  })
+
+  if (res.status < 400) {
+    return await res.json()
+  } else {
+    console.log(res)
+    return null
+  }
+}
+
+export async function registerMastodonAccount(blog: BlogType) {
+  const token = await getMastodonAccessToken()
+
+  console.log(token)
+  const formData = new FormData()
+
+  formData.append("username", blog.slug || "")
+  formData.append(
+    "email",
+    `${process.env.NEXT_PUBLIC_MASTODON_EMAIL_PREFIX}+${blog.slug}@${process.env.NEXT_PUBLIC_MASTODON_EMAIL_DOMAIN}`
+  )
+  formData.append("password", process.env.NEXT_PUBLIC_MASTODON_PASSWORD || "")
+  formData.append("agreement", "true")
+  formData.append("locale", "en")
+
+  const url = `${process.env.NEXT_PUBLIC_MASTODON_API_URL}/api/v1/accounts`
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authentication: `Bearer ${token["access_token"]}`,
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: formData,
+  })
+
+  console.log(res)
+  if (res.status < 400) {
+    return await res.json()
+  } else {
+    return null
+  }
 }
