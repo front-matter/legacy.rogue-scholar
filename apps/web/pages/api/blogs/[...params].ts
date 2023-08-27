@@ -106,7 +106,19 @@ const getReferences = (content_html: string) => {
         "utm_source",
       ],
     })
-    url = isDoi(url) ? url.toLowerCase() : url
+    if (isDoi(url)) {
+      const uri = new URL(url)
+
+      if (uri.protocol === "http") {
+        uri.protocol = "https"
+      }
+      if (uri.host === "dx.doi.org") {
+        uri.host = "doi.org"
+      }
+      url = uri.href
+    } else {
+      url = url.toLowerCase()
+    }
     return url
   })
   urls = uniq(urls)

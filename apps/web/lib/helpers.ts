@@ -84,7 +84,7 @@ export const isValidUrl = (url = "") => {
 
 export const isDoi = (doi: any) => {
   try {
-    return new URL(doi).hostname === "doi.org"
+    return ["doi.org", "dx.doi.org"].includes(new URL(doi).hostname)
   } catch (error) {
     return false
   }
