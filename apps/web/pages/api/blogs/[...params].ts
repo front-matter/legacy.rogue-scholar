@@ -53,6 +53,7 @@ export const authorIDs = {
   "Lars Willighagen": "https://orcid.org/0000-0002-4751-4637",
   "Marco Tullney": "https://orcid.org/0000-0002-5111-2788",
   "Andrew Heiss": "https://orcid.org/0000-0002-3948-3914",
+  "Henry Rzepa": "https://orcid.org/0000-0002-8635-8390",
 }
 
 const normalizeAuthor = (author: AuthorType) => {
@@ -235,7 +236,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       useISODateFormat: true,
       descriptionMaxLen: 500,
       getExtraEntryFields: (feedEntry) => {
-        console.log(feedEntry)
+        // console.log(feedEntry)
         let author: any =
           get(feedEntry, "author", null) || get(feedEntry, "dc:creator", [])
 
