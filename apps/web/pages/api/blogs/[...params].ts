@@ -207,7 +207,8 @@ export async function getImage(image: any, blog_home_page_url: string) {
 export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   const blog: BlogType = await getSingleBlog(blogSlug)
 
-  let feed_url = blog.feed_url
+  const url = new URL(blog.feed_url || "")
+
   const generator = blog.generator?.split(" ")[0]
 
   // limit number of pages for free plan to 5 (50 posts)
@@ -216,15 +217,17 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   // handle pagination depending on blogging platform
   switch (generator) {
     case "WordPress":
-      feed_url = `${blog.feed_url}?paged=${page}`
+      url.searchParams.append("paged", String(page))
       break
     case "Blogger":
       const startPage = page > 0 ? (page - 1) * 10 + 1 : 1
 
-      feed_url = `${blog.feed_url}?start-index=${startPage}&max-results=10`
+      url.searchParams.set("start-index", String(startPage))
+      url.searchParams.set("max-results", String(10))
       break
   }
 
+  const feed_url = url.href
   let blogWithPosts = {}
 
   try {
@@ -232,7 +235,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       useISODateFormat: true,
       descriptionMaxLen: 500,
       getExtraEntryFields: (feedEntry) => {
-        // console.log(feedEntry)
+        console.log(feedEntry)
         let author: any =
           get(feedEntry, "author", null) || get(feedEntry, "dc:creator", [])
 
