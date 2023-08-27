@@ -169,6 +169,20 @@ const normalizeTag = (tag: string) => {
   return tag
 }
 
+export function getSlug(url: string) {
+  const uri = new URL(url)
+
+  if (!["www", "blog", "medium"].includes(uri.host.split(".")[0])) {
+    return uri.host.split(".")[0]
+  }
+  if (uri.host.split(".").length > 2) {
+    return uri.host.split(".")[1]
+  }
+  if (uri.host.split(".")[0] === "medium") {
+    return uri.pathname
+  }
+}
+
 export function getContent(feedEntry: any) {
   let content_html =
     get(feedEntry, "content:encoded", null) ||
@@ -470,6 +484,7 @@ export async function upsertSingleBlog(blogSlug: string) {
   const { data, error } = await supabaseAdmin.from("blogs").upsert(
     {
       id: blog.id,
+      slug: blog.slug,
       title: blog.title,
       description: blog.description,
       feed_url: blog.feed_url,
@@ -526,7 +541,7 @@ export async function getSingleBlog(blogSlug: string) {
         config["home_page_url"]
 
       home_page_url = get(home_page_url, "@_href", null) || home_page_url
-      home_page_url = home_page_url.replace(/\/+$/g, "")
+      home_page_url = home_page_url ? home_page_url.replace(/\/+$/g, "") : null
       let feed_format =
         []
           .concat(get(feedData, "link", []))
@@ -568,10 +583,11 @@ export async function getSingleBlog(blogSlug: string) {
 
       favicon =
         favicon !== "https://s0.wp.com/i/buttonw-com.png" ? favicon : null
+      const slug = config["slug"] || getSlug(config["feed_url"])
 
       return {
         id: config["id"],
-        slug: config["slug"],
+        slug,
         version: "https://jsonfeed.org/version/1.1",
         feed_url: config["feed_url"],
         current_feed_url,
