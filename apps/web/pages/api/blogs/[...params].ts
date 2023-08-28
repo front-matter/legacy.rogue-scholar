@@ -17,6 +17,8 @@ const extractUrls = require("extract-urls")
 const jsdom = require("jsdom")
 const { JSDOM } = jsdom
 
+// import { is } from "date-fns/locale"
+
 import {
   decodeHtmlCharCodes,
   detectLanguage,
@@ -173,14 +175,14 @@ export function getSlug(url: string) {
   const uri = new URL(url)
 
   if (!["www", "blog", "medium"].includes(uri.host.split(".")[0])) {
-    return uri.host.split(".")[0]
+    url = uri.host.split(".")[0]
+  } else if (uri.host.split(".").length > 2) {
+    url = uri.host.split(".")[1]
+  } else if (uri.host.split(".")[0] === "medium") {
+    url = uri.pathname
   }
-  if (uri.host.split(".").length > 2) {
-    return uri.host.split(".")[1]
-  }
-  if (uri.host.split(".")[0] === "medium") {
-    return uri.pathname
-  }
+  url = url.replace(/-/g, "_")
+  return url
 }
 
 export function getContent(feedEntry: any) {
@@ -515,7 +517,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, slug, feed_url, current_feed_url, home_page_url, use_mastodon, generator, title, category, status, user_id, authors, plan"
+      "id, slug, feed_url, current_feed_url, home_page_url, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan"
     )
     .eq("id", blogSlug)
     .maybeSingle()
@@ -535,12 +537,15 @@ export async function getSingleBlog(blogSlug: string) {
       ).trim()
       const current_feed_url = config["current_feed_url"]
       let home_page_url =
+        config["home_page_url"] ||
         []
           .concat(get(feedData, "link", []))
           .find((link) => get(link, "@_rel", null) === "alternate") ||
-        config["home_page_url"]
+        [].concat(get(feedData, "link", []))[0]
 
-      home_page_url = get(home_page_url, "@_href", null) || home_page_url
+      if (isObject(home_page_url)) {
+        home_page_url = get(home_page_url, "@_href", null)
+      }
       home_page_url = home_page_url ? home_page_url.replace(/\/+$/g, "") : null
       let feed_format =
         []
@@ -579,7 +584,10 @@ export async function getSingleBlog(blogSlug: string) {
 
       language = language.split("-")[0]
 
-      let favicon = get(feedData, "image.url", null) || config["favicon"]
+      let favicon =
+        config["favicon"] ||
+        get(feedData, "image.url", null) ||
+        get(feedData, "icon", null)
 
       favicon =
         favicon !== "https://s0.wp.com/i/buttonw-com.png" ? favicon : null
