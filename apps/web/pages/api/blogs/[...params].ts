@@ -56,6 +56,9 @@ export const authorIDs = {
   "Marco Tullney": "https://orcid.org/0000-0002-5111-2788",
   "Andrew Heiss": "https://orcid.org/0000-0002-3948-3914",
   "Sebastian Karcher": "https://orcid.org/0000-0001-8249-7388",
+  "Colin Elman": "https://orcid.org/0000-0003-1004-4640",
+  "Veronica Herrera": "https://orcid.org/0000-0003-4935-1226",
+  "Dessislava Kirilova": "https://orcid.org/0000-0002-3824-9982",
 }
 
 const normalizeAuthor = (author: AuthorType) => {
