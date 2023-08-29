@@ -76,6 +76,12 @@ const normalizeAuthor = (author: AuthorType) => {
     author["name"] = "Sebastian Karcher"
   } else if (author["name"] === "benosteen") {
     author["name"] = "Ben O'Steen"
+  } else if (author["name"] === "marilena_daquino") {
+    author["name"] = "Marilena Daquino"
+  } else if (author["name"] === "markmacgillivray") {
+    author["name"] = "Mark MacGillivray"
+  } else if (author["name"] === "richarddjones") {
+    author["name"] = "Richard Jones"
   }
   author["name"] = author["name"].replace(/, MD$/, "")
   return author
