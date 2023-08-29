@@ -18,7 +18,7 @@ const extractUrls = require("extract-urls")
 const jsdom = require("jsdom")
 const { JSDOM } = jsdom
 
-// import { is } from "date-fns/locale"
+// import { is, el } from "date-fns/locale"
 
 import {
   decodeHtmlCharCodes,
@@ -74,6 +74,8 @@ const normalizeAuthor = (author: AuthorType) => {
     author["name"] = "Norbisley Fernández"
   } else if (author["name"] === "skarcher@syr.edu") {
     author["name"] = "Sebastian Karcher"
+  } else if (author["name"] === "benosteen") {
+    author["name"] = "Ben O'Steen"
   }
   author["name"] = author["name"].replace(/, MD$/, "")
   return author
@@ -159,6 +161,8 @@ const normalizeTag = (tag: string) => {
     GigaByte: "GigaByte",
     GigaDB: "GigaDB",
     GraphQL: "GraphQL",
+    JATS: "JATS",
+    JISC: "JISC",
     "JSON-LD": "JSON-LD",
     microCT: "MicroCT",
     MTE14: "MTE14",
