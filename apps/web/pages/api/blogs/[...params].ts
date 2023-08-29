@@ -1,7 +1,6 @@
 import { extract } from "@extractus/feed-extractor"
 import isRelativeUrl from "is-relative-url"
 import {
-  camelCase,
   get,
   isArray,
   isEmpty,
@@ -178,12 +177,13 @@ const normalizeTag = (tag: string) => {
     RStats: "RStats",
     ScienceEurope: "Science Europe",
     TreeBASE: "TreeBASE",
+    "Web 2.0": "Web 2.0",
     WikiCite: "WikiCite",
     WikiData: "WikiData",
   }
 
   tag = tag.replace("#", "")
-  tag = get(fixedTags, tag, startCase(camelCase(tag)).replace(/ /g, ""))
+  tag = get(fixedTags, tag, startCase(tag))
   return tag
 }
 
