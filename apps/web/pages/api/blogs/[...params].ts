@@ -55,7 +55,6 @@ export const authorIDs = {
   "Lars Willighagen": "https://orcid.org/0000-0002-4751-4637",
   "Marco Tullney": "https://orcid.org/0000-0002-5111-2788",
   "Andrew Heiss": "https://orcid.org/0000-0002-3948-3914",
-  "Henry Rzepa": "https://orcid.org/0000-0002-8635-8390",
   "Sebastian Karcher": "https://orcid.org/0000-0001-8249-7388",
 }
 
@@ -73,6 +72,14 @@ const normalizeAuthor = (author: AuthorType) => {
     author["name"] = "Norbisley Fernández"
   } else if (author["name"] === "skarcher@syr.edu") {
     author["name"] = "Sebastian Karcher"
+  } else if (author["name"] === "celman@maxwell.syr.edu") {
+    author["name"] = "Colin Elman"
+  } else if (author["name"] === "colinelman@twcny.rr.com") {
+    author["name"] = "Colin Elman"
+  } else if (author["name"] === "veronica.herrera@uconn.edu") {
+    author["name"] = "Veronica Herrera"
+  } else if (author["name"] === "dessi.kirilova@syr.edu") {
+    author["name"] = "Dessislava Kirilova"
   } else if (author["name"] === "benosteen") {
     author["name"] = "Ben O'Steen"
   } else if (author["name"] === "marilena_daquino") {
