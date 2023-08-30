@@ -310,6 +310,7 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
   const reference = getReferences(post.body_html)
   const images = getImages(post.body_html, blog)
   const published_at = toUnixTime(post.post_date)
+  const tags = post.postTags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
 
   return {
     authors: authors,
@@ -324,7 +325,7 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
     images: images,
     language: blog.language,
     reference: reference,
-    tags: post.postTags,
+    tags: tags,
     title: post.title,
     url: post.canonical_url,
   }
@@ -358,7 +359,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       url.searchParams.set("offset", String(startPage))
       url.searchParams.set("limit", "10")
   }
-
+  // console.log(blog.feed_url)
   const feed_url = url.href
 
   let blogWithPosts = {}
