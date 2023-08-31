@@ -486,6 +486,18 @@ export function getAbstract(html: string, maxlen: number = 450) {
   return decodeHtmlCharCodes(truncated)
 }
 
+export function getTitle(html: string) {
+  html = html
+    .replace(/(<br>|<p>)/g, " ")
+    .replace(/(h1>|h2>|h3>|h4>)/g, "strong>")
+  const sanitized = sanitizeHtml(html, {
+    allowedTags: ["b", "i", "em", "strong", "sub", "sup"],
+    allowedAttributes: {},
+  })
+
+  return decodeHtmlCharCodes(sanitized).trim()
+}
+
 export function parseGenerator(generator: any) {
   if (isObject(generator)) {
     let name = generator["#text"]

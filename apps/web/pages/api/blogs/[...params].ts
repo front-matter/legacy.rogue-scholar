@@ -24,6 +24,7 @@ import {
   detectLanguage,
   getAbstract,
   getMastodonAccount,
+  getTitle,
   isDoi,
   isOrcid,
   isRor,
@@ -306,6 +307,7 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
       url: url,
     }
   })
+  const title = getTitle(post.title)
   const summary = getAbstract(post.body_html)
   const reference = getReferences(post.body_html)
   const images = getImages(post.body_html, blog)
@@ -326,7 +328,7 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
     language: blog.language,
     reference: reference,
     tags: tags,
-    title: post.title,
+    title: title,
     url: post.canonical_url,
   }
 }
@@ -496,7 +498,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             ""
 
           if (isString(title)) {
-            title = decodeHtmlCharCodes(title).trim()
+            title = getTitle(title)
           } else {
             title = ""
           }

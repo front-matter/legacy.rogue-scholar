@@ -60,7 +60,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                   )}
                   <div className="group relative max-w-4xl">
                     <h3 className="mt-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
-                      {post.title}
+                      {parse(String(post.title))}
                     </h3>
                     <Byline post={post} blog={blog} />
                     {post.doi && (
