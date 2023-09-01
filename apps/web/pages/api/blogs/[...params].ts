@@ -105,6 +105,16 @@ const getReferences = (content_html: string) => {
     2
   )
 
+  // alternative extract links from a footnotes section
+  // if (reference_html.length == 1) {
+  //   const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
+
+  //   const footnotes = dom.window.document.querySelector("div#footnotes")
+
+  //   if (footnotes) {
+  //     console.log(footnotes.innerHTML)
+  //   }
+  // }
   if (reference_html.length == 1) {
     return []
   }
@@ -217,7 +227,7 @@ export function getContent(feedEntry: any) {
     get(feedEntry, "content:encoded", null) ||
     get(feedEntry, "content.#text", null) ||
     get(feedEntry, "description", null) ||
-    get(feedEntry, "content_text", null) ||
+    get(feedEntry, "content_html", null) ||
     ""
 
   content_html = sanitizeHtml(content_html, {
@@ -386,7 +396,9 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         getExtraEntryFields: (feedEntry) => {
           // console.log(feedEntry)
           let author: any =
-            get(feedEntry, "author", null) || get(feedEntry, "dc:creator", [])
+            get(feedEntry, "author", null) ||
+            get(feedEntry, "authors", null) ||
+            get(feedEntry, "dc:creator", [])
 
           if (isString(author)) {
             author = {
@@ -405,6 +417,9 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
 
           const authors = author.map((auth) => {
             auth = normalizeAuthor(auth)
+            if (isOrcid(get(auth, "url", null))) {
+              auth["uri"] = get(auth, "url")
+            }
 
             let url = authorIDs[auth["name"]] || null
 
@@ -447,6 +462,11 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
               "utm_source",
             ],
           })
+          // const base_url = new URL(url || "")
+
+          // if (["ropensci"].includes(String(blog_slug))) {
+          //   base_url.pathname = ""
+          // }
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
           const images = getImages(content_html, url)
@@ -481,7 +501,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           }
           const language = detectLanguage(content_html || "en")
           const reference = content_html ? getReferences(content_html) : []
-          const tags = []
+          let tags = []
             .concat(get(feedEntry, "category", []))
             .map((tag: string) => {
               tag = decodeHtmlCharCodes(
@@ -491,6 +511,15 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
               return tag
             })
             .slice(0, 5)
+
+          if (isEmpty(tags)) {
+            tags = get(feedEntry, "tags", [])
+            if (isArray(tags)) {
+              tags = tags.map((tag: string) => normalizeTag(tag)).slice(0, 5)
+            } else {
+              tags = []
+            }
+          }
           let title =
             get(feedEntry, "title.#text", null) ||
             get(feedEntry, "title", null) ||
