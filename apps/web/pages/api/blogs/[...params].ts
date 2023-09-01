@@ -648,6 +648,7 @@ export async function getSingleBlog(blogSlug: string) {
           ? "application/atom+xml"
           : null ||
             get(feedData, "atom:link.@_type", null) ||
+            (get(feedData, "version", null) && "application/feed+json") ||
             "application/rss+xml"
 
       let generator = get(feedData, "generator", null)
