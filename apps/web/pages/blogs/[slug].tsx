@@ -24,7 +24,11 @@ export async function getServerSideProps(ctx) {
   let languages = negotiator.languages(locales)
 
   languages.push(ctx.locale)
+
+  // always include posts in English, Spanish and German
   languages.push("en")
+  languages.push("de")
+  languages.push("es")
   languages = uniq(languages).toString()
 
   const query = ctx.query.query || ""
