@@ -170,7 +170,7 @@ export async function updateSinglePost(post: PostType) {
 }
 
 export async function upsertSinglePost(post: PostType) {
-  if (isEmpty(post.title)) {
+  if (isEmpty(post.title) || (post.published_at || 0) > Date.now() / 1000) {
     return null
   }
 

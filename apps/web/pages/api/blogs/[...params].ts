@@ -234,7 +234,7 @@ export function getContent(feedEntry: any) {
   return content_html
 }
 
-export function getImages(content_html: string, blog: BlogType) {
+export function getImages(content_html: string, url: string) {
   const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
   const images: Array<{
     src: string
@@ -251,12 +251,12 @@ export function getImages(content_html: string, blog: BlogType) {
       if (isString(srcset)) {
         srcset = srcset
           .split(", ")
-          .map((src) => (isValidUrl(src) ? src : `${blog.home_page_url}${src}`))
+          .map((src) => (isValidUrl(src) ? src : `${url}/${src}`))
           .join(", ")
       }
 
       return {
-        src: isValidUrl(src) ? src : `${blog.home_page_url}${src}`,
+        src: isValidUrl(src) ? src : `${url}/${src}`,
         srcset: srcset,
         width: image.getAttribute("width"),
         height: image.getAttribute("height"),
@@ -310,7 +310,7 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
   const title = getTitle(post.title)
   const summary = getAbstract(post.body_html)
   const reference = getReferences(post.body_html)
-  const images = getImages(post.body_html, blog)
+  const images = getImages(post.content_html, post.url)
   const published_at = toUnixTime(post.post_date)
   const tags = post.postTags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
 
@@ -421,9 +421,35 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           const blog_id = blogSlug
           const blog_name = blog.title
           const blog_slug = blog.slug
+          let url: any = get(feedEntry, "link", [])
+
+          if (isArray(url) && url.length > 0) {
+            url = url.find((link) => get(link, "@_rel", null) === "alternate")
+            url = get(url, "@_href", null)
+          }
+          if (isObject(url)) {
+            url = get(url, "@_href", null)
+          }
+          if (isNull(url) || isEmpty(url)) {
+            url = get(feedEntry, "url", null)
+          }
+          url = decodeHtmlCharCodes(url)
+          url = normalizeUrl(url, {
+            stripWWW: false,
+            removeQueryParameters: [
+              "ref",
+              "referrer",
+              "origin",
+              "source",
+              "utm_content",
+              "utm_medium",
+              "utm_campaign",
+              "utm_source",
+            ],
+          })
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
-          const images = getImages(content_html, blog)
+          const images = getImages(content_html, url)
           const image =
             get(feedEntry, "media:content.@_url", null) ||
             get(feedEntry, "enclosure.@_url", null) ||
@@ -453,33 +479,6 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           if (published_at > updated_at) {
             updated_at = published_at
           }
-          let url: any = get(feedEntry, "link", [])
-
-          if (isArray(url) && url.length > 0) {
-            url = url.find((link) => get(link, "@_rel", null) === "alternate")
-            url = get(url, "@_href", null)
-          }
-          if (isObject(url)) {
-            url = get(url, "@_href", null)
-          }
-          if (isNull(url) || isEmpty(url)) {
-            url = get(feedEntry, "url", null)
-          }
-          url = decodeHtmlCharCodes(url)
-          url = normalizeUrl(url, {
-            stripWWW: false,
-            removeQueryParameters: [
-              "ref",
-              "referrer",
-              "origin",
-              "source",
-              "utm_content",
-              "utm_medium",
-              "utm_campaign",
-              "utm_source",
-            ],
-          })
-
           const language = detectLanguage(content_html || "en")
           const reference = content_html ? getReferences(content_html) : []
           const tags = []
