@@ -1,5 +1,4 @@
 import { extract } from "@extractus/feed-extractor"
-import isRelativeUrl from "is-relative-url"
 import {
   get,
   isArray,
@@ -218,6 +217,7 @@ export function getContent(feedEntry: any) {
     get(feedEntry, "content:encoded", null) ||
     get(feedEntry, "content.#text", null) ||
     get(feedEntry, "description", null) ||
+    get(feedEntry, "content_text", null) ||
     ""
 
   content_html = sanitizeHtml(content_html, {
@@ -362,7 +362,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       url.searchParams.set("limit", "10")
   }
   // console.log(blog.feed_url)
-  const feed_url = url.href
+  const feed_url = String(url.href)
 
   let blogWithPosts = {}
 
@@ -380,7 +380,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
         blogWithPosts["entries"] = []
       }
     } else {
-      blogWithPosts = await extract(feed_url as string, {
+      blogWithPosts = await extract(feed_url, {
         useISODateFormat: true,
         descriptionMaxLen: 500,
         getExtraEntryFields: (feedEntry) => {
@@ -445,6 +445,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
 
           const published_at = toUnixTime(
             get(feedEntry, "pubDate", null) ||
+              get(feedEntry, "date_published", null) ||
               get(feedEntry, "published", "1970-01-01")
           )
           let updated_at = toUnixTime(get(feedEntry, "updated", "1970-01-01"))
@@ -461,9 +462,8 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
           if (isObject(url)) {
             url = get(url, "@_href", null)
           }
-          // feed contains relative urls
-          if (isRelativeUrl(url)) {
-            url = blog.base_url + url
+          if (isNull(url) || isEmpty(url)) {
+            url = get(feedEntry, "url", null)
           }
           url = decodeHtmlCharCodes(url)
           url = normalizeUrl(url, {

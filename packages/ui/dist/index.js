@@ -21,6 +21,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -360,6 +364,10 @@ var require_react_development = __commonJS({
           return null;
         }
         var ReactCurrentDispatcher = {
+          /**
+           * @internal
+           * @type {ReactComponent}
+           */
           current: null
         };
         var ReactCurrentBatchConfig = {
@@ -367,10 +375,15 @@ var require_react_development = __commonJS({
         };
         var ReactCurrentActQueue = {
           current: null,
+          // Used to reproduce behavior of `batchedUpdates` in legacy mode.
           isBatchingLegacy: false,
           didScheduleLegacyUpdate: false
         };
         var ReactCurrentOwner = {
+          /**
+           * @internal
+           * @type {ReactComponent}
+           */
           current: null
         };
         var ReactDebugCurrentFrame = {};
@@ -462,15 +475,62 @@ var require_react_development = __commonJS({
           }
         }
         var ReactNoopUpdateQueue = {
+          /**
+           * Checks whether or not this composite component is mounted.
+           * @param {ReactClass} publicInstance The instance we want to test.
+           * @return {boolean} True if mounted, false otherwise.
+           * @protected
+           * @final
+           */
           isMounted: function(publicInstance) {
             return false;
           },
+          /**
+           * Forces an update. This should only be invoked when it is known with
+           * certainty that we are **not** in a DOM transaction.
+           *
+           * You may want to call this when you know that some deeper aspect of the
+           * component's state has changed but `setState` was not called.
+           *
+           * This will not invoke `shouldComponentUpdate`, but it will invoke
+           * `componentWillUpdate` and `componentDidUpdate`.
+           *
+           * @param {ReactClass} publicInstance The instance that should rerender.
+           * @param {?function} callback Called after component is updated.
+           * @param {?string} callerName name of the calling function in the public API.
+           * @internal
+           */
           enqueueForceUpdate: function(publicInstance, callback, callerName) {
             warnNoop(publicInstance, "forceUpdate");
           },
+          /**
+           * Replaces all of the state. Always use this or `setState` to mutate state.
+           * You should treat `this.state` as immutable.
+           *
+           * There is no guarantee that `this.state` will be immediately updated, so
+           * accessing `this.state` after calling this method may return the old value.
+           *
+           * @param {ReactClass} publicInstance The instance that should rerender.
+           * @param {object} completeState Next state.
+           * @param {?function} callback Called after component is updated.
+           * @param {?string} callerName name of the calling function in the public API.
+           * @internal
+           */
           enqueueReplaceState: function(publicInstance, completeState, callback, callerName) {
             warnNoop(publicInstance, "replaceState");
           },
+          /**
+           * Sets a subset of the state. This only exists because _pendingState is
+           * internal. This provides a merging strategy that is not available to deep
+           * properties which is confusing. TODO: Expose pendingState or don't use it
+           * during the merge.
+           *
+           * @param {ReactClass} publicInstance The instance that should rerender.
+           * @param {object} partialState Next partial state to be merged with state.
+           * @param {?function} callback Called after component is updated.
+           * @param {?string} Name of the calling function in the public API.
+           * @internal
+           */
           enqueueSetState: function(publicInstance, partialState, callback, callerName) {
             warnNoop(publicInstance, "setState");
           }
@@ -715,11 +775,14 @@ var require_react_development = __commonJS({
         }
         var ReactElement = function(type, key, ref, self, source, owner, props) {
           var element = {
+            // This tag allows us to uniquely identify this as a React Element
             $$typeof: REACT_ELEMENT_TYPE,
+            // Built-in properties that belong on the element
             type,
             key,
             ref,
             props,
+            // Record the component responsible for creating this element.
             _owner: owner
           };
           {
@@ -938,7 +1001,14 @@ var require_react_development = __commonJS({
                 }
                 mappedChild = cloneAndReplaceKey(
                   mappedChild,
-                  escapedPrefix + (mappedChild.key && (!_child || _child.key !== mappedChild.key) ? escapeUserProvidedKey("" + mappedChild.key) + "/" : "") + childKey
+                  // Keep both the (mapped) and old keys if they differ, just as
+                  // traverseAllChildren used to do for objects as children
+                  escapedPrefix + // $FlowFixMe Flow incorrectly thinks React.Portal doesn't have a key
+                  (mappedChild.key && (!_child || _child.key !== mappedChild.key) ? (
+                    // $FlowFixMe Flow incorrectly thinks existing element's key can be a number
+                    // eslint-disable-next-line react-internal/safe-string-coercion
+                    escapeUserProvidedKey("" + mappedChild.key) + "/"
+                  ) : "") + childKey
                 );
               }
               array.push(mappedChild);
@@ -1019,11 +1089,20 @@ var require_react_development = __commonJS({
         function createContext(defaultValue) {
           var context = {
             $$typeof: REACT_CONTEXT_TYPE,
+            // As a workaround to support multiple concurrent renderers, we categorize
+            // some renderers as primary and others as secondary. We only expect
+            // there to be two concurrent renderers at most: React Native (primary) and
+            // Fabric (secondary); React DOM (primary) and React ART (secondary).
+            // Secondary renderers store their context values on separate fields.
             _currentValue: defaultValue,
             _currentValue2: defaultValue,
+            // Used to track how many concurrent renderers this context currently
+            // supports within in a single renderer. Such as parallel server rendering.
             _threadCount: 0,
+            // These are circular
             Provider: null,
             Consumer: null,
+            // Add these to use same hidden class in VM as ServerContext
             _defaultValue: null,
             _globalName: null
           };
@@ -1151,6 +1230,7 @@ var require_react_development = __commonJS({
         }
         function lazy(ctor) {
           var payload = {
+            // We use these fields to store the result.
             _status: Uninitialized,
             _result: ctor
           };
@@ -1244,7 +1324,11 @@ var require_react_development = __commonJS({
             return true;
           }
           if (typeof type === "object" && type !== null) {
-            if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== void 0) {
+            if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || // This needs to include all possible module reference object
+            // types supported by any Flight configuration anywhere since
+            // we don't know which Flight build this will end up being used
+            // with.
+            type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== void 0) {
               return true;
             }
           }
@@ -1760,7 +1844,9 @@ var require_react_development = __commonJS({
             var propTypes;
             if (typeof type === "function") {
               propTypes = type.propTypes;
-            } else if (typeof type === "object" && (type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_MEMO_TYPE)) {
+            } else if (typeof type === "object" && (type.$$typeof === REACT_FORWARD_REF_TYPE || // Note: Memo only checks outer props here.
+            // Inner props are checked in the reconciler.
+            type.$$typeof === REACT_MEMO_TYPE)) {
               propTypes = type.propTypes;
             } else {
               return;
@@ -2230,7 +2316,11 @@ var require_react_jsx_runtime_development = __commonJS({
             return true;
           }
           if (typeof type === "object" && type !== null) {
-            if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== void 0) {
+            if (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || // This needs to include all possible module reference object
+            // types supported by any Flight configuration anywhere since
+            // we don't know which Flight build this will end up being used
+            // with.
+            type.$$typeof === REACT_MODULE_REFERENCE || type.getModuleId !== void 0) {
               return true;
             }
           }
@@ -2710,11 +2800,14 @@ var require_react_jsx_runtime_development = __commonJS({
         }
         var ReactElement = function(type, key, ref, self, source, owner, props) {
           var element = {
+            // This tag allows us to uniquely identify this as a React Element
             $$typeof: REACT_ELEMENT_TYPE,
+            // Built-in properties that belong on the element
             type,
             key,
             ref,
             props,
+            // Record the component responsible for creating this element.
             _owner: owner
           };
           {
@@ -2908,7 +3001,9 @@ var require_react_jsx_runtime_development = __commonJS({
             var propTypes;
             if (typeof type === "function") {
               propTypes = type.propTypes;
-            } else if (typeof type === "object" && (type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_MEMO_TYPE)) {
+            } else if (typeof type === "object" && (type.$$typeof === REACT_FORWARD_REF_TYPE || // Note: Memo only checks outer props here.
+            // Inner props are checked in the reconciler.
+            type.$$typeof === REACT_MEMO_TYPE)) {
               propTypes = type.propTypes;
             } else {
               return;
@@ -3051,39 +3146,49 @@ var Button = () => {
 0 && (module.exports = {
   Button
 });
-/**
- * @license React
- * react-jsx-runtime.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-/**
- * @license React
- * react-jsx-runtime.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-/**
- * @license React
- * react.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-/**
- * @license React
- * react.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
+/*! Bundled license information:
+
+react/cjs/react.production.min.js:
+  (**
+   * @license React
+   * react.production.min.js
+   *
+   * Copyright (c) Facebook, Inc. and its affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
+
+react/cjs/react.development.js:
+  (**
+   * @license React
+   * react.development.js
+   *
+   * Copyright (c) Facebook, Inc. and its affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
+
+react/cjs/react-jsx-runtime.production.min.js:
+  (**
+   * @license React
+   * react-jsx-runtime.production.min.js
+   *
+   * Copyright (c) Facebook, Inc. and its affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
+
+react/cjs/react-jsx-runtime.development.js:
+  (**
+   * @license React
+   * react-jsx-runtime.development.js
+   *
+   * Copyright (c) Facebook, Inc. and its affiliates.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   *)
+*/
