@@ -45,7 +45,7 @@ export async function getServerSideProps(ctx) {
     .documents()
     .search(searchParameters)
   const posts = data.hits?.map((hit) => hit.document)
-  const pages = Math.ceil(data.found / 15)
+  const pages = Math.ceil(data.found / 10)
   const pagination = {
     base_url: "/posts",
     query: query,
