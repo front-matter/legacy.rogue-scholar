@@ -37,7 +37,7 @@ export async function getServerSideProps(ctx) {
       "tags,title,authors.name,authors.url,summary,content_html,reference",
     filter_by: filterBy,
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
-    per_page: 15,
+    per_page: 10,
     page: page && page > 0 ? page : 1,
   }
   const data: PostSearchResponse = await typesense

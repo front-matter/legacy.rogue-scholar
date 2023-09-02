@@ -253,8 +253,8 @@ export function getImages(content_html: string, url: string) {
     height: number
     sizes: string
     alt: string
-  }> = Array.from(dom.window.document.querySelectorAll("img")).map(
-    (image: any) => {
+  }> = Array.from(dom.window.document.querySelectorAll("img"))
+    .map((image: any) => {
       const src = image.getAttribute("src")
       let srcset = image.getAttribute("srcset")
 
@@ -264,7 +264,6 @@ export function getImages(content_html: string, url: string) {
           .map((src) => (isValidUrl(src) ? src : `${url}/${src}`))
           .join(", ")
       }
-
       return {
         src: isValidUrl(src) ? src : `${url}/${src}`,
         srcset: srcset,
@@ -273,8 +272,8 @@ export function getImages(content_html: string, url: string) {
         sizes: image.getAttribute("sizes"),
         alt: image.getAttribute("alt"),
       }
-    }
-  )
+    })
+    .filter((image) => image["src"] !== null && image["src"] !== "")
 
   return images
 }
@@ -478,6 +477,9 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
               .map((image) => image.src)[0] ||
             (images || [])
               .filter((image: any) => {
+                if (image["src"] === "") {
+                  return false
+                }
                 const url = new URL(image["src"])
 
                 if (["s.w.org", "i.creativecommons.org"].includes(url.host)) {
@@ -565,7 +567,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
 
   if (
     postCount > 10 &&
-    ["Jekyll", "Hugo", "Quarto", "Ghost"].includes(String(generator))
+    ["Hugo", "Jekyll", "Quarto", "Ghost"].includes(String(generator))
   ) {
     posts = posts.slice(startPage, endPage)
   }
@@ -774,7 +776,7 @@ export default async function handler(req, res) {
         query_by:
           "tags,title,authors.name,authors.url,summary,content_html,reference",
         sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
-        per_page: 15,
+        per_page: 10,
         page: page && page > 0 ? page : 1,
       }
       const data: PostSearchResponse = await typesense

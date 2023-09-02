@@ -102,7 +102,7 @@ export async function createDigest() {
       SevenDaysAgo
     )} && blog_slug:!=[researchsoft] && language:=[en]`,
     sort_by: "published_at:asc",
-    per_page: 15,
+    per_page: 10,
   }
 
   const data: PostSearchResponse = await typesense
@@ -387,7 +387,7 @@ export default async function handler(req, res) {
         query_by:
           "tags,title,authors.name,authors.url,summary,content_html,reference",
         sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
-        per_page: 15,
+        per_page: 10,
         page: page && page > 0 ? page : 1,
       }
       const data: PostSearchResponse = await typesense
