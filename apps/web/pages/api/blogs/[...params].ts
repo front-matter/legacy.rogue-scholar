@@ -351,7 +351,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
 
   // limit number of pages for free plan to 5 (50 posts)
   page = blog.plan === "Starter" ? Math.min(page, 5) : page
-  let startPage = page > 0 ? (page - 1) * 10 + 1 : 1
+  let startPage = page > 0 ? (page - 1) * 50 + 1 : 1
 
   // handle pagination depending on blogging platform
   switch (generator) {
@@ -360,15 +360,15 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       break
     case "Blogger":
       url.searchParams.set("start-index", String(startPage))
-      url.searchParams.set("max-results", String(10))
+      url.searchParams.set("max-results", String(50))
       break
     case "Substack":
-      startPage = page > 0 ? (page - 1) * 10 : 0
+      startPage = page > 0 ? (page - 1) * 50 : 0
 
       url.pathname = "api/v1/posts/"
       url.searchParams.set("sort", "new")
       url.searchParams.set("offset", String(startPage))
-      url.searchParams.set("limit", "10")
+      url.searchParams.set("limit", "50")
   }
   // console.log(blog.feed_url)
   const feed_url = String(url.href)
@@ -562,11 +562,11 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
   // handle pagination depending on blogging platform
   const postCount = posts.length
 
-  startPage = page > 0 ? (page - 1) * 10 : 0
-  const endPage = page > 0 ? page * 10 : 10
+  startPage = page > 0 ? (page - 1) * 50 : 0
+  const endPage = page > 0 ? page * 50 : 50
 
   if (
-    postCount > 10 &&
+    postCount > 50 &&
     ["Hugo", "Jekyll", "Quarto", "Ghost"].includes(String(generator))
   ) {
     posts = posts.slice(startPage, endPage)
@@ -824,7 +824,20 @@ export default async function handler(req, res) {
   ) {
     res.status(401).json({ message: "Unauthorized" })
   } else if (req.method === "POST") {
-    if (action === "posts") {
+    if (action === "index") {
+      const { error } = await supabase
+        .from("posts")
+        .update({ not_indexed: true })
+        .eq("blog_id", slug)
+
+      if (error) {
+        console.log(error)
+      }
+
+      res
+        .status(200)
+        .json({ message: `Indexing all posts for blog ${slug} started` })
+    } else if (action === "posts") {
       let posts: PostType[] = []
 
       try {
