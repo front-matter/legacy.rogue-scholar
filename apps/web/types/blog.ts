@@ -36,6 +36,7 @@ export interface PostType {
   authors?: AuthorType[]
   image?: string
   content_html?: string
+  content_text?: string
   reference?: ReferenceType[]
   images?: string[]
   tags?: string[]
