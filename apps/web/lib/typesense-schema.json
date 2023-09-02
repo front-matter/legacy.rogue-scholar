@@ -146,16 +146,6 @@
       "index": true,
       "infix": false,
       "locale": "",
-      "name": "authors",
-      "optional": true,
-      "sort": false,
-      "type": "object[]"
-    },
-    {
-      "facet": false,
-      "index": true,
-      "infix": false,
-      "locale": "",
       "name": "authors.name",
       "optional": true,
       "sort": false,
@@ -243,6 +233,6 @@
     }
   ],
   "default_sorting_field": "published_at",
-  "token_separators": ["/", ".", ":"],
+  "token_separators": ["/", ".", "-"],
   "enable_nested_fields": true
 }
