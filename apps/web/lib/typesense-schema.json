@@ -177,7 +177,7 @@
       "infix": false,
       "locale": "",
       "name": "published_at",
-      "optional": true,
+      "optional": false,
       "sort": true,
       "type": "int64"
     },
@@ -243,6 +243,6 @@
     }
   ],
   "default_sorting_field": "published_at",
-  "token_separators": [":", "/", "."],
+  "token_separators": ["/", ".", ":"],
   "enable_nested_fields": true
 }
