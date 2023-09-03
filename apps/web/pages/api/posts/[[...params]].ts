@@ -302,6 +302,7 @@ export default async function handler(req, res) {
         .select(postsWithBlogSelect)
         .not("blogs.prefix", "is", "null")
         .is("doi", null)
+        .order("published_at", { ascending: false })
         .limit(15)
 
       if (error) {
@@ -316,6 +317,7 @@ export default async function handler(req, res) {
         .not("blogs.prefix", "is", "null")
         .not("doi", "is", "null")
         .eq("not_indexed", true)
+        .order("updated_at", { ascending: false })
         .limit(15)
 
       if (error) {
