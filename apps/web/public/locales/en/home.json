@@ -1,10 +1,4 @@
 {
-  "categories.agriculturalSciences": "Agricultural Sciences",
-  "categories.engineeringAndTechnology": "Engineering and Technology",
-  "categories.humanities": "Humanities",
-  "categories.medicalAndHealthSciences": "Medicine and Health Sciences",
-  "categories.naturalSciences": "Natural Sciences",
-  "categories.socialSciences": "Social Sciences",
   "dashboardButton": "Dashboard",
   "documentationButton": "Documentation",
   "faq.answers.1": "The Rogue Scholar is available with limited functionality since April 1, 2023, and full functionality (DOI and metadata registration, archiving of full-text content, and full-text search) since July 1, 2023.",

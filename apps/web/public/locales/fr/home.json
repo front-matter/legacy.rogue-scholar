@@ -1,10 +1,4 @@
 {
-  "categories.agriculturalSciences": "Sciences agricoles",
-  "categories.engineeringAndTechnology": "Ingénierie et technologie",
-  "categories.humanities": "Sciences humaines",
-  "categories.medicalAndHealthSciences": "Médecine et sciences de la santé",
-  "categories.naturalSciences": "Sciences naturelles",
-  "categories.socialSciences": "Sciences sociales",
   "dashboardButton": "Tableau de bord",
   "documentationButton": "Documentation",
   "faq.answers.1": "La première version de Rogue Scholar est sortie en avril 2023. La fonctionnalité complète (archivage, recherche plein texte, DOI avec métadonnées) est disponible depuis le 1er juillet 2023.",
