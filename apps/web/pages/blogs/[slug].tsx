@@ -1,5 +1,3 @@
-import { uniq } from "lodash"
-import Negotiator from "negotiator"
 import Head from "next/head"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
@@ -19,24 +17,18 @@ import { BlogType, PaginationType, PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
-  const negotiator = new Negotiator(ctx.req)
-  const locales = ["en", "de", "es", "pt", "fr", "it"]
-  let languages = negotiator.languages(locales)
-
-  languages.push(ctx.locale)
-
-  // always include posts in English, Spanish and German
-  languages.push("en")
-  languages.push("de")
-  languages.push("es")
-  languages = uniq(languages).toString()
-
+  const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
-  const tags = ctx.query.tags || ""
-  let filterBy = `blog_slug:=${ctx.params.slug} && language:=[${languages}]`
+  const tags = ctx.query.tags || null
+  const language = ctx.query.language || null
+
+  let filterBy = `blog_slug:=${ctx.params.slug}`
 
   filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
-  const page = parseInt(ctx.query.page || 1)
+  filterBy = language ? filterBy + ` && language:[${language}]` : filterBy
+
+  filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
+
   const { data: blog } = await supabase
     .from("blogs")
     .select(blogWithPostsSelect)
@@ -68,6 +60,7 @@ export async function getServerSideProps(ctx) {
   const pagination = {
     base_url: "/blogs/" + ctx.params.slug,
     query: query,
+    language: language,
     tags: tags,
     page: page,
     pages: pages,
@@ -75,15 +68,14 @@ export async function getServerSideProps(ctx) {
     prev: page > 1 ? page - 1 : null,
     next: page < pages ? page + 1 : null,
   }
-  const locale = ctx.locale
 
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale!, ["common", "app"])),
+      ...(await serverSideTranslations(ctx.locale!, ["common", "app", "home"])),
       blog,
       posts,
       pagination,
-      locale,
+      locale: ctx.locale,
     },
   }
 }
@@ -101,7 +93,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
   pagination,
   locale,
 }) => {
-  const { t } = useTranslation("common")
+  const { t } = useTranslation(["common"])
 
   return (
     <>

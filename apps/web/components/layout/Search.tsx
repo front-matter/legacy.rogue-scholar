@@ -91,7 +91,7 @@ export default function Search({ pagination, locale }: Props) {
                 name="language"
                 type="radio"
                 onChange={() => setLanguage(la.id)}
-                defaultChecked={la.id === language}
+                defaultChecked={la.id === ""}
                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
               />
               <label
