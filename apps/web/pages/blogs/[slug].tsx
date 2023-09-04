@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash"
 import Head from "next/head"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
@@ -19,12 +20,12 @@ import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
-  const tags = ctx.query.tags || null
+  const tags = ctx.query.tags || ""
   const language = ctx.query.language || null
 
   let filterBy = `blog_slug:=${ctx.params.slug}`
 
-  filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
+  filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
   filterBy = language ? filterBy + ` && language:[${language}]` : filterBy
 
   filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy

@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
@@ -13,7 +14,7 @@ import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
-  const tags = ctx.query.tags || null
+  const tags = ctx.query.tags || ""
   const language = ctx.query.language || null
 
   // if (language && language !== ctx.locale) {
@@ -21,7 +22,7 @@ export async function getServerSideProps(ctx) {
   // }
   let filterBy = `blog_slug:!=[researchsoft]`
 
-  filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
+  filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
   filterBy = language ? filterBy + ` && language:[${language}]` : filterBy
 
   const searchParameters: PostSearchParams = {
