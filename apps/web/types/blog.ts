@@ -15,6 +15,7 @@ export interface ReferenceType {
 export interface PaginationType {
   base_url?: string
   query?: string
+  language?: string
   tags?: string
   page: number
   pages: number

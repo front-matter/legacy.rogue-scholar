@@ -54,7 +54,7 @@ export async function getServerSideProps(ctx) {
     q: query,
     filter_by: filterBy,
     query_by:
-      "tags,title,authors.name,authors.url,summary,content_html,reference",
+      "tags,title,authors.name,authors.url,reference.url,summary,content_html",
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
     per_page: 10,
     page: page && page > 0 ? page : 1,
@@ -75,6 +75,7 @@ export async function getServerSideProps(ctx) {
     prev: page > 1 ? page - 1 : null,
     next: page < pages ? page + 1 : null,
   }
+  const locale = ctx.locale
 
   return {
     props: {
@@ -82,6 +83,7 @@ export async function getServerSideProps(ctx) {
       blog,
       posts,
       pagination,
+      locale,
     },
   }
 }
@@ -90,12 +92,14 @@ type Props = {
   blog: BlogType
   posts: PostType[]
   pagination: PaginationType
+  locale: string
 }
 
 const BlogPage: React.FunctionComponent<Props> = ({
   blog,
   posts,
   pagination,
+  locale,
 }) => {
   const { t } = useTranslation("common")
 
@@ -138,7 +142,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
           <Blog blog={blog} />
           {blog.status == "active" && (
             <>
-              <Search />
+              <Search pagination={pagination} locale={locale} />
               <Pagination pagination={pagination} />
               {posts && (
                 <Posts posts={posts} pagination={pagination} blog={blog} />

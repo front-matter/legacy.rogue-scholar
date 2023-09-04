@@ -97,7 +97,7 @@ export async function createDigest() {
   const searchParameters: PostSearchParams = {
     q: "*",
     query_by:
-      "tags,title,authors.name,authors.url,summary,content_html,reference",
+      "tags,title,doi,authors.name,authors.url,reference.url,summary,content_html",
     filter_by: `published_at:>${toUnixTime(
       SevenDaysAgo
     )} && blog_slug:!=[researchsoft] && language:=[en]`,
@@ -388,7 +388,7 @@ export default async function handler(req, res) {
       const searchParameters: PostSearchParams = {
         q: query,
         query_by:
-          "tags,title,authors.name,authors.url,summary,content_html,reference",
+          "tags,title,doi,authors.name,authors.url,summary,content_html,reference",
         sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
         per_page: 10,
         page: page && page > 0 ? page : 1,

@@ -3,13 +3,24 @@ import { useTranslation } from "next-i18next"
 import { queryTypes, useQueryState } from "next-usequerystate"
 import { useRef, useState } from "react"
 
-export default function Search() {
-  const { t } = useTranslation("common")
+import { PaginationType } from "@/types/blog"
+
+type Props = {
+  pagination: PaginationType
+  locale: string
+}
+
+export default function Search({ pagination, locale }: Props) {
+  const { t } = useTranslation(["common", "home"])
   const [query, setQuery] = useQueryState("query")
   const [tags, setTags] = useQueryState("tags")
   const [page, setPage] = useQueryState("page", queryTypes.integer)
+  const [language, setLanguage] = useQueryState("language")
 
-  console.log(query, page)
+  // if (pagination.language !== locale) {
+  //   setLanguage("")
+  // }
+  console.log(query, page, language, tags, pagination)
   const [searchInput, setSearchInput] = useState("")
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -32,8 +43,14 @@ export default function Search() {
     setQuery("")
     setSearchInput("")
     setTags("")
+    // setLanguage("")
     inputRef.current?.focus()
   }
+
+  const languages = [
+    { id: "", title: "languages.all" },
+    { id: locale, title: "languages." + locale },
+  ]
 
   return (
     <div className="relative mx-auto max-w-2xl lg:max-w-4xl">
@@ -64,6 +81,29 @@ export default function Search() {
         onKeyDown={onKeyDown}
         ref={inputRef}
       />
+      <fieldset className="mb-2 mt-1">
+        <legend className="sr-only">language</legend>
+        <div className="space-y-2 sm:flex sm:items-center sm:space-x-10 sm:space-y-0">
+          {languages.map((la) => (
+            <div key={la.id} className="flex items-center">
+              <input
+                id={la.id}
+                name="language"
+                type="radio"
+                onChange={() => setLanguage(la.id)}
+                defaultChecked={la.id === language}
+                className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+              />
+              <label
+                htmlFor={la.id}
+                className="ml-3 block text-sm font-medium leading-6 text-gray-900"
+              >
+                {t(la.title, { ns: "home" })}
+              </label>
+            </div>
+          ))}
+        </div>
+      </fieldset>
     </div>
   )
 }

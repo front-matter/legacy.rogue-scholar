@@ -774,7 +774,7 @@ export default async function handler(req, res) {
         q: query,
         filter_by: `blog_id:=${slug}`,
         query_by:
-          "tags,title,authors.name,authors.url,summary,content_html,reference",
+          "tags,title,doi,authors.name,authors.url,reference.urk,summary,content_html",
         sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
         per_page: 10,
         page: page && page > 0 ? page : 1,
