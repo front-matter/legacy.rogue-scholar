@@ -20,7 +20,7 @@ export async function getServerSideProps(ctx) {
   // if (language && language !== ctx.locale) {
   //   language = null
   // }
-  let filterBy = `blog_slug:!=[researchsoft]`
+  let filterBy = `blog_slug:!=[xxx]`
 
   filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
   filterBy = language ? filterBy + ` && language:[${language}]` : filterBy

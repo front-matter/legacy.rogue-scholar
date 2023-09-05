@@ -98,9 +98,7 @@ export async function createDigest() {
     q: "*",
     query_by:
       "tags,title,doi,authors.name,authors.url,reference.url,summary,content_html",
-    filter_by: `published_at:>${toUnixTime(
-      SevenDaysAgo
-    )} && blog_slug:!=[researchsoft] && language:=[en]`,
+    filter_by: `published_at:>${toUnixTime(SevenDaysAgo)} && language:=[en]`,
     sort_by: "published_at:asc",
     per_page: 10,
   }
