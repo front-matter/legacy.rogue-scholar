@@ -174,6 +174,61 @@ const getReferences = (content_html: string) => {
   return urls
 }
 
+const getRelationships = (content_html: string) => {
+  // extract links from notes section,defined as the text after the tag
+  // "Notes</h2>", "Notes</h3>" or "Notes</h4>
+  const relationships_html = content_html.split(/(?:Notes)<\/(?:h2|h3|h4)>/, 2)
+
+  if (relationships_html.length == 1) {
+    return []
+  }
+  // strip optional text after notes, using <hr>, <hr />, <h2, <h3, <h4 as tag
+  relationships_html[1] = relationships_html[1].split(
+    /(?:<hr \/>|<hr>|<h2|<h3|<h4)/,
+    2
+  )[0]
+  let urls = extractUrls(relationships_html[1])
+
+  if (!urls || urls.length == 0) {
+    return []
+  }
+  urls = urls.map((url) => {
+    url = normalizeUrl(url, {
+      removeQueryParameters: [
+        "ref",
+        "referrer",
+        "origin",
+        "utm_content",
+        "utm_medium",
+        "utm_campaign",
+        "utm_source",
+      ],
+    })
+    if (isDoi(url)) {
+      const uri = new URL(url)
+
+      if (uri.protocol === "http") {
+        uri.protocol = "https"
+      }
+      if (uri.host === "dx.doi.org") {
+        uri.host = "doi.org"
+      }
+      url = uri.href
+    } else {
+      url = url.toLowerCase()
+    }
+    return url
+  })
+  urls = uniq(urls)
+  urls = urls.map((url) => {
+    return {
+      type: "IsIdenticalTo",
+      url: url,
+    }
+  })
+  return urls
+}
+
 const normalizeTag = (tag: string) => {
   const fixedTags = {
     aPKC: "aPKC",
@@ -319,6 +374,7 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
   const title = getTitle(post.title)
   const summary = getAbstract(post.body_html)
   const reference = getReferences(post.body_html)
+  const relationships = getRelationships(post.body_html)
   const images = getImages(post.content_html, post.url)
   const published_at = toUnixTime(post.post_date)
   const tags = post.postTags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
@@ -336,6 +392,7 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
     images: images,
     language: blog.language,
     reference: reference,
+    relationships: relationships,
     tags: tags,
     title: title,
     url: post.canonical_url,
@@ -502,6 +559,9 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             updated_at = published_at
           }
           const language = detectLanguage(content_html || "en")
+          const relationships = content_html
+            ? getRelationships(content_html)
+            : []
           const reference = content_html ? getReferences(content_html) : []
           let tags = []
             .concat(get(feedEntry, "category", []))
@@ -546,6 +606,7 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
             images,
             language,
             reference,
+            relationships,
             tags,
             title,
             url,

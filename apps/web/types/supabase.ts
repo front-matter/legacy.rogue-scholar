@@ -1,4 +1,4 @@
-import { AuthorType, ReferenceType } from "./blog"
+import { AuthorType, ReferenceType, RelationshipType } from "./blog"
 
 export type Json =
   | string
@@ -90,6 +90,7 @@ export interface Database {
           image?: string
           language?: string
           reference?: ReferenceType[]
+          relationships?: RelationshipType[]
           summary?: string
           tags?: string[]
           title?: string
@@ -110,6 +111,7 @@ export interface Database {
           image?: string
           language?: string
           reference?: ReferenceType[]
+          relationships?: RelationshipType[]
           summary?: string
           tags?: string[]
           title?: string
@@ -130,6 +132,7 @@ export interface Database {
           image?: string
           language?: string
           reference?: ReferenceType[]
+          relationships?: RelationshipType[]
           summary?: string
           tags?: string[]
           title?: string

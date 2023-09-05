@@ -12,6 +12,11 @@ export interface ReferenceType {
   url?: string
 }
 
+export interface RelationshipType {
+  type?: string
+  url?: string
+}
+
 export interface PaginationType {
   base_url?: string
   query?: string
@@ -39,6 +44,7 @@ export interface PostType {
   content_html?: string
   content_text?: string
   reference?: ReferenceType[]
+  relationships?: RelationshipType[]
   images?: string[]
   tags?: string[]
   language?: string
