@@ -21,14 +21,14 @@ export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
   const tags = ctx.query.tags || ""
-  const language = ctx.query.language || null
+  const language = ctx.query.language || ""
 
   let filterBy = `blog_slug:=${ctx.params.slug}`
 
   filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
-  filterBy = language ? filterBy + ` && language:[${language}]` : filterBy
-
-  filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
+  filterBy = !isEmpty(language)
+    ? filterBy + ` && language:[${language}]`
+    : filterBy
 
   const { data: blog } = await supabase
     .from("blogs")

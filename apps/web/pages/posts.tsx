@@ -15,7 +15,7 @@ export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
   const tags = ctx.query.tags || ""
-  const language = ctx.query.language || null
+  const language = ctx.query.language || ""
 
   // if (language && language !== ctx.locale) {
   //   language = null
@@ -23,7 +23,9 @@ export async function getServerSideProps(ctx) {
   let filterBy = `blog_slug:!=[xxx]`
 
   filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
-  filterBy = language ? filterBy + ` && language:[${language}]` : filterBy
+  filterBy = !isEmpty(language)
+    ? filterBy + ` && language:[${language}]`
+    : filterBy
 
   const searchParameters: PostSearchParams = {
     q: query,
