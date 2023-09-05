@@ -76,7 +76,6 @@ export default function BlogFormModal({
 
   const upsertMutation = useMutation(
     async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
-      console.log(blog)
       const { error } = await supabaseClient
         .from("blogs")
         .upsert(blog, { onConflict: "id", ignoreDuplicates: false })
