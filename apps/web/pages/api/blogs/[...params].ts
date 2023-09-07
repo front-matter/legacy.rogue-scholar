@@ -215,6 +215,8 @@ const getRelationships = (content_html: string) => {
 
       if (sentence.search(/(originally published|cross-posted)/i) > -1) {
         type = "IsIdenticalTo"
+      } else if (sentence.search(/peer-reviewed version/i) > -1) {
+        type = "IsPreprintOf"
       } else if (sentence.search(/work was funded/i) > -1) {
         type = "HasAward"
       } else {
