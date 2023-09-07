@@ -21,6 +21,7 @@ const { JSDOM } = jsdom
 import {
   decodeHtmlCharCodes,
   detectLanguage,
+  // extractImage,
   getAbstract,
   getMastodonAccount,
   getTitle,
@@ -123,39 +124,11 @@ const getReferences = (content_html: string) => {
     /(?:<hr \/>|<hr>|<h2|<h3|<h4)/,
     2
   )[0]
-  let urls = extractUrls(reference_html[1])
+  let urls = getUrls(reference_html[1])
 
   if (!urls || urls.length == 0) {
     return []
   }
-  urls = urls.map((url) => {
-    url = normalizeUrl(url, {
-      removeQueryParameters: [
-        "ref",
-        "referrer",
-        "origin",
-        "utm_content",
-        "utm_medium",
-        "utm_campaign",
-        "utm_source",
-      ],
-    })
-    if (isDoi(url)) {
-      const uri = new URL(url)
-
-      if (uri.protocol === "http") {
-        uri.protocol = "https"
-      }
-      if (uri.host === "dx.doi.org") {
-        uri.host = "doi.org"
-      }
-      url = uri.href
-    } else {
-      url = url.toLowerCase()
-    }
-    return url
-  })
-  urls = uniq(urls)
   urls = urls.map((url, index) => {
     const doi = isDoi(url)
 
@@ -174,20 +147,8 @@ const getReferences = (content_html: string) => {
   return urls
 }
 
-const getRelationships = (content_html: string) => {
-  // extract links from notes section,defined as the text after the tag
-  // "Notes</h2>", "Notes</h3>" or "Notes</h4>
-  const relationships_html = content_html.split(/(?:Notes)<\/(?:h2|h3|h4)>/, 2)
-
-  if (relationships_html.length == 1) {
-    return []
-  }
-  // strip optional text after notes, using <hr>, <hr />, <h2, <h3, <h4 as tag
-  relationships_html[1] = relationships_html[1].split(
-    /(?:<hr \/>|<hr>|<h2|<h3|<h4)/,
-    2
-  )[0]
-  let urls = extractUrls(relationships_html[1])
+const getUrls = (html: string) => {
+  let urls = extractUrls(html)
 
   if (!urls || urls.length == 0) {
     return []
@@ -220,13 +181,58 @@ const getRelationships = (content_html: string) => {
     return url
   })
   urls = uniq(urls)
-  urls = urls.map((url) => {
-    return {
-      type: "IsIdenticalTo",
-      url: url,
-    }
-  })
   return urls
+}
+
+const getRelationships = (content_html: string) => {
+  // extract links from Acknowledgments section,defined as the text after the tag
+  // "Acknowledgments</h2>", "Acknowledgments</h3>" or "Acknowledgments</h4>
+  const relationships_html = content_html.split(
+    /(?:Acknowledgments)<\/(?:h2|h3|h4)>/,
+    2
+  )
+
+  if (relationships_html.length == 1) {
+    return []
+  }
+
+  // strip optional text after notes, using <hr>, <hr />, <h2, <h3, <h4 as tag
+  relationships_html[1] = relationships_html[1].split(
+    /(?:<hr \/>|<hr>|<h2|<h3|<h4)/,
+    2
+  )[0]
+
+  // split notes into sentences and classify relationship type for each sentence
+  const sentences = relationships_html[1].split(/(?<=\w{3}[.!?])\s+/)
+
+  const relationships = sentences
+    .map((sentence) => {
+      sentence = sentence.trim()
+      const urls = getUrls(sentence)
+
+      // detect type of relationship, default is generic relationship
+      let type = "IsRelatedTo"
+
+      if (sentence.search(/(originally published|cross-posted)/i) > -1) {
+        type = "IsIdenticalTo"
+      } else if (sentence.search(/work was funded/i) > -1) {
+        type = "hasAward"
+      } else {
+        console.log(sentence)
+      }
+      return urls.map((url) => {
+        return {
+          type: type,
+          url: url,
+        }
+      })
+    })
+    .filter(
+      (relationship) => relationship !== null && relationship["url"] !== null
+    )
+    .flat()
+
+  return relationships
 }
 
 const normalizeTag = (tag: string) => {
