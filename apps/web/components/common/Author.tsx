@@ -21,7 +21,8 @@ export const Author: React.FunctionComponent<Props> = ({
         <span>
           <Link
             href={url}
-            className="whitespace-nowrap text-gray-500 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100"
+            target="_blank"
+            className="text-gray-500 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100"
           >
             {name}
             <Icon
@@ -32,7 +33,7 @@ export const Author: React.FunctionComponent<Props> = ({
           {isLast ? "" : ", "}
         </span>
       ) : (
-        <span className="whitespace-nowrap text-gray-500 dark:text-gray-200">
+        <span className="text-gray-500 dark:text-gray-200">
           {name}
           {isLast ? "" : ", "}
         </span>

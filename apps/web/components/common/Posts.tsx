@@ -2,7 +2,7 @@
 // import { Dialog, Transition } from "@headlessui/react"
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
-// import Image from "next/image"
+import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
@@ -12,20 +12,18 @@ import { BlogType, PaginationType, PostType } from "@/types/blog"
 
 type Props = {
   posts: PostType[]
-  pagination: PaginationType
   blog?: BlogType
+  pagination: PaginationType
 }
 
 export const Posts: React.FunctionComponent<Props> = ({
   posts,
-  pagination,
   blog,
+  pagination,
 }) => {
   const { t } = useTranslation("common")
   const router = useRouter()
   const { locale: activeLocale } = router
-
-  console.log(pagination)
 
   return (
     <>
@@ -35,35 +33,23 @@ export const Posts: React.FunctionComponent<Props> = ({
             {posts.map((post) => (
               <article
                 key={post.doi || post.url}
-                className="relative mb-5 flex gap-6 lg:flex-row"
+                className="relative mb-5 gap-6"
               >
-                {post.image && (
-                  <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
-                    <img
-                      src={post.image}
-                      alt=""
-                      className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
-                    />
-                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                  </div>
-                )}
                 <div>
                   {post.tags && (
                     <div className="flex items-center gap-x-1 text-xs">
                       {post.tags.map((tag) => (
-                        <Link
+                        <span
                           key={tag}
-                          href={`${pagination.base_url}?page=1&query=${
-                            pagination.query
-                          }&tags=${tag.replace("#", "")}`}
+                          className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
                         >
-                          <span
-                            key={tag}
-                            className="relative z-10 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
+                          <Link
+                            href={`${pagination.base_url}?page=${pagination.page}&query=${pagination.query}&tags=${tag}`}
+                            className="whitespace-no-wrap"
                           >
                             {tag}
-                          </span>
-                        </Link>
+                          </Link>
+                        </span>
                       ))}
                       {post.language !== activeLocale && (
                         <span className="relative z-10 ml-0 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800 dark:bg-green-700 dark:text-green-200">
@@ -72,9 +58,9 @@ export const Posts: React.FunctionComponent<Props> = ({
                       )}
                     </div>
                   )}
-                  <div className="group relative max-w-3xl">
+                  <div className="group relative max-w-4xl">
                     <h3 className="mt-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
-                      {post.title}
+                      {parse(String(post.title))}
                     </h3>
                     <Byline post={post} blog={blog} />
                     {post.doi && (
@@ -86,9 +72,47 @@ export const Posts: React.FunctionComponent<Props> = ({
                         >
                           <Icon
                             icon="academicons:doi"
-                            className="mr-1 inline text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                            className="mb-1 mr-1 inline text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                           />
                           {post.doi}
+                        </Link>
+                        {process.env.NODE_ENV !== "production" && (
+                          <Link
+                            className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                            href={`/api/posts/${post.doi.substring(
+                              16
+                            )}?format=epub`}
+                          >
+                            <Icon
+                              icon="fa6-solid:file-zipper"
+                              className="mb-1 ml-5 mr-1 inline text-sm"
+                            />
+                            ePub
+                          </Link>
+                        )}
+                        <Link
+                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                          href={`/api/posts/${post.doi.substring(
+                            16
+                          )}?format=bibtex`}
+                        >
+                          <Icon
+                            icon="fa6-solid:file-code"
+                            className="mb-1 ml-5 mr-1 inline text-sm"
+                          />
+                          BibTex
+                        </Link>
+                        <Link
+                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                          href={`/api/posts/${post.doi.substring(
+                            16
+                          )}?format=citation&style=apa&locale=${activeLocale}`}
+                        >
+                          <Icon
+                            icon="fa6-solid:file-lines"
+                            className="mb-1 ml-5 mr-1 inline text-sm"
+                          />
+                          Citation (APA)
                         </Link>
                         {/* <button
                           className="ml-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
@@ -115,11 +139,24 @@ export const Posts: React.FunctionComponent<Props> = ({
                         </Link>
                       </div>
                     )}
-                    {post.summary && (
-                      <p className="text-medium mt-2 font-serif leading-6 text-gray-900 dark:text-white">
-                        {parse(String(post.summary))}
-                      </p>
-                    )}
+                    <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
+                      {post.image && (
+                        <div className="relative mr-4 h-48 w-64 shrink-0">
+                          <Image
+                            src={post.image}
+                            alt=""
+                            fill={true}
+                            className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 md:object-cover"
+                          />
+                          <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                        </div>
+                      )}
+                      {post.summary && (
+                        <p className="text-medium max-w-screen-sm font-serif leading-6 text-gray-900 dark:text-white">
+                          {parse(String(post.summary))}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </article>

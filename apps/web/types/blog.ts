@@ -12,9 +12,15 @@ export interface ReferenceType {
   url?: string
 }
 
+export interface RelationshipType {
+  type?: string
+  url?: string
+}
+
 export interface PaginationType {
   base_url?: string
   query?: string
+  language?: string
   tags?: string
   page: number
   pages: number
@@ -36,17 +42,22 @@ export interface PostType {
   authors?: AuthorType[]
   image?: string
   content_html?: string
+  content_text?: string
   reference?: ReferenceType[]
+  relationships?: RelationshipType[]
+  images?: string[]
   tags?: string[]
   language?: string
   blog_id?: string
   blog_name?: string
+  blog_slug?: string
   blog?: BlogParentType
 }
 
 export interface BlogType extends FeedData {
   version?: string
   id?: string
+  slug?: string
   title?: string
   category?: string
   description?: string
@@ -67,6 +78,8 @@ export interface BlogType extends FeedData {
   prefix?: string
   user_id?: string
   authors?: AuthorType[]
+  plan?: string
+  use_mastodon?: boolean
 }
 
 export interface BlogParentType {

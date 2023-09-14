@@ -5,6 +5,7 @@ export const localeNames = {
   en: "English",
   es: "Español",
   fr: "Français",
+  it: "Italiano",
   pt: "Português",
 }
 
@@ -17,6 +18,7 @@ export const localeCurrencies = {
   en: "USD",
   es: "EUR",
   fr: "EUR",
+  it: "EUR",
   pt: "EUR",
 }
 

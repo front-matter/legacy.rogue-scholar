@@ -22,6 +22,7 @@ export interface DocumentType extends DocumentSchema {
   tags?: string[]
   language?: string
   blog_id?: string
+  blog_slug?: string
 }
 
 export type PostSearchResponse = SearchResponse<DocumentType>

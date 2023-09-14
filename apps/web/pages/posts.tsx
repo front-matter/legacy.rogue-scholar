@@ -1,5 +1,4 @@
-import { uniq } from "lodash"
-import Negotiator from "negotiator"
+import { isEmpty } from "lodash"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
@@ -13,27 +12,28 @@ import { PaginationType, PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
-  const negotiator = new Negotiator(ctx.req)
-  const locales = ["en", "de", "es", "pt", "fr"]
-  let languages = negotiator.languages(locales)
-
-  languages.push(ctx.locale)
-  languages.push("en")
-  languages = uniq(languages).toString()
-
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
   const tags = ctx.query.tags || ""
-  let filterBy = `blog_id:!=[gzqej46, y3h0g22] && language:=[${languages}]`
+  const language = ctx.query.language || ""
 
-  filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
+  // if (language && language !== ctx.locale) {
+  //   language = null
+  // }
+  let filterBy = `blog_slug:!=[xxx]`
+
+  filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
+  filterBy = !isEmpty(language)
+    ? filterBy + ` && language:[${language}]`
+    : filterBy
+
   const searchParameters: PostSearchParams = {
     q: query,
     query_by:
-      "tags,title,authors.name,authors.url,summary,content_html,reference",
+      "tags,title,doi,authors.name,authors.url,reference.url,summary,content_html",
     filter_by: filterBy,
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
-    per_page: 15,
+    per_page: 10,
     page: page && page > 0 ? page : 1,
   }
   const data: PostSearchResponse = await typesense
@@ -41,10 +41,11 @@ export async function getServerSideProps(ctx) {
     .documents()
     .search(searchParameters)
   const posts = data.hits?.map((hit) => hit.document)
-  const pages = Math.ceil(data.found / 15)
+  const pages = Math.ceil(data.found / 10)
   const pagination = {
     base_url: "/posts",
     query: query,
+    language: language,
     tags: tags,
     page: page,
     pages: pages,
@@ -58,6 +59,7 @@ export async function getServerSideProps(ctx) {
       ...(await serverSideTranslations(ctx.locale!, ["common", "home"])),
       posts,
       pagination,
+      locale: ctx.locale,
     },
   }
 }
@@ -65,9 +67,14 @@ export async function getServerSideProps(ctx) {
 type Props = {
   posts: PostType[]
   pagination: PaginationType
+  locale: string
 }
 
-const PostsPage: React.FunctionComponent<Props> = ({ posts, pagination }) => {
+const PostsPage: React.FunctionComponent<Props> = ({
+  posts,
+  pagination,
+  locale,
+}) => {
   const { t } = useTranslation("common")
 
   return (
@@ -78,7 +85,7 @@ const PostsPage: React.FunctionComponent<Props> = ({ posts, pagination }) => {
             {t("posts.title")}
           </h2>
         </div>
-        <Search pagination={pagination} />
+        <Search pagination={pagination} locale={locale} />
         <Pagination pagination={pagination} />
         <Posts posts={posts} pagination={pagination} />
         {pagination.total > 0 && <Pagination pagination={pagination} />}

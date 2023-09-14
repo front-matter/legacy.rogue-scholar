@@ -47,53 +47,79 @@ export function CheckIcon({ className }) {
   )
 }
 
-function Plan({ name, price, description, href, features, featured = false }) {
-  href = href || "#"
+function Plan({
+  name,
+  price,
+  href = "#",
+  description,
+  features,
+  featured = false,
+}) {
+  const { t } = useTranslation("home")
+
   return (
     <section
       className={clsx(
-        "mb-10 flex flex-col rounded-3xl px-6 sm:px-8",
-        featured ? "order-first bg-blue-600 py-8 lg:order-none" : "lg:py-8"
+        "mb-5 flex flex-col rounded-3xl px-6 py-8 sm:px-8",
+        featured ? "order-first bg-blue-600 lg:order-none" : ""
       )}
     >
-      <h3 className="mt-5 font-sans text-lg text-white">{name}</h3>
+      <h3
+        className={clsx(
+          "mt-5 font-sans text-lg",
+          featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+        )}
+      >
+        {name}
+      </h3>
       <p
         className={clsx(
-          "mt-2 text-base",
-          featured ? "text-white" : "text-slate-400"
+          "mb-5 mt-2 text-base",
+          featured ? "text-white" : "text-slate-700 dark:text-slate-200"
         )}
       >
         {description}
       </p>
-      <p className="order-first font-sans text-5xl font-light tracking-tight text-white">
+      <p
+        className={clsx(
+          "order-first font-sans text-5xl font-light tracking-tight",
+          featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+        )}
+      >
         {price}
       </p>
       <ul
         role="list"
         className={clsx(
-          "order-last mt-10 flex flex-col gap-y-3 text-sm",
+          "order-last mt-5 flex flex-col gap-y-3 text-sm",
           featured ? "text-white" : "text-slate-200"
         )}
       >
         {features.map((feature) => (
           <li key={feature} className="flex">
             <CheckIcon className={featured ? "text-white" : "text-slate-400"} />
-            <span className="ml-4">{feature}</span>
+            <span
+              className={clsx(
+                "ml-4",
+                featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+              )}
+            >
+              {feature}
+            </span>
           </li>
         ))}
       </ul>
-      {price == "Free" && (
+      {name === t("pricing.plans.team.name") && (
         <Button
           href={href}
+          target="_blank"
           variant={featured ? "solid" : "outline"}
-          color="white"
-          className="mt-8"
           aria-label={`Register with the ${name} plan for ${price}`}
         >
-          Sign up
+          {t("pricing.plans.team.button")}
         </Button>
       )}
-      {price != "Free" && <div className="my-9"></div>}
+      {name !== t("pricing.plans.team.name") && <div className="md:my-5"></div>}
     </section>
   )
 }
@@ -105,28 +131,27 @@ export function Pricing() {
     <section
       id="pricing"
       aria-label="Pricing"
-      className="bg-slate-900 py-10 sm:py-16"
+      className="bg-slate-300 py-5 dark:bg-slate-800 sm:py-8"
     >
       <Container className="">
         <div className="md:text-center">
-          <h2 className="font-sans text-3xl tracking-tight text-white sm:text-4xl">
+          <h2 className="font-sans text-3xl tracking-tight text-slate-900 dark:text-white sm:text-4xl">
             <span className="relative whitespace-nowrap">
               <SwirlyDoodle className="absolute left-0 top-1/2 h-[1em] w-full fill-blue-400" />
               <span className="relative">{t("pricing.title")}</span>
             </span>{" "}
             {t("pricing.subtitle")}
           </h2>
-          <p className="mt-4 text-lg text-slate-400">
+          <p className="mt-4 text-lg text-slate-700 dark:text-slate-400">
             {t("pricing.description")}
           </p>
         </div>
         <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
           <Plan
-            featured
+            key="starter"
             name={t("pricing.plans.starter.name")}
             price={t("pricing.plans.starter.price")}
             description={t("pricing.plans.starter.description")}
-            href="/auth/signup"
             features={[
               t("pricing.plans.starter.features.1"),
               t("pricing.plans.starter.features.2"),
@@ -134,20 +159,22 @@ export function Pricing() {
             ]}
           />
           <Plan
+            featured
+            key="team"
             name={t("pricing.plans.team.name")}
             price={t("pricing.plans.team.price")}
             description={t("pricing.plans.team.description")}
-            href="/auth/signup"
+            href="https://ko-fi.com/rogue_scholar/shop"
             features={[
               t("pricing.plans.team.features.1"),
               t("pricing.plans.team.features.2"),
             ]}
           />
           <Plan
+            key="enterprise"
             name={t("pricing.plans.enterprise.name")}
             price={t("pricing.plans.enterprise.price")}
             description={t("pricing.plans.enterprise.description")}
-            href="/auth/signup"
             features={[
               t("pricing.plans.enterprise.features.1"),
               t("pricing.plans.enterprise.features.2"),

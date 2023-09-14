@@ -51,7 +51,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                     <div className="flex items-center space-x-3">
                       <h3 className="text-semibold truncate font-medium text-gray-900 dark:text-slate-100">
                         <Link
-                          href={"/blogs/" + blog.id}
+                          href={"/blogs/" + blog.slug}
                           className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
                         >
                           {parse(String(blog.title))}
@@ -104,6 +104,18 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                           </Link>
                         </div>
                       )}
+                    {blog.use_mastodon && (
+                      <div className="-ml-px flex w-0 flex-1">
+                        <Link
+                          href={"https://rogue-scholar.social/@" + blog.slug}
+                          target="_blank"
+                          className="relative inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-500 dark:text-gray-200"
+                        >
+                          <Icon icon="fa6-brands:mastodon" className="inline" />
+                          Mastodon
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </li>

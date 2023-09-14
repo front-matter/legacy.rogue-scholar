@@ -104,6 +104,18 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 </Link>
               </span>
             )}
+            {blog.use_mastodon && (
+              <span className="-ml-px text-gray-500 dark:text-gray-200">
+                <Link
+                  href={"https://rogue-scholar.social/@" + blog.slug}
+                  target="_blank"
+                  className="relative mr-6 w-0 py-2 text-base font-medium"
+                >
+                  <Icon icon="fa6-brands:mastodon" className="inline" />
+                  <span className="ml-2">Mastodon</span>
+                </Link>
+              </span>
+            )}
             {blog.modified_at && blog.modified_at > "1970-01-02" && (
               <span className="font-medium text-gray-500 dark:text-gray-200">
                 <Icon icon="fa6-regular:calendar-check" className="inline" />

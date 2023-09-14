@@ -1,108 +1,238 @@
 {
-  "name": "posts",
+  "name": "posts_sep_2023",
   "fields": [
     {
-      "name": "id",
-      "type": "string",
       "facet": false,
-      "optional": false
-    },
-    {
-      "name": "doi",
-      "type": "string",
-      "facet": false,
-      "optional": true
-    },
-    {
+      "index": true,
+      "infix": false,
+      "locale": "",
       "name": "url",
-      "type": "string",
+      "optional": false,
+      "sort": false,
+      "type": "string"
+    },
+    {
       "facet": false,
-      "optional": false
-    },
-    {
-      "name": "blog.id",
-      "type": "string",
-      "facet": true,
-      "optional": false
-    },
-    {
-      "name": "blog.name",
-      "type": "string",
-      "facet": false,
-      "optional": false
-    },
-    {
+      "index": true,
+      "infix": false,
+      "locale": "",
       "name": "title",
-      "type": "string",
-      "facet": false,
-      "optional": false
+      "optional": false,
+      "sort": false,
+      "type": "string"
     },
     {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
       "name": "summary",
-      "type": "string",
-      "facet": false,
-      "optional": false
+      "optional": false,
+      "sort": false,
+      "type": "string"
     },
     {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
       "name": "content_html",
-      "type": "string",
-      "facet": false,
-      "optional": false
+      "optional": false,
+      "sort": false,
+      "type": "string"
     },
     {
-      "name": "authors.name",
-      "type": "string[]",
       "facet": false,
-      "optional": true
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "content_text",
+      "optional": false,
+      "sort": false,
+      "type": "string"
     },
     {
-      "name": "authors.url",
-      "type": "string[]",
-      "facet": false,
-      "optional": true
-    },
-    {
+      "facet": true,
+      "index": true,
+      "infix": false,
+      "locale": "",
       "name": "tags",
-      "type": "string[]",
-      "facet": true,
-      "optional": true
+      "optional": true,
+      "sort": false,
+      "type": "string[]"
     },
     {
-      "name": "reference",
-      "type": "object[]",
       "facet": false,
-      "optional": true
-    },
-    {
+      "index": true,
+      "infix": false,
+      "locale": "",
       "name": "image",
-      "type": "string",
-      "facet": false,
-      "optional": true
+      "optional": true,
+      "sort": false,
+      "type": "string"
     },
     {
-      "name": "published_at",
-      "type": "int64",
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "reference",
+      "optional": true,
+      "sort": false,
+      "type": "object[]"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "reference.key",
+      "optional": true,
+      "sort": false,
+      "type": "string[]"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "reference.doi",
+      "optional": true,
+      "sort": false,
+      "type": "string[]"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "reference.url",
+      "optional": true,
+      "sort": false,
+      "type": "string[]"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "citation",
+      "optional": true,
+      "sort": false,
+      "type": "object[]"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "citation.doi",
+      "optional": true,
+      "sort": false,
+      "type": "string[]"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "doi",
+      "optional": true,
+      "sort": false,
+      "type": "string"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "authors.name",
+      "optional": true,
+      "sort": false,
+      "type": "string[]"
+    },
+    {
       "facet": true,
-      "optional": true
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "authors.url",
+      "optional": true,
+      "sort": false,
+      "type": "string[]"
     },
     {
+      "facet": true,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "published_at",
+      "optional": false,
+      "sort": true,
+      "type": "int64"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
       "name": "updated_at",
-      "type": "int64",
-      "facet": false,
-      "optional": true
+      "optional": true,
+      "sort": true,
+      "type": "int64"
     },
     {
-      "name": "language.code",
-      "type": "string",
-      "facet": true
+      "facet": true,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "blog_id",
+      "optional": true,
+      "sort": false,
+      "type": "string"
     },
     {
-      "name": "language.name",
-      "type": "string",
+      "facet": true,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "blog_slug",
+      "optional": true,
+      "sort": false,
+      "type": "string"
+    },
+    {
       "facet": false,
-      "optional": true
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "blog_name",
+      "optional": true,
+      "sort": false,
+      "type": "string"
+    },
+    {
+      "facet": true,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "language",
+      "optional": true,
+      "sort": false,
+      "type": "string"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "images",
+      "optional": true,
+      "sort": false,
+      "type": "object[]"
     }
   ],
   "default_sorting_field": "published_at",
+  "token_separators": ["/", ".", "-"],
   "enable_nested_fields": true
 }

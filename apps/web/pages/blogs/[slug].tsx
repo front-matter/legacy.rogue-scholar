@@ -1,5 +1,4 @@
-import { uniq } from "lodash"
-import Negotiator from "negotiator"
+import { isEmpty } from "lodash"
 import Head from "next/head"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
@@ -19,25 +18,23 @@ import { BlogType, PaginationType, PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
-  const negotiator = new Negotiator(ctx.req)
-  const locales = ["en", "de", "es", "pt", "fr"]
-  let languages = negotiator.languages(locales)
-
-  languages.push(ctx.locale)
-  languages.push("en")
-  languages = uniq(languages).toString()
-
+  const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
   const tags = ctx.query.tags || ""
-  let filterBy = `blog_id:=${ctx.params.slug} && language:=[${languages}]`
+  const language = ctx.query.language || ""
 
-  filterBy = tags ? filterBy + ` && tags:=[${tags}]` : filterBy
-  const page = parseInt(ctx.query.page || 1)
+  let filterBy = `blog_slug:=${ctx.params.slug}`
+
+  filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
+  filterBy = !isEmpty(language)
+    ? filterBy + ` && language:[${language}]`
+    : filterBy
+
   const { data: blog } = await supabase
     .from("blogs")
     .select(blogWithPostsSelect)
     .in("status", ["approved", "active"])
-    .eq("id", ctx.params.slug)
+    .eq("slug", ctx.params.slug)
     .maybeSingle()
 
   if (!blog) {
@@ -50,9 +47,9 @@ export async function getServerSideProps(ctx) {
     q: query,
     filter_by: filterBy,
     query_by:
-      "tags,title,authors.name,authors.url,summary,content_html,reference",
+      "tags,title,authors.name,authors.url,reference.url,summary,content_html",
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
-    per_page: 15,
+    per_page: 10,
     page: page && page > 0 ? page : 1,
   }
   const data: PostSearchResponse = await typesense
@@ -60,10 +57,11 @@ export async function getServerSideProps(ctx) {
     .documents()
     .search(searchParameters)
   const posts = data.hits?.map((hit) => hit.document)
-  const pages = Math.ceil(data.found / 15)
+  const pages = Math.ceil(data.found / 10)
   const pagination = {
     base_url: "/blogs/" + ctx.params.slug,
     query: query,
+    language: language,
     tags: tags,
     page: page,
     pages: pages,
@@ -74,10 +72,11 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale!, ["common", "app"])),
+      ...(await serverSideTranslations(ctx.locale!, ["common", "app", "home"])),
       blog,
       posts,
       pagination,
+      locale: ctx.locale,
     },
   }
 }
@@ -86,14 +85,16 @@ type Props = {
   blog: BlogType
   posts: PostType[]
   pagination: PaginationType
+  locale: string
 }
 
 const BlogPage: React.FunctionComponent<Props> = ({
   blog,
   posts,
   pagination,
+  locale,
 }) => {
-  const { t } = useTranslation("common")
+  const { t } = useTranslation(["common"])
 
   return (
     <>
@@ -134,7 +135,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
           <Blog blog={blog} />
           {blog.status == "active" && (
             <>
-              <Search pagination={pagination} />
+              <Search pagination={pagination} locale={locale} />
               <Pagination pagination={pagination} />
               {posts && (
                 <Posts posts={posts} pagination={pagination} blog={blog} />

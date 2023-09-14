@@ -10,6 +10,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
+  Switch,
   useColorModeValue,
   useToast,
   VStack,
@@ -35,7 +36,7 @@ export default function BlogFormModal({
   const supabaseClient = useSupabaseClient<Database>()
   const queryClient = useQueryClient()
   const headerBg = useColorModeValue("gray.50", "gray.600")
-  const { t } = useTranslation("app")
+  const { t } = useTranslation(["app", "common"])
   const toast = useToast()
   const {
     register,
@@ -45,6 +46,7 @@ export default function BlogFormModal({
     formState: { isSubmitting },
   } = useForm<{
     id: string
+    slug: string
     title: string
     feed_url: string
     category: string
@@ -60,6 +62,7 @@ export default function BlogFormModal({
     }
 
     setValue("id", blog.id)
+    setValue("slug", blog.slug)
     setValue("title", blog.title)
     setValue("feed_url", blog.feed_url)
     setValue("category", blog.category)
@@ -177,24 +180,112 @@ export default function BlogFormModal({
                 <FormLabel>{t("blogs.form.controls.category")}</FormLabel>
                 <Select {...register("category", { required: true })}>
                   <option value="naturalSciences">
-                    {t("categories.naturalSciences")}
+                    {t("categories.naturalSciences", { ns: "common" })}
+                  </option>
+                  <option value="mathematics">
+                    {t("categories.mathematics", { ns: "common" })}
+                  </option>
+                  <option value="computerAndInformationSciences">
+                    {t("categories.computerAndInformationSciences", {
+                      ns: "common",
+                    })}
+                  </option>
+                  <option value="physicalSciences">
+                    {t("categories.physicalSciences", { ns: "common" })}
+                  </option>
+                  <option value="chemicalSciences">
+                    {t("categories.chemicalSciences", { ns: "common" })}
+                  </option>
+                  <option value="earthAndRelatedEnvironmentalSciences">
+                    {t("categories.earthAndRelatedEnvironmentalSciences", {
+                      ns: "common",
+                    })}
+                  </option>
+                  <option value="biologicalSciences">
+                    {t("categories.biologicalSciences", { ns: "common" })}
+                  </option>
+                  <option value="otherNaturalSciences">
+                    {t("categories.otherNaturalSciences", { ns: "common" })}
                   </option>
                   <option value="engineeringAndTechnology">
-                    {t("categories.engineeringAndTechnology")}
+                    {t("categories.engineeringAndTechnology", { ns: "common" })}
+                  </option>
+                  <option value="eletricalEngineering">
+                    {t("categories.eletricalEngineering", { ns: "common" })}
                   </option>
                   <option value="medicalAndHealthSciences">
-                    {t("categories.medicalAndHealthSciences")}
+                    {t("categories.medicalAndHealthSciences", { ns: "common" })}
+                  </option>
+                  <option value="basicMedicine">
+                    {t("categories.basicMedicine", { ns: "common" })}
+                  </option>
+                  <option value="clinicalMedicine">
+                    {t("categories.clinicalMedicine", { ns: "common" })}
                   </option>
                   <option value="agriculturalSciences">
-                    {t("categories.agriculturalSciences")}
+                    {t("categories.agriculturalSciences", { ns: "common" })}
                   </option>
                   <option value="socialSciences">
-                    {t("categories.socialSciences")}
+                    {t("categories.socialSciences", { ns: "common" })}
+                  </option>
+                  <option value="psychology">
+                    {t("categories.psychology", { ns: "common" })}
+                  </option>
+                  <option value="economicsAndBusiness">
+                    {t("categories.economicsAndBusiness", { ns: "common" })}
+                  </option>
+                  <option value="educationalSciences">
+                    {t("categories.educationalSciences", { ns: "common" })}
+                  </option>
+                  <option value="sociology">
+                    {t("categories.sociology", { ns: "common" })}
+                  </option>
+                  <option value="law">
+                    {t("categories.law", { ns: "common" })}
+                  </option>
+                  <option value="politicalScience">
+                    {t("categories.politicalScience", { ns: "common" })}
+                  </option>
+                  <option value="socialAndEconomicGeography">
+                    {t("categories.socialAndEconomicGeography", {
+                      ns: "common",
+                    })}
+                  </option>
+                  <option value="mediaAndCommunications">
+                    {t("categories.mediaAndCommunications", { ns: "common" })}
+                  </option>
+                  <option value="otherSocialSciences">
+                    {t("categories.otherSocialSciences", { ns: "common" })}
                   </option>
                   <option value="humanities">
-                    {t("categories.humanities")}
+                    {t("categories.humanities", { ns: "common" })}
+                  </option>
+                  <option value="philosophyEthicsAndReligion">
+                    {t("categories.philosophyEthicsAndReligion", {
+                      ns: "common",
+                    })}
+                  </option>
+                  <option value="historyAndArchaeology">
+                    {t("categories.historyAndArchaeology", { ns: "common" })}
+                  </option>
+                  <option value="languagesAndLiterature">
+                    {t("categories.languagesAndLiterature", { ns: "common" })}
+                  </option>
+                  <option value="arts">
+                    {t("categories.arts", { ns: "common" })}
+                  </option>
+                  <option value="otherHumanities">
+                    {t("categories.otherHumanities", { ns: "common" })}
                   </option>
                 </Select>
+              </FormControl>
+
+              {/* Mastodon enabled field */}
+              <FormControl>
+                <FormLabel htmlFor="use_mastodon">
+                  {t("blogs.form.controls.mastodon")}
+                </FormLabel>
+                <Switch id="use_mastodon" isDisabled={true} isChecked={false} />
               </FormControl>
 
               <Button

@@ -22,7 +22,7 @@ export const languageRange = Object.values(blue).filter(function (_v, i) {
   return i % 5 == 0
 })
 
-export const languageDomain = ["en", "de", "es", "pt", "fr"]
+export const languageDomain = ["en", "de", "es", "pt", "fr", "it"]
 
 export const categoryDomain = [
   "naturalSciences",
@@ -65,9 +65,9 @@ export const Stats: React.FunctionComponent<Props> = ({
   languages,
   platforms,
 }) => {
-  const { t } = useTranslation("home")
+  const { t } = useTranslation(["home", "common"])
   const translatedCategoryDomain = categoryDomain.map((category) => {
-    return t("categories." + category)
+    return t("categories." + category, { ns: "common" })
   })
   const translatedLanguageDomain = languageDomain.map((category) => {
     return t("languages." + category)

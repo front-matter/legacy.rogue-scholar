@@ -12,10 +12,12 @@ export const supabase = createClient(
 )
 
 export const blogsSelect =
-  "id, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, created_at, modified_at, license, generator, category, backlog, prefix, status"
+  "id, slug, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, use_mastodon, created_at, modified_at, license, generator, category, backlog, prefix, status, plan"
 export const blogWithPostsSelect =
-  "id, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, created_at, modified_at, license, generator, category, backlog, prefix, status, items: posts (id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference)"
+  "id, slug, title, description, language, favicon, feed_url, current_feed_url, feed_format, home_page_url, use_mastodon, created_at, modified_at, license, generator, category, backlog, prefix, status, plan, items: posts (id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference)"
 export const postsSelect =
-  "id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, blog_id, blog_name"
+  "id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_id, blog_name, blog_slug"
 export const postsWithBlogSelect =
-  "id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, blog_id, blog_name, blog: blogs!inner(*)"
+  "id, doi, url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_id, blog_name, blog_slug, blog: blogs!inner(*)"
+export const postsWithContentSelect =
+  "id, doi, url, title, summary, content_html, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_id, blog_name, blog_slug, blog: blogs!inner(*)"

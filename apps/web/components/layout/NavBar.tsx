@@ -14,6 +14,7 @@ import { useTranslation } from "next-i18next"
 import { useEffect } from "react"
 
 import ColorModeSwitch from "@/components/common/ColorModeSwitch"
+import { KofiButton } from "@/components/common/KofiButton"
 import LanguageSwitch from "@/components/common/LanguageSwitch"
 import Logo from "@/components/layout/Logo"
 import Menu from "@/components/layout/Menu"
@@ -58,6 +59,11 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
 
             <HStack spacing={4}>
               <HStack>
+                <KofiButton
+                  username="rogue_scholar"
+                  title="Buy me a coffee"
+                  label="Buy me a coffee"
+                />
                 <LanguageSwitch />
                 <ColorModeSwitch />
               </HStack>

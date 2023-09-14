@@ -11,7 +11,6 @@ export default async function handler(req, res) {
     res.status(401).json({ message: "Unauthorized" })
   } else if (req.method === "GET") {
     if (slug) {
-      console.log(slug)
       const { data, error } = await supabase.auth.admin.getUserById(slug)
 
       if (error) {
@@ -21,7 +20,6 @@ export default async function handler(req, res) {
       if (!data) {
         return res.status(404).json({ error: "Not found" })
       }
-      console.log(data)
 
       return res.status(200).json(data)
     } else {
