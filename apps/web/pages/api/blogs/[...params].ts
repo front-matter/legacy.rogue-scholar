@@ -19,7 +19,7 @@ import sanitizeHtml from "sanitize-html"
 const extractUrls = require("extract-urls")
 const jsdom = require("jsdom")
 const { JSDOM } = jsdom
-// const xml2js = require("xml2js")
+const xml2js = require("xml2js")
 
 // import { is, el } from "date-fns/locale"
 
@@ -458,7 +458,11 @@ export async function extractBlogPost(post: any, blog: BlogType) {
   }
 }
 
-export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
+export async function extractAllPostsByBlog(
+  blogSlug: string,
+  page = 1,
+  updateAll = false
+) {
   const blog: BlogType = await getSingleBlog(blogSlug)
 
   const url = new URL(blog.feed_url || "")
@@ -506,6 +510,16 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
     } else if (["application/feed+json"].includes(blog.feed_format as string)) {
       const res = await fetch(feed_url)
       const json = await res.json()
+
+      if (!updateAll) {
+        try {
+          json["items"] = json["items"].filter((post) => {
+            return post.date_modified > (blog.modified_at as string)
+          })
+        } catch (error) {
+          console.log(error)
+        }
+      }
 
       blogWithPosts = await extractFromJson(json, {
         useISODateFormat: true,
@@ -675,12 +689,23 @@ export async function extractAllPostsByBlog(blogSlug: string, page = 1) {
       )
     ) {
       const res = await fetch(feed_url)
-      const xml = await res.text()
+      let xml = await res.text()
 
-      // const json = await xml2js.parseStringPromise(xml)
-      // blogWithPosts["entries"] = json.items.map((post: any) =>
-      //   extractBlogPost(post, blog)
-      // )
+      if (!updateAll) {
+        try {
+          const json = await xml2js.parseStringPromise(xml)
+
+          json.feed["entry"] = json.feed["entry"].filter((post) => {
+            return post.updated[0] > (blog.modified_at as string)
+          })
+          const builder = new xml2js.Builder()
+
+          xml = builder.buildObject(json)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
       blogWithPosts = await extractFromXml(xml, {
         useISODateFormat: true,
         descriptionMaxLen: 500,
@@ -894,6 +919,19 @@ export async function getAllPostsByBlog(blogSlug: string) {
 export async function upsertSingleBlog(blogSlug: string) {
   const blog: BlogType = await getSingleBlog(blogSlug)
 
+  //  find timestamp from last modified post
+  const { data: posts } = await supabase
+    .from("posts")
+    .select("updated_at, blog_id")
+    .eq("blog_id", blog.id)
+    .order("updated_at", { ascending: false })
+    .limit(1)
+
+  blog.modified_at =
+    posts && posts.length > 0
+      ? toISOString(posts[0].updated_at) || "1970-01-01T00:00:00Z"
+      : "1970-01-01T00:00:00Z"
+
   const { data, error } = await supabaseAdmin.from("blogs").upsert(
     {
       id: blog.id,
@@ -928,7 +966,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, slug, feed_url, current_feed_url, home_page_url, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan"
+      "id, slug, feed_url, current_feed_url, home_page_url, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan"
     )
     .eq("id", blogSlug)
     .maybeSingle()
@@ -937,7 +975,7 @@ export async function getSingleBlog(blogSlug: string) {
     return {}
   }
 
-  let blog: BlogType = await extract(config["feed_url"], {
+  const blog: BlogType = await extract(config["feed_url"], {
     useISODateFormat: true,
     getExtraFeedFields: (feedData) => {
       // console.log(feedData)
@@ -1010,6 +1048,7 @@ export async function getSingleBlog(blogSlug: string) {
         slug,
         version: "https://jsonfeed.org/version/1.1",
         feed_url: config["feed_url"],
+        modified_at: config["modified_at"],
         current_feed_url,
         home_page_url,
         feed_format,
@@ -1028,20 +1067,8 @@ export async function getSingleBlog(blogSlug: string) {
       }
     },
   })
-  // find timestamp from last modified post
-  const { data: posts } = await supabase
-    .from("posts")
-    .select("updated_at, blog_id")
-    .eq("blog_id", blog.id)
-    .order("updated_at", { ascending: false })
-    .limit(1)
 
-  blog.modified_at =
-    posts && posts.length > 0
-      ? toISOString(posts[0].updated_at) || "1970-01-01T00:00:00Z"
-      : "1970-01-01T00:00:00Z"
-  blog = omit(blog, ["published", "link", "entries"])
-  return blog
+  return omit(blog, ["published", "link", "entries"])
 }
 
 export async function getMastodonBot(blog: BlogType) {
@@ -1132,11 +1159,9 @@ export default async function handler(req, res) {
       let posts: PostType[] = []
 
       try {
-        if (update === "all") {
-          posts = await extractAllPostsByBlog(slug, page)
-        } else {
-          posts = await extractUpdatedPostsByBlog(slug, page)
-        }
+        const updateAll = update === "all" ? true : false
+
+        posts = await extractAllPostsByBlog(slug, page, updateAll)
       } catch (error) {
         console.log(error)
       }
