@@ -236,7 +236,7 @@ export async function updateAllPosts(page: number = 1) {
   return posts
 }
 
-export async function upsertAllPosts(page: number = 1) {
+export async function upsertAllPosts(page: number = 1, updateAll = false) {
   const { data: blogs } = await supabase
     .from("blogs")
     .select("id")
@@ -247,7 +247,7 @@ export async function upsertAllPosts(page: number = 1) {
   }
 
   const data = await Promise.all(
-    blogs.map((blog) => extractAllPostsByBlog(blog.id, page))
+    blogs.map((blog) => extractAllPostsByBlog(blog.id, page, updateAll))
   )
   const posts = data.flat()
 
@@ -429,39 +429,24 @@ export default async function handler(req, res) {
     } else {
       let posts: PostType[] = []
 
-      if (update === "all") {
-        // const { data: posts_to_update } = await supabase
-        //   .from("posts")
-        //   .select("*")
-        //   .is("not_indexed", null)
+      // const { data: posts_to_update } = await supabase
+      //   .from("posts")
+      //   .select("*")
+      //   .is("not_indexed", null)
 
-        // if (posts_to_update) {
-        //   await Promise.all(
-        //     posts_to_update.map((post) => {
-        //       post.not_indexed = post.indexed_at < post.updated_at
-        //       upsertSinglePost(post)
-        //     })
-        //   )
-        // }
+      // if (posts_to_update) {
+      //   await Promise.all(
+      //     posts_to_update.map((post) => {
+      //       post.not_indexed = post.indexed_at < post.updated_at
+      //       upsertSinglePost(post)
+      //     })
+      //   )
+      // }
 
-        // posts = await updateAllPosts(page)
-        posts = await upsertAllPosts(page)
-        res.status(200).json(posts)
-      } else if (update === "index") {
-        const { error } = await supabase
-          .from("posts")
-          .update({ not_indexed: true })
-          .is("not_indexed", false)
+      const updateAll = update === "all" ? true : false
 
-        if (error) {
-          console.log(error)
-        }
-
-        res.status(200).json({ message: "Indexing all posts started" })
-      } else {
-        posts = await upsertUpdatedPosts(page)
-        res.status(200).json(posts)
-      }
+      posts = await upsertAllPosts(page, updateAll)
+      res.status(200).json(posts)
     }
   } else {
     res.status(405).json({ message: "Method Not Allowed" })

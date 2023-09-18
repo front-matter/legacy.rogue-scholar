@@ -873,7 +873,7 @@ export async function extractAllPostsByBlog(
     console.log(error, blog.slug)
   }
 
-  let posts = blogWithPosts["entries"] || []
+  let posts = blogWithPosts ? blogWithPosts["entries"] : []
 
   // handle pagination depending on blogging platform
   const postCount = posts.length
