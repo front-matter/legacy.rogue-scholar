@@ -213,7 +213,11 @@ const getRelationships = (content_html: string) => {
   const relationships = sentences
     .map((sentence) => {
       sentence = sentence.trim()
-      const urls = getUrls(sentence)
+      const urls = getUrls(sentence).filter((url) => {
+        const uri = new URL(url)
+
+        return uri.host !== "orcid.org"
+      })
 
       // detect type of relationship, default is generic relationship
       let type = "IsRelatedTo"
@@ -234,9 +238,6 @@ const getRelationships = (content_html: string) => {
         }
       })
     })
-    .filter(
-      (relationship) => relationship !== null && relationship["url"] !== null
-    )
     .flat()
 
   return relationships
