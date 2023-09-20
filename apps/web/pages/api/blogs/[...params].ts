@@ -437,7 +437,13 @@ export async function extractWordpressPost(
   const images = getImages(content_html, url)
   const image = images[0]?.src
   const tags = post.categories
-    .map((id) => categories.find((c) => c.id === id)?.name)
+    .filter((id) => {
+      const cat = categories.find((c) => c.id === id)
+
+      if (cat) {
+        return cat.name
+      }
+    })
     .slice(0, 5)
 
   return {
