@@ -4,6 +4,7 @@ import {
   extractFromXml,
 } from "@extractus/feed-extractor"
 import {
+  compact,
   get,
   isArray,
   isEmpty,
@@ -436,15 +437,13 @@ export async function extractWordpressPost(
   const url = normalizeUrl(post.link)
   const images = getImages(content_html, url)
   const image = images[0]?.src
-  const tags = post.categories
-    .filter((id) => {
+  const tags = compact(
+    post.categories.map((id) => {
       const cat = categories.find((c) => c.id === id)
 
-      if (cat) {
-        return cat.name
-      }
+      return cat?.name
     })
-    .slice(0, 5)
+  ).slice(0, 5)
 
   return {
     authors: authors,
