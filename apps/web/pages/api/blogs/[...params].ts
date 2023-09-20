@@ -413,6 +413,53 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
   }
 }
 
+// extract blog post metadata from REST API
+export async function extractWordpressPost(
+  post: any,
+  blog: BlogType,
+  categories: any,
+  users: any
+) {
+  const authors = [].concat(post.author).map((id) => {
+    let name = users.find((u) => u.id === id)?.name
+
+    if (name === "rmounce") {
+      name = "Ross Mounce"
+    }
+    const uri = authorIDs[name] || null
+
+    return { name: name, url: uri }
+  })
+  const content_html = get(post, "content.rendered", "")
+  const reference = getReferences(content_html)
+  const relationships = getRelationships(content_html)
+  const url = normalizeUrl(post.link)
+  const images = getImages(content_html, url)
+  const image = images[0]?.src
+  const tags = post.categories
+    .map((id) => categories.find((c) => c.id === id)?.name)
+    .slice(0, 5)
+
+  return {
+    authors: authors,
+    blog_id: blog.id,
+    blog_name: blog.title,
+    blog_slug: blog.slug,
+    content_html: content_html,
+    summary: getAbstract(content_html),
+    published_at: toUnixTime(post.date_gmt),
+    updated_at: toUnixTime(post.modified_gmt),
+    image: image,
+    images: images,
+    language: blog.language,
+    reference: reference,
+    relationships: relationships,
+    tags: tags,
+    title: get(post, "title.rendered", ""),
+    url: url,
+  }
+}
+
 export async function extractBlogPost(post: any, blog: BlogType) {
   // const authors = [].concat(post.author).map((auth) => {
   //   console.log(auth)
@@ -477,7 +524,12 @@ export async function extractAllPostsByBlog(
   // handle pagination depending on blogging platform
   switch (generator) {
     case "WordPress":
-      url.searchParams.append("paged", String(page))
+      if (blog.feed_format === "application/json") {
+        url.searchParams.append("page", String(page))
+        url.searchParams.append("per_page", String(50))
+      } else {
+        url.searchParams.append("paged", String(page))
+      }
       break
     case "Blogger":
       url.searchParams.set("start-index", String(startPage))
@@ -508,6 +560,22 @@ export async function extractAllPostsByBlog(
       } else {
         blogWithPosts["entries"] = []
       }
+    } else if (
+      generator === "WordPress" &&
+      blog.feed_format === "application/json"
+    ) {
+      const resp = await fetch(feed_url)
+      const posts = await resp.json()
+      const rest = await fetch(`${blog.home_page_url}/wp-json/wp/v2/categories`)
+      const categories = await rest.json()
+      const resu = await fetch(`${blog.home_page_url}/wp-json/wp/v2/users`)
+      const users = await resu.json()
+
+      blogWithPosts["entries"] = await Promise.all(
+        posts.map((post: any) =>
+          extractWordpressPost(post, blog, categories, users)
+        )
+      )
     } else if (["application/feed+json"].includes(blog.feed_format as string)) {
       const res = await fetch(feed_url)
       const json = await res.json()
@@ -967,7 +1035,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, slug, feed_url, current_feed_url, home_page_url, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan"
+      "id, slug, feed_url, current_feed_url, home_page_url, feed_format, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan"
     )
     .eq("id", blogSlug)
     .maybeSingle()
@@ -1009,6 +1077,7 @@ export async function getSingleBlog(blogSlug: string) {
           : null ||
             get(feedData, "atom:link.@_type", null) ||
             (get(feedData, "version", null) && "application/feed+json") ||
+            config["feed_format"] ||
             "application/rss+xml"
 
       let generator = get(feedData, "generator", null)
