@@ -431,7 +431,7 @@ export async function extractWordpressPost(
 
     return { name: name, url: uri }
   })
-  const content_html = get(post, "content.rendered", "")
+  const content_html = sanitizeHtml(get(post, "content.rendered", ""))
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.link)

@@ -483,7 +483,7 @@ export function getAbstract(html: string, maxlen: number = 450) {
     .replace(/\n+/g, " ")
     .trim()
 
-  return decodeHtmlCharCodes(truncated)
+  return truncated
 }
 
 export function getTitle(html: string) {
