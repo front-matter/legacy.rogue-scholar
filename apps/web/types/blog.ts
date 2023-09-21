@@ -40,6 +40,7 @@ export interface PostType {
   id: string
   doi?: string
   url?: string
+  archive_url?: string
   title?: string
   summary?: string
   published_at?: number
@@ -78,6 +79,7 @@ export interface BlogType extends FeedData {
   created_at?: string
   generator?: string
   license?: string
+  archive_prefix?: string
   feed_format?: string
   items?: PostType[]
   status?: string

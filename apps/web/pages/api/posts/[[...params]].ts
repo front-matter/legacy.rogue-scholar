@@ -194,6 +194,7 @@ export async function upsertSinglePost(post: PostType) {
         tags: post.tags,
         title: post.title,
         url: post.url,
+        archive_url: post.archive_url,
       },
       { onConflict: "url", ignoreDuplicates: false }
     )

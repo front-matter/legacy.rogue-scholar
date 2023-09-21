@@ -13,6 +13,16 @@
     },
     {
       "facet": false,
+      "index": false,
+      "infix": false,
+      "locale": "",
+      "name": "archive_url",
+      "optional": true,
+      "sort": false,
+      "type": "string"
+    },
+    {
+      "facet": false,
       "index": true,
       "infix": false,
       "locale": "",

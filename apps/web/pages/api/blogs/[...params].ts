@@ -891,6 +891,12 @@ export async function extractAllPostsByBlog(
               "utm_source",
             ],
           })
+          // link to archived version of post if blog is archived
+          let archive_url: any = null
+
+          if (blog.status === "archived" && blog.archive_prefix) {
+            archive_url = blog.archive_prefix + url
+          }
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
           const images = getImages(content_html, url)
@@ -978,6 +984,7 @@ export async function extractAllPostsByBlog(
             tags,
             title,
             url,
+            archive_url,
           }
         },
       })
@@ -1079,7 +1086,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, slug, feed_url, current_feed_url, home_page_url, feed_format, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan"
+      "id, slug, feed_url, current_feed_url, home_page_url, archive_prefix, feed_format, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan"
     )
     .eq("id", blogSlug)
     .maybeSingle()
@@ -1095,6 +1102,7 @@ export async function getSingleBlog(blogSlug: string) {
     feed_url: config["feed_url"],
     modified_at: config["modified_at"],
     home_page_url: config["home_page_url"],
+    archive_prefix: config["archive_prefix"],
     feed_format: config["feed_format"],
     title: config["title"],
     generator: config["generator"],
@@ -1190,6 +1198,7 @@ export async function getSingleBlog(blogSlug: string) {
           modified_at: config["modified_at"],
           current_feed_url,
           home_page_url,
+          archive_prefix: config["archive_prefix"],
           feed_format,
           title,
           generator,
