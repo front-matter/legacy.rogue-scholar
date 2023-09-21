@@ -37,6 +37,7 @@
   "noSubscriptionAlert.upgradeButton": "Prolonger l'abonnement",
   "status.active": "actif",
   "status.approved": "approuvé",
+  "status.archived": "archivé",
   "status.expired": "expiré",
   "status.submitted": "soumis",
   "terms.1": "Le blog est sur la science (naturelle ou humaine).",

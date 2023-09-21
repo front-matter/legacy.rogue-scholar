@@ -37,6 +37,7 @@
   "noSubscriptionAlert.upgradeButton": "Estender assinatura",
   "status.active": "ativo",
   "status.approved": "aprovado",
+  "status.archived": "arquivado",
   "status.expired": "expirado",
   "status.submitted": "submetido",
   "terms.1": "O blog é sobre ciência (natural ou humana).",

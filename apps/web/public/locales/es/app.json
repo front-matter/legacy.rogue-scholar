@@ -37,6 +37,7 @@
   "noSubscriptionAlert.upgradeButton": "Ampliar suscripción",
   "status.active": "activo",
   "status.approved": "aprobado",
+  "status.archived": "archivado",
   "status.expired": "venció",
   "status.submitted": "enviado",
   "terms.1": "El blog trata sobre ciencias (naturales o humanas).",

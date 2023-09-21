@@ -9,7 +9,7 @@ export async function getServerSideProps(ctx) {
   const { data, error } = await supabase
     .from("blogs")
     .select(blogsSelect)
-    .in("status", ["approved", "active"])
+    .in("status", ["approved", "active", "archived"])
     .order("title", { ascending: true })
 
   if (error) {

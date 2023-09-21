@@ -77,62 +77,64 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </div>
             )}
           </div>
-          <div className="mt-1">
-            <span className="text-gray-500 dark:text-gray-200">
-              <Link
-                href={blog.home_page_url ?? ""}
-                target="_blank"
-                className="relative mr-6 w-0 py-2 text-base font-medium"
-              >
-                <Icon icon="fa6-solid:house" className="inline" />
-                <span className="ml-2">{t("posts.homepage")}</span>
-              </Link>
-            </span>
-            {feed_url && blog.feed_format && (
-              <span className="-ml-px text-gray-500 dark:text-gray-200">
+          {blog.status === "active" && (
+            <div className="mt-1">
+              <span className="text-gray-500 dark:text-gray-200">
                 <Link
-                  href={feed_url}
+                  href={blog.home_page_url ?? ""}
                   target="_blank"
                   className="relative mr-6 w-0 py-2 text-base font-medium"
                 >
-                  <Icon icon="fa6-solid:rss" className="inline" />
-                  <span className="ml-2">
-                    {t("posts.feed", {
-                      format: feedFormats[blog.feed_format],
+                  <Icon icon="fa6-solid:house" className="inline" />
+                  <span className="ml-2">{t("posts.homepage")}</span>
+                </Link>
+              </span>
+              {feed_url && blog.feed_format && (
+                <span className="-ml-px text-gray-500 dark:text-gray-200">
+                  <Link
+                    href={feed_url}
+                    target="_blank"
+                    className="relative mr-6 w-0 py-2 text-base font-medium"
+                  >
+                    <Icon icon="fa6-solid:rss" className="inline" />
+                    <span className="ml-2">
+                      {t("posts.feed", {
+                        format: feedFormats[blog.feed_format],
+                      })}
+                    </span>
+                  </Link>
+                </span>
+              )}
+              {blog.use_mastodon && (
+                <span className="-ml-px text-gray-500 dark:text-gray-200">
+                  <Link
+                    href={"https://rogue-scholar.social/@" + blog.slug}
+                    target="_blank"
+                    className="relative mr-6 w-0 py-2 text-base font-medium"
+                  >
+                    <Icon icon="fa6-brands:mastodon" className="inline" />
+                    <span className="ml-2">Mastodon</span>
+                  </Link>
+                </span>
+              )}
+              {blog.modified_at && blog.modified_at > "1970-01-02" && (
+                <span className="font-medium text-gray-500 dark:text-gray-200">
+                  <Icon icon="fa6-regular:calendar-check" className="inline" />
+                  <time
+                    className="ml-2 mr-6"
+                    dateTime={blog.modified_at.toString()}
+                  >
+                    {t("posts.date_published", {
+                      val: new Date(blog.modified_at),
+                      formatParams: {
+                        val: { year: "numeric", month: "long", day: "numeric" },
+                      },
                     })}
-                  </span>
-                </Link>
-              </span>
-            )}
-            {blog.use_mastodon && (
-              <span className="-ml-px text-gray-500 dark:text-gray-200">
-                <Link
-                  href={"https://rogue-scholar.social/@" + blog.slug}
-                  target="_blank"
-                  className="relative mr-6 w-0 py-2 text-base font-medium"
-                >
-                  <Icon icon="fa6-brands:mastodon" className="inline" />
-                  <span className="ml-2">Mastodon</span>
-                </Link>
-              </span>
-            )}
-            {blog.modified_at && blog.modified_at > "1970-01-02" && (
-              <span className="font-medium text-gray-500 dark:text-gray-200">
-                <Icon icon="fa6-regular:calendar-check" className="inline" />
-                <time
-                  className="ml-2 mr-6"
-                  dateTime={blog.modified_at.toString()}
-                >
-                  {t("posts.date_published", {
-                    val: new Date(blog.modified_at),
-                    formatParams: {
-                      val: { year: "numeric", month: "long", day: "numeric" },
-                    },
-                  })}
-                </time>
-              </span>
-            )}
-          </div>
+                  </time>
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

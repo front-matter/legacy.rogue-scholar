@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     const { data: blogs, error } = await supabase
       .from("blogs")
       .select(blogsSelect)
-      .in("status", ["approved", "active"])
+      .in("status", ["approved", "active", "archived"])
       .order("title", { ascending: true })
 
     if (error) {
