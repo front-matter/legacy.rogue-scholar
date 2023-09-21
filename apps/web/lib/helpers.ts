@@ -13,7 +13,7 @@ import nodePandoc from "node-pandoc-promise"
 import sanitizeHtml from "sanitize-html"
 const { CrockfordBase32 } = require("crockford-base32")
 
-import { BlogType } from "@/types/blog"
+import { BlogType, FundingType } from "@/types/blog"
 
 export function getBaseURL() {
   const url =
@@ -496,6 +496,20 @@ export function getTitle(html: string) {
   })
 
   return decodeHtmlCharCodes(sanitized).trim()
+}
+
+export function getFunding(funding: FundingType) {
+  if (funding.funder_name && funding.award_number && funding.award_uri) {
+    return {
+      str: "Research funded by the " + funding.funder_name + " under ",
+      link_str: funding.award_number,
+      url: funding.award_uri,
+    }
+  } else if (funding.funder_name) {
+    return { str: "Research funded by the " + funding.funder_name + "." }
+  } else {
+    return null
+  }
 }
 
 export function parseGenerator(generator: any) {

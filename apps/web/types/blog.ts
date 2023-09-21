@@ -12,6 +12,13 @@ export interface ReferenceType {
   url?: string
 }
 
+export interface FundingType {
+  funder_id?: string
+  funder_name?: string
+  award_number?: string
+  award_uri?: string
+}
+
 export interface RelationshipType {
   type?: string
   url?: string
@@ -78,6 +85,7 @@ export interface BlogType extends FeedData {
   prefix?: string
   user_id?: string
   authors?: AuthorType[]
+  funding?: FundingType
   plan?: string
   use_mastodon?: boolean
 }

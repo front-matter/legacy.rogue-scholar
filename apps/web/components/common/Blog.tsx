@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
+import { getFunding } from "@/lib/helpers"
 import { BlogType } from "@/types/blog"
 
 type Props = {
@@ -34,6 +35,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
   const { t } = useTranslation("common")
   const router = useRouter()
   const { locale: activeLocale } = router
+  const funding_info = blog.funding ? getFunding(blog.funding) : null
 
   return (
     <div className="bg-inherit py-4">
@@ -74,6 +76,23 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
             {blog.description && (
               <div className="mt-1 font-serif text-base text-gray-600 dark:text-gray-200">
                 {parse(String(blog.description))}
+
+                {funding_info && (
+                  <span>
+                    {" "}
+                    {parse(String(funding_info.str))}
+                    {funding_info.url && (
+                      <Link
+                        className="hover:font-semibold"
+                        href={funding_info.url}
+                        target="_blank"
+                      >
+                        {"grant agreement No " + funding_info.link_str}
+                      </Link>
+                    )}
+                    .
+                  </span>
+                )}
               </div>
             )}
           </div>
