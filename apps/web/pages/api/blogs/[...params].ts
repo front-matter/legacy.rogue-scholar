@@ -22,8 +22,6 @@ const jsdom = require("jsdom")
 const { JSDOM } = jsdom
 const xml2js = require("xml2js")
 
-// import { is, el } from "date-fns/locale"
-
 import {
   decodeHtmlCharCodes,
   detectLanguage,
@@ -67,6 +65,25 @@ export const authorIDs = {
   "Veronica Herrera": "https://orcid.org/0000-0003-4935-1226",
   "Dessislava Kirilova": "https://orcid.org/0000-0002-3824-9982",
   "Corin Wagen": "https://orcid.org/0000-0003-3315-3524",
+  "Adèniké Deane-Pratt": "https://orcid.org/0000-0001-9940-9233",
+  "Angela Dappert": "https://orcid.org/0000-0003-2614-6676",
+  "Laura Rueda": "https://orcid.org/0000-0001-5952-7630",
+  "Rachael Kotarski": "https://orcid.org/0000-0001-6843-7960",
+  "Florian Graef": "https://orcid.org/0000-0002-0716-5639",
+  "Adam Farquhar": "https://orcid.org/0000-0001-5331-6592",
+  "Tom Demeranville": "https://orcid.org/0000-0003-0902-4386",
+  "Martin Fenner": "https://orcid.org/0000-0003-1419-2405",
+  "Sünje Dallmeier-Tiessen": "https://orcid.org/0000-0002-6137-2348",
+  "Maaike Duine": "https://orcid.org/0000-0003-3412-7192",
+  "Kirstie Hewlett": "https://orcid.org/0000-0001-5853-0432",
+  "Amir Aryani": "https://orcid.org/0000-0002-4259-9774",
+  "Xiaoli Chen": "https://orcid.org/0000-0003-0207-2705",
+  "Patricia Herterich": "https://orcid.org/0000-0002-4542-9906",
+  "Josh Brown": "https://orcid.org/0000-0002-8689-4935",
+  "Robin Dasler": "https://orcid.org/0000-0002-4695-7874",
+  "Markus Stocker": "https://orcid.org/0000-0001-5492-3212",
+  "Robert Petryszak": "https://orcid.org/0000-0001-6333-2182",
+  "Robert Huber": "https://orcid.org/0000-0003-3000-0020",
 }
 
 const normalizeAuthor = (author: AuthorType) => {
@@ -99,6 +116,28 @@ const normalizeAuthor = (author: AuthorType) => {
     author["name"] = "Mark MacGillivray"
   } else if (author["name"] === "richarddjones") {
     author["name"] = "Richard Jones"
+  } else if (author["name"] === "maaikeduine") {
+    author["name"] = "Maaike Duine"
+  } else if (author["name"] === "suenjedt") {
+    author["name"] = "Sünje Dallmeier-Tiessen"
+  } else if (author["name"] === "kirstiehewlett") {
+    author["name"] = "Kirstie Hewlett"
+  } else if (author["name"] === "pherterich") {
+    author["name"] = "Patricia Herterich"
+  } else if (author["name"] === "adeanepratt") {
+    author["name"] = "Adèniké Deane-Pratt"
+  } else if (author["name"] === "angeladappert") {
+    author["name"] = "Angela Dappert"
+  } else if (author["name"] === "RachaelKotarski") {
+    author["name"] = "Rachael Kotarski"
+  } else if (author["name"] === "fgraef") {
+    author["name"] = "Florian Graef"
+  } else if (author["name"] === "adamfarquhar") {
+    author["name"] = "Adam Farquhar"
+  } else if (author["name"] === "tomdemeranville") {
+    author["name"] = "Tom Demeranville"
+  } else if (author["name"] === "mfenner") {
+    author["name"] = "Martin Fenner"
   }
   author["name"] = author["name"].replace(/, MD$/, "")
   return author
@@ -1049,99 +1088,127 @@ export async function getSingleBlog(blogSlug: string) {
     return {}
   }
 
-  const blog: BlogType = await extract(config["feed_url"], {
-    useISODateFormat: true,
-    getExtraFeedFields: (feedData) => {
-      // console.log(feedData)
-      const title = decodeHtmlCharCodes(
-        config["title"] ||
-          get(feedData, "title.#text", null) ||
-          get(feedData, "title", null)
-      ).trim()
-      const current_feed_url = config["current_feed_url"]
-      let home_page_url =
-        config["home_page_url"] ||
-        []
-          .concat(get(feedData, "link", []))
-          .find((link) => get(link, "@_rel", null) === "alternate") ||
-        [].concat(get(feedData, "link", []))[0]
+  let blog: BlogType = {
+    id: config["id"],
+    slug: config["slug"],
+    version: "https://jsonfeed.org/version/1.1",
+    feed_url: config["feed_url"],
+    modified_at: config["modified_at"],
+    home_page_url: config["home_page_url"],
+    feed_format: config["feed_format"],
+    title: config["title"],
+    generator: config["generator"],
+    description: config["description"],
+    favicon: config["favicon"],
+    language: config["language"],
+    license: "https://creativecommons.org/licenses/by/4.0/legalcode",
+    category: config["category"],
+    status: config["status"],
+    plan: config["plan"],
+    user_id: config["user_id"],
+    authors: config["authors"],
+    use_mastodon: config["use_mastodon"],
+  }
 
-      if (isObject(home_page_url)) {
-        home_page_url = get(home_page_url, "@_href", null)
-      }
-      home_page_url = home_page_url ? home_page_url.replace(/\/+$/g, "") : null
-      let feed_format =
-        []
-          .concat(get(feedData, "link", []))
-          .find((link) => get(link, "@_rel", null) === "self") || {}
+  try {
+    blog = await extract(config["feed_url"], {
+      useISODateFormat: true,
+      getExtraFeedFields: (feedData) => {
+        // console.log(feedData)
+        const title = decodeHtmlCharCodes(
+          config["title"] ||
+            get(feedData, "title.#text", null) ||
+            get(feedData, "title", null)
+        ).trim()
+        const current_feed_url = config["current_feed_url"]
+        let home_page_url =
+          config["home_page_url"] ||
+          []
+            .concat(get(feedData, "link", []))
+            .find((link) => get(link, "@_rel", null) === "alternate") ||
+          [].concat(get(feedData, "link", []))[0]
 
-      feed_format =
-        get(feed_format, "@_type", null) ||
-        get(feedData, "@_xmlns", null) === "http://www.w3.org/2005/Atom"
-          ? "application/atom+xml"
-          : null ||
-            get(feedData, "atom:link.@_type", null) ||
-            (get(feedData, "version", null) && "application/feed+json") ||
-            config["feed_format"] ||
-            "application/rss+xml"
+        if (isObject(home_page_url)) {
+          home_page_url = get(home_page_url, "@_href", null)
+        }
+        home_page_url = home_page_url
+          ? home_page_url.replace(/\/+$/g, "")
+          : null
+        let feed_format =
+          []
+            .concat(get(feedData, "link", []))
+            .find((link) => get(link, "@_rel", null) === "self") || {}
 
-      let generator = get(feedData, "generator", null)
+        feed_format =
+          get(feed_format, "@_type", null) ||
+          get(feedData, "@_xmlns", null) === "http://www.w3.org/2005/Atom"
+            ? "application/atom+xml"
+            : null ||
+              get(feedData, "atom:link.@_type", null) ||
+              (get(feedData, "version", null) && "application/feed+json") ||
+              config["feed_format"] ||
+              "application/rss+xml"
 
-      generator = parseGenerator(generator) || config["generator"]
+        let generator = get(feedData, "generator", null)
 
-      let description =
-        config["description"] ||
-        get(feedData, "description.#text", null) ||
-        get(feedData, "description", null) ||
-        get(feedData, "subtitle.#text", null) ||
-        get(feedData, "subtitle", null)
+        generator = parseGenerator(generator) || config["generator"]
 
-      description = isString(description)
-        ? decodeHtmlCharCodes(description).trim()
-        : null
+        let description =
+          config["description"] ||
+          get(feedData, "description.#text", null) ||
+          get(feedData, "description", null) ||
+          get(feedData, "subtitle.#text", null) ||
+          get(feedData, "subtitle", null)
 
-      let language: string =
-        get(feedData, "language", null) ||
-        get(feedData, "@_xml:lang", null) ||
-        "en"
-      // normalize language to ISO 639-1, e.g. en-US -> en
-      // en is the default language
+        description = isString(description)
+          ? decodeHtmlCharCodes(description).trim()
+          : null
 
-      language = language.split("-")[0]
+        let language: string =
+          get(feedData, "language", null) ||
+          get(feedData, "@_xml:lang", null) ||
+          "en"
+        // normalize language to ISO 639-1, e.g. en-US -> en
+        // en is the default language
 
-      let favicon =
-        config["favicon"] ||
-        get(feedData, "image.url", null) ||
-        get(feedData, "icon", null)
+        language = language.split("-")[0]
 
-      favicon =
-        favicon !== "https://s0.wp.com/i/buttonw-com.png" ? favicon : null
-      const slug = config["slug"] || getSlug(config["feed_url"])
+        let favicon =
+          config["favicon"] ||
+          get(feedData, "image.url", null) ||
+          get(feedData, "icon", null)
 
-      return {
-        id: config["id"],
-        slug,
-        version: "https://jsonfeed.org/version/1.1",
-        feed_url: config["feed_url"],
-        modified_at: config["modified_at"],
-        current_feed_url,
-        home_page_url,
-        feed_format,
-        title,
-        generator,
-        description,
-        favicon,
-        language,
-        license: "https://creativecommons.org/licenses/by/4.0/legalcode",
-        category: config["category"],
-        status: config["status"],
-        plan: config["plan"],
-        user_id: config["user_id"],
-        authors: config["authors"],
-        use_mastodon: config["use_mastodon"],
-      }
-    },
-  })
+        favicon =
+          favicon !== "https://s0.wp.com/i/buttonw-com.png" ? favicon : null
+        const slug = config["slug"] || getSlug(config["feed_url"])
+
+        return {
+          id: config["id"],
+          slug,
+          version: "https://jsonfeed.org/version/1.1",
+          feed_url: config["feed_url"],
+          modified_at: config["modified_at"],
+          current_feed_url,
+          home_page_url,
+          feed_format,
+          title,
+          generator,
+          description,
+          favicon,
+          language,
+          license: "https://creativecommons.org/licenses/by/4.0/legalcode",
+          category: config["category"],
+          status: config["status"],
+          plan: config["plan"],
+          user_id: config["user_id"],
+          authors: config["authors"],
+          use_mastodon: config["use_mastodon"],
+        }
+      },
+    })
+  } catch (error) {
+    console.log(error)
+  }
 
   return omit(blog, ["published", "link", "entries"])
 }
