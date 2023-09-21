@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
+import { capitalize } from "lodash"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -32,7 +33,7 @@ export const feedFormats: { [key: string]: string } = {
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
   const generator = blog.generator ? blog.generator.split(" ")[0] : null
   const feed_url = blog.current_feed_url || blog.feed_url
-  const { t } = useTranslation("common")
+  const { t } = useTranslation(["common", "app"])
   const router = useRouter()
   const { locale: activeLocale } = router
   const funding_info = blog.funding ? getFunding(blog.funding) : null
@@ -73,6 +74,11 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 {generator}
               </span>
             )}
+            {blog.status === "archived" && (
+              <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-700 dark:text-red-200">
+                {capitalize(t("status." + blog.status, { ns: "app" }))}
+              </span>
+            )}
             {blog.description && (
               <div className="mt-1 font-serif text-base text-gray-600 dark:text-gray-200">
                 {parse(String(blog.description))}
@@ -96,64 +102,67 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </div>
             )}
           </div>
-          {blog.status === "active" && (
-            <div className="mt-1">
-              <span className="text-gray-500 dark:text-gray-200">
+          <div className="mt-1">
+            <span className="text-gray-500 dark:text-gray-200">
+              <Link
+                href={
+                  blog.status === "archived"
+                    ? (((blog.archive_prefix as string) +
+                        blog.home_page_url) as string)
+                    : (blog.home_page_url as string)
+                }
+                target="_blank"
+                className="relative mr-6 w-0 py-2 text-base font-medium"
+              >
+                <Icon icon="fa6-solid:house" className="inline" />
+                <span className="ml-2">{t("posts.homepage")}</span>
+              </Link>
+            </span>
+            {blog.status === "active" && feed_url && blog.feed_format && (
+              <span className="-ml-px text-gray-500 dark:text-gray-200">
                 <Link
-                  href={blog.home_page_url ?? ""}
+                  href={feed_url}
                   target="_blank"
                   className="relative mr-6 w-0 py-2 text-base font-medium"
                 >
-                  <Icon icon="fa6-solid:house" className="inline" />
-                  <span className="ml-2">{t("posts.homepage")}</span>
+                  <Icon icon="fa6-solid:rss" className="inline" />
+                  <span className="ml-2">
+                    {t("posts.feed", {
+                      format: feedFormats[blog.feed_format],
+                    })}
+                  </span>
                 </Link>
               </span>
-              {feed_url && blog.feed_format && (
-                <span className="-ml-px text-gray-500 dark:text-gray-200">
-                  <Link
-                    href={feed_url}
-                    target="_blank"
-                    className="relative mr-6 w-0 py-2 text-base font-medium"
-                  >
-                    <Icon icon="fa6-solid:rss" className="inline" />
-                    <span className="ml-2">
-                      {t("posts.feed", {
-                        format: feedFormats[blog.feed_format],
-                      })}
-                    </span>
-                  </Link>
-                </span>
-              )}
-              {blog.use_mastodon && (
-                <span className="-ml-px text-gray-500 dark:text-gray-200">
-                  <Link
-                    href={"https://rogue-scholar.social/@" + blog.slug}
-                    target="_blank"
-                    className="relative mr-6 w-0 py-2 text-base font-medium"
-                  >
-                    <Icon icon="fa6-brands:mastodon" className="inline" />
-                    <span className="ml-2">Mastodon</span>
-                  </Link>
-                </span>
-              )}
-              {blog.modified_at && blog.modified_at > "1970-01-02" && (
-                <span className="font-medium text-gray-500 dark:text-gray-200">
-                  <Icon icon="fa6-regular:calendar-check" className="inline" />
-                  <time
-                    className="ml-2 mr-6"
-                    dateTime={blog.modified_at.toString()}
-                  >
-                    {t("posts.date_published", {
-                      val: new Date(blog.modified_at),
-                      formatParams: {
-                        val: { year: "numeric", month: "long", day: "numeric" },
-                      },
-                    })}
-                  </time>
-                </span>
-              )}
-            </div>
-          )}
+            )}
+            {blog.use_mastodon && (
+              <span className="-ml-px text-gray-500 dark:text-gray-200">
+                <Link
+                  href={"https://rogue-scholar.social/@" + blog.slug}
+                  target="_blank"
+                  className="relative mr-6 w-0 py-2 text-base font-medium"
+                >
+                  <Icon icon="fa6-brands:mastodon" className="inline" />
+                  <span className="ml-2">Mastodon</span>
+                </Link>
+              </span>
+            )}
+            {blog.modified_at && blog.modified_at > "1970-01-02" && (
+              <span className="font-medium text-gray-500 dark:text-gray-200">
+                <Icon icon="fa6-regular:calendar-check" className="inline" />
+                <time
+                  className="ml-2 mr-6"
+                  dateTime={blog.modified_at.toString()}
+                >
+                  {t("posts.date_published", {
+                    val: new Date(blog.modified_at),
+                    formatParams: {
+                      val: { year: "numeric", month: "long", day: "numeric" },
+                    },
+                  })}
+                </time>
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -133,9 +133,9 @@ export const Posts: React.FunctionComponent<Props> = ({
                         <Link
                           className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                           target="_blank"
-                          href={post.url}
+                          href={post.archive_url || post.url}
                         >
-                          {post.url}
+                          {post.archive_url || post.url}
                         </Link>
                       </div>
                     )}

@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
+import { capitalize } from "lodash"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -14,7 +15,7 @@ type Props = {
 }
 
 export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
-  const { t } = useTranslation("common")
+  const { t } = useTranslation(["common", "app"])
   const router = useRouter()
   const { locale: activeLocale } = router
 
@@ -66,6 +67,11 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         {t("languages." + blog.language)}
                       </span>
                     )}
+                    {blog.status === "archived" && (
+                      <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-700 dark:text-red-200">
+                        {capitalize(t("status." + blog.status, { ns: "app" }))}
+                      </span>
+                    )}
                   </div>
                   {blog.favicon && (
                     <Image
@@ -81,7 +87,12 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                   <div className="-mt-px flex divide-x divide-gray-200 dark:divide-gray-700">
                     <div className="flex w-0 flex-1">
                       <Link
-                        href={blog.home_page_url ? blog.home_page_url : "#"}
+                        href={
+                          blog.status === "archived"
+                            ? (((blog.archive_prefix as string) +
+                                blog.home_page_url) as string)
+                            : (blog.home_page_url as string)
+                        }
                         target="_blank"
                         className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center gap-x-3 rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-500 dark:text-gray-200"
                       >
@@ -89,7 +100,8 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                         {t("posts.homepage")}
                       </Link>
                     </div>
-                    {(blog.current_feed_url || blog.feed_url || "") &&
+                    {blog.status === "active" &&
+                      (blog.current_feed_url || blog.feed_url || "") &&
                       blog.feed_format && (
                         <div className="-ml-px flex w-0 flex-1">
                           <Link
