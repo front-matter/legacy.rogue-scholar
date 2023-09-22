@@ -23,7 +23,7 @@ export async function getServerSideProps(ctx) {
   const { data: blog } = await supabase
     .from("blogs")
     .select(blogWithPostsSelect)
-    .eq("id", post?.blog_id)
+    .eq("slug", post?.blog_slug)
     .single()
 
   return {

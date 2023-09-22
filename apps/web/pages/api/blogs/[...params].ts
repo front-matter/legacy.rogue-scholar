@@ -677,9 +677,9 @@ export async function extractAllPostsByBlog(
               url: url,
             }
           })
-          const blog_id = blogSlug
+          const blog_slug = blogSlug
+          const blog_id = blog.id
           const blog_name = blog.title
-          const blog_slug = blog.slug
           let url: any = get(feedEntry, "link", [])
 
           if (isArray(url) && url.length > 0) {
@@ -862,9 +862,9 @@ export async function extractAllPostsByBlog(
               url: url,
             }
           })
-          const blog_id = blogSlug
+          const blog_slug = blogSlug
           const blog_name = blog.title
-          const blog_slug = blog.slug
+          const blog_id = blog.id
           let url: any = get(feedEntry, "link", [])
 
           if (isArray(url) && url.length > 0) {
