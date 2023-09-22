@@ -377,7 +377,7 @@ export default async function handler(req, res) {
       const { data: post } = await supabase
         .from("posts")
         .select(postsWithContentSelect)
-        .eq("slug", slug)
+        .eq("id", slug)
         .single()
 
       if (!post) {
