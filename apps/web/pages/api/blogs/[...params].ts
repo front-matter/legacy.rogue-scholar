@@ -1024,7 +1024,7 @@ export async function getAllPostsByBlog(blogSlug: string) {
   const { data, error } = await supabase
     .from("posts")
     .select(postsWithBlogSelect)
-    .eq("blog_id", blogSlug)
+    .eq("blog_slug", blogSlug)
     .order("published_at", { ascending: false })
 
   if (error) {
@@ -1042,8 +1042,8 @@ export async function upsertSingleBlog(blogSlug: string) {
   //  find timestamp from last modified post
   const { data: posts } = await supabase
     .from("posts")
-    .select("updated_at, blog_id")
-    .eq("blog_id", blog.id)
+    .select("updated_at, blog_slug")
+    .eq("blog_slug", blog.slug)
     .order("updated_at", { ascending: false })
     .limit(1)
 
@@ -1072,7 +1072,7 @@ export async function upsertSingleBlog(blogSlug: string) {
       user_id: blog.user_id,
       use_mastodon: blog.use_mastodon,
     },
-    { onConflict: "id", ignoreDuplicates: false }
+    { onConflict: "slug", ignoreDuplicates: false }
   )
 
   if (error) {
@@ -1088,7 +1088,7 @@ export async function getSingleBlog(blogSlug: string) {
     .select(
       "id, slug, feed_url, current_feed_url, home_page_url, archive_prefix, feed_format, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan"
     )
-    .eq("id", blogSlug)
+    .eq("slug", blogSlug)
     .maybeSingle()
 
   if (!config) {
@@ -1241,9 +1241,9 @@ export default async function handler(req, res) {
     if (action === "posts") {
       const searchParameters: PostSearchParams = {
         q: query,
-        filter_by: `blog_id:=${slug}`,
+        filter_by: `blog_slug:=${slug}`,
         query_by:
-          "tags,title,doi,authors.name,authors.url,reference.urk,summary,content_html",
+          "tags,title,doi,authors.name,authors.url,reference.url,summary,content_html",
         sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
         per_page: 10,
         page: page && page > 0 ? page : 1,
@@ -1274,7 +1274,7 @@ export default async function handler(req, res) {
       const { data: blog, error } = await supabase
         .from("blogs")
         .select(blogWithPostsSelect)
-        .eq("id", slug)
+        .eq("slug", slug)
 
       if (error) {
         return res.status(400).json({ message: error })
@@ -1297,7 +1297,7 @@ export default async function handler(req, res) {
       const { error } = await supabase
         .from("posts")
         .update({ not_indexed: true })
-        .eq("blog_id", slug)
+        .eq("blog_slug", slug)
 
       if (error) {
         console.log(error)

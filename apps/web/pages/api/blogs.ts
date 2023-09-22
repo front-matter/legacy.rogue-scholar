@@ -4,14 +4,14 @@ import { upsertSingleBlog } from "@/pages/api/blogs/[...params]"
 export async function updateAllBlogs() {
   const { data: blogs } = await supabase
     .from("blogs")
-    .select("id")
+    .select("slug")
     .in("status", ["approved", "active"])
 
   if (!blogs) {
     return []
   }
 
-  await Promise.all(blogs.map((blog) => upsertSingleBlog(blog.id)))
+  await Promise.all(blogs.map((blog) => upsertSingleBlog(blog.slug)))
 }
 
 export default async function handler(req, res) {

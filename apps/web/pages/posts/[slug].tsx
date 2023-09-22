@@ -53,21 +53,21 @@ const PostPage: React.FunctionComponent<Props> = ({ blog, post }) => {
         />
         <meta
           property="og:url"
-          content={"https://rogue-scholar.org/" + blog.id}
+          content={"https://rogue-scholar.org/blogs/" + blog.slug}
         />
         {blog.favicon && <meta property="og:image" content={blog.favicon} />}
         <link
           rel="alternate"
           title={blog.title}
           type="application/feed+json"
-          href={"https://rogue-scholar.org/" + blog.id + ".json"}
+          href={"https://rogue-scholar.org/blogs/" + blog.slug + ".json"}
         />
         <script
           type="application/ld+json"
           {...jsonLdScriptProps<BlogSchema>({
             "@context": "https://schema.org",
             "@type": "Blog",
-            url: `https://rogue-scholar.org/${blog.id}`,
+            url: `https://rogue-scholar.org/blogs/${blog.slug}`,
             name: `${blog.title}`,
             description: `${blog.description}`,
             inLanguage: `${blog.language}`,

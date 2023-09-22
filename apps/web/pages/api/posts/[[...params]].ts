@@ -221,7 +221,7 @@ export async function upsertSinglePost(post: PostType) {
 export async function updateAllPosts(page: number = 1) {
   const { data: blogs } = await supabase
     .from("blogs")
-    .select("id")
+    .select("slug")
     .eq("status", "active")
 
   if (!blogs) {
@@ -229,7 +229,7 @@ export async function updateAllPosts(page: number = 1) {
   }
 
   const data = await Promise.all(
-    blogs.map((blog) => extractAllPostsByBlog(blog.id, page))
+    blogs.map((blog) => extractAllPostsByBlog(blog.slug, page))
   )
   const posts = data.flat()
 
@@ -240,7 +240,7 @@ export async function updateAllPosts(page: number = 1) {
 export async function upsertAllPosts(page: number = 1, updateAll = false) {
   const { data: blogs } = await supabase
     .from("blogs")
-    .select("id")
+    .select("slug")
     .eq("status", "active")
 
   if (!blogs) {
@@ -248,7 +248,7 @@ export async function upsertAllPosts(page: number = 1, updateAll = false) {
   }
 
   const data = await Promise.all(
-    blogs.map((blog) => extractAllPostsByBlog(blog.id, page, updateAll))
+    blogs.map((blog) => extractAllPostsByBlog(blog.slug, page, updateAll))
   )
   const posts = data.flat()
 
@@ -259,14 +259,14 @@ export async function upsertAllPosts(page: number = 1, updateAll = false) {
 export async function upsertUpdatedPosts(page: number = 1) {
   const { data: blogs } = await supabase
     .from("blogs")
-    .select("id")
+    .select("slug")
     .eq("status", "active")
 
   if (!blogs) {
     return []
   }
   const data = await Promise.all(
-    blogs.map((blog) => extractUpdatedPostsByBlog(blog.id, page))
+    blogs.map((blog) => extractUpdatedPostsByBlog(blog.slug, page))
   )
 
   const posts = data.flat()
@@ -377,7 +377,7 @@ export default async function handler(req, res) {
       const { data: post } = await supabase
         .from("posts")
         .select(postsWithContentSelect)
-        .eq("id", slug)
+        .eq("slug", slug)
         .single()
 
       if (!post) {
