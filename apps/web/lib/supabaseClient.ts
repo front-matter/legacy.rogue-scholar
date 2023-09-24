@@ -11,6 +11,12 @@ export const supabase = createClient(
   }
 )
 
+export function getSecret(secretName: string) {
+  return supabase.rpc("read_secret", {
+    secret_name: secretName,
+  })
+}
+
 export const blogsSelect =
   "id, slug, title, description, language, favicon, feed_url, current_feed_url, archive_prefix,  feed_format, home_page_url, use_mastodon, created_at, modified_at, license, generator, category, backlog, prefix, status, plan, funding"
 export const blogWithPostsSelect =

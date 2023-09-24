@@ -1,19 +1,32 @@
 // import Cors from "cors"
-import { capitalize, isObject, isString, truncate } from "lodash"
+import {
+  capitalize,
+  compact,
+  get,
+  isObject,
+  isString,
+  startCase,
+  truncate,
+  uniq,
+} from "lodash"
 import path from "path"
 const he = require("he")
 const fs = require("fs")
+const extractUrls = require("extract-urls")
 const download = require("image-downloader")
+const { CrockfordBase32 } = require("crockford-base32")
+const jsdom = require("jsdom")
+const { JSDOM } = jsdom
 
 import { Mod97_10 } from "@konfirm/iso7064"
 import fetch from "cross-fetch"
 import { fromUnixTime, getUnixTime } from "date-fns"
 import { franc } from "franc"
 import nodePandoc from "node-pandoc-promise"
+import normalizeUrl from "normalize-url"
 import sanitizeHtml from "sanitize-html"
-const { CrockfordBase32 } = require("crockford-base32")
 
-import { BlogType, FundingType } from "@/types/blog"
+import { AuthorType, BlogType, FundingType } from "@/types/blog"
 
 export function getBaseURL() {
   const url =
@@ -724,4 +737,478 @@ export async function registerMastodonAccount(blog: BlogType) {
   } else {
     return null
   }
+}
+
+// extract blog post metadata from REST API
+export async function extractWordpressPost(
+  post: any,
+  blog: BlogType,
+  categories: any,
+  users: any
+) {
+  const authors = [].concat(post.author).map((id) => {
+    let name = users.find((u) => u.id === id)?.name
+
+    if (name === "rmounce") {
+      name = "Ross Mounce"
+    }
+    const uri = authorIDs[name] || null
+
+    return { name: name, url: uri }
+  })
+  const content_html = sanitizeHtml(get(post, "content.rendered", ""))
+  const reference = getReferences(content_html)
+  const relationships = getRelationships(content_html)
+  const url = normalizeUrl(post.link)
+  const images = getImages(content_html, url)
+  const image = images[0]?.src
+  const tags = compact(
+    post.categories.map((id) => {
+      const cat = categories.find((c) => c.id === id)
+
+      return cat?.name
+    })
+  ).slice(0, 5)
+
+  return {
+    authors: authors,
+    blog_id: blog.id,
+    blog_name: blog.title,
+    blog_slug: blog.slug,
+    content_html: content_html,
+    summary: getAbstract(content_html),
+    published_at: toUnixTime(post.date_gmt),
+    updated_at: toUnixTime(post.modified_gmt),
+    image: image,
+    images: images,
+    language: blog.language,
+    reference: reference,
+    relationships: relationships,
+    tags: tags,
+    title: get(post, "title.rendered", ""),
+    url: url,
+  }
+}
+
+// extract blog post metadata from REST API
+export async function extractGhostPost(post: any, blog: BlogType) {
+  const authors = post.authors.map((auth) => {
+    return {
+      name: auth.name,
+      url: auth.website,
+    }
+  })
+  const content_html = sanitizeHtml(post.html)
+  const reference = getReferences(content_html)
+  const relationships = getRelationships(content_html)
+  const url = normalizeUrl(post.url)
+  const images = getImages(content_html, url)
+  const image = images.length >= 1 ? images[0]?.src : null
+  const tags = post.tags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
+
+  return {
+    authors: authors,
+    blog_id: blog.id,
+    blog_name: blog.title,
+    blog_slug: blog.slug,
+    content_html: content_html,
+    summary: getAbstract(content_html),
+    published_at: toUnixTime(post.published_at),
+    updated_at: toUnixTime(post.updated_at),
+    image: image,
+    images: images,
+    language: blog.language,
+    reference: reference,
+    relationships: relationships,
+    tags: tags,
+    title: post.title,
+    url: url,
+  }
+}
+
+export async function extractSubstackPost(post: any, blog: BlogType) {
+  const authors = post.publishedBylines.map((auth) => {
+    auth = normalizeAuthor(auth)
+
+    const url = authorIDs[auth["name"]] || null
+
+    return {
+      name: get(auth, "name", null),
+      url: url,
+    }
+  })
+  const title = getTitle(post.title)
+  const summary = getAbstract(post.body_html)
+  const reference = getReferences(post.body_html)
+  const relationships = getRelationships(post.body_html)
+  const images = getImages(post.content_html, post.url)
+  const published_at = toUnixTime(post.post_date)
+  const tags = post.postTags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
+
+  return {
+    authors: authors,
+    blog_id: blog.id,
+    blog_name: blog.title,
+    blog_slug: blog.slug,
+    content_html: post.body_html,
+    summary: summary,
+    published_at: published_at,
+    updated_at: published_at,
+    image: post.cover_image,
+    images: images,
+    language: blog.language,
+    reference: reference,
+    relationships: relationships,
+    tags: tags,
+    title: title,
+    url: post.canonical_url,
+  }
+}
+
+export function getContent(feedEntry: any) {
+  let content_html =
+    get(feedEntry, "content:encoded", null) ||
+    get(feedEntry, "content.#text", null) ||
+    get(feedEntry, "description", null) ||
+    get(feedEntry, "content_html", null) ||
+    ""
+
+  content_html = sanitizeHtml(content_html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  })
+
+  // const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
+
+  // // extract images from content and store locally
+  // dom.window.document.querySelectorAll("img").forEach(async (image) => {
+  //   return await getImage(image, blog_home_page_url)
+  // })
+
+  return content_html
+}
+
+export function getImages(content_html: string, url: string) {
+  const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
+  const images: Array<{
+    src: string
+    srcset: string
+    width: number
+    height: number
+    sizes: string
+    alt: string
+  }> = Array.from(dom.window.document.querySelectorAll("img"))
+    .map((image: any) => {
+      const src = image.getAttribute("src")
+      let srcset = image.getAttribute("srcset")
+
+      if (isString(srcset)) {
+        srcset = srcset
+          .split(", ")
+          .map((src) => (isValidUrl(src) ? src : `${url}/${src}`))
+          .join(", ")
+      }
+      return {
+        src: isValidUrl(src) ? src : `${url}/${src}`,
+        srcset: srcset,
+        width: image.getAttribute("width"),
+        height: image.getAttribute("height"),
+        sizes: image.getAttribute("sizes"),
+        alt: image.getAttribute("alt"),
+      }
+    })
+    .filter((image) => image["src"] !== null && image["src"] !== "")
+
+  return images
+}
+
+export async function getImage(image: any, blog_home_page_url: string) {
+  const src = image.getAttribute("src")
+  let srcset = image.getAttribute("srcset")
+
+  if (isString(srcset)) {
+    srcset = srcset
+      .split(", ")
+      .map((src) => (isValidUrl(src) ? src : `${blog_home_page_url}${src}`))
+      .join(", ")
+  }
+
+  return {
+    src: src,
+    srcset: srcset,
+    width: image.getAttribute("width"),
+    height: image.getAttribute("height"),
+    sizes: image.getAttribute("sizes"),
+    alt: image.getAttribute("alt"),
+  }
+}
+
+export const getReferences = (content_html: string) => {
+  // extract links from references section,defined as the text after the tag
+  // "References</h2>", "References</h3>" or "References</h4>
+  const reference_html = content_html.split(
+    /(?:References|Referenzen)<\/(?:h2|h3|h4)>/,
+    2
+  )
+
+  if (reference_html.length == 1) {
+    return []
+  }
+  // strip optional text after references, using <hr>, <hr />, <h2, <h3, <h4 as tag
+  reference_html[1] = reference_html[1].split(
+    /(?:<hr \/>|<hr>|<h2|<h3|<h4)/,
+    2
+  )[0]
+  let urls = getUrls(reference_html[1])
+
+  if (!urls || urls.length == 0) {
+    return []
+  }
+  urls = urls.map((url, index) => {
+    const doi = isDoi(url)
+
+    if (doi) {
+      return {
+        key: `ref${index + 1}`,
+        doi: url,
+      }
+    } else {
+      return {
+        key: `ref${index + 1}`,
+        url: url,
+      }
+    }
+  })
+  return urls
+}
+
+const getUrls = (html: string) => {
+  let urls = extractUrls(html)
+
+  if (!urls || urls.length == 0) {
+    return []
+  }
+  urls = urls.map((url) => {
+    url = normalizeUrl(url, {
+      removeQueryParameters: [
+        "ref",
+        "referrer",
+        "origin",
+        "utm_content",
+        "utm_medium",
+        "utm_campaign",
+        "utm_source",
+      ],
+    })
+    if (isDoi(url)) {
+      const uri = new URL(url)
+
+      if (uri.protocol === "http") {
+        uri.protocol = "https"
+      }
+      if (uri.host === "dx.doi.org") {
+        uri.host = "doi.org"
+      }
+      url = uri.href
+    } else {
+      url = url.toLowerCase()
+    }
+    return url
+  })
+  urls = uniq(urls)
+  return urls
+}
+
+export const getRelationships = (content_html: string) => {
+  // extract links from Acknowledgments section,defined as the text after the tag
+  // "Acknowledgments</h2>", "Acknowledgments</h3>" or "Acknowledgments</h4>
+  const relationships_html = content_html.split(
+    /(?:Acknowledgments)<\/(?:h2|h3|h4)>/,
+    2
+  )
+
+  if (relationships_html.length == 1) {
+    return []
+  }
+
+  // strip optional text after notes, using <hr>, <hr />, <h2, <h3, <h4 as tag
+  relationships_html[1] = relationships_html[1].split(
+    /(?:<hr \/>|<hr>|<h2|<h3|<h4)/,
+    2
+  )[0]
+
+  // split notes into sentences and classify relationship type for each sentence
+  const sentences = relationships_html[1].split(/(?<=\w{3}[.!?])\s+/)
+
+  const relationships = sentences
+    .map((sentence) => {
+      sentence = sentence.trim()
+      const urls = getUrls(sentence).filter((url) => {
+        const uri = new URL(url)
+
+        return uri.host !== "orcid.org"
+      })
+
+      // detect type of relationship, default is generic relationship
+      let type = "IsRelatedTo"
+
+      if (sentence.search(/(originally published|cross-posted)/i) > -1) {
+        type = "IsIdenticalTo"
+      } else if (sentence.search(/peer-reviewed version/i) > -1) {
+        type = "IsPreprintOf"
+      } else if (sentence.search(/work was funded/i) > -1) {
+        type = "HasAward"
+      } else {
+        // console.log(sentence)
+      }
+      return urls.map((url) => {
+        return {
+          type: type,
+          url: url,
+        }
+      })
+    })
+    .flat()
+
+  return relationships
+}
+
+export const normalizeTag = (tag: string) => {
+  const fixedTags = {
+    aPKC: "aPKC",
+    CrossRef: "Crossref",
+    DataCite: "DataCite",
+    EU: "EU",
+    USA: "USA",
+    OSTP: "OSTP",
+    ElasticSearch: "ElasticSearch",
+    FoxP: "FoxP",
+    GigaByte: "GigaByte",
+    GigaDB: "GigaDB",
+    GraphQL: "GraphQL",
+    JATS: "JATS",
+    JISC: "JISC",
+    "JSON-LD": "JSON-LD",
+    microCT: "MicroCT",
+    MTE14: "MTE14",
+    "Pre-Print": "Preprint",
+    "Q&A": "Q&A",
+    ResearchGate: "ResearchGate",
+    RStats: "RStats",
+    ScienceEurope: "Science Europe",
+    TreeBASE: "TreeBASE",
+    "Web 2.0": "Web 2.0",
+    WikiCite: "WikiCite",
+    WikiData: "WikiData",
+  }
+
+  tag = tag.replace("#", "")
+  tag = get(fixedTags, tag, startCase(tag))
+  return tag
+}
+
+export const authorIDs = {
+  "Kristian Garza": "https://orcid.org/0000-0003-3484-6875",
+  "Roderic Page": "https://orcid.org/0000-0002-7101-9767",
+  "Tejas S. Sathe": "https://orcid.org/0000-0003-0449-4469",
+  "Meghal Shah": "https://orcid.org/0000-0002-2085-659X",
+  "Liberate Science": "https://ror.org/0342dzm54",
+  "David M. Shotton": "https://orcid.org/0000-0001-5506-523X",
+  "Lars Willighagen": "https://orcid.org/0000-0002-4751-4637",
+  "Marco Tullney": "https://orcid.org/0000-0002-5111-2788",
+  "Andrew Heiss": "https://orcid.org/0000-0002-3948-3914",
+  "Sebastian Karcher": "https://orcid.org/0000-0001-8249-7388",
+  "Colin Elman": "https://orcid.org/0000-0003-1004-4640",
+  "Veronica Herrera": "https://orcid.org/0000-0003-4935-1226",
+  "Dessislava Kirilova": "https://orcid.org/0000-0002-3824-9982",
+  "Corin Wagen": "https://orcid.org/0000-0003-3315-3524",
+  "Adèniké Deane-Pratt": "https://orcid.org/0000-0001-9940-9233",
+  "Angela Dappert": "https://orcid.org/0000-0003-2614-6676",
+  "Laura Rueda": "https://orcid.org/0000-0001-5952-7630",
+  "Rachael Kotarski": "https://orcid.org/0000-0001-6843-7960",
+  "Florian Graef": "https://orcid.org/0000-0002-0716-5639",
+  "Adam Farquhar": "https://orcid.org/0000-0001-5331-6592",
+  "Tom Demeranville": "https://orcid.org/0000-0003-0902-4386",
+  "Martin Fenner": "https://orcid.org/0000-0003-1419-2405",
+  "Sünje Dallmeier-Tiessen": "https://orcid.org/0000-0002-6137-2348",
+  "Maaike Duine": "https://orcid.org/0000-0003-3412-7192",
+  "Kirstie Hewlett": "https://orcid.org/0000-0001-5853-0432",
+  "Amir Aryani": "https://orcid.org/0000-0002-4259-9774",
+  "Xiaoli Chen": "https://orcid.org/0000-0003-0207-2705",
+  "Patricia Herterich": "https://orcid.org/0000-0002-4542-9906",
+  "Josh Brown": "https://orcid.org/0000-0002-8689-4935",
+  "Robin Dasler": "https://orcid.org/0000-0002-4695-7874",
+  "Markus Stocker": "https://orcid.org/0000-0001-5492-3212",
+  "Robert Petryszak": "https://orcid.org/0000-0001-6333-2182",
+  "Robert Huber": "https://orcid.org/0000-0003-3000-0020",
+}
+
+export const normalizeAuthor = (author: AuthorType) => {
+  // workaround for https://doi.org/10.59350/h4fhq-2t215
+  if (author["name"] === "GPT-4") {
+    author["name"] = "Tejas S. Sathe"
+  } else if (author["name"] === "davidshotton") {
+    author["name"] = "David M. Shotton"
+  } else if (author["name"] === "Morgan & Ethan") {
+    author["name"] = "Morgan Ernest"
+  } else if (author["name"] === "Marco") {
+    author["name"] = "Marco Tullney"
+  } else if (author["name"] === "NFernan") {
+    author["name"] = "Norbisley Fernández"
+  } else if (author["name"] === "skarcher@syr.edu") {
+    author["name"] = "Sebastian Karcher"
+  } else if (author["name"] === "celman@maxwell.syr.edu") {
+    author["name"] = "Colin Elman"
+  } else if (author["name"] === "colinelman@twcny.rr.com") {
+    author["name"] = "Colin Elman"
+  } else if (author["name"] === "veronica.herrera@uconn.edu") {
+    author["name"] = "Veronica Herrera"
+  } else if (author["name"] === "dessi.kirilova@syr.edu") {
+    author["name"] = "Dessislava Kirilova"
+  } else if (author["name"] === "benosteen") {
+    author["name"] = "Ben O'Steen"
+  } else if (author["name"] === "marilena_daquino") {
+    author["name"] = "Marilena Daquino"
+  } else if (author["name"] === "markmacgillivray") {
+    author["name"] = "Mark MacGillivray"
+  } else if (author["name"] === "richarddjones") {
+    author["name"] = "Richard Jones"
+  } else if (author["name"] === "maaikeduine") {
+    author["name"] = "Maaike Duine"
+  } else if (author["name"] === "suenjedt") {
+    author["name"] = "Sünje Dallmeier-Tiessen"
+  } else if (author["name"] === "kirstiehewlett") {
+    author["name"] = "Kirstie Hewlett"
+  } else if (author["name"] === "pherterich") {
+    author["name"] = "Patricia Herterich"
+  } else if (author["name"] === "adeanepratt") {
+    author["name"] = "Adèniké Deane-Pratt"
+  } else if (author["name"] === "angeladappert") {
+    author["name"] = "Angela Dappert"
+  } else if (author["name"] === "RachaelKotarski") {
+    author["name"] = "Rachael Kotarski"
+  } else if (author["name"] === "fgraef") {
+    author["name"] = "Florian Graef"
+  } else if (author["name"] === "adamfarquhar") {
+    author["name"] = "Adam Farquhar"
+  } else if (author["name"] === "tomdemeranville") {
+    author["name"] = "Tom Demeranville"
+  } else if (author["name"] === "mfenner") {
+    author["name"] = "Martin Fenner"
+  }
+  author["name"] = author["name"].replace(/, MD$/, "")
+  return author
+}
+
+export function getSlug(url: string) {
+  const uri = new URL(url)
+
+  if (!["www", "blog", "medium"].includes(uri.host.split(".")[0])) {
+    url = uri.host.split(".")[0]
+  } else if (uri.host.split(".").length > 2) {
+    url = uri.host.split(".")[1]
+  } else if (uri.host.split(".")[0] === "medium") {
+    url = uri.pathname
+  }
+  url = url.replace(/-/g, "_")
+  return url
 }

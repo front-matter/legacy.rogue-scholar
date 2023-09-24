@@ -29,6 +29,7 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tanstack/react-query": "^4.29.7",
     "@tryghost/admin-api": "^1.13.8",
+    "@tryghost/content-api": "^1.11.16",
     "@vercel/analytics": "^0.1.11",
     "ajv": "^8.12.0",
     "archiver": "^5.3.1",

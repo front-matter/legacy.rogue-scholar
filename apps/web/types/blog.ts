@@ -90,6 +90,7 @@ export interface BlogType extends FeedData {
   funding?: FundingType
   plan?: string
   use_mastodon?: boolean
+  use_api?: boolean
 }
 
 export interface BlogParentType {
