@@ -24,6 +24,7 @@ import {
   extractGhostPost,
   extractJekyllPost,
   extractSubstackPost,
+  extractWordpresscomPost,
   extractWordpressPost,
   // extractImage,
   getAbstract,
@@ -65,8 +66,11 @@ export async function extractAllPostsByBlog(
 
   const url = new URL(blog.feed_url || "")
 
-  const generator = blog.generator?.split(" ")[0]
+  const generator = blog.generator
 
+  if (generator === "WordPress (.com)") {
+    generator?.split(" ")[0]
+  }
   // limit number of pages for free plan to 5 (50 posts)
   page = blog.plan === "Starter" ? Math.min(page, 5) : page
   let startPage = page > 0 ? (page - 1) * 50 + 1 : 1
@@ -77,6 +81,14 @@ export async function extractAllPostsByBlog(
       if (blog.feed_format === "application/json") {
         url.searchParams.append("page", String(page))
         url.searchParams.append("per_page", String(50))
+      } else {
+        url.searchParams.append("paged", String(page))
+      }
+      break
+    case "WordPress (.com)":
+      if (blog.feed_format === "application/json") {
+        url.searchParams.append("page", String(page))
+        url.searchParams.append("number", String(50))
       } else {
         url.searchParams.append("paged", String(page))
       }
@@ -126,6 +138,16 @@ export async function extractAllPostsByBlog(
         posts.map((post: any) =>
           extractWordpressPost(post, blog, categories, users)
         )
+      )
+    } else if (
+      generator === "WordPress (.com)" &&
+      blog.feed_format === "application/json"
+    ) {
+      const res = await fetch(feed_url)
+      const result = await res.json()
+
+      blogWithPosts["entries"] = await Promise.all(
+        result.posts.map((post: any) => extractWordpresscomPost(post, blog))
       )
     } else if (generator === "Ghost" && blog.use_api) {
       const api = await ghostApi(

@@ -792,7 +792,45 @@ export async function extractWordpressPost(
   }
 }
 
-// extract blog post metadata from REST API
+export async function extractWordpresscomPost(post: any, blog: BlogType) {
+  const authors = [].concat(post.author).map((author) => {
+    return { name: author["name"], url: author["URL"] }
+  })
+  const content_html = sanitizeHtml(post.content)
+
+  // remove ellipses at the end of summary
+  let summary = post.excerpt // .replace("[&hellip;]", "")
+
+  summary = getAbstract(summary)
+  const reference = getReferences(content_html)
+  const relationships = getRelationships(content_html)
+  const url = normalizeUrl(post.URL)
+  const images = getImages(content_html, url)
+  const image = images.length > 0 ? images[0]?.src : null
+  const tags = compact(
+    Object.keys(post.tags).map((tag) => normalizeTag(tag))
+  ).slice(0, 5)
+
+  return {
+    authors: authors,
+    blog_id: blog.id,
+    blog_name: blog.title,
+    blog_slug: blog.slug,
+    content_html: content_html,
+    summary: summary,
+    published_at: toUnixTime(post.date),
+    updated_at: toUnixTime(post.modified),
+    image: image,
+    images: images,
+    language: blog.language,
+    reference: reference,
+    relationships: relationships,
+    tags: tags,
+    title: post.title,
+    url: url,
+  }
+}
+
 export async function extractGhostPost(post: any, blog: BlogType) {
   const authors = post.authors.map((auth) => {
     return {
