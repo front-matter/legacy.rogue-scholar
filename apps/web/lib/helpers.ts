@@ -870,6 +870,49 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
   }
 }
 
+export async function extractJekyllPost(post: any, blog: BlogType) {
+  const base_url = blog.home_page_url as string
+  const authors = post.author.map((auth) => {
+    return {
+      name: auth.name,
+      url: auth.uri,
+    }
+  })
+  const content_html = sanitizeHtml(get(post, "content.0._", ""))
+  const summary = getAbstract(get(post, "summary.0._", ""))
+  const reference = getReferences(content_html)
+  const relationships = getRelationships(content_html)
+  const url = normalizeUrl(get(post, "link.0.$.href", null))
+  const images = getImages(content_html, base_url)
+  const image = images.length >= 1 ? images[0]?.src : null
+  const tags = compact(
+    post.category
+      .map((tag) => {
+        return tag ? normalizeTag(get(tag, "$.term", null)) : null
+      })
+      .slice(0, 5)
+  )
+
+  return {
+    authors: authors,
+    blog_id: blog.id,
+    blog_name: blog.title,
+    blog_slug: blog.slug,
+    content_html: content_html,
+    summary: summary,
+    published_at: toUnixTime(post.published[0]),
+    updated_at: toUnixTime(post.updated[0]),
+    image: image,
+    images: images,
+    language: blog.language,
+    reference: reference,
+    relationships: relationships,
+    tags: tags,
+    title: get(post, "title.0._", ""),
+    url: url,
+  }
+}
+
 export function getContent(feedEntry: any) {
   let content_html =
     get(feedEntry, "content:encoded", null) ||
@@ -906,6 +949,7 @@ export function getImages(content_html: string, url: string) {
       const src = image.getAttribute("src")
       let srcset = image.getAttribute("srcset")
 
+      console.log(image)
       if (isString(srcset)) {
         srcset = srcset
           .split(", ")
