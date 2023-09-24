@@ -3,7 +3,16 @@ import {
   extractFromJson,
   extractFromXml,
 } from "@extractus/feed-extractor"
-import { get, isArray, isEmpty, isNull, isObject, isString, omit } from "lodash"
+import {
+  compact,
+  get,
+  isArray,
+  isEmpty,
+  isNull,
+  isObject,
+  isString,
+  omit,
+} from "lodash"
 import normalizeUrl from "normalize-url"
 
 const xml2js = require("xml2js")
@@ -258,21 +267,25 @@ export async function extractAllPostsByBlog(
             ? getRelationships(content_html)
             : []
           const reference = content_html ? getReferences(content_html) : []
-          let tags = []
-            .concat(get(feedEntry, "category", []))
-            .map((tag: string) => {
-              tag = decodeHtmlCharCodes(
-                get(tag, "@_term", null) || get(tag, "#text", null) || tag
-              )
-              tag = normalizeTag(tag)
-              return tag
-            })
-            .slice(0, 5)
+          let tags = compact(
+            []
+              .concat(get(feedEntry, "category", []))
+              .map((tag: string | null) => {
+                tag = decodeHtmlCharCodes(
+                  get(tag, "@_term", null) || get(tag, "#text", null) || tag
+                )
+                return tag ? normalizeTag(tag) : null
+              })
+          ).slice(0, 5)
 
           if (isEmpty(tags)) {
             tags = get(feedEntry, "tags", [])
             if (isArray(tags)) {
-              tags = tags.map((tag: string) => normalizeTag(tag)).slice(0, 5)
+              tags = compact(
+                tags.map((tag: string | null) => {
+                  return tag ? normalizeTag(tag) : null
+                })
+              ).slice(0, 5)
             } else {
               tags = []
             }
@@ -451,19 +464,22 @@ export async function extractAllPostsByBlog(
           const reference = content_html ? getReferences(content_html) : []
           let tags = []
             .concat(get(feedEntry, "category", []))
-            .map((tag: string) => {
+            .map((tag: string | null) => {
               tag = decodeHtmlCharCodes(
                 get(tag, "@_term", null) || get(tag, "#text", null) || tag
               )
-              tag = normalizeTag(tag)
-              return tag
+              return tag ? normalizeTag(tag) : null
             })
             .slice(0, 5)
 
           if (isEmpty(tags)) {
             tags = get(feedEntry, "tags", [])
             if (isArray(tags)) {
-              tags = tags.map((tag: string) => normalizeTag(tag)).slice(0, 5)
+              tags = compact(
+                tags.map((tag: string | null) => {
+                  return tag ? normalizeTag(tag) : null
+                })
+              ).slice(0, 5)
             } else {
               tags = []
             }
@@ -727,6 +743,7 @@ export async function getSingleBlog(blogSlug: string) {
           user_id: config["user_id"],
           authors: config["authors"],
           use_mastodon: config["use_mastodon"],
+          use_api: config["use_api"],
         }
       },
     })

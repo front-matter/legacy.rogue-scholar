@@ -146,7 +146,7 @@ export const toUnixTime = (dstr) => {
 
 // from https://stackoverflow.com/questions/784586/convert-special-characters-to-html-in-javascript
 export const decodeHtmlCharCodes = (str: any) => {
-  if (!isString(str)) return str
+  if (!isString(str)) return ""
 
   return he.decode(str)
 }
@@ -479,6 +479,7 @@ export async function extractImage(
 }
 
 export function getAbstract(html: string, maxlen: number = 450) {
+  if (!html) return null
   html = html
     .replace(/(<br>|<p>)/g, " ")
     .replace(/(h1>|h2>|h3>|h4>)/g, "strong>")
@@ -500,6 +501,7 @@ export function getAbstract(html: string, maxlen: number = 450) {
 }
 
 export function getTitle(html: string) {
+  if (!html) return null
   html = html
     .replace(/(<br>|<p>)/g, " ")
     .replace(/(h1>|h2>|h3>|h4>)/g, "strong>")
@@ -799,12 +801,15 @@ export async function extractGhostPost(post: any, blog: BlogType) {
     }
   })
   const content_html = sanitizeHtml(post.html)
+  const summary = getAbstract(post.excerpt)
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.url)
   const images = getImages(content_html, url)
   const image = images.length >= 1 ? images[0]?.src : null
-  const tags = post.tags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
+  const tags = compact(
+    post.tags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
+  )
 
   return {
     authors: authors,
@@ -812,7 +817,7 @@ export async function extractGhostPost(post: any, blog: BlogType) {
     blog_name: blog.title,
     blog_slug: blog.slug,
     content_html: content_html,
-    summary: getAbstract(content_html),
+    summary: summary,
     published_at: toUnixTime(post.published_at),
     updated_at: toUnixTime(post.updated_at),
     image: image,
@@ -1101,6 +1106,7 @@ export const normalizeTag = (tag: string) => {
     WikiData: "WikiData",
   }
 
+  if (!tag) return null
   tag = tag.replace("#", "")
   tag = get(fixedTags, tag, startCase(tag))
   return tag
