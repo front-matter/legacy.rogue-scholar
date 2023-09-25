@@ -78,7 +78,7 @@ export async function extractAllPostsByBlog(
   // handle pagination depending on blogging platform and whether we use their API
   switch (generator) {
     case "WordPress":
-      if (blog.feed_format === "application/json") {
+      if (blog.use_api) {
         url.searchParams.append("page", String(page))
         url.searchParams.append("per_page", String(50))
       } else {
@@ -140,7 +140,6 @@ export async function extractAllPostsByBlog(
           extractWordpressPost(post, blog, categories, users)
         )
       )
-      console.log(blogWithPosts["entries"])
     } else if (generator === "WordPress (.com)" && blog.use_api) {
       const res = await fetch(feed_url)
       const response = await res.json()
