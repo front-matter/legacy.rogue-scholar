@@ -806,7 +806,7 @@ export async function extractWordpresscomPost(post: any, blog: BlogType) {
     return { name: author["name"], url: author["URL"] }
   })
   const content_html = sanitizeHtml(post.content)
-  const summary = getAbstract(post.excerpt)
+  const summary = getAbstract(post.excerpt) || getTitle(post.title)
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.URL, { forceHttps: true })
