@@ -754,15 +754,11 @@ export async function registerMastodonAccount(blog: BlogType) {
 export async function extractWordpressPost(
   post: any,
   blog: BlogType,
-  categories: any,
-  users: any
+  categories: any
 ) {
+  const users = userIDs[blog.slug as string] || []
   const authors = [].concat(post.author).map((id) => {
-    let name = users.find((u) => u.id === id)?.name
-
-    if (name === "rmounce") {
-      name = "Ross Mounce"
-    }
+    const name = users.find((u) => u.id === id)?.name
     const uri = authorIDs[name] || null
 
     return { name: name, url: uri }
@@ -770,14 +766,14 @@ export async function extractWordpressPost(
   const content_html = sanitizeHtml(get(post, "content.rendered", ""))
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
-  const url = normalizeUrl(post.link)
+  const url = normalizeUrl(post.link, { forceHttps: true, stripWWW: false })
   const images = getImages(content_html, url)
-  const image = images[0]?.src
+  const image = images.length > 0 ? images[0]?.src : null
   const tags = compact(
     post.categories.map((id) => {
       const cat = categories.find((c) => c.id === id)
 
-      return cat?.name
+      return cat ? normalizeTag(cat.name) : null
     })
   ).slice(0, 5)
 
@@ -809,7 +805,7 @@ export async function extractWordpresscomPost(post: any, blog: BlogType) {
   const summary = getAbstract(post.excerpt) || getTitle(post.title)
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
-  const url = normalizeUrl(post.URL, { forceHttps: true })
+  const url = normalizeUrl(post.URL, { forceHttps: true, stripWWW: false })
   const images = getImages(content_html, url)
   const image = images.length > 0 ? images[0]?.src : null
   const tags = compact(
@@ -1216,6 +1212,11 @@ export const normalizeTag = (tag: string) => {
   return tag
 }
 
+export const userIDs = {
+  rzepa: [{ id: 1, name: "Henry Rzepa" }],
+  rossmounce: [{ id: 1, name: "Ross Mounce" }],
+}
+
 export const authorIDs = {
   "Kristian Garza": "https://orcid.org/0000-0003-3484-6875",
   "Roderic Page": "https://orcid.org/0000-0002-7101-9767",
@@ -1250,6 +1251,7 @@ export const authorIDs = {
   "Markus Stocker": "https://orcid.org/0000-0001-5492-3212",
   "Robert Petryszak": "https://orcid.org/0000-0001-6333-2182",
   "Robert Huber": "https://orcid.org/0000-0003-3000-0020",
+  "Henry Rzepa": "https://orcid.org/0000-0002-8635-8390",
 }
 
 export const normalizeAuthor = (author: AuthorType) => {

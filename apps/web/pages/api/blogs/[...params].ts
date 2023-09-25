@@ -65,12 +65,8 @@ export async function extractAllPostsByBlog(
   const blog: BlogType = await getSingleBlog(blogSlug)
 
   const url = new URL(blog.feed_url || "")
+  const generator = blog.generator?.split(" ")[0]
 
-  const generator = blog.generator
-
-  if (generator === "WordPress (.com)") {
-    generator?.split(" ")[0]
-  }
   // limit number of pages for free plan to 5 (50 posts)
   page = blog.plan === "Starter" ? Math.min(page, 5) : page
   let startPage = page > 0 ? (page - 1) * 50 + 1 : 1
@@ -79,6 +75,8 @@ export async function extractAllPostsByBlog(
   switch (generator) {
     case "WordPress":
       if (blog.use_api) {
+        url.searchParams.delete("feed")
+        url.searchParams.append("rest_route", "/wp/v2/posts")
         url.searchParams.append("page", String(page))
         url.searchParams.append("per_page", String(50))
       } else {
@@ -130,20 +128,20 @@ export async function extractAllPostsByBlog(
     } else if (generator === "WordPress" && blog.use_api) {
       const resp = await fetch(feed_url)
       const posts = await resp.json()
-      const rest = await fetch(`${blog.home_page_url}/wp-json/wp/v2/categories`)
+      const rest = await fetch(
+        `${blog.home_page_url}/?rest_route=/wp/v2/categories&per_page=100`
+      )
       const categories = await rest.json()
-      const resu = await fetch(`${blog.home_page_url}/wp-json/wp/v2/users`)
-      const users = await resu.json()
 
       blogWithPosts["entries"] = await Promise.all(
-        posts.map((post: any) =>
-          extractWordpressPost(post, blog, categories, users)
-        )
+        []
+          .concat(posts)
+          .map((post: any) => extractWordpressPost(post, blog, categories))
       )
     } else if (generator === "WordPress (.com)" && blog.use_api) {
       const res = await fetch(feed_url)
       const response = await res.json()
-      const posts = response.posts
+      const posts = response.posts || []
 
       blogWithPosts["entries"] = await Promise.all(
         posts.map((post: any) => extractWordpresscomPost(post, blog))
