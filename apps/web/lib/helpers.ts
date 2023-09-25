@@ -488,7 +488,7 @@ export function getAbstract(html: string, maxlen: number = 450) {
     allowedAttributes: {},
   })
 
-  // remove incomplete last sentence if ellipses at the end of abstract
+  // remove incomplete last sentence if ellipsis at the end of abstract
   // TODO: check for end of abstract
   if (sanitized.includes("[…]")) {
     maxlen = sanitized.length - 4
