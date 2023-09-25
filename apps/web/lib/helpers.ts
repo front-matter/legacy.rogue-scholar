@@ -768,7 +768,10 @@ export async function extractWordpressPost(
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.link, { forceHttps: true, stripWWW: false })
   const images = getImages(content_html, url)
-  const image = images.length > 0 ? images[0]?.src : null
+  const image = get(post, "yoast_head_json.og_image[0].url", null)
+  // || images.length > 0
+  //   ? images[0]?.src
+  //   : null
   const tags = compact(
     post.categories.map((id) => {
       const cat = categories.find((c) => c.id === id)
