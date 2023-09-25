@@ -488,6 +488,12 @@ export function getAbstract(html: string, maxlen: number = 450) {
     allowedAttributes: {},
   })
 
+  // remove incomplete last sentence if ellipses at the end of abstract
+  // TODO: check for end of abstract
+  if (sanitized.includes("[…]")) {
+    maxlen = sanitized.length - 4
+  }
+
   // use separator regex to split on sentence boundary
   const truncated = truncate(sanitized, {
     length: maxlen,
@@ -797,11 +803,7 @@ export async function extractWordpresscomPost(post: any, blog: BlogType) {
     return { name: author["name"], url: author["URL"] }
   })
   const content_html = sanitizeHtml(post.content)
-
-  // remove ellipses at the end of summary
-  let summary = post.excerpt // .replace("[&hellip;]", "")
-
-  summary = getAbstract(summary)
+  const summary = getAbstract(post.excerpt)
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.URL)
@@ -987,7 +989,6 @@ export function getImages(content_html: string, url: string) {
       const src = image.getAttribute("src")
       let srcset = image.getAttribute("srcset")
 
-      console.log(image)
       if (isString(srcset)) {
         srcset = srcset
           .split(", ")
