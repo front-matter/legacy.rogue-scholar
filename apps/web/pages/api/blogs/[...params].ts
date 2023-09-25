@@ -75,7 +75,7 @@ export async function extractAllPostsByBlog(
   page = blog.plan === "Starter" ? Math.min(page, 5) : page
   let startPage = page > 0 ? (page - 1) * 50 + 1 : 1
 
-  // handle pagination depending on blogging platform
+  // handle pagination depending on blogging platform and whether we use their API
   switch (generator) {
     case "WordPress":
       if (blog.feed_format === "application/json") {
@@ -86,7 +86,11 @@ export async function extractAllPostsByBlog(
       }
       break
     case "WordPress (.com)":
-      if (blog.feed_format === "application/json") {
+      if (blog.use_api) {
+        const site = new URL(blog.home_page_url as string).hostname
+
+        url.hostname = "public-api.wordpress.com"
+        url.pathname = "/rest/v1.1/sites/" + site + "/posts/"
         url.searchParams.append("page", String(page))
         url.searchParams.append("number", String(50))
       } else {
@@ -123,10 +127,7 @@ export async function extractAllPostsByBlog(
       } else {
         blogWithPosts["entries"] = []
       }
-    } else if (
-      generator === "WordPress" &&
-      blog.feed_format === "application/json"
-    ) {
+    } else if (generator === "WordPress" && blog.use_api) {
       const resp = await fetch(feed_url)
       const posts = await resp.json()
       const rest = await fetch(`${blog.home_page_url}/wp-json/wp/v2/categories`)
@@ -139,15 +140,14 @@ export async function extractAllPostsByBlog(
           extractWordpressPost(post, blog, categories, users)
         )
       )
-    } else if (
-      generator === "WordPress (.com)" &&
-      blog.feed_format === "application/json"
-    ) {
+      console.log(blogWithPosts["entries"])
+    } else if (generator === "WordPress (.com)" && blog.use_api) {
       const res = await fetch(feed_url)
-      const result = await res.json()
+      const response = await res.json()
+      const posts = response.posts
 
       blogWithPosts["entries"] = await Promise.all(
-        result.posts.map((post: any) => extractWordpresscomPost(post, blog))
+        posts.map((post: any) => extractWordpresscomPost(post, blog))
       )
     } else if (generator === "Ghost" && blog.use_api) {
       const api = await ghostApi(
@@ -275,7 +275,7 @@ export async function extractAllPostsByBlog(
             get(feedEntry, "media:content.@_url", null) ||
             get(feedEntry, "enclosure.@_url", null) ||
             (images || [])
-              .filter((image) => image.width >= 200)
+              .filter((image) => image.width || 0 >= 200)
               .map((image) => image.src)[0] ||
             (images || [])
               .filter((image: any) => {
@@ -470,7 +470,7 @@ export async function extractAllPostsByBlog(
             get(feedEntry, "media:content.@_url", null) ||
             get(feedEntry, "enclosure.@_url", null) ||
             (images || [])
-              .filter((image) => image.width >= 200)
+              .filter((image) => image.width || 0 >= 200)
               .map((image) => image.src)[0] ||
             (images || [])
               .filter((image: any) => {

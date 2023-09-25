@@ -6,6 +6,7 @@ export interface AuthorType {
   email?: string
   avatar?: string
 }
+
 export interface ReferenceType {
   key?: string
   doi?: string
@@ -34,6 +35,15 @@ export interface PaginationType {
   total: number
   prev?: number
   next?: number
+}
+
+export interface ImageType {
+  src?: string
+  srcset?: string
+  width?: number
+  height?: number
+  sizes?: string
+  alt?: string
 }
 
 export interface PostType {

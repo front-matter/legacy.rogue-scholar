@@ -26,7 +26,7 @@ import nodePandoc from "node-pandoc-promise"
 import normalizeUrl from "normalize-url"
 import sanitizeHtml from "sanitize-html"
 
-import { AuthorType, BlogType, FundingType } from "@/types/blog"
+import { AuthorType, BlogType, FundingType, ImageType } from "@/types/blog"
 
 export function getBaseURL() {
   const url =
@@ -511,6 +511,9 @@ export function getTitle(html: string) {
   html = html
     .replace(/(<br>|<p>)/g, " ")
     .replace(/(h1>|h2>|h3>|h4>)/g, "strong>")
+
+  // remove strong tags around the whole title
+  html = html.replace(/^<strong>(.*)<\/strong>/g, "$1")
   const sanitized = sanitizeHtml(html, {
     allowedTags: ["b", "i", "em", "strong", "sub", "sup"],
     allowedAttributes: {},
@@ -806,7 +809,7 @@ export async function extractWordpresscomPost(post: any, blog: BlogType) {
   const summary = getAbstract(post.excerpt)
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
-  const url = normalizeUrl(post.URL)
+  const url = normalizeUrl(post.URL, { forceHttps: true })
   const images = getImages(content_html, url)
   const image = images.length > 0 ? images[0]?.src : null
   const tags = compact(
@@ -828,7 +831,7 @@ export async function extractWordpresscomPost(post: any, blog: BlogType) {
     reference: reference,
     relationships: relationships,
     tags: tags,
-    title: post.title,
+    title: getTitle(post.title),
     url: url,
   }
 }
@@ -977,14 +980,9 @@ export function getContent(feedEntry: any) {
 
 export function getImages(content_html: string, url: string) {
   const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
-  const images: Array<{
-    src: string
-    srcset: string
-    width: number
-    height: number
-    sizes: string
-    alt: string
-  }> = Array.from(dom.window.document.querySelectorAll("img"))
+  const images: ImageType[] = Array.from(
+    dom.window.document.querySelectorAll("img")
+  )
     .map((image: any) => {
       const src = image.getAttribute("src")
       let srcset = image.getAttribute("srcset")
@@ -1005,8 +1003,31 @@ export function getImages(content_html: string, url: string) {
       }
     })
     .filter((image) => image["src"] !== null && image["src"] !== "")
+  // find images in figure tags
+  const figures: ImageType[] = Array.from(
+    dom.window.document.querySelectorAll("figure")
+  )
+    .map((figure: any) => {
+      let src = figure.querySelector("img")?.getAttribute("src")
 
-  return images
+      // if img tag is missing, try to get src from a tag
+      if (!src) {
+        src = figure.querySelector("a")?.getAttribute("href")
+      }
+      const figcaption = figure.querySelector("figcaption")
+
+      return {
+        src: src,
+        alt: figcaption ? figcaption.textContent : null,
+      }
+    })
+    .filter(
+      (figure) =>
+        figure["src"] &&
+        ["jpg", "jpeg", "png", "gif"].includes(figure["src"].split(".").pop())
+    )
+
+  return images.concat(figures)
 }
 
 export async function getImage(image: any, blog_home_page_url: string) {
