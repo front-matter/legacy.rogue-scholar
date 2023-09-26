@@ -132,11 +132,17 @@ export async function extractAllPostsByBlog(
         `${blog.home_page_url}/?rest_route=/wp/v2/categories&per_page=100`
       )
       const categories = await rest.json()
+      const resu = await fetch(
+        `${blog.home_page_url}/?rest_route=/wp/v2/users&per_page=100`
+      )
+      const users = await resu.json()
 
       blogWithPosts["entries"] = await Promise.all(
         []
           .concat(posts)
-          .map((post: any) => extractWordpressPost(post, blog, categories))
+          .map((post: any) =>
+            extractWordpressPost(post, blog, categories, users)
+          )
       )
     } else if (generator === "WordPress (.com)" && blog.use_api) {
       const res = await fetch(feed_url)

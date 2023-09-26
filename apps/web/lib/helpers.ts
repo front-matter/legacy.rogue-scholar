@@ -754,12 +754,16 @@ export async function registerMastodonAccount(blog: BlogType) {
 export async function extractWordpressPost(
   post: any,
   blog: BlogType,
-  categories: any
+  categories: any,
+  users: any
 ) {
-  const users = userIDs[blog.slug as string] || []
-  const authors = [].concat(post.author).map((id) => {
-    const name = users.find((u) => u.id === id)?.name
-    const uri = authorIDs[name] || null
+  if (!users) {
+    users = userIDs[blog.slug as string] || []
+  }
+  const authors = [].concat(post.author).map((id: any) => {
+    const user = users.find((u) => u.id === id)
+    const name = user?.name
+    const uri = user?.url || authorIDs[name] || null
 
     return { name: name, url: uri }
   })
@@ -768,7 +772,9 @@ export async function extractWordpressPost(
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.link, { forceHttps: true, stripWWW: false })
   const images = getImages(content_html, url)
-  let image = get(post, "yoast_head_json.og_image[0].url", null)
+  let image =
+    get(post, "yoast_head_json.og_image[0].url", null) ||
+    post.jetpack_featured_media_url
 
   if (!image && images.length > 0) {
     image = images[0].src
