@@ -768,10 +768,11 @@ export async function extractWordpressPost(
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.link, { forceHttps: true, stripWWW: false })
   const images = getImages(content_html, url)
-  const image = get(post, "yoast_head_json.og_image[0].url", null)
-  // || images.length > 0
-  //   ? images[0]?.src
-  //   : null
+  let image = get(post, "yoast_head_json.og_image[0].url", null)
+
+  if (!image && images.length > 0) {
+    image = images[0].src
+  }
   const tags = compact(
     post.categories.map((id) => {
       const cat = categories.find((c) => c.id === id)
@@ -979,6 +980,7 @@ export function getContent(feedEntry: any) {
 
 export function getImages(content_html: string, url: string) {
   const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
+  // find images in img tags
   const images: ImageType[] = Array.from(
     dom.window.document.querySelectorAll("img")
   )
@@ -1023,10 +1025,32 @@ export function getImages(content_html: string, url: string) {
     .filter(
       (figure) =>
         figure["src"] &&
-        ["jpg", "jpeg", "png", "gif"].includes(figure["src"].split(".").pop())
+        ["jpg", "jpeg", "png", "gif", "svg"].includes(
+          figure["src"].split(".").pop()
+        )
     )
 
-  return images.concat(figures)
+  // find images in links
+  const links: ImageType[] = Array.from(
+    dom.window.document.querySelectorAll("a")
+  )
+    .map((link: any) => {
+      const alt = link.textContent.trim()
+
+      return {
+        src: link.getAttribute("href"),
+        alt: alt.length > 0 ? alt : null,
+      }
+    })
+    .filter(
+      (figure) =>
+        figure["src"] &&
+        ["jpg", "jpeg", "png", "gif", "svg"].includes(
+          figure["src"].split(".").pop()
+        )
+    )
+
+  return images.concat(figures, links)
 }
 
 export async function getImage(image: any, blog_home_page_url: string) {
