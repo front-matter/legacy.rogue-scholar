@@ -22,7 +22,7 @@ import {
   decodeHtmlCharCodes,
   detectLanguage,
   extractGhostPost,
-  extractJekyllPost,
+  // extractJekyllPost,
   extractSubstackPost,
   extractWordpresscomPost,
   extractWordpressPost,
@@ -173,25 +173,31 @@ export async function extractAllPostsByBlog(
       blogWithPosts["entries"] = await Promise.all(
         posts.map((post: any) => extractGhostPost(post, blog))
       )
-    } else if (
-      generator === "Jekyll" &&
-      blog.feed_format === "application/atom+xml"
-    ) {
-      const res = await fetch(feed_url)
-      const xml = await res.text()
+    }
+    // else if (
+    //   generator === "Jekyll" &&
+    //   blog.feed_format === "application/atom+xml"
+    // ) {
+    //   const res = await fetch(feed_url)
+    //   const xml = await res.text()
 
-      const json = await xml2js.parseStringPromise(xml)
+    //   const json = await xml2js.parseStringPromise(xml)
 
-      if (!updateAll) {
-        json.feed["entry"] = json.feed["entry"].filter((post) => {
-          return post.updated[0] > (blog.modified_at as string)
-        })
-      }
+    //   if (!updateAll) {
+    //     try {
+    //       json.feed["entry"] = json.feed["entry"].filter((post) => {
+    //         return post.updated[0] > (blog.modified_at as string)
+    //       })
+    //     } catch (error) {
+    //       console.log(error)
+    //     }
+    //   }
 
-      blogWithPosts["entries"] = await Promise.all(
-        json.feed["entry"].map((post: any) => extractJekyllPost(post, blog))
-      )
-    } else if (["application/feed+json"].includes(blog.feed_format as string)) {
+    //   blogWithPosts["entries"] = await Promise.all(
+    //     json.feed["entry"].map((post: any) => extractJekyllPost(post, blog))
+    //   )
+    // }
+    else if (["application/feed+json"].includes(blog.feed_format as string)) {
       const res = await fetch(feed_url)
       const json = await res.json()
 
@@ -382,13 +388,22 @@ export async function extractAllPostsByBlog(
       if (!updateAll) {
         try {
           const json = await xml2js.parseStringPromise(xml)
-
-          json.feed["entry"] = json.feed["entry"].filter((post) => {
-            return post.updated[0] > (blog.modified_at as string)
-          })
           const builder = new xml2js.Builder()
 
-          xml = builder.buildObject(json)
+          switch (blog.feed_format) {
+            case "application/atom+xml":
+              json.feed["entry"] = json.feed["entry"].filter((post) => {
+                return post.updated[0] > (blog.modified_at as string)
+              })
+              xml = builder.buildObject(json)
+              break
+            case "application/rss+xml":
+              json.rss["channel"] = json.rss["channel"].filter((post) => {
+                return post.updated[0] > (blog.modified_at as string)
+              })
+              xml = builder.buildObject(json)
+              break
+          }
         } catch (error) {
           console.log(error)
         }
@@ -571,6 +586,7 @@ export async function extractAllPostsByBlog(
     console.log(error, blog.slug)
     blogWithPosts["entries"] = []
   }
+  console.log(blog.slug)
 
   let posts = blogWithPosts["entries"]
 
