@@ -135,8 +135,13 @@ export async function extractAllPostsByBlog(
       const resu = await fetch(
         `${blog.home_page_url}/?rest_route=/wp/v2/users&per_page=100`
       )
-      const users = await resu.json()
 
+      // some Wordpress installations don't allow anonymous access to users API endpoint
+      let users = []
+
+      if (resu.status < 400) {
+        users = await resu.json()
+      }
       blogWithPosts["entries"] = await Promise.all(
         []
           .concat(posts)
@@ -144,6 +149,7 @@ export async function extractAllPostsByBlog(
             extractWordpressPost(post, blog, categories, users)
           )
       )
+      // console.log(blogWithPosts["entries"])
     } else if (generator === "WordPress (.com)" && blog.use_api) {
       const res = await fetch(feed_url)
       const response = await res.json()
@@ -563,9 +569,10 @@ export async function extractAllPostsByBlog(
     }
   } catch (error) {
     console.log(error, blog.slug)
+    blogWithPosts["entries"] = []
   }
 
-  let posts = blogWithPosts ? blogWithPosts["entries"] : []
+  let posts = blogWithPosts["entries"]
 
   // handle pagination depending on blogging platform
   const postCount = posts.length

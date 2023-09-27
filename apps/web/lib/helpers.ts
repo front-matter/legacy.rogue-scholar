@@ -489,8 +489,9 @@ export function getAbstract(html: string, maxlen: number = 450) {
   })
 
   // remove incomplete last sentence if ellipsis at the end of abstract
+  // and shorter than maxlen
   // TODO: check for end of abstract
-  if (sanitized.includes("[…]")) {
+  if (sanitized.length <= 450 && sanitized.includes("[…]")) {
     maxlen = sanitized.length - 4
   }
 
@@ -757,15 +758,21 @@ export async function extractWordpressPost(
   categories: any,
   users: any
 ) {
-  if (!users) {
+  if (users.length === 0) {
     users = userIDs[blog.slug as string] || []
   }
   const authors = [].concat(post.author).map((id: any) => {
     const user = users.find((u) => u.id === id)
-    const name = user?.name
-    const uri = user?.url || authorIDs[name] || null
+    let name = user?.name
+    let url = user?.url
 
-    return { name: name, url: uri }
+    // set full name and homepage url in WordPress user profile
+    if (name === "davidshotton") {
+      name = "David M. Shotton"
+      url = "https://orcid.org/0000-0001-5506-523X"
+    }
+
+    return { name: name, url: url }
   })
   const content_html = sanitizeHtml(get(post, "content.rendered", ""))
   const reference = getReferences(content_html)
@@ -774,7 +781,8 @@ export async function extractWordpressPost(
   const images = getImages(content_html, url)
   let image =
     get(post, "yoast_head_json.og_image[0].url", null) ||
-    post.jetpack_featured_media_url
+    post.jetpack_featured_media_url ||
+    null
 
   if (!image && images.length > 0) {
     image = images[0].src
@@ -1246,8 +1254,15 @@ export const normalizeTag = (tag: string) => {
 }
 
 export const userIDs = {
-  rzepa: [{ id: 1, name: "Henry Rzepa" }],
+  rzepa: [
+    {
+      id: 1,
+      name: "Henry Rzepa",
+      url: "https://orcid.org/0000-0002-8635-8390",
+    },
+  ],
   rossmounce: [{ id: 1, name: "Ross Mounce" }],
+  chroknowlogy: [{ id: 1, name: "Joshua Chalifour" }],
 }
 
 export const authorIDs = {
@@ -1256,7 +1271,6 @@ export const authorIDs = {
   "Tejas S. Sathe": "https://orcid.org/0000-0003-0449-4469",
   "Meghal Shah": "https://orcid.org/0000-0002-2085-659X",
   "Liberate Science": "https://ror.org/0342dzm54",
-  "David M. Shotton": "https://orcid.org/0000-0001-5506-523X",
   "Lars Willighagen": "https://orcid.org/0000-0002-4751-4637",
   "Marco Tullney": "https://orcid.org/0000-0002-5111-2788",
   "Andrew Heiss": "https://orcid.org/0000-0002-3948-3914",
@@ -1284,15 +1298,12 @@ export const authorIDs = {
   "Markus Stocker": "https://orcid.org/0000-0001-5492-3212",
   "Robert Petryszak": "https://orcid.org/0000-0001-6333-2182",
   "Robert Huber": "https://orcid.org/0000-0003-3000-0020",
-  "Henry Rzepa": "https://orcid.org/0000-0002-8635-8390",
 }
 
 export const normalizeAuthor = (author: AuthorType) => {
   // workaround for https://doi.org/10.59350/h4fhq-2t215
   if (author["name"] === "GPT-4") {
     author["name"] = "Tejas S. Sathe"
-  } else if (author["name"] === "davidshotton") {
-    author["name"] = "David M. Shotton"
   } else if (author["name"] === "Morgan & Ethan") {
     author["name"] = "Morgan Ernest"
   } else if (author["name"] === "Marco") {
