@@ -85,7 +85,7 @@
     "rehype-img-size": "^1.0.1",
     "sanitize-html": "^2.11.0",
     "schema-dts": "^1.1.2",
-    "sharp": "^0.31.3",
+    "sharp": "^0.32.6",
     "stripe": "^12.5.0",
     "swr": "^2.0.0",
     "to-words": "^3.6.1",
