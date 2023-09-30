@@ -978,6 +978,8 @@ export function getContent(feedEntry: any) {
     get(feedEntry, "content_html", null) ||
     ""
 
+  content_html = decodeHtmlCharCodes(content_html)
+
   content_html = sanitizeHtml(content_html, {
     allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
   })
