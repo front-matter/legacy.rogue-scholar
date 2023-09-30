@@ -70,6 +70,7 @@ export async function extractAllPostsByBlog(
   // limit number of pages for free plan to 5 (50 posts)
   page = blog.plan === "Starter" ? Math.min(page, 5) : page
   let startPage = page > 0 ? (page - 1) * 50 + 1 : 1
+  const endPage = page > 0 ? page * 50 + 50 : 50
 
   // handle pagination depending on blogging platform and whether we use their API
   switch (generator) {
@@ -106,6 +107,13 @@ export async function extractAllPostsByBlog(
       url.searchParams.set("sort", "new")
       url.searchParams.set("offset", String(startPage))
       url.searchParams.set("limit", "50")
+      break
+    default:
+      switch (blog.feed_format) {
+        case "application/rss+xml":
+        case "application/atom+xml":
+        case "application/feed+json":
+      }
   }
   const feed_url = String(url.href)
 
@@ -357,18 +365,25 @@ export async function extractAllPostsByBlog(
       const res = await fetch(feed_url)
       let xml = await res.text()
 
-      if (!updateAll) {
-        try {
-          const json = await xml2js.parseStringPromise(xml)
-          const builder = new xml2js.Builder()
+      try {
+        const json = await xml2js.parseStringPromise(xml)
+        const builder = new xml2js.Builder()
 
+        if (!updateAll) {
           json.rss["channel"] = json.rss["channel"].filter((post) => {
             return post.updated[0] > (blog.modified_at as string)
           })
           xml = builder.buildObject(json)
-        } catch (error) {
-          console.log(error)
+        } else if (["Hugo", "Jekyll", "Quarto"].includes(String(generator))) {
+          const postCount = json.rss["channel"].length
+
+          if (postCount > 50) {
+            json.rss["channel"] = json.rss["channel"].slice(startPage, endPage)
+            xml = builder.buildObject(json)
+          }
         }
+      } catch (error) {
+        console.log(error)
       }
 
       blogWithPosts = await extractFromXml(xml, {
@@ -552,18 +567,25 @@ export async function extractAllPostsByBlog(
       const res = await fetch(feed_url)
       let xml = await res.text()
 
-      if (!updateAll) {
-        try {
-          const json = await xml2js.parseStringPromise(xml)
-          const builder = new xml2js.Builder()
+      try {
+        const json = await xml2js.parseStringPromise(xml)
+        const builder = new xml2js.Builder()
 
+        if (!updateAll) {
           json.feed["entry"] = json.feed["entry"].filter((post) => {
             return post.updated[0] > (blog.modified_at as string)
           })
           xml = builder.buildObject(json)
-        } catch (error) {
-          console.log(error)
+        } else if (["Hugo", "Jekyll", "Quarto"].includes(String(generator))) {
+          const postCount = json.feed["entry"].length
+
+          if (postCount > 50) {
+            json.feed["entry"] = json.feed["entry"].slice(startPage, endPage)
+            xml = builder.buildObject(json)
+          }
         }
+      } catch (error) {
+        console.log(error)
       }
 
       blogWithPosts = await extractFromXml(xml, {
@@ -749,23 +771,7 @@ export async function extractAllPostsByBlog(
     blogWithPosts["entries"] = []
   }
 
-  let posts = blogWithPosts["entries"]
-
-  // handle pagination depending on blogging platform
-  const postCount = posts.length
-
-  startPage = page > 0 ? (page - 1) * 50 : 0
-  const endPage = page > 0 ? page * 50 : 50
-
-  console.log(postCount, startPage, endPage, generator)
-  if (
-    postCount > 50 &&
-    ["Hugo", "Jekyll", "Quarto", "Ghost"].includes(String(generator))
-  ) {
-    posts = posts.slice(startPage, endPage)
-  }
-  console.log(posts.length, posts[0]?.title)
-  return posts
+  return blogWithPosts["entries"]
 }
 
 export async function extractUpdatedPostsByBlog(blogSlug: string, page = 1) {
