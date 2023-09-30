@@ -26,7 +26,13 @@ import nodePandoc from "node-pandoc-promise"
 import normalizeUrl from "normalize-url"
 import sanitizeHtml from "sanitize-html"
 
-import { AuthorType, BlogType, FundingType, ImageType } from "@/types/blog"
+import {
+  AuthorType,
+  BlogType,
+  FundingType,
+  ImageType,
+  TagType,
+} from "@/types/blog"
 
 export function getBaseURL() {
   const url =
@@ -752,12 +758,9 @@ export async function registerMastodonAccount(blog: BlogType) {
 }
 
 // extract blog post metadata from REST API
-export async function extractWordpressPost(
-  post: any,
-  blog: BlogType,
-  categories: any,
-  users: any
-) {
+export async function extractWordpressPost(post: any, blog: BlogType) {
+  let users = post._embedded?.author || []
+
   if (users.length === 0) {
     users = userIDs[blog.slug as string] || []
   }
@@ -765,6 +768,11 @@ export async function extractWordpressPost(
     const user = users.find((u) => u.id === id)
     let name = user?.name
     let url = user?.url
+
+    // use default author for blog if no author name found
+    if (!name) {
+      name = blog.authors ? get(blog, "authors[0].name", null) : null
+    }
 
     // set full name and homepage url in WordPress user profile
     if (name === "davidshotton") {
@@ -780,20 +788,21 @@ export async function extractWordpressPost(
   const url = normalizeUrl(post.link, { forceHttps: true, stripWWW: false })
   const images = getImages(content_html, url)
   let image =
+    get(post, "_embedded.wp:featuredmedia[0].source_url", null) ||
     get(post, "yoast_head_json.og_image[0].url", null) ||
-    post.jetpack_featured_media_url ||
-    null
+    post.jetpack_featured_media_url
 
   if (!image && images.length > 0) {
     image = images[0].src
   }
-  const tags = compact(
-    post.categories.map((id) => {
-      const cat = categories.find((c) => c.id === id)
+  const categories: Array<string | null> = []
+    .concat(get(post, "_embedded.wp:term.0", null))
+    .map((cat: TagType) => normalizeTag(cat.name))
 
-      return cat ? normalizeTag(cat.name) : null
-    })
-  ).slice(0, 5)
+  const tags: Array<string | null> = []
+    .concat(get(post, "_embedded.wp:term.1", null))
+    .map((cat: TagType) => normalizeTag(cat.name))
+  const terms: Array<string | null> = categories.concat(tags)
 
   return {
     authors: authors,
@@ -809,7 +818,7 @@ export async function extractWordpressPost(
     language: blog.language,
     reference: reference,
     relationships: relationships,
-    tags: tags,
+    tags: terms,
     title: get(post, "title.rendered", ""),
     url: url,
   }

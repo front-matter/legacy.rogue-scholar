@@ -80,6 +80,7 @@ export async function extractAllPostsByBlog(
         url.searchParams.append("rest_route", "/wp/v2/posts")
         url.searchParams.append("page", String(page))
         url.searchParams.append("per_page", String(50))
+        url.searchParams.append("_embed", String(1))
       } else {
         url.searchParams.append("paged", String(page))
       }
@@ -136,26 +137,9 @@ export async function extractAllPostsByBlog(
     } else if (generator === "WordPress" && blog.use_api) {
       const resp = await fetch(feed_url)
       const posts = await resp.json()
-      const rest = await fetch(
-        `${blog.home_page_url}/?rest_route=/wp/v2/categories&per_page=100`
-      )
-      const categories = await rest.json()
-      const resu = await fetch(
-        `${blog.home_page_url}/?rest_route=/wp/v2/users&per_page=100`
-      )
 
-      // some Wordpress installations don't allow anonymous access to users API endpoint
-      let users = []
-
-      if (resu.status < 400) {
-        users = await resu.json()
-      }
       blogWithPosts["entries"] = await Promise.all(
-        []
-          .concat(posts)
-          .map((post: any) =>
-            extractWordpressPost(post, blog, categories, users)
-          )
+        [].concat(posts).map((post: any) => extractWordpressPost(post, blog))
       )
       // console.log(blogWithPosts["entries"])
     } else if (generator === "WordPress (.com)" && blog.use_api) {

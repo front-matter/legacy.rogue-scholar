@@ -37,6 +37,10 @@ export interface PaginationType {
   next?: number
 }
 
+export interface TagType {
+  name: string
+}
+
 export interface ImageType {
   src?: string
   srcset?: string
