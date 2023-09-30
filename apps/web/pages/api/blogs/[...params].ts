@@ -173,31 +173,7 @@ export async function extractAllPostsByBlog(
       blogWithPosts["entries"] = await Promise.all(
         posts.map((post: any) => extractGhostPost(post, blog))
       )
-    }
-    // else if (
-    //   generator === "Jekyll" &&
-    //   blog.feed_format === "application/atom+xml"
-    // ) {
-    //   const res = await fetch(feed_url)
-    //   const xml = await res.text()
-
-    //   const json = await xml2js.parseStringPromise(xml)
-
-    //   if (!updateAll) {
-    //     try {
-    //       json.feed["entry"] = json.feed["entry"].filter((post) => {
-    //         return post.updated[0] > (blog.modified_at as string)
-    //       })
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-    //   }
-
-    //   blogWithPosts["entries"] = await Promise.all(
-    //     json.feed["entry"].map((post: any) => extractJekyllPost(post, blog))
-    //   )
-    // }
-    else if (["application/feed+json"].includes(blog.feed_format as string)) {
+    } else if ((blog.feed_format as string) === "application/feed+json") {
       const res = await fetch(feed_url)
       const json = await res.json()
 
@@ -377,11 +353,7 @@ export async function extractAllPostsByBlog(
           }
         },
       })
-    } else if (
-      ["application/atom+xml", "application/rss+xml"].includes(
-        blog.feed_format as string
-      )
-    ) {
+    } else if ((blog.feed_format as string) === "application/rss+xml") {
       const res = await fetch(feed_url)
       let xml = await res.text()
 
@@ -390,20 +362,10 @@ export async function extractAllPostsByBlog(
           const json = await xml2js.parseStringPromise(xml)
           const builder = new xml2js.Builder()
 
-          switch (blog.feed_format) {
-            case "application/atom+xml":
-              json.feed["entry"] = json.feed["entry"].filter((post) => {
-                return post.updated[0] > (blog.modified_at as string)
-              })
-              xml = builder.buildObject(json)
-              break
-            case "application/rss+xml":
-              json.rss["channel"] = json.rss["channel"].filter((post) => {
-                return post.updated[0] > (blog.modified_at as string)
-              })
-              xml = builder.buildObject(json)
-              break
-          }
+          json.rss["channel"] = json.rss["channel"].filter((post) => {
+            return post.updated[0] > (blog.modified_at as string)
+          })
+          xml = builder.buildObject(json)
         } catch (error) {
           console.log(error)
         }
@@ -481,6 +443,11 @@ export async function extractAllPostsByBlog(
               "utm_source",
             ],
           })
+          let base_url = url
+
+          if (blog.relative_url === "blog") {
+            base_url = blog.home_page_url
+          }
           // link to archived version of post if blog is archived
           let archive_url: any = null
 
@@ -489,7 +456,202 @@ export async function extractAllPostsByBlog(
           }
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
-          const images = getImages(content_html, url)
+          const images = getImages(content_html, base_url)
+          const image =
+            get(feedEntry, "media:content.@_url", null) ||
+            get(feedEntry, "enclosure.@_url", null) ||
+            (images || [])
+              .filter((image) => image.width || 0 >= 200)
+              .map((image) => image.src)[0] ||
+            (images || [])
+              .filter((image: any) => {
+                if (image["src"] === "") {
+                  return false
+                }
+                const url = new URL(image["src"])
+
+                if (["s.w.org", "i.creativecommons.org"].includes(url.host)) {
+                  return false
+                } else {
+                  return true
+                }
+              })
+              .map((image) => image.src)[0] ||
+            null
+
+          const published_at = toUnixTime(
+            get(feedEntry, "pubDate", null) ||
+              get(feedEntry, "date_published", null) ||
+              get(feedEntry, "published", "1970-01-01")
+          )
+          let updated_at = toUnixTime(get(feedEntry, "updated", "1970-01-01"))
+
+          if (published_at > updated_at) {
+            updated_at = published_at
+          }
+          const language = detectLanguage(content_html || "en")
+          const relationships = content_html
+            ? getRelationships(content_html)
+            : []
+          const reference = content_html ? getReferences(content_html) : []
+          let tags = []
+            .concat(get(feedEntry, "category", []))
+            .map((tag: string | null) => {
+              tag = decodeHtmlCharCodes(
+                get(tag, "@_term", null) || get(tag, "#text", null) || tag
+              )
+              return tag ? normalizeTag(tag) : null
+            })
+            .slice(0, 5)
+
+          if (isEmpty(tags)) {
+            tags = get(feedEntry, "tags", [])
+            if (isArray(tags)) {
+              tags = compact(
+                tags.map((tag: string | null) => {
+                  return tag ? normalizeTag(tag) : null
+                })
+              ).slice(0, 5)
+            } else {
+              tags = []
+            }
+          }
+          let title =
+            get(feedEntry, "title.#text", null) ||
+            get(feedEntry, "title", null) ||
+            ""
+
+          if (isString(title)) {
+            title = getTitle(title)
+          } else {
+            title = ""
+          }
+
+          return {
+            authors,
+            blog_id,
+            blog_name,
+            blog_slug,
+            content_html,
+            summary,
+            published_at,
+            updated_at,
+            image,
+            images,
+            language,
+            reference,
+            relationships,
+            tags,
+            title,
+            url,
+            archive_url,
+          }
+        },
+      })
+    } else if ((blog.feed_format as string) === "application/atom+xml") {
+      const res = await fetch(feed_url)
+      let xml = await res.text()
+
+      if (!updateAll) {
+        try {
+          const json = await xml2js.parseStringPromise(xml)
+          const builder = new xml2js.Builder()
+
+          json.feed["entry"] = json.feed["entry"].filter((post) => {
+            return post.updated[0] > (blog.modified_at as string)
+          })
+          xml = builder.buildObject(json)
+        } catch (error) {
+          console.log(error)
+        }
+      }
+
+      blogWithPosts = await extractFromXml(xml, {
+        useISODateFormat: true,
+        descriptionMaxLen: 500,
+        getExtraEntryFields: (feedEntry) => {
+          // console.log(feedEntry)
+          let author: any =
+            get(feedEntry, "author", null) ||
+            get(feedEntry, "authors", null) ||
+            get(feedEntry, "dc:creator", [])
+
+          if (isString(author)) {
+            author = {
+              name: author,
+              uri: null,
+            }
+          }
+
+          if (isNull(author) || isEmpty(author)) {
+            author = blog.authors || []
+          }
+
+          if (!isArray(author)) {
+            author = [author]
+          }
+
+          const authors = author.map((auth) => {
+            auth = normalizeAuthor(auth)
+            if (isOrcid(get(auth, "url", null))) {
+              auth["uri"] = get(auth, "url")
+            }
+
+            let url = authorIDs[auth["name"]] || null
+
+            url ??= isOrcid(get(auth, "uri", null))
+              ? get(auth, "uri")
+              : null || isRor(get(auth, "uri", null))
+              ? get(auth, "uri")
+              : null
+            return {
+              name: get(auth, "name", null),
+              url: url,
+            }
+          })
+          const blog_slug = blogSlug
+          const blog_name = blog.title
+          const blog_id = blog.id
+          let url: any = get(feedEntry, "link", [])
+
+          if (isArray(url) && url.length > 0) {
+            url = url.find((link) => get(link, "@_rel", null) === "alternate")
+            url = get(url, "@_href", null)
+          }
+          if (isObject(url)) {
+            url = get(url, "@_href", null)
+          }
+          if (isNull(url) || isEmpty(url)) {
+            url = get(feedEntry, "url", null)
+          }
+          url = decodeHtmlCharCodes(url)
+          url = normalizeUrl(url, {
+            stripWWW: false,
+            removeQueryParameters: [
+              "ref",
+              "referrer",
+              "origin",
+              "source",
+              "utm_content",
+              "utm_medium",
+              "utm_campaign",
+              "utm_source",
+            ],
+          })
+          let base_url = url
+
+          if (blog.relative_url === "blog") {
+            base_url = blog.home_page_url
+          }
+          // link to archived version of post if blog is archived
+          let archive_url: any = null
+
+          if (blog.status === "archived" && blog.archive_prefix) {
+            archive_url = blog.archive_prefix + url
+          }
+          const content_html = getContent(feedEntry)
+          const summary = getAbstract(content_html)
+          const images = getImages(content_html, base_url)
           const image =
             get(feedEntry, "media:content.@_url", null) ||
             get(feedEntry, "enclosure.@_url", null) ||
@@ -586,7 +748,6 @@ export async function extractAllPostsByBlog(
     console.log(error, blog.slug)
     blogWithPosts["entries"] = []
   }
-  console.log(blog.slug)
 
   let posts = blogWithPosts["entries"]
 
@@ -596,13 +757,14 @@ export async function extractAllPostsByBlog(
   startPage = page > 0 ? (page - 1) * 50 : 0
   const endPage = page > 0 ? page * 50 : 50
 
+  console.log(postCount, startPage, endPage, generator)
   if (
     postCount > 50 &&
     ["Hugo", "Jekyll", "Quarto", "Ghost"].includes(String(generator))
   ) {
     posts = posts.slice(startPage, endPage)
   }
-
+  console.log(posts.length, posts[0]?.title)
   return posts
 }
 
@@ -681,7 +843,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, slug, feed_url, current_feed_url, home_page_url, archive_prefix, feed_format, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan, use_api"
+      "id, slug, feed_url, current_feed_url, home_page_url, archive_prefix, feed_format, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan, use_api, relative_url"
     )
     .eq("slug", blogSlug)
     .maybeSingle()
@@ -712,6 +874,7 @@ export async function getSingleBlog(blogSlug: string) {
     authors: config["authors"],
     use_mastodon: config["use_mastodon"],
     use_api: config["use_api"],
+    relative_url: config["relative_url"],
   }
 
   try {
@@ -811,6 +974,7 @@ export async function getSingleBlog(blogSlug: string) {
           authors: config["authors"],
           use_mastodon: config["use_mastodon"],
           use_api: config["use_api"],
+          relative_url: config["relative_url"],
         }
       },
     })

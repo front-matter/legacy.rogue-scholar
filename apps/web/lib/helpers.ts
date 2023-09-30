@@ -1005,11 +1005,11 @@ export function getImages(content_html: string, url: string) {
       if (isString(srcset)) {
         srcset = srcset
           .split(", ")
-          .map((src) => (isValidUrl(src) ? src : `${url}/${src}`))
+          .map((src) => (isValidUrl(src) ? src : `${url}${src}`))
           .join(", ")
       }
       return {
-        src: isValidUrl(src) ? src : `${url}/${src}`,
+        src: isValidUrl(src) ? src : `${url}${src}`,
         srcset: srcset,
         width: image.getAttribute("width"),
         height: image.getAttribute("height"),
@@ -1028,6 +1028,9 @@ export function getImages(content_html: string, url: string) {
       // if img tag is missing, try to get src from a tag
       if (!src) {
         src = figure.querySelector("a")?.getAttribute("href")
+      }
+      if (!isValidUrl(src)) {
+        src = `${url}${src}`
       }
       const figcaption = figure.querySelector("figcaption")
 
@@ -1049,10 +1052,15 @@ export function getImages(content_html: string, url: string) {
     dom.window.document.querySelectorAll("a")
   )
     .map((link: any) => {
+      let src = link.getAttribute("href")
+
+      if (!isValidUrl(src)) {
+        src = `${url}${src}`
+      }
       const alt = link.textContent.trim()
 
       return {
-        src: link.getAttribute("href"),
+        src: src,
         alt: alt.length > 0 ? alt : null,
       }
     })
