@@ -1102,7 +1102,7 @@ export const getReferences = (content_html: string) => {
   // extract links from references section,defined as the text after the tag
   // "References</h2>", "References</h3>" or "References</h4>
   const reference_html = content_html.split(
-    /(?:References|Referenzen)<\/(?:h2|h3|h4)>/,
+    /(?:References|Referenzen|Bibliography)<\/(?:h1|h2|h3|h4)>/,
     2
   )
 

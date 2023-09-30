@@ -201,9 +201,7 @@ export async function extractAllPostsByBlog(
         getExtraEntryFields: (feedEntry) => {
           // console.log(feedEntry)
           let author: any =
-            get(feedEntry, "author", null) ||
-            get(feedEntry, "authors", null) ||
-            get(feedEntry, "dc:creator", [])
+            get(feedEntry, "authors", null) || get(feedEntry, "author", null)
 
           if (isString(author)) {
             author = {
@@ -269,10 +267,14 @@ export async function extractAllPostsByBlog(
           })
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
-          const images = getImages(content_html, url)
-          const image =
-            get(feedEntry, "media:content.@_url", null) ||
-            get(feedEntry, "enclosure.@_url", null) ||
+          let base_url = url
+
+          if (blog.relative_url === "blog") {
+            base_url = blog.home_page_url
+          }
+          const images = getImages(content_html, base_url)
+          let image =
+            get(feedEntry, "image", null) ||
             (images || [])
               .filter((image) => image.width || 0 >= 200)
               .map((image) => image.src)[0] ||
@@ -292,12 +294,15 @@ export async function extractAllPostsByBlog(
               .map((image) => image.src)[0] ||
             null
 
+          if (image && blog.relative_url === "post") {
+            image = url + "/" + image.split("/").pop()
+          }
           const published_at = toUnixTime(
-            get(feedEntry, "pubDate", null) ||
-              get(feedEntry, "date_published", null) ||
-              get(feedEntry, "published", "1970-01-01")
+            get(feedEntry, "date_published", null)
           )
-          let updated_at = toUnixTime(get(feedEntry, "updated", "1970-01-01"))
+          let updated_at = toUnixTime(
+            get(feedEntry, "date_modified", "1970-01-01")
+          )
 
           if (published_at > updated_at) {
             updated_at = published_at
