@@ -676,7 +676,7 @@ export async function extractAllPostsByBlog(
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
           const images = getImages(content_html, base_url)
-          const image =
+          let image: any =
             get(feedEntry, "media:content.@_url", null) ||
             get(feedEntry, "enclosure.@_url", null) ||
             (images || [])
@@ -697,6 +697,8 @@ export async function extractAllPostsByBlog(
               })
               .find((image) => image.src) ||
             null
+
+          image = image ? image.src : null
 
           const published_at = toUnixTime(
             get(feedEntry, "pubDate", null) ||
