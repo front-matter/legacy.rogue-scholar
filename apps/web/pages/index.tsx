@@ -89,7 +89,7 @@ export default function Home({ blogs }) {
 
   blogs = blogs.map((blog) => {
     if (blog.generator) {
-      blog.generator = blog.generator.split(" ")[0]
+      blog.generator = blog.generator.split(/([\s\.])/)[0]
     } else {
       blog.generator = "Unknown"
     }

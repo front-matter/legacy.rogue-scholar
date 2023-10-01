@@ -547,9 +547,7 @@ export function parseGenerator(generator: any) {
   if (isObject(generator)) {
     let name = generator["#text"]
 
-    if (name === "WordPress.com") {
-      name = "WordPress (.com)"
-    } else if (name === "Wordpress") {
+    if (name === "Wordpress") {
       // versions prior to 6.1
       name = "WordPress"
     }
@@ -569,7 +567,7 @@ export function parseGenerator(generator: any) {
 
         return name + (version ? " " + version : "")
       } else if (url.hostname === "wordpress.com") {
-        const name = "WordPress (.com)"
+        const name = "WordPress.com"
 
         return name
       }
@@ -802,7 +800,7 @@ export async function extractWordpressPost(post: any, blog: BlogType) {
   const tags: Array<string | null> = []
     .concat(get(post, "_embedded.wp:term.1", null))
     .map((cat: TagType) => normalizeTag(cat.name))
-  const terms: Array<string | null> = categories.concat(tags)
+  const terms: Array<string | null> = categories.concat(tags).slice(0, 5)
 
   return {
     authors: authors,
@@ -836,7 +834,7 @@ export async function extractWordpresscomPost(post: any, blog: BlogType) {
   const images = getImages(content_html, url)
   const image = images.length > 0 ? images[0]?.src : null
   const tags = compact(
-    Object.keys(post.tags).map((tag) => normalizeTag(tag))
+    Object.keys(post.categories).map((tag) => normalizeTag(tag))
   ).slice(0, 5)
 
   return {

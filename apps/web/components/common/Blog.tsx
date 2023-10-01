@@ -31,7 +31,7 @@ export const feedFormats: { [key: string]: string } = {
 }
 
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
-  const generator = blog.generator ? blog.generator.split(" ")[0] : null
+  const generator = blog.generator ? blog.generator.split(/([\s\.])/)[0] : null
   const feed_url = blog.current_feed_url || blog.feed_url
   const { t } = useTranslation(["common", "app"])
   const router = useRouter()

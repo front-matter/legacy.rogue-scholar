@@ -85,7 +85,7 @@ export async function extractAllPostsByBlog(
         url.searchParams.append("paged", String(page))
       }
       break
-    case "WordPress (.com)":
+    case "WordPress.com":
       if (blog.use_api) {
         const site = new URL(blog.home_page_url as string).hostname
 
@@ -142,7 +142,7 @@ export async function extractAllPostsByBlog(
         [].concat(posts).map((post: any) => extractWordpressPost(post, blog))
       )
       // console.log(blogWithPosts["entries"])
-    } else if (generator === "WordPress (.com)" && blog.use_api) {
+    } else if (generator === "WordPress.com" && blog.use_api) {
       const res = await fetch(feed_url)
       const response = await res.json()
       const posts = response.posts || []
@@ -880,7 +880,8 @@ export async function getSingleBlog(blogSlug: string) {
         const title = decodeHtmlCharCodes(
           config["title"] ||
             get(feedData, "title.#text", null) ||
-            get(feedData, "title", null)
+            get(feedData, "title", null) ||
+            ""
         ).trim()
         const current_feed_url = config["current_feed_url"]
         let home_page_url =
