@@ -19,7 +19,7 @@ GEM
     citeproc-ruby (2.0.0)
       citeproc (~> 1.0, >= 1.0.9)
       csl (~> 2.0)
-    commonmeta-ruby (3.5.2)
+    commonmeta-ruby (3.5.5)
       activesupport (>= 4.2.5, < 8.0)
       addressable (~> 2.8.1, < 2.8.2)
       base32-url (>= 0.7.0, < 1)
@@ -61,7 +61,7 @@ GEM
     feedparser (2.2.0)
       logutils (>= 0.6.1)
       textutils (>= 1.0.0)
-    ffi (1.15.5)
+    ffi (1.16.2)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -159,14 +159,14 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
-    unicode-types (1.8.0)
+    unicode-types (1.9.0)
     uuidtools (2.2.0)
 
 PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
-  commonmeta-ruby (~> 3.5, >= 3.5.1)
+  commonmeta-ruby (~> 3.5, >= 3.5.5)
 
 BUNDLED WITH
    2.4.12
