@@ -127,62 +127,15 @@ export async function createGhostMember(user) {
 }
 
 export async function updateSinglePost(post: PostType) {
-  const { data, error } = await supabaseAdmin
-    .from("posts")
-    .update({
-      authors: post.authors,
-      blog_id: post.blog_id,
-      blog_name: post.blog_name,
-      blog_slug: post.blog_slug,
-      content_html: post.content_html,
-      images: post.images,
-      updated_at: post.updated_at,
-      published_at: post.published_at,
-      image: post.image,
-      language: post.language,
-      reference: post.reference,
-      relationships: post.relationships,
-      summary: post.summary,
-      tags: post.tags,
-      title: post.title,
-      url: post.url,
-    })
-    .eq("url", post.url)
-    .select("id, indexed_at, updated_at, not_indexed")
-    .single()
-
-  if (error) {
-    throw error
-  }
-
-  // workaround for comparing two timestamps in supabase
-  const { data: post_to_update } = await supabaseAdmin
-    .from("posts")
-    .update({
-      not_indexed: (data.indexed_at || 0) < (data.updated_at || 1),
-    })
-    .eq("id", data.id)
-    .select("id")
-    .single()
-
-  return post_to_update
-}
-
-export async function upsertSinglePost(post: PostType) {
-  if (isEmpty(post.title) || (post.published_at || 0) > Date.now() / 1000) {
-    return null
-  }
-
-  const { data, error } = await supabaseAdmin
-    .from("posts")
-    .upsert(
-      {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("posts")
+      .update({
         authors: post.authors,
         blog_id: post.blog_id,
         blog_name: post.blog_name,
         blog_slug: post.blog_slug,
         content_html: post.content_html,
-        content_text: post.content_text,
         images: post.images,
         updated_at: post.updated_at,
         published_at: post.published_at,
@@ -194,28 +147,85 @@ export async function upsertSinglePost(post: PostType) {
         tags: post.tags,
         title: post.title,
         url: post.url,
-        archive_url: post.archive_url,
-      },
-      { onConflict: "url", ignoreDuplicates: false }
-    )
-    .select("id, indexed_at, updated_at, not_indexed")
-    .single()
+      })
+      .eq("url", post.url)
+      .select("id, indexed_at, updated_at, not_indexed")
+      .single()
 
-  if (error) {
-    throw error
+    if (error) {
+      throw error
+    }
+
+    // workaround for comparing two timestamps in supabase
+    const { data: post_to_update } = await supabaseAdmin
+      .from("posts")
+      .update({
+        not_indexed: (data.indexed_at || 0) < (data.updated_at || 1),
+      })
+      .eq("id", data.id)
+      .select("id")
+      .single()
+
+    return post_to_update
+  } catch (error) {
+    console.log(error)
+    return null
   }
+}
 
-  // workaround for comparing two timestamps in supabase
-  const { data: post_to_update } = await supabaseAdmin
-    .from("posts")
-    .update({
-      not_indexed: (data.indexed_at || 0) < (data.updated_at || 1),
-    })
-    .eq("id", data.id)
-    .select("id")
-    .single()
+export async function upsertSinglePost(post: PostType) {
+  try {
+    if (isEmpty(post.title) || (post.published_at || 0) > Date.now() / 1000) {
+      return null
+    }
 
-  return post_to_update
+    const { data, error } = await supabaseAdmin
+      .from("posts")
+      .upsert(
+        {
+          authors: post.authors,
+          blog_id: post.blog_id,
+          blog_name: post.blog_name,
+          blog_slug: post.blog_slug,
+          content_html: post.content_html,
+          content_text: post.content_text,
+          images: post.images,
+          updated_at: post.updated_at,
+          published_at: post.published_at,
+          image: post.image,
+          language: post.language,
+          reference: post.reference,
+          relationships: post.relationships,
+          summary: post.summary,
+          tags: post.tags,
+          title: post.title,
+          url: post.url,
+          archive_url: post.archive_url,
+        },
+        { onConflict: "url", ignoreDuplicates: false }
+      )
+      .select("id, indexed_at, updated_at, not_indexed")
+      .single()
+
+    if (error) {
+      throw error
+    }
+
+    // workaround for comparing two timestamps in supabase
+    const { data: post_to_update } = await supabaseAdmin
+      .from("posts")
+      .update({
+        not_indexed: (data.indexed_at || 0) < (data.updated_at || 1),
+      })
+      .eq("id", data.id)
+      .select("id")
+      .single()
+
+    return post_to_update
+  } catch (error) {
+    console.log(error)
+    return null
+  }
 }
 
 export async function updateAllPosts(page: number = 1) {
@@ -447,7 +457,9 @@ export default async function handler(req, res) {
       const updateAll = update === "all" ? true : false
 
       posts = await upsertAllPosts(page, updateAll)
-      res.status(200).json(posts)
+      const message = { message: `Upserted ${posts.length} posts` }
+
+      res.status(200).json(message)
     }
   } else {
     res.status(405).json({ message: "Method Not Allowed" })

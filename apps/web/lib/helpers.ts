@@ -757,22 +757,17 @@ export async function registerMastodonAccount(blog: BlogType) {
 
 // extract blog post metadata from REST API
 export async function extractWordpressPost(post: any, blog: BlogType) {
-  let users = post._embedded?.author || []
-
-  if (users.length === 0) {
-    users = userIDs[blog.slug as string] || []
-  }
-  const authors = [].concat(post.author).map((id: any) => {
-    const user = users.find((u) => u.id === id)
-    let name = user?.name
-    let url = user?.url
-
-    // use default author for blog if no author name found
-    if (!name) {
-      name = blog.authors ? get(blog, "authors[0].name", null) : null
+  const authors = [].concat(post.author).map((author: any) => {
+    // use default author for blog if no post author found
+    if (!author["name"] && blog.authors) {
+      author = blog.authors && blog.authors[0]
     }
 
+    let name = author?.name
+    let url = author?.url
+
     // set full name and homepage url in WordPress user profile
+    // fallback for specific users here
     if (name === "davidshotton") {
       name = "David M. Shotton"
       url = "https://orcid.org/0000-0001-5506-523X"
@@ -795,12 +790,16 @@ export async function extractWordpressPost(post: any, blog: BlogType) {
   }
   const categories: Array<string | null> = []
     .concat(get(post, "_embedded.wp:term.0", null))
-    .map((cat: TagType) => normalizeTag(cat.name))
+    .map((cat: TagType) => normalizeTag(cat?.name))
 
   const tags: Array<string | null> = []
     .concat(get(post, "_embedded.wp:term.1", null))
-    .map((cat: TagType) => normalizeTag(cat.name))
-  const terms: Array<string | null> = categories.concat(tags).slice(0, 5)
+    .map((cat: TagType) => normalizeTag(cat?.name))
+  let terms: Array<string | null> = categories
+    .concat(tags)
+    .filter((term) => term !== null)
+
+  terms = uniq(terms).slice(0, 5)
 
   return {
     authors: authors,
@@ -870,7 +869,7 @@ export async function extractGhostPost(post: any, blog: BlogType) {
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.url)
   const images = getImages(content_html, url)
-  const image = images.length >= 1 ? images[0]?.src : null
+  const image = images.length > 0 ? images[0]?.src : null
   const tags = compact(
     post.tags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
   )
@@ -948,7 +947,7 @@ export async function extractJekyllPost(post: any, blog: BlogType) {
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(get(post, "link.0.$.href", null))
   const images = getImages(content_html, base_url)
-  const image = images.length >= 1 ? images[0]?.src : null
+  const image = images.length > 0 ? images[0]?.src : null
   const tags = compact(
     post.category
       .map((tag) => {
@@ -1268,18 +1267,6 @@ export const normalizeTag = (tag: string) => {
   tag = tag.replace("#", "")
   tag = get(fixedTags, tag, startCase(tag))
   return tag
-}
-
-export const userIDs = {
-  rzepa: [
-    {
-      id: 1,
-      name: "Henry Rzepa",
-      url: "https://orcid.org/0000-0002-8635-8390",
-    },
-  ],
-  rossmounce: [{ id: 1, name: "Ross Mounce" }],
-  chroknowlogy: [{ id: 1, name: "Joshua Chalifour" }],
 }
 
 export const authorIDs = {

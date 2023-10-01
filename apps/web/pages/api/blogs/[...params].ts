@@ -64,7 +64,7 @@ export async function extractAllPostsByBlog(
 ) {
   const blog: BlogType = await getSingleBlog(blogSlug)
 
-  const url = new URL(blog.feed_url || "")
+  let url = new URL(blog.feed_url || "")
   const generator = blog.generator?.split(" ")[0]
 
   // limit number of pages for free plan to 5 (50 posts)
@@ -76,7 +76,7 @@ export async function extractAllPostsByBlog(
   switch (generator) {
     case "WordPress":
       if (blog.use_api) {
-        url.searchParams.delete("feed")
+        url = new URL(blog.home_page_url as string)
         url.searchParams.append("rest_route", "/wp/v2/posts")
         url.searchParams.append("page", String(page))
         url.searchParams.append("per_page", String(50))
@@ -112,7 +112,7 @@ export async function extractAllPostsByBlog(
     default:
       switch (blog.feed_format) {
         case "application/rss+xml":
-        case "application/atom+xml":
+        case "application/to+xml":
         case "application/feed+json":
       }
   }
@@ -166,17 +166,20 @@ export async function extractAllPostsByBlog(
         posts.map((post: any) => extractGhostPost(post, blog))
       )
     } else if ((blog.feed_format as string) === "application/feed+json") {
-      const res = await fetch(feed_url)
-      const json = await res.json()
+      let json: any = {}
 
-      if (!updateAll) {
-        try {
+      try {
+        const res = await fetch(feed_url)
+
+        json = await res.json()
+
+        if (!updateAll) {
           json["items"] = json["items"].filter((post) => {
             return post.date_modified > (blog.modified_at as string)
           })
-        } catch (error) {
-          console.log(error)
         }
+      } catch (error) {
+        console.log(error)
       }
 
       blogWithPosts = await extractFromJson(json, {
@@ -257,11 +260,11 @@ export async function extractAllPostsByBlog(
             base_url = blog.home_page_url
           }
           const images = getImages(content_html, base_url)
-          let image =
+          let image: any =
             get(feedEntry, "image", null) ||
             (images || [])
               .filter((image) => image.width || 0 >= 200)
-              .map((image) => image.src)[0] ||
+              .find((image) => image.src) ||
             (images || [])
               .filter((image: any) => {
                 if (image["src"] === "") {
@@ -275,7 +278,7 @@ export async function extractAllPostsByBlog(
                   return true
                 }
               })
-              .map((image) => image.src)[0] ||
+              .find((image) => image.src) ||
             null
 
           if (image && blog.relative_url === "post") {
@@ -351,28 +354,38 @@ export async function extractAllPostsByBlog(
         },
       })
     } else if ((blog.feed_format as string) === "application/rss+xml") {
-      const res = await fetch(feed_url)
-      let xml = await res.text()
+      let xml = ""
 
       try {
+        const res = await fetch(feed_url)
+
+        xml = await res.text()
         const json = await xml2js.parseStringPromise(xml)
         const builder = new xml2js.Builder()
 
         if (!updateAll) {
-          json.rss["channel"] = json.rss["channel"].filter((post) => {
-            return post.updated[0] > (blog.modified_at as string)
+          let posts = get(json, "rss.channel[0].item", [])
+
+          posts = posts.filter((post: any) => {
+            return (
+              toISOString(post.pubDate[0]) || "" > (blog.modified_at as string)
+            )
           })
+          json.rss.channel.item = posts
           xml = builder.buildObject(json)
         } else if (["Hugo", "Jekyll", "Quarto"].includes(String(generator))) {
-          const postCount = json.rss["channel"].length
+          let posts = get(json, "rss.channel[0].item", [])
+          const postCount = posts.length
 
           if (postCount > 50) {
-            json.rss["channel"] = json.rss["channel"].slice(startPage, endPage)
+            posts = posts.slice(startPage, endPage)
+            json.rss.channel.item = posts
             xml = builder.buildObject(json)
           }
         }
       } catch (error) {
         console.log(error)
+        console.log(blog.slug)
       }
 
       blogWithPosts = await extractFromXml(xml, {
@@ -466,7 +479,7 @@ export async function extractAllPostsByBlog(
             get(feedEntry, "enclosure.@_url", null) ||
             (images || [])
               .filter((image) => image.width || 0 >= 200)
-              .map((image) => image.src)[0] ||
+              .find((image) => image.src) ||
             (images || [])
               .filter((image: any) => {
                 if (image["src"] === "") {
@@ -480,7 +493,7 @@ export async function extractAllPostsByBlog(
                   return true
                 }
               })
-              .map((image) => image.src)[0] ||
+              .find((image) => image.src) ||
             null
 
           const published_at = toUnixTime(
@@ -668,7 +681,7 @@ export async function extractAllPostsByBlog(
             get(feedEntry, "enclosure.@_url", null) ||
             (images || [])
               .filter((image) => image.width || 0 >= 200)
-              .map((image) => image.src)[0] ||
+              .find((image) => image.src) ||
             (images || [])
               .filter((image: any) => {
                 if (image["src"] === "") {
@@ -682,7 +695,7 @@ export async function extractAllPostsByBlog(
                   return true
                 }
               })
-              .map((image) => image.src)[0] ||
+              .find((image) => image.src) ||
             null
 
           const published_at = toUnixTime(
@@ -757,17 +770,16 @@ export async function extractAllPostsByBlog(
     }
   } catch (error) {
     console.log(error, blog.slug)
-    blogWithPosts["entries"] = []
   }
 
-  return blogWithPosts["entries"]
+  return get(blogWithPosts, "entries", [])
 }
 
 export async function extractUpdatedPostsByBlog(blogSlug: string, page = 1) {
   const blog: BlogType = await getSingleBlog(blogSlug)
   const posts = await extractAllPostsByBlog(blogSlug, page)
 
-  return posts.filter((post) => {
+  return posts.filter((post: any) => {
     return toISOString(post.updated_at) || "" > (blog.modified_at as string)
   })
 }
