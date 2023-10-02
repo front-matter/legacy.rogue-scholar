@@ -757,24 +757,34 @@ export async function registerMastodonAccount(blog: BlogType) {
 
 // extract blog post metadata from REST API
 export async function extractWordpressPost(post: any, blog: BlogType) {
-  const authors = [].concat(post.author).map((author: any) => {
-    // use default author for blog if no post author found
-    if (!author["name"] && blog.authors) {
-      author = blog.authors && blog.authors[0]
-    }
+  const authors = []
+    .concat(get(post, "_embedded.author", null))
+    .map((author: any) => {
+      // use default author for blog if no post author found
+      if (!author["name"] && blog.authors) {
+        author = blog.authors && blog.authors[0]
+      }
 
-    let name = author?.name
-    let url = author?.url
+      let name = author?.name
+      let url = author?.url
 
-    // set full name and homepage url in WordPress user profile
-    // fallback for specific users here
-    if (name === "davidshotton") {
-      name = "David M. Shotton"
-      url = "https://orcid.org/0000-0001-5506-523X"
-    }
+      // set full name and homepage url in WordPress user profile
+      // fallback for specific users here
+      if (name === "davidshotton") {
+        name = "David M. Shotton"
+        url = "https://orcid.org/0000-0001-5506-523X"
+      } else if (name === "meineckei") {
+        name = "Isabella Meinecke"
+      } else if (name === "schradera") {
+        name = "Antonia Schrader"
+      } else if (name === "arningu") {
+        name = "Ursula Arning"
+      } else if (name === "rmounce") {
+        name = "Ross Mounce"
+      }
 
-    return { name: name, url: url }
-  })
+      return { name: name, url: url }
+    })
   const content_html = sanitizeHtml(get(post, "content.rendered", ""))
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
@@ -801,6 +811,7 @@ export async function extractWordpressPost(post: any, blog: BlogType) {
 
   terms = uniq(terms).slice(0, 5)
 
+  console.log(authors)
   return {
     authors: authors,
     blog_id: blog.id,
