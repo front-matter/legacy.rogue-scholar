@@ -785,7 +785,9 @@ export async function extractWordpressPost(post: any, blog: BlogType) {
 
       return { name: name, url: url }
     })
-  const content_html = sanitizeHtml(get(post, "content.rendered", ""))
+  const content_html = sanitizeHtml(get(post, "content.rendered", ""), {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  })
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.link, { forceHttps: true, stripWWW: false })
@@ -811,7 +813,6 @@ export async function extractWordpressPost(post: any, blog: BlogType) {
 
   terms = uniq(terms).slice(0, 5)
 
-  console.log(authors)
   return {
     authors: authors,
     blog_id: blog.id,
@@ -836,7 +837,9 @@ export async function extractWordpresscomPost(post: any, blog: BlogType) {
   const authors = [].concat(post.author).map((author) => {
     return { name: author["name"], url: author["URL"] }
   })
-  const content_html = sanitizeHtml(post.content)
+  const content_html = sanitizeHtml(post.content, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  })
   const summary = getAbstract(post.excerpt) || getTitle(post.title)
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
@@ -874,13 +877,19 @@ export async function extractGhostPost(post: any, blog: BlogType) {
       url: auth.website,
     }
   })
-  const content_html = sanitizeHtml(post.html)
+  const content_html = sanitizeHtml(post.html, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  })
   const summary = getAbstract(post.excerpt)
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.url)
   const images = getImages(content_html, url, blog.home_page_url as string)
-  const image = images.length > 0 ? images[0]?.src : null
+  let image = post.feature_image
+
+  if (!image && images.length > 0) {
+    image = images[0].src
+  }
   const tags = compact(
     post.tags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
   )
@@ -956,7 +965,9 @@ export async function extractJekyllPost(post: any, blog: BlogType) {
       url: auth.uri,
     }
   })
-  const content_html = sanitizeHtml(get(post, "content.0._", ""))
+  const content_html = sanitizeHtml(get(post, "content.0._", ""), {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  })
   const summary = getAbstract(get(post, "summary.0._", ""))
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
@@ -1039,7 +1050,9 @@ export function getImages(
     dom.window.document.querySelectorAll("img")
   )
     .map((image: any) => {
-      const src = image.getAttribute("src")
+      let src = image.getAttribute("src")
+
+      src = getSrcUrl(src, url, home_page_url)
       let srcset = image.getAttribute("srcset")
 
       if (isString(srcset)) {
@@ -1054,7 +1067,7 @@ export function getImages(
         alt = alt.trim()
       }
       return {
-        src: getSrcUrl(src, url, home_page_url),
+        src: src,
         srcset: srcset,
         width: image.getAttribute("width"),
         height: image.getAttribute("height"),
@@ -1070,6 +1083,7 @@ export function getImages(
     .map((figure: any) => {
       let src = figure.querySelector("img")?.getAttribute("src")
 
+      console.log(figure.querySelector("img"))
       // if img tag is missing, try to get src from a tag
       if (!src) {
         src = figure.querySelector("a")?.getAttribute("href")
