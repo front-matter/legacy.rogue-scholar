@@ -255,11 +255,20 @@ export async function extractAllPostsByBlog(
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
           let base_url = url
+          let home_page_url = blog.home_page_url as string
 
           if (blog.relative_url === "blog") {
             base_url = blog.home_page_url
           }
-          const images = getImages(content_html, base_url)
+          // workaround for relative URLs in ropensci feeds
+          if (new URL(home_page_url).hostname === "ropensci.org") {
+            home_page_url = "https://ropensci.org"
+          }
+          const images = getImages(
+            content_html,
+            base_url,
+            home_page_url as string
+          )
           let image: any =
             get(feedEntry, "image", null) ||
             (images || [])
@@ -281,9 +290,7 @@ export async function extractAllPostsByBlog(
               .find((image) => image.src) ||
             null
 
-          if (image && blog.relative_url === "post") {
-            image = url + "/" + image.split("/").pop()
-          }
+          image = image ? image.src : null
           const published_at = toUnixTime(
             get(feedEntry, "date_published", null)
           )
@@ -475,7 +482,11 @@ export async function extractAllPostsByBlog(
           }
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
-          const images = getImages(content_html, base_url)
+          const images = getImages(
+            content_html,
+            base_url,
+            blog.home_page_url as string
+          )
           let image: any =
             get(feedEntry, "media:content.@_url", null) ||
             get(feedEntry, "enclosure.@_url", null) ||
@@ -679,7 +690,11 @@ export async function extractAllPostsByBlog(
           }
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
-          const images = getImages(content_html, base_url)
+          const images = getImages(
+            content_html,
+            base_url,
+            blog.home_page_url as string
+          )
           let image: any =
             get(feedEntry, "media:content.@_url", null) ||
             get(feedEntry, "enclosure.@_url", null) ||

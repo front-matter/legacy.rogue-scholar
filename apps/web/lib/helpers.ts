@@ -789,7 +789,7 @@ export async function extractWordpressPost(post: any, blog: BlogType) {
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.link, { forceHttps: true, stripWWW: false })
-  const images = getImages(content_html, url)
+  const images = getImages(content_html, url, blog.home_page_url as string)
   let image =
     get(post, "_embedded.wp:featuredmedia[0].source_url", null) ||
     get(post, "yoast_head_json.og_image[0].url", null) ||
@@ -841,7 +841,7 @@ export async function extractWordpresscomPost(post: any, blog: BlogType) {
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.URL, { forceHttps: true, stripWWW: false })
-  const images = getImages(content_html, url)
+  const images = getImages(content_html, url, blog.home_page_url as string)
   const image = images.length > 0 ? images[0]?.src : null
   const tags = compact(
     Object.keys(post.categories).map((tag) => normalizeTag(tag))
@@ -879,7 +879,7 @@ export async function extractGhostPost(post: any, blog: BlogType) {
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(post.url)
-  const images = getImages(content_html, url)
+  const images = getImages(content_html, url, blog.home_page_url as string)
   const image = images.length > 0 ? images[0]?.src : null
   const tags = compact(
     post.tags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
@@ -920,7 +920,11 @@ export async function extractSubstackPost(post: any, blog: BlogType) {
   const summary = getAbstract(post.body_html)
   const reference = getReferences(post.body_html)
   const relationships = getRelationships(post.body_html)
-  const images = getImages(post.content_html, post.url)
+  const images = getImages(
+    post.content_html,
+    post.url,
+    blog.home_page_url as string
+  )
   const published_at = toUnixTime(post.post_date)
   const tags = post.postTags.map((tag) => normalizeTag(tag.name)).slice(0, 5)
 
@@ -957,7 +961,7 @@ export async function extractJekyllPost(post: any, blog: BlogType) {
   const reference = getReferences(content_html)
   const relationships = getRelationships(content_html)
   const url = normalizeUrl(get(post, "link.0.$.href", null))
-  const images = getImages(content_html, base_url)
+  const images = getImages(content_html, base_url, blog.home_page_url as string)
   const image = images.length > 0 ? images[0]?.src : null
   const tags = compact(
     post.category
@@ -1011,7 +1015,24 @@ export function getContent(feedEntry: any) {
   return content_html
 }
 
-export function getImages(content_html: string, url: string) {
+export function getSrcUrl(src: string, url: string, home_page_url: string) {
+  if (isValidUrl(src)) {
+    return src
+  } else {
+    if (src && src.startsWith("/")) {
+      url = home_page_url
+    } else {
+      url = url + "/"
+    }
+    return url + src
+  }
+}
+
+export function getImages(
+  content_html: string,
+  url: string,
+  home_page_url: string
+) {
   const dom = new JSDOM(`<!DOCTYPE html>${content_html}`)
   // find images in img tags
   const images: ImageType[] = Array.from(
@@ -1024,16 +1045,21 @@ export function getImages(content_html: string, url: string) {
       if (isString(srcset)) {
         srcset = srcset
           .split(", ")
-          .map((src) => (isValidUrl(src) ? src : `${url}${src}`))
+          .map((src) => getSrcUrl(src, url, home_page_url))
           .join(", ")
       }
+      let alt = image.getAttribute("alt")
+
+      if (alt) {
+        alt = alt.trim()
+      }
       return {
-        src: isValidUrl(src) ? src : `${url}${src}`,
+        src: getSrcUrl(src, url, home_page_url),
         srcset: srcset,
         width: image.getAttribute("width"),
         height: image.getAttribute("height"),
         sizes: image.getAttribute("sizes"),
-        alt: image.getAttribute("alt"),
+        alt: alt,
       }
     })
     .filter((image) => image["src"] !== null && image["src"] !== "")
@@ -1048,14 +1074,13 @@ export function getImages(content_html: string, url: string) {
       if (!src) {
         src = figure.querySelector("a")?.getAttribute("href")
       }
-      if (!isValidUrl(src)) {
-        src = `${url}${src}`
-      }
+      src = getSrcUrl(src, url, home_page_url)
       const figcaption = figure.querySelector("figcaption")
+      const alt = figcaption ? figcaption.textContent.trim() : null
 
       return {
         src: src,
-        alt: figcaption ? figcaption.textContent : null,
+        alt: alt,
       }
     })
     .filter(
@@ -1073,9 +1098,7 @@ export function getImages(content_html: string, url: string) {
     .map((link: any) => {
       let src = link.getAttribute("href")
 
-      if (!isValidUrl(src)) {
-        src = `${url}${src}`
-      }
+      src = getSrcUrl(src, url, home_page_url)
       const alt = link.textContent.trim()
 
       return {
@@ -1094,14 +1117,14 @@ export function getImages(content_html: string, url: string) {
   return images.concat(figures, links)
 }
 
-export async function getImage(image: any, blog_home_page_url: string) {
+export async function getImage(image: any, url: string, home_page_url: string) {
   const src = image.getAttribute("src")
   let srcset = image.getAttribute("srcset")
 
   if (isString(srcset)) {
     srcset = srcset
       .split(", ")
-      .map((src) => (isValidUrl(src) ? src : `${blog_home_page_url}${src}`))
+      .map((src) => getSrcUrl(src, url, home_page_url))
       .join(", ")
   }
 
