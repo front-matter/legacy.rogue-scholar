@@ -1336,6 +1336,7 @@ export const authorIDs = {
   "Markus Stocker": "https://orcid.org/0000-0001-5492-3212",
   "Robert Petryszak": "https://orcid.org/0000-0001-6333-2182",
   "Robert Huber": "https://orcid.org/0000-0003-3000-0020",
+  "Sven Lieber": "https://orcid.org/0000-0002-7304-3787",
 }
 
 export const normalizeAuthor = (author: AuthorType) => {
@@ -1389,7 +1390,7 @@ export const normalizeAuthor = (author: AuthorType) => {
   } else if (author["name"] === "mfenner") {
     author["name"] = "Martin Fenner"
   }
-  author["name"] = author["name"].replace(/, MD$/, "")
+  author["name"] = author["name"].replace(/, MD$|, PhD/, "")
   return author
 }
 
