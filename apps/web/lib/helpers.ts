@@ -1083,7 +1083,6 @@ export function getImages(
     .map((figure: any) => {
       let src = figure.querySelector("img")?.getAttribute("src")
 
-      console.log(figure.querySelector("img"))
       // if img tag is missing, try to get src from a tag
       if (!src) {
         src = figure.querySelector("a")?.getAttribute("href")
