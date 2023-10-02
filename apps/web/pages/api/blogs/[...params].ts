@@ -464,6 +464,8 @@ export async function extractAllPostsByBlog(
 
           if (blog.relative_url === "blog") {
             base_url = blog.home_page_url
+          } else if (blog.relative_url === "post") {
+            base_url = url + "/"
           }
           // link to archived version of post if blog is archived
           let archive_url: any = null
@@ -474,7 +476,7 @@ export async function extractAllPostsByBlog(
           const content_html = getContent(feedEntry)
           const summary = getAbstract(content_html)
           const images = getImages(content_html, base_url)
-          const image =
+          let image: any =
             get(feedEntry, "media:content.@_url", null) ||
             get(feedEntry, "enclosure.@_url", null) ||
             (images || [])
@@ -495,6 +497,8 @@ export async function extractAllPostsByBlog(
               })
               .find((image) => image.src) ||
             null
+
+          image = image ? image.src : null
 
           const published_at = toUnixTime(
             get(feedEntry, "pubDate", null) ||
