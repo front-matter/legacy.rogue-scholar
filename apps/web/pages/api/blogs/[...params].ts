@@ -159,6 +159,7 @@ export async function extractAllPostsByBlog(
         page: page,
         limit: 50,
         order: "updated_at DESC",
+        filter: blog.filter,
         include: "tags,authors",
       })
 
@@ -871,7 +872,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, slug, feed_url, current_feed_url, home_page_url, archive_prefix, feed_format, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan, use_api, relative_url"
+      "id, slug, feed_url, current_feed_url, home_page_url, archive_prefix, feed_format, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan, use_api, relative_url, filter"
     )
     .eq("slug", blogSlug)
     .maybeSingle()
@@ -903,6 +904,7 @@ export async function getSingleBlog(blogSlug: string) {
     use_mastodon: config["use_mastodon"],
     use_api: config["use_api"],
     relative_url: config["relative_url"],
+    filter: config["filter"],
   }
 
   try {
@@ -1004,6 +1006,7 @@ export async function getSingleBlog(blogSlug: string) {
           use_mastodon: config["use_mastodon"],
           use_api: config["use_api"],
           relative_url: config["relative_url"],
+          filter: config["filter"],
         }
       },
     })

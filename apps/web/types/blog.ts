@@ -106,6 +106,7 @@ export interface BlogType extends FeedData {
   use_mastodon?: boolean
   use_api?: boolean
   relative_url?: string
+  filter?: string
 }
 
 export interface BlogParentType {

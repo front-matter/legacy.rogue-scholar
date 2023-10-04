@@ -22,8 +22,8 @@ import { PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 const ghostAdmin = new GhostAdminAPI({
-  url: process.env.NEXT_PUBLIC_GHOST_API_URL,
-  key: process.env.NEXT_PUBLIC_GHOST_ADMIN_API_KEY,
+  url: process.env.NEXT_PUBLIC_SYLDAVIA_GAZETTE_GHOST_API_URL,
+  key: process.env.NEXT_PUBLIC_SYLDAVIA_GAZETTE_GHOST_ADMIN_API_KEY,
   version: "v5.0",
 })
 
