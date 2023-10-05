@@ -41,7 +41,7 @@ jobs:
         if: steps.random_doi.outputs.DOI != ''
         run: |
           mkdir -p upload
-          bundle exec commonmeta https://rogue-scholar.org/api/posts/"${{ steps.pending_post.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/${{ steps.pending_post.outputs.POSTID }}
+          bundle exec commonmeta https://api.rogue-scholar.org/posts/"${{ steps.pending_post.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/${{ steps.pending_post.outputs.POSTID }}
       - name: Upload
         if: steps.random_doi.outputs.DOI != ''
         uses: actions/upload-artifact@v2

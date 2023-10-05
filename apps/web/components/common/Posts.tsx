@@ -79,7 +79,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         {process.env.NODE_ENV !== "production" && (
                           <Link
                             className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                            href={`/api/posts/${post.doi.substring(
+                            href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
                               16
                             )}?format=epub`}
                           >
@@ -92,7 +92,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         )}
                         <Link
                           className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                          href={`/api/posts/${post.doi.substring(
+                          href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
                             16
                           )}?format=bibtex`}
                         >
@@ -104,7 +104,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         </Link>
                         <Link
                           className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                          href={`/api/posts/${post.doi.substring(
+                          href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
                             16
                           )}?format=citation&style=apa&locale=${activeLocale}`}
                         >
