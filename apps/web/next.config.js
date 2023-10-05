@@ -253,13 +253,13 @@ const nextConfig = {
       },
       {
         source: "/api/posts/not_indexed",
-        destination: "https://api.rogue-scholar.org/api/posts/not_indexed",
+        destination: "https://api.rogue-scholar.org/posts/not_indexed",
         permanent: true,
         basePath: false,
       },
       {
         source: "/api/posts/unregistered",
-        destination: "https://api.rogue-scholar.org/api/posts/unregistered",
+        destination: "https://api.rogue-scholar.org/posts/unregistered",
         permanent: true,
         basePath: false,
       },
