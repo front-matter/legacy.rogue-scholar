@@ -1,4 +1,4 @@
-import { blogsSelect, supabase } from "@/lib/supabaseClient"
+import { supabase } from "@/lib/supabaseClient"
 import { upsertSingleBlog } from "@/pages/api/blogs/[...params]"
 
 export async function updateAllBlogs() {
@@ -15,19 +15,7 @@ export async function updateAllBlogs() {
 }
 
 export default async function handler(req, res) {
-  if (req.method === "GET") {
-    const { data: blogs, error } = await supabase
-      .from("blogs")
-      .select(blogsSelect)
-      .in("status", ["approved", "active", "archived"])
-      .order("title", { ascending: true })
-
-    if (error) {
-      console.log(error)
-    }
-
-    res.status(200).json(blogs)
-  } else if (
+  if (
     !req.headers.authorization ||
     req.headers.authorization.split(" ")[1] !==
       process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY

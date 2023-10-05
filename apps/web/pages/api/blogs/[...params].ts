@@ -47,11 +47,7 @@ import {
 import { ghostApi } from "@/lib/server/ghost"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 // import { masto } from "@/lib/mastoClient"
-import {
-  blogWithPostsSelect,
-  postsWithBlogSelect,
-  supabase,
-} from "@/lib/supabaseClient"
+import { postsWithBlogSelect, supabase } from "@/lib/supabaseClient"
 import { typesense } from "@/lib/typesenseClient"
 import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
 import { BlogType, PostType } from "@/types/blog"
@@ -1051,32 +1047,6 @@ export default async function handler(req, res) {
 
       if (posts) {
         res.status(200).json(posts)
-      } else {
-        res.status(404).json({ message: "Not Found" })
-      }
-    }
-    if (action === "mastodon") {
-      // const blog: BlogType = await getSingleBlog(slug)
-      // const data = await getMastodonAccount(blog.slug || "")
-      const data = await registerMastodonAccount(slug)
-
-      if (data) {
-        res.status(200).json(data)
-      } else {
-        res.status(404).json({ message: "Not Found" })
-      }
-    } else {
-      const { data: blog, error } = await supabase
-        .from("blogs")
-        .select(blogWithPostsSelect)
-        .eq("slug", slug)
-
-      if (error) {
-        return res.status(400).json({ message: error })
-      }
-
-      if (blog) {
-        res.status(200).json(blog[0])
       } else {
         res.status(404).json({ message: "Not Found" })
       }
