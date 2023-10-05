@@ -290,7 +290,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "api.rogue-scholar.org",
+        hostname: "db.rogue-scholar.org",
         pathname: "/**",
       },
       {
