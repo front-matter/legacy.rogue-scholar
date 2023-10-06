@@ -143,7 +143,7 @@ export async function updateSinglePost(post: PostType) {
         url: post.url,
       })
       .eq("url", post.url)
-      .select("id, indexed_at, updated_at, not_indexed")
+      .select("id, indexed_at, updated_at, indexed")
       .single()
 
     if (error) {
@@ -154,7 +154,7 @@ export async function updateSinglePost(post: PostType) {
     const { data: post_to_update } = await supabaseAdmin
       .from("posts")
       .update({
-        not_indexed: (data.indexed_at || 0) < (data.updated_at || 1),
+        indexed: (data.indexed_at || 0) < (data.updated_at || 1),
       })
       .eq("id", data.id)
       .select("id")
@@ -198,7 +198,7 @@ export async function upsertSinglePost(post: PostType) {
         },
         { onConflict: "url", ignoreDuplicates: false }
       )
-      .select("id, indexed_at, updated_at, not_indexed")
+      .select("id, indexed_at, updated_at, indexed")
       .single()
 
     if (error) {
@@ -209,7 +209,7 @@ export async function upsertSinglePost(post: PostType) {
     const { data: post_to_update } = await supabaseAdmin
       .from("posts")
       .update({
-        not_indexed: (data.indexed_at || 0) < (data.updated_at || 1),
+        indexed: (data.indexed_at || 0) > (data.updated_at || 1),
       })
       .eq("id", data.id)
       .select("id")

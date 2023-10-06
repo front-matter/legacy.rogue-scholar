@@ -85,7 +85,7 @@ export interface Database {
           updated_at?: number
           published_at?: number
           indexed_at?: number
-          not_indexed?: boolean
+          indexed?: boolean
           doi?: string
           image?: string
           language?: string
@@ -106,7 +106,7 @@ export interface Database {
           updated_at?: number
           published_at?: number
           indexed_at?: number
-          not_indexed?: boolean
+          indexed?: boolean
           doi?: string
           image?: string
           language?: string
@@ -127,7 +127,7 @@ export interface Database {
           updated_at?: number
           published_at?: number
           indexed_at?: number
-          not_indexed?: boolean
+          indexed?: boolean
           doi?: string
           image?: string
           language?: string

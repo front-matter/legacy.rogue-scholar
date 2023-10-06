@@ -57,7 +57,7 @@ jobs:
       - name: Update Rogue Scholar post
         if: steps.posts_by_blog.outputs.POSTID != ''
         run: |
-          curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.posts_by_blog.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "indexed_at": "${{ steps.current_date.outputs.NOW }}", "not_indexed": false }'
+          curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.posts_by_blog.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
       - name: Find blog id for post
         run: |
           echo "::set-output name=BLOG_ID::$(bundle exec commonmeta json_feed_blog_id ${{ steps.posts_by_blog.outputs.POSTID }})"

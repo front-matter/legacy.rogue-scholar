@@ -1061,7 +1061,7 @@ export default async function handler(req, res) {
     if (action === "index") {
       const { error } = await supabase
         .from("posts")
-        .update({ not_indexed: true })
+        .update({ indexed: false })
         .eq("blog_slug", slug)
 
       if (error) {

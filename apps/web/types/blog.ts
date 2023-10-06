@@ -60,7 +60,7 @@ export interface PostType {
   published_at?: number
   updated_at?: number
   indexed_at?: number
-  not_indexed?: boolean
+  indexed?: boolean
   authors?: AuthorType[]
   image?: string
   content_html?: string
