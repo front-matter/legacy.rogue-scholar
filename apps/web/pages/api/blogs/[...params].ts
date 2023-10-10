@@ -13,6 +13,7 @@ import {
   isString,
   omit,
 } from "lodash"
+import type { NextApiRequest, NextApiResponse } from "next"
 import normalizeUrl from "normalize-url"
 
 const xml2js = require("xml2js")
@@ -52,6 +53,10 @@ import { typesense } from "@/lib/typesenseClient"
 import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
 import { BlogType, PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
+
+type ResponseData = {
+  message: string
+}
 
 export async function extractAllPostsByBlog(
   blogSlug: string,
@@ -1020,7 +1025,10 @@ export async function getMastodonBot(blog: BlogType) {
   return data
 }
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ResponseData>
+) {
   const slug = req.query.params?.[0]
   const action = req.query.params?.[1]
 
@@ -1050,6 +1058,8 @@ export default async function handler(req, res) {
       } else {
         res.status(404).json({ message: "Not Found" })
       }
+    } else {
+      res.redirect(`https://api.rogue-scholar.org/blogs/${slug}`)
     }
   } else if (
     !req.headers.authorization ||
