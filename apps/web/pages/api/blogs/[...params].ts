@@ -102,6 +102,9 @@ export const blogIDs = {
   "4425y27": "grieve_smith",
   pm0p222: "upstream",
   "34zkv26": "wisspub",
+  e22ws68: "ropensci",
+  d86r900: "ropensci_fr",
+  k0crp01: "ropensci_es",
 }
 
 export async function extractAllPostsByBlog(
