@@ -51,7 +51,7 @@ import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import { postsWithBlogSelect, supabase } from "@/lib/supabaseClient"
 import { typesense } from "@/lib/typesenseClient"
 import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
-import { BlogType, PostType } from "@/types/blog"
+import { BlogType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 type ResponseData = {
@@ -1032,8 +1032,8 @@ export default async function handler(
   const slug = req.query.params?.[0]
   const action = req.query.params?.[1]
 
-  const query = req.query.query || ""
-  const page = (req.query.page as number) || 1
+  const query = String(req.query.query || "")
+  const page = Number(req.query.page || "1")
   const update = req.query.update
 
   if (req.method === "GET") {
@@ -1051,7 +1051,7 @@ export default async function handler(
         .collections("posts")
         .documents()
         .search(searchParameters)
-      const posts = data.hits?.map((hit) => hit.document)
+      const posts: any = data.hits?.map((hit) => hit.document)
 
       if (posts) {
         res.status(200).json(posts)
@@ -1082,12 +1082,12 @@ export default async function handler(
         .status(200)
         .json({ message: `Indexing all posts for blog ${slug} started` })
     } else if (action === "posts") {
-      let posts: PostType[] = []
+      let posts: any // PostType[] = []
 
       try {
         const updateAll = update === "all" ? true : false
 
-        posts = await extractAllPostsByBlog(slug, page, updateAll)
+        posts = await extractAllPostsByBlog(String(slug), page, updateAll)
       } catch (error) {
         console.log(error)
       }
@@ -1098,7 +1098,7 @@ export default async function handler(
         res.status(404).json({ message: "Posts not found" })
       }
     } else if (action === "mastodon") {
-      const blog: BlogType = await getSingleBlog(slug)
+      const blog: BlogType = await getSingleBlog(String(slug))
 
       const data = await getMastodonAccount(blog.slug || "")
 
@@ -1114,7 +1114,7 @@ export default async function handler(
         }
       }
     } else {
-      const blog = await upsertSingleBlog(slug)
+      const blog: any = await upsertSingleBlog(String(slug))
 
       res.status(200).json(blog)
     }
