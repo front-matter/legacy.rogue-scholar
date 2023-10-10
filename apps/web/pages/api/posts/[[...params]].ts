@@ -2,6 +2,7 @@ import GhostAdminAPI from "@tryghost/admin-api"
 import { fromUnixTime, subDays } from "date-fns"
 import parse from "html-react-parser"
 import { isEmpty } from "lodash"
+import type { NextApiRequest, NextApiResponse } from "next"
 import { v4 as uuidv4 } from "uuid"
 
 import { toUnixTime } from "@/lib/helpers"
@@ -14,6 +15,10 @@ import {
 } from "@/pages/api/blogs/[...params]"
 import { PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
+
+type ResponseData = {
+  message: string
+}
 
 const ghostAdmin = new GhostAdminAPI({
   url: process.env.NEXT_PUBLIC_SYLDAVIA_GAZETTE_GHOST_API_URL,
@@ -279,14 +284,19 @@ export async function upsertUpdatedPosts(page: number = 1) {
   return posts
 }
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<ResponseData>
+) {
   const slug = req.query.params?.[0]
-  let page = (req.query.page as number) || 1
-
-  page = Number(page)
+  const page = Number(req.query.page || 1)
   const update = req.query.update
 
-  if (
+  if (req.method === "GET") {
+    if (slug === "unregistered" || slug === "not_indexed") {
+      res.redirect(`https://api.rogue-scholar.org/posts/${slug}`)
+    }
+  } else if (
     !req.headers.authorization ||
     req.headers.authorization.split(" ")[1] !==
       process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY
@@ -308,7 +318,7 @@ export default async function handler(req, res) {
       if (!post) {
         res.status(404).json({ message: "Post not found" })
       } else if ((await upsertSinglePost(post)) == null) {
-        res.status(200).json(post)
+        res.status(200).json(post as any)
       } else {
         res.status(400).json({ message: "Post could not be updated" })
       }
