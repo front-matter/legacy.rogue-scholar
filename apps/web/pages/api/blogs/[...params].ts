@@ -883,7 +883,7 @@ export async function upsertSingleBlog(blogSlug: string) {
     .order("updated_at", { ascending: false })
     .limit(1)
 
-  blog.updated_at = posts && posts.length > 0 ? posts[0].updated_at || 0 : 0
+  blog.updated_at = (posts && posts[0].updated_at) || 0
 
   const { data, error } = await supabaseAdmin.from("blogs").upsert(
     {
@@ -896,7 +896,7 @@ export async function upsertSingleBlog(blogSlug: string) {
       home_page_url: blog.home_page_url,
       feed_format: blog.feed_format,
       modified_at: blog.modified_at,
-      updated_at: Number(blog.updated_at),
+      updated_at: blog.updated_at,
       language: blog.language,
       category: blog.category,
       favicon: blog.favicon,
