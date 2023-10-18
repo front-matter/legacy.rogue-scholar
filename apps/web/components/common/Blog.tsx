@@ -147,22 +147,20 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 </Link>
               </span>
             )}
-            {blog.updated_at && blog.updated_at > 0 && (
-              <span className="font-medium text-gray-500 dark:text-gray-200">
-                <Icon icon="fa6-regular:calendar-check" className="inline" />
-                <time
-                  className="ml-2 mr-6"
-                  dateTime={formatISO(fromUnixTime(blog.updated_at))}
-                >
-                  {t("posts.date_published", {
-                    val: new Date(fromUnixTime(blog.updated_at)),
-                    formatParams: {
-                      val: { year: "numeric", month: "long", day: "numeric" },
-                    },
-                  })}
-                </time>
-              </span>
-            )}
+            <span className="font-medium text-gray-500 dark:text-gray-200">
+              <Icon icon="fa6-regular:calendar-check" className="inline" />
+              <time
+                className="ml-2 mr-6"
+                dateTime={formatISO(fromUnixTime(blog.updated_at as number))}
+              >
+                {t("posts.date_published", {
+                  val: new Date(blog.updated_at as number),
+                  formatParams: {
+                    val: { year: "numeric", month: "long", day: "numeric" },
+                  },
+                })}
+              </time>
+            </span>
           </div>
         </div>
       </div>
