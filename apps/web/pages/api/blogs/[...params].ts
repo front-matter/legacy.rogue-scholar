@@ -226,7 +226,7 @@ export async function extractAllPostsByBlog(
 
         if (!updateAll) {
           json["items"] = json["items"].filter((post) => {
-            return post.date_modified > (blog.modified_at as string)
+            return post.date_modified > (blog.updated_at || 0)
           })
         }
       } catch (error) {
@@ -641,7 +641,7 @@ export async function extractAllPostsByBlog(
 
         if (!updateAll) {
           json.feed["entry"] = json.feed["entry"].filter((post) => {
-            return post.updated[0] > (blog.modified_at as string)
+            return post.updated[0] > (blog.updated_at || 0)
           })
           xml = builder.buildObject(json)
         } else if (["Hugo", "Jekyll", "Quarto"].includes(String(generator))) {
@@ -883,10 +883,7 @@ export async function upsertSingleBlog(blogSlug: string) {
     .order("updated_at", { ascending: false })
     .limit(1)
 
-  blog.modified_at =
-    posts && posts.length > 0
-      ? toISOString(posts[0].updated_at) || "1970-01-01T00:00:00Z"
-      : "1970-01-01T00:00:00Z"
+  blog.updated_at = posts && posts.length > 0 ? posts[0].updated_at || 0 : 0
 
   const { data, error } = await supabaseAdmin.from("blogs").upsert(
     {
@@ -899,6 +896,7 @@ export async function upsertSingleBlog(blogSlug: string) {
       home_page_url: blog.home_page_url,
       feed_format: blog.feed_format,
       modified_at: blog.modified_at,
+      updated_at: Number(blog.updated_at),
       language: blog.language,
       category: blog.category,
       favicon: blog.favicon,
@@ -922,7 +920,7 @@ export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
     .select(
-      "id, slug, feed_url, current_feed_url, home_page_url, archive_prefix, feed_format, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan, use_api, relative_url, filter"
+      "id, slug, feed_url, current_feed_url, home_page_url, archive_prefix, feed_format, updated_at, modified_at, use_mastodon, generator, favicon, title, category, status, user_id, authors, plan, use_api, relative_url, filter"
     )
     .eq("slug", blogSlug)
     .maybeSingle()
@@ -937,6 +935,7 @@ export async function getSingleBlog(blogSlug: string) {
     version: "https://jsonfeed.org/version/1.1",
     feed_url: config["feed_url"],
     modified_at: config["modified_at"],
+    updated_at: Number(config["updated_at"]),
     home_page_url: config["home_page_url"],
     archive_prefix: config["archive_prefix"],
     feed_format: config["feed_format"],
@@ -1038,6 +1037,7 @@ export async function getSingleBlog(blogSlug: string) {
           version: "https://jsonfeed.org/version/1.1",
           feed_url: config["feed_url"],
           modified_at: config["modified_at"],
+          updated_at: config["updated_at"],
           current_feed_url,
           home_page_url,
           archive_prefix: config["archive_prefix"],

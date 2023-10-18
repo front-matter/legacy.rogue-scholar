@@ -24,6 +24,7 @@ export interface Database {
           user_id?: string
           created_at?: string
           modified_at?: string
+          updated_at?: number
           language?: string
           favicon?: string
           license?: string
@@ -45,6 +46,7 @@ export interface Database {
           user_id?: string
           created_at?: string
           modified_at?: string
+          updated_at?: number
           language?: string
           favicon?: string
           license?: string
@@ -65,6 +67,7 @@ export interface Database {
           user_id?: string
           created_at?: string
           modified_at?: string
+          updated_at?: number
           language?: string
           favicon?: string
           license?: string

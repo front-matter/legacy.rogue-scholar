@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react"
+import { formatISO, fromUnixTime } from "date-fns"
 import parse from "html-react-parser"
 import { capitalize } from "lodash"
 import Image from "next/image"
@@ -146,15 +147,15 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 </Link>
               </span>
             )}
-            {blog.modified_at && blog.modified_at > "1970-01-02" && (
+            {blog.updated_at && blog.updated_at > 0 && (
               <span className="font-medium text-gray-500 dark:text-gray-200">
                 <Icon icon="fa6-regular:calendar-check" className="inline" />
                 <time
                   className="ml-2 mr-6"
-                  dateTime={blog.modified_at.toString()}
+                  dateTime={formatISO(fromUnixTime(blog.updated_at))}
                 >
                   {t("posts.date_published", {
-                    val: new Date(blog.modified_at),
+                    val: new Date(fromUnixTime(blog.updated_at)),
                     formatParams: {
                       val: { year: "numeric", month: "long", day: "numeric" },
                     },
