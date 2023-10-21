@@ -930,7 +930,6 @@ export async function getSingleBlog(blogSlug: string) {
     slug: config["slug"],
     version: "https://jsonfeed.org/version/1.1",
     feed_url: config["feed_url"],
-    modified_at: config["modified_at"],
     updated_at: Number(config["updated_at"]),
     home_page_url: config["home_page_url"],
     archive_prefix: config["archive_prefix"],
