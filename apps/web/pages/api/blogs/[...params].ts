@@ -42,7 +42,6 @@ import {
   normalizeTag,
   parseGenerator,
   registerMastodonAccount,
-  toISOString,
   toUnixTime,
 } from "@/lib/helpers"
 import { ghostApi } from "@/lib/server/ghost"
@@ -425,9 +424,7 @@ export async function extractAllPostsByBlog(
           let posts = get(json, "rss.channel[0].item", [])
 
           posts = posts.filter((post: any) => {
-            return (
-              toISOString(post.pubDate[0]) || "" > (blog.modified_at as string)
-            )
+            return post.pubDate[0] || 0 > (blog.updated_at || 1)
           })
           json.rss.channel.item = posts
           xml = builder.buildObject(json)
@@ -852,7 +849,7 @@ export async function extractUpdatedPostsByBlog(blogSlug: string, page = 1) {
   const posts = await extractAllPostsByBlog(blogSlug, page)
 
   return posts.filter((post: any) => {
-    return toISOString(post.updated_at) || "" > (blog.modified_at as string)
+    return (post.updated_at || 0) > (blog.updated_at || 1)
   })
 }
 
@@ -895,7 +892,6 @@ export async function upsertSingleBlog(blogSlug: string) {
       current_feed_url: blog.current_feed_url,
       home_page_url: blog.home_page_url,
       feed_format: blog.feed_format,
-      modified_at: blog.modified_at,
       updated_at: blog.updated_at,
       language: blog.language,
       category: blog.category,
