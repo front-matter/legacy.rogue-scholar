@@ -154,7 +154,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 dateTime={formatISO(fromUnixTime(blog.updated_at as number))}
               >
                 {t("posts.date_published", {
-                  val: new Date(blog.updated_at as number),
+                  val: new Date((blog.updated_at as number) * 1000),
                   formatParams: {
                     val: { year: "numeric", month: "long", day: "numeric" },
                   },
