@@ -11,6 +11,7 @@ export interface DocumentType extends DocumentSchema {
   id?: string
   doi?: string
   url?: string
+  guid?: string
   title?: string
   summary?: string
   published_at?: number

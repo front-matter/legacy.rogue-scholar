@@ -99,7 +99,7 @@ export interface Database {
           title?: string
           url?: string
           id?: string
-          uuid?: string
+          guid?: string
         }
         Insert: {
           authors?: AuthorType[]
@@ -121,7 +121,7 @@ export interface Database {
           title?: string
           url?: string
           id?: string
-          uuid?: string
+          guid?: string
         }
         Update: {
           authors?: AuthorType[]
@@ -143,7 +143,7 @@ export interface Database {
           title?: string
           url?: string
           id?: string
-          uuid?: string
+          guid?: string
         }
       }
       customers: {

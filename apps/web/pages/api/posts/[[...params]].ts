@@ -57,7 +57,7 @@ export async function createGhostPost(data) {
   const image = images[Math.floor(Math.random() * images.length)]
 
   const post: PostType = {
-    uuid: uuidv4(),
+    id: uuidv4(),
     title: `Rogue Scholar Digest ${today}`,
     content_html: `This is a summary of the Rogue Scholar blog posts published last week. Find out more (including search for other posts) via <a href="https://rogue-scholar.org/posts">Rogue Scholar</a>. ${content_html}`,
     authors: [
@@ -148,7 +148,7 @@ export async function updateSinglePost(post: PostType) {
         url: post.url,
       })
       .eq("url", post.url)
-      .select("uuid, indexed_at, updated_at, indexed")
+      .select("id, indexed_at, updated_at, indexed")
       .single()
 
     if (error) {
@@ -161,8 +161,8 @@ export async function updateSinglePost(post: PostType) {
       .update({
         indexed: (data.indexed_at || 0) < (data.updated_at || 1),
       })
-      .eq("uuid", data.uuid)
-      .select("uuid")
+      .eq("id", data.id)
+      .select("id")
       .single()
 
     return post_to_update
@@ -203,7 +203,7 @@ export async function upsertSinglePost(post: PostType) {
         },
         { onConflict: "url", ignoreDuplicates: false }
       )
-      .select("uuid, indexed_at, updated_at, indexed")
+      .select("id, indexed_at, updated_at, indexed")
       .single()
 
     if (error) {
@@ -216,8 +216,8 @@ export async function upsertSinglePost(post: PostType) {
       .update({
         indexed: (data.indexed_at || 0) > (data.updated_at || 1),
       })
-      .eq("uuid", data.uuid)
-      .select("uuid")
+      .eq("id", data.id)
+      .select("id")
       .single()
 
     return post_to_update

@@ -20,10 +20,10 @@ export function getSecret(secretName: string) {
 export const blogsSelect =
   "id, slug, title, description, language, favicon, feed_url, current_feed_url, archive_prefix,  feed_format, home_page_url, use_mastodon, created_at, updated_at, license, generator, category, backlog, prefix, status, plan, funding"
 export const blogWithPostsSelect =
-  "id, slug, title, description, language, favicon, feed_url, current_feed_url, archive_prefix, feed_format, home_page_url, use_mastodon, created_at, updated_at, license, generator, category, backlog, prefix, status, plan, funding, items: posts (uuid, doi, url, archive_url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference)"
+  "id, slug, title, description, language, favicon, feed_url, current_feed_url, archive_prefix, feed_format, home_page_url, use_mastodon, created_at, updated_at, license, generator, category, backlog, prefix, status, plan, funding, items: posts (id, guid, doi, url, archive_url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference)"
 export const postsSelect =
-  "uuid, doi, url, archive_url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_id, blog_name, blog_slug"
+  "id, guid, doi, url, archive_url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_id, blog_name, blog_slug"
 export const postsWithBlogSelect =
-  "uuid, doi, url, archive_url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_id, blog_name, blog_slug, blog: blogs!inner(*)"
+  "id, guid, doi, url, archive_url, title, summary, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_id, blog_name, blog_slug, blog: blogs!inner(*)"
 export const postsWithContentSelect =
-  "uuid, doi, url, archive_url, title, summary, content_html, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_id, blog_name, blog_slug, blog: blogs!inner(*)"
+  "id, guid, doi, url, archive_url, title, summary, content_html, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_id, blog_name, blog_slug, blog: blogs!inner(*)"
