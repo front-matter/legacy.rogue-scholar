@@ -8,7 +8,7 @@ import { jsonLdScriptProps } from "react-schemaorg"
 import { Blog as BlogSchema } from "schema-dts"
 
 import { Blog } from "@/components/common/Blog"
-import { Posts } from "@/components/common/Posts"
+// import { Posts } from "@/components/common/Posts"
 import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
 import Search from "@/components/layout/Search"
@@ -90,7 +90,7 @@ type Props = {
 
 const BlogPage: React.FunctionComponent<Props> = ({
   blog,
-  posts,
+  // posts,
   pagination,
   locale,
 }) => {
@@ -137,9 +137,9 @@ const BlogPage: React.FunctionComponent<Props> = ({
             <>
               <Search pagination={pagination} locale={locale} />
               <Pagination pagination={pagination} />
-              {posts && (
+              {/* {posts && (
                 <Posts posts={posts} pagination={pagination} blog={blog} />
-              )}
+              )} */}
               {pagination.total > 0 && <Pagination pagination={pagination} />}
               {blog.status === "active" &&
                 blog.home_page_url &&
