@@ -51,7 +51,8 @@ export interface ImageType {
 }
 
 export interface PostType {
-  id: string
+  id?: string
+  uuid: string
   doi?: string
   url?: string
   archive_url?: string
