@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid"
 
 import { toUnixTime } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
-import { postsSelect, supabase } from "@/lib/supabaseClient"
+import { supabase } from "@/lib/supabaseClient"
 import { typesense } from "@/lib/typesenseClient"
 import {
   extractAllPostsByBlog,
@@ -289,13 +289,15 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   const slug = req.query.params?.[0]
-  const page = Number(req.query.page || 1)
-  const update = req.query.update
+  const action = req.query.params?.[1]
+  let path = slug
+
+  if (action) {
+    path = `${slug}/${action}`
+  }
 
   if (req.method === "GET") {
-    if (slug === "unregistered" || slug === "not_indexed") {
-      res.redirect(`https://api.rogue-scholar.org/posts/${slug}`)
-    }
+    res.redirect(`https://api.rogue-scholar.org/posts/${path}`)
   } else if (
     !req.headers.authorization ||
     req.headers.authorization.split(" ")[1] !==
@@ -308,43 +310,6 @@ export default async function handler(
       const response = await createGhostPost(data)
 
       res.status(200).json(response)
-    } else if (slug) {
-      const { data: post } = await supabase
-        .from("posts")
-        .select(postsSelect)
-        .eq("id", slug)
-        .single()
-
-      if (!post) {
-        res.status(404).json({ message: "Post not found" })
-      } else if ((await upsertSinglePost(post)) == null) {
-        res.status(200).json(post as any)
-      } else {
-        res.status(400).json({ message: "Post could not be updated" })
-      }
-    } else {
-      let posts: PostType[] = []
-
-      // const { data: posts_to_update } = await supabase
-      //   .from("posts")
-      //   .select("*")
-      //   .is("not_indexed", null)
-
-      // if (posts_to_update) {
-      //   await Promise.all(
-      //     posts_to_update.map((post) => {
-      //       post.not_indexed = post.indexed_at < post.updated_at
-      //       upsertSinglePost(post)
-      //     })
-      //   )
-      // }
-
-      const updateAll = update === "all" ? true : false
-
-      posts = await upsertAllPosts(page, updateAll)
-      const message = { message: `Upserted ${posts.length} posts` }
-
-      res.status(200).json(message)
     }
   } else {
     res.status(405).json({ message: "Method Not Allowed" })
