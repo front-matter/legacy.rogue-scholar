@@ -289,18 +289,15 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   const slug = req.query.params?.[0]
-  const suffix = req.query.params?.[1]
+  const action = req.query.params?.[1]
+  let path = slug
+
+  if (action) {
+    path = `${slug}/${action}`
+  }
 
   if (req.method === "GET") {
-    if (slug) {
-      let path = slug
-
-      if (suffix) {
-        path = `${slug}/${suffix}`
-      }
-
-      res.redirect(`https://api.rogue-scholar.org/posts/${path}`)
-    }
+    res.redirect(`https://api.rogue-scholar.org/posts/${path}`)
   } else if (
     !req.headers.authorization ||
     req.headers.authorization.split(" ")[1] !==

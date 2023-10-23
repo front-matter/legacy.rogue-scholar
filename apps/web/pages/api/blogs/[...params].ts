@@ -41,17 +41,13 @@ import {
   normalizeAuthor,
   normalizeTag,
   parseGenerator,
-  registerMastodonAccount,
   toUnixTime,
 } from "@/lib/helpers"
 import { ghostApi } from "@/lib/server/ghost"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
 // import { masto } from "@/lib/mastoClient"
 import { postsWithBlogSelect, supabase } from "@/lib/supabaseClient"
-import { typesense } from "@/lib/typesenseClient"
-import { upsertSinglePost } from "@/pages/api/posts/[[...params]]"
 import { BlogType } from "@/types/blog"
-import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 type ResponseData = {
   message: string
@@ -1076,93 +1072,17 @@ export default async function handler(
   const slug = req.query.params?.[0]
   const action = req.query.params?.[1]
 
-  const query = String(req.query.query || "")
-  const page = Number(req.query.page || "1")
-  const update = req.query.update
-
   if (req.method === "GET") {
-    if (action === "posts") {
-      const searchParameters: PostSearchParams = {
-        q: query,
-        filter_by: `blog_slug:=${slug}`,
-        query_by:
-          "tags,title,doi,authors.name,authors.url,reference.url,summary,content_html",
-        sort_by: req.query.query ? "_text_match:desc" : "published_at:desc",
-        per_page: 10,
-        page: page && page > 0 ? page : 1,
-      }
-      const data: PostSearchResponse = await typesense
-        .collections("posts")
-        .documents()
-        .search(searchParameters)
-      const posts: any = data.hits?.map((hit) => hit.document)
+    if (slug && action === "posts") {
+      const id = blogIDs[slug] || slug
 
-      if (posts) {
-        res.status(200).json(posts)
-      } else {
-        res.status(404).json({ message: "Not Found" })
-      }
+      res.redirect(`https://api.rogue-scholar.org/blogs/${id}/posts`)
     } else if (slug) {
       const id = blogIDs[slug] || slug
 
       res.redirect(`https://api.rogue-scholar.org/blogs/${id}`)
     }
-  } else if (
-    !req.headers.authorization ||
-    req.headers.authorization.split(" ")[1] !==
-      process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY
-  ) {
-    res.status(401).json({ message: "Unauthorized" })
-  } else if (req.method === "POST") {
-    if (action === "index") {
-      const { error } = await supabase
-        .from("posts")
-        .update({ indexed: false })
-        .eq("blog_slug", slug)
-
-      if (error) {
-        console.log(error)
-      }
-
-      res
-        .status(200)
-        .json({ message: `Indexing all posts for blog ${slug} started` })
-    } else if (action === "posts") {
-      let posts: any // PostType[] = []
-
-      try {
-        const updateAll = update === "all" ? true : false
-
-        posts = await extractAllPostsByBlog(String(slug), page, updateAll)
-      } catch (error) {
-        console.log(error)
-      }
-      if (posts) {
-        await Promise.all(posts.map((post) => upsertSinglePost(post)))
-        res.status(200).json(posts)
-      } else {
-        res.status(404).json({ message: "Posts not found" })
-      }
-    } else if (action === "mastodon") {
-      const blog: BlogType = await getSingleBlog(String(slug))
-
-      const data = await getMastodonAccount(blog.slug || "")
-
-      if (data) {
-        res.status(200).json(data)
-      } else {
-        const data = await registerMastodonAccount(blog)
-
-        if (data) {
-          res.status(200).json(data)
-        } else {
-          res.status(404).json({ message: "Not Found" })
-        }
-      }
-    } else {
-      const blog: any = await upsertSingleBlog(String(slug))
-
-      res.status(200).json(blog)
-    }
+  } else {
+    res.status(405).json({ message: "Method Not Allowed" })
   }
 }
