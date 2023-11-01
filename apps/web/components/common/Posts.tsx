@@ -59,62 +59,86 @@ export const Posts: React.FunctionComponent<Props> = ({
                     </div>
                   )}
                   <div className="group relative max-w-4xl">
-                    <h3 className="mt-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
-                      {parse(String(post.title))}
-                    </h3>
-                    <Byline post={post} blog={blog} />
                     {post.doi && (
-                      <div className="py-1 font-medium">
+                      <>
                         <Link
-                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                          className="text-base hover:dark:text-gray-200"
                           target="_blank"
                           href={post.doi}
                         >
-                          <Icon
-                            icon="academicons:doi"
-                            className="mb-1 mr-1 inline text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                          />
-                          {post.doi}
+                          <h3 className="mt-1 text-xl font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100">
+                            {parse(String(post.title))}
+                          </h3>
                         </Link>
-                        {process.env.NODE_ENV !== "production" && (
+                        <div className="py-1 font-medium">
                           <Link
-                            className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                            href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
-                              16
-                            )}?format=epub`}
+                            className="text-base text-gray-500 hover:text-gray-900 hover:dark:text-gray-200"
+                            target="_blank"
+                            href={post.doi}
                           >
                             <Icon
-                              icon="fa6-solid:file-zipper"
-                              className="mb-1 ml-5 mr-1 inline text-sm"
+                              icon="academicons:doi"
+                              className="mb-1 mr-1 inline text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                             />
-                            ePub
+                            {post.doi}
                           </Link>
-                        )}
+                        </div>
+                      </>
+                    )}
+                    {!post.doi && post.url && (
+                      <Link
+                        className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                        target="_blank"
+                        href={post.archive_url || post.url}
+                      >
+                        <h3 className="mt-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
+                          {parse(String(post.title))}
+                        </h3>
+                      </Link>
+                    )}
+                  </div>
+                  <Byline post={post} blog={blog} />
+                  {post.doi && (
+                    <div className="py-1 font-medium">
+                      {process.env.NODE_ENV !== "production" && (
                         <Link
                           className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                           href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
                             16
-                          )}?format=bibtex`}
+                          )}?format=epub`}
                         >
                           <Icon
-                            icon="fa6-solid:file-code"
-                            className="mb-1 ml-5 mr-1 inline text-sm"
+                            icon="fa6-solid:file-zipper"
+                            className="mb-1 mr-1 inline text-sm"
                           />
-                          BibTex
+                          ePub
                         </Link>
-                        <Link
-                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                          href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
-                            16
-                          )}?format=citation&style=apa&locale=${activeLocale}`}
-                        >
-                          <Icon
-                            icon="fa6-solid:file-lines"
-                            className="mb-1 ml-5 mr-1 inline text-sm"
-                          />
-                          Citation (APA)
-                        </Link>
-                        {/* <button
+                      )}
+                      <Link
+                        className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
+                          16
+                        )}?format=bibtex`}
+                      >
+                        <Icon
+                          icon="fa6-solid:file-code"
+                          className="mb-1 ml-5 mr-1 inline text-sm"
+                        />
+                        BibTex
+                      </Link>
+                      <Link
+                        className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
+                          16
+                        )}?format=citation&style=apa&locale=${activeLocale}`}
+                      >
+                        <Icon
+                          icon="fa6-solid:file-lines"
+                          className="mb-1 ml-5 mr-1 inline text-sm"
+                        />
+                        Citation (APA)
+                      </Link>
+                      {/* <button
                           className="ml-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                           type="button"
                           data-modal-target="citationBox"
@@ -126,37 +150,25 @@ export const Posts: React.FunctionComponent<Props> = ({
                           />
                           Cite
                         </button> */}
-                      </div>
-                    )}
-                    {!post.doi && post.url && (
-                      <div className="py-1 font-medium">
-                        <Link
-                          className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                          target="_blank"
-                          href={post.archive_url || post.url}
-                        >
-                          {post.archive_url || post.url}
-                        </Link>
-                      </div>
-                    )}
-                    <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
-                      {post.image && (
-                        <div className="relative mr-4 h-48 w-64 shrink-0">
-                          <Image
-                            src={post.image}
-                            alt=""
-                            fill={true}
-                            className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 md:object-cover"
-                          />
-                          <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                        </div>
-                      )}
-                      {post.summary && (
-                        <p className="text-medium max-w-screen-sm font-serif leading-6 text-gray-900 dark:text-white">
-                          {parse(String(post.summary))}
-                        </p>
-                      )}
                     </div>
+                  )}
+                  <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
+                    {post.image && (
+                      <div className="relative mr-4 h-48 w-64 shrink-0">
+                        <Image
+                          src={post.image}
+                          alt=""
+                          fill={true}
+                          className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 md:object-cover"
+                        />
+                        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                      </div>
+                    )}
+                    {post.summary && (
+                      <p className="text-medium max-w-screen-sm font-serif leading-6 text-gray-900 dark:text-white">
+                        {parse(String(post.summary))}
+                      </p>
+                    )}
                   </div>
                 </div>
               </article>
