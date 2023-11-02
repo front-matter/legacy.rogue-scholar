@@ -41,13 +41,17 @@ export default function Search({ pagination, locale }: Props) {
     setSearchInput(inputRef.current?.value ?? "")
   }
 
+  const onLanguageChange = (id) => {
+    setPage(1)
+    setLanguage(id)
+  }
+
   const onSearchClear = () => {
     setQuery("")
     setSearchInput("")
     setTags("")
     setCategory("")
     setGenerator("")
-    // setLanguage("")
     inputRef.current?.focus()
   }
 
@@ -97,7 +101,7 @@ export default function Search({ pagination, locale }: Props) {
                 id={la.id}
                 name="language"
                 type="radio"
-                onChange={() => setLanguage(la.id)}
+                onChange={() => onLanguageChange(la.id)}
                 defaultChecked={la.id === ""}
                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
               />
