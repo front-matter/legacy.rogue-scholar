@@ -91,7 +91,7 @@ export interface BlogType extends FeedData {
   current_feed_url?: string
   favicon?: string
   updated_at?: number
-  created_at?: string
+  created_at?: number
   generator?: string
   license?: string
   archive_prefix?: string

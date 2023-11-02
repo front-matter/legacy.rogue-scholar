@@ -22,8 +22,7 @@ export interface Database {
           home_page_url?: string
           feed_format?: string
           user_id?: string
-          created_at?: string
-          modified_at?: string
+          created_at?: number
           updated_at?: number
           language?: string
           favicon?: string
@@ -44,8 +43,7 @@ export interface Database {
           home_page_url?: string
           feed_format?: string
           user_id?: string
-          created_at?: string
-          modified_at?: string
+          created_at?: number
           updated_at?: number
           language?: string
           favicon?: string
@@ -65,8 +63,7 @@ export interface Database {
           home_page_url?: string
           feed_format?: string
           user_id?: string
-          created_at?: string
-          modified_at?: string
+          created_at?: number
           updated_at?: number
           language?: string
           favicon?: string
