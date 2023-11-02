@@ -6,6 +6,16 @@
       "index": true,
       "infix": false,
       "locale": "",
+      "name": "id",
+      "optional": false,
+      "sort": true,
+      "type": "string"
+    },
+    {
+      "facet": true,
+      "index": true,
+      "infix": false,
+      "locale": "",
       "name": "slug",
       "optional": false,
       "sort": true,
@@ -209,7 +219,7 @@
       "name": "funding",
       "optional": true,
       "sort": false,
-      "type": "string"
+      "type": "object"
     }
   ],
   "default_sorting_field": "title",

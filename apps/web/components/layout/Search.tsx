@@ -14,13 +14,15 @@ export default function Search({ pagination, locale }: Props) {
   const { t } = useTranslation(["common", "home"])
   const [query, setQuery] = useQueryState("query")
   const [tags, setTags] = useQueryState("tags")
+  const [category, setCategory] = useQueryState("category")
+  const [generator, setGenerator] = useQueryState("generator")
   const [page, setPage] = useQueryState("page", queryTypes.integer)
   const [language, setLanguage] = useQueryState("language")
 
   // if (pagination.language !== locale) {
   //   setLanguage("")
   // }
-  console.log(query, page, language, tags, pagination)
+  console.log(query, page, language, tags, category, generator, pagination)
   const [searchInput, setSearchInput] = useState("")
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -43,6 +45,8 @@ export default function Search({ pagination, locale }: Props) {
     setQuery("")
     setSearchInput("")
     setTags("")
+    setCategory("")
+    setGenerator("")
     // setLanguage("")
     inputRef.current?.focus()
   }
@@ -58,7 +62,10 @@ export default function Search({ pagination, locale }: Props) {
         icon="fa6-solid:magnifying-glass"
         className="absolute left-3 top-3 h-5 w-5 text-gray-500"
       />
-      {(searchInput !== "" || tags !== "") && (
+      {(searchInput !== "" ||
+        tags !== "" ||
+        category !== "" ||
+        generator !== "") && (
         <span
           id="search-clear"
           title="Clear"

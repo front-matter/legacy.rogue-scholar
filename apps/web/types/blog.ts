@@ -30,6 +30,8 @@ export interface PaginationType {
   query?: string
   language?: string
   tags?: string
+  category?: string
+  generator?: string
   page: number
   pages: number
   total: number
@@ -48,6 +50,13 @@ export interface ImageType {
   height?: number
   sizes?: string
   alt?: string
+}
+
+export interface FundingType {
+  funder_id?: string
+  funder_name?: string
+  award_number?: string
+  award_uri?: string
 }
 
 export interface PostType {

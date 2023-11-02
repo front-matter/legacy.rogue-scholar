@@ -9,13 +9,17 @@ import { useTranslation } from "next-i18next"
 
 import { feedFormats } from "@/components/common/Blog"
 // import { getFunding } from "@/lib/helpers"
-import { BlogType } from "@/types/blog"
+import { BlogType, PaginationType } from "@/types/blog"
 
 type Props = {
   blogs: BlogType[]
+  pagination: PaginationType
 }
 
-export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
+export const Blogs: React.FunctionComponent<Props> = ({
+  blogs,
+  pagination,
+}) => {
   const { t } = useTranslation(["common", "app"])
   const router = useRouter()
   const { locale: activeLocale } = router
@@ -27,10 +31,15 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
           <div className="space-t-10 lg:space-t-10 mt-4 lg:mt-6">
             {blogs.map((blog) => (
               <>
-                <div className="mt-12" key={blog.slug}>
+                <div key={blog.slug}>
                   {blog.category && (
                     <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
-                      {t("categories." + blog.category)}
+                      <Link
+                        href={`${pagination.base_url}?page=${pagination.page}&query=${pagination.query}&category=${blog.category}`}
+                        className="whitespace-no-wrap"
+                      >
+                        {t("categories." + blog.category)}
+                      </Link>
                     </span>
                   )}
                   {blog.language !== activeLocale && (
@@ -40,7 +49,12 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                   )}
                   {blog.generator && (
                     <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-800">
-                      {blog.generator.split(/([\s\.])/)[0]}
+                      <Link
+                        href={`${pagination.base_url}?page=${pagination.page}&query=${pagination.query}&generator=${blog.generator}`}
+                        className="whitespace-no-wrap"
+                      >
+                        {blog.generator}
+                      </Link>
                     </span>
                   )}
                   {blog.status === "archived" && (
@@ -49,7 +63,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                     </span>
                   )}
                 </div>
-                <div className="relative mb-2 mt-1 flex items-center gap-x-8">
+                <div className="relative mt-1 flex items-center gap-x-8">
                   <Link
                     href={"/blogs/" + blog.slug}
                     className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
@@ -90,7 +104,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                       )} */}
                   </div>
                 )}
-                <div className="mt-1">
+                <div className="mb-10 mt-1">
                   <span className="text-gray-500 dark:text-gray-200">
                     <Link
                       href={
