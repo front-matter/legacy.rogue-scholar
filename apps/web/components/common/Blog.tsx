@@ -43,23 +43,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
     <div className="bg-inherit py-4">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
-          <div className="relative mb-2 flex items-center gap-x-12">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-                {parse(String(blog.title))}
-              </h2>
-            </div>
-            {blog.favicon && (
-              <Image
-                className="h-10 w-10 rounded-full bg-transparent"
-                src={blog.favicon || "/favicon.ico"}
-                alt={blog.title || "Favicon"}
-                width={64}
-                height={64}
-              />
-            )}
-          </div>
-          <div className="-mt-px">
+          <div className="mt-2">
             {blog.category && (
               <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
                 {t("categories." + blog.category)}
@@ -80,29 +64,45 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 {capitalize(t("status." + blog.status, { ns: "app" }))}
               </span>
             )}
-            {blog.description && (
-              <div className="mt-1 font-serif text-base text-gray-600 dark:text-gray-200">
-                {parse(String(blog.description))}
-
-                {funding_info && (
-                  <span>
-                    {" "}
-                    {parse(String(funding_info.str))}
-                    {funding_info.url && (
-                      <Link
-                        className="hover:font-semibold"
-                        href={funding_info.url}
-                        target="_blank"
-                      >
-                        {"grant agreement No " + funding_info.link_str}
-                      </Link>
-                    )}
-                    .
-                  </span>
-                )}
-              </div>
+          </div>
+          <div className="relative mb-2 mt-1 flex items-center gap-x-8">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+              {parse(String(blog.title))}
+            </h2>
+            {blog.favicon && (
+              <Image
+                className="h-10 w-10 rounded-full bg-transparent"
+                src={blog.favicon || "/favicon.ico"}
+                alt={blog.title || "Favicon"}
+                width={64}
+                height={64}
+              />
             )}
           </div>
+
+          {blog.description && (
+            <div className="mt-1 font-serif text-base text-gray-600 dark:text-gray-200">
+              {parse(String(blog.description))}
+
+              {funding_info && (
+                <span>
+                  {" "}
+                  {parse(String(funding_info.str))}
+                  {funding_info.url && (
+                    <Link
+                      className="hover:font-semibold"
+                      href={funding_info.url}
+                      target="_blank"
+                    >
+                      {"grant agreement No " + funding_info.link_str}
+                    </Link>
+                  )}
+                  .
+                </span>
+              )}
+            </div>
+          )}
+
           <div className="mt-1">
             <span className="text-gray-500 dark:text-gray-200">
               <Link

@@ -27,31 +27,7 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
           <div className="space-t-10 lg:space-t-10 mt-4 lg:mt-6">
             {blogs.map((blog) => (
               <>
-                <div
-                  className="relative my-10 mb-2 flex items-center gap-x-12"
-                  key={blog.slug}
-                >
-                  <div>
-                    <Link
-                      href={"/blogs/" + blog.slug}
-                      className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
-                    >
-                      <h2 className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-3xl">
-                        {parse(String(blog.title))}
-                      </h2>
-                    </Link>
-                  </div>
-                  {blog.favicon && (
-                    <Image
-                      className="h-10 w-10 rounded-full bg-transparent"
-                      src={blog.favicon || "/favicon.ico"}
-                      alt={blog.title || "Favicon"}
-                      width={64}
-                      height={64}
-                    />
-                  )}
-                </div>
-                <div className="-mt-px">
+                <div className="mt-12" key={blog.slug}>
                   {blog.category && (
                     <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
                       {t("categories." + blog.category)}
@@ -72,11 +48,31 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                       {capitalize(t("status." + blog.status, { ns: "app" }))}
                     </span>
                   )}
-                  {blog.description && (
-                    <div className="mt-1 font-serif text-base text-gray-600 dark:text-gray-200">
-                      {parse(String(blog.description))}
+                </div>
+                <div className="relative mb-2 mt-1 flex items-center gap-x-8">
+                  <Link
+                    href={"/blogs/" + blog.slug}
+                    className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
+                  >
+                    <h2 className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-2xl">
+                      {parse(String(blog.title))}
+                    </h2>
+                  </Link>
+                  {blog.favicon && (
+                    <Image
+                      className="h-10 w-10 rounded-full bg-transparent"
+                      src={blog.favicon || "/favicon.ico"}
+                      alt={blog.title || "Favicon"}
+                      width={64}
+                      height={64}
+                    />
+                  )}
+                </div>
+                {blog.description && (
+                  <div className="font-serif text-base text-gray-600 dark:text-gray-200">
+                    {parse(String(blog.description))}
 
-                      {/* {blog.funding ? getFunding(blog.funding) : null && (
+                    {/* {blog.funding ? getFunding(blog.funding) : null && (
                         <span>
                           {" "}
                           {parse(String(funding_info.str))}
@@ -92,9 +88,8 @@ export const Blogs: React.FunctionComponent<Props> = ({ blogs }) => {
                           .
                         </span>
                       )} */}
-                    </div>
-                  )}
-                </div>
+                  </div>
+                )}
                 <div className="mt-1">
                   <span className="text-gray-500 dark:text-gray-200">
                     <Link
