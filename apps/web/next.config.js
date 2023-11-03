@@ -41,20 +41,21 @@ const nextConfig = {
         destination: "/auth/signup",
         permanent: true,
       },
-    ]
-  },
-  async rewrites() {
-    return [
       {
-        source: "/:slug.json",
-        destination: "/api/blogs/:slug",
-      },
-      {
-        source: "/posts/:slug.bib",
-        destination: "/api/posts/:slug?format=bibtex",
+        source: "/posts",
+        destination: "/",
+        permanent: true,
       },
     ]
   },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/:slug.json",
+  //       destination: "/api/blogs/:slug",
+  //     },
+  //   ]
+  // },
   images: {
     unoptimized: true,
     remotePatterns: [
