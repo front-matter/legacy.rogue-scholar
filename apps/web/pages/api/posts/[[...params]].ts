@@ -1,18 +1,12 @@
 import GhostAdminAPI from "@tryghost/admin-api"
 import { fromUnixTime, subDays } from "date-fns"
 import parse from "html-react-parser"
-import { isEmpty } from "lodash"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { v4 as uuidv4 } from "uuid"
 
 import { toUnixTime } from "@/lib/helpers"
 import { supabaseAdmin } from "@/lib/server/supabase-admin"
-import { supabase } from "@/lib/supabaseClient"
 import { typesense } from "@/lib/typesenseClient"
-import {
-  extractAllPostsByBlog,
-  extractUpdatedPostsByBlog,
-} from "@/pages/api/blogs/[...params]"
 import { PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
@@ -170,118 +164,6 @@ export async function updateSinglePost(post: PostType) {
     console.log(error)
     return null
   }
-}
-
-export async function upsertSinglePost(post: PostType) {
-  try {
-    if (isEmpty(post.title) || (post.published_at || 0) > Date.now() / 1000) {
-      return null
-    }
-
-    const { data, error } = await supabaseAdmin
-      .from("posts")
-      .upsert(
-        {
-          authors: post.authors,
-          blog_id: post.blog_id,
-          blog_name: post.blog_name,
-          blog_slug: post.blog_slug,
-          content_html: post.content_html,
-          content_text: post.content_text,
-          images: post.images,
-          updated_at: post.updated_at,
-          published_at: post.published_at,
-          image: post.image,
-          language: post.language,
-          reference: post.reference,
-          relationships: post.relationships,
-          summary: post.summary,
-          tags: post.tags,
-          title: post.title,
-          url: post.url,
-          archive_url: post.archive_url,
-        },
-        { onConflict: "url", ignoreDuplicates: false }
-      )
-      .select("id, indexed_at, updated_at, indexed")
-      .single()
-
-    if (error) {
-      throw error
-    }
-
-    // workaround for comparing two timestamps in supabase
-    const { data: post_to_update } = await supabaseAdmin
-      .from("posts")
-      .update({
-        indexed: (data.indexed_at || 0) > (data.updated_at || 1),
-      })
-      .eq("id", data.id)
-      .select("id")
-      .single()
-
-    return post_to_update
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
-
-export async function updateAllPosts(page: number = 1) {
-  const { data: blogs } = await supabase
-    .from("blogs")
-    .select("slug")
-    .eq("status", "active")
-
-  if (!blogs) {
-    return []
-  }
-
-  const data = await Promise.all(
-    blogs.map((blog) => extractAllPostsByBlog(blog.slug, page))
-  )
-  const posts = data.flat()
-
-  await Promise.all(posts.map((post) => updateSinglePost(post)))
-  return posts
-}
-
-export async function upsertAllPosts(page: number = 1, updateAll = false) {
-  const { data: blogs } = await supabase
-    .from("blogs")
-    .select("slug")
-    .eq("status", "active")
-
-  if (!blogs) {
-    return []
-  }
-
-  const data = await Promise.all(
-    blogs.map((blog) => extractAllPostsByBlog(blog.slug, page, updateAll))
-  )
-  const posts = data.flat()
-
-  await Promise.all(posts.map((post) => upsertSinglePost(post)))
-  return posts
-}
-
-export async function upsertUpdatedPosts(page: number = 1) {
-  const { data: blogs } = await supabase
-    .from("blogs")
-    .select("slug")
-    .eq("status", "active")
-
-  if (!blogs) {
-    return []
-  }
-  const data = await Promise.all(
-    blogs.map((blog) => extractUpdatedPostsByBlog(blog.slug, page))
-  )
-
-  const posts = data.flat()
-
-  await Promise.all(posts.map((post) => upsertSinglePost(post)))
-  return posts
 }
 
 export default async function handler(

@@ -22,16 +22,10 @@ import {
   authorIDs,
   decodeHtmlCharCodes,
   detectLanguage,
-  extractGhostPost,
-  // extractJekyllPost,
-  extractSubstackPost,
-  extractWordpresscomPost,
-  extractWordpressPost,
   // extractImage,
   getAbstract,
   getContent,
   getImages,
-  getMastodonAccount,
   getReferences,
   getRelationships,
   getSlug,
@@ -43,10 +37,7 @@ import {
   parseGenerator,
   toUnixTime,
 } from "@/lib/helpers"
-import { ghostApi } from "@/lib/server/ghost"
-import { supabaseAdmin } from "@/lib/server/supabase-admin"
-// import { masto } from "@/lib/mastoClient"
-import { postsWithBlogSelect, supabase } from "@/lib/supabaseClient"
+import { supabase } from "@/lib/supabaseClient"
 import { BlogType } from "@/types/blog"
 
 type ResponseData = {
@@ -167,51 +158,7 @@ export async function extractAllPostsByBlog(
   //console.log(blog.slug, blog.feed_format)
 
   try {
-    if (generator === "Substack") {
-      const res = await fetch(feed_url)
-
-      if (res.status < 400) {
-        const items = await res.json()
-
-        blogWithPosts["entries"] = await Promise.all(
-          items.map((post: any) => extractSubstackPost(post, blog))
-        )
-      } else {
-        blogWithPosts["entries"] = []
-      }
-    } else if (generator === "WordPress" && blog.use_api) {
-      const resp = await fetch(feed_url)
-      const posts = await resp.json()
-
-      blogWithPosts["entries"] = await Promise.all(
-        [].concat(posts).map((post: any) => extractWordpressPost(post, blog))
-      )
-      // console.log(blogWithPosts["entries"])
-    } else if (generator === "WordPress.com" && blog.use_api) {
-      const res = await fetch(feed_url)
-      const response = await res.json()
-      const posts = response.posts || []
-
-      blogWithPosts["entries"] = await Promise.all(
-        posts.map((post: any) => extractWordpresscomPost(post, blog))
-      )
-    } else if (generator === "Ghost" && blog.use_api) {
-      const api = await ghostApi(
-        blog.home_page_url as string,
-        blog.slug as string
-      )
-      const posts = await api.posts.browse({
-        page: page,
-        limit: 50,
-        order: "updated_at DESC",
-        filter: blog.filter,
-        include: "tags,authors",
-      })
-
-      blogWithPosts["entries"] = await Promise.all(
-        posts.map((post: any) => extractGhostPost(post, blog))
-      )
-    } else if ((blog.feed_format as string) === "application/feed+json") {
+    if ((blog.feed_format as string) === "application/feed+json") {
       let json: any = {}
 
       try {
@@ -840,74 +787,6 @@ export async function extractAllPostsByBlog(
   return get(blogWithPosts, "entries", [])
 }
 
-export async function extractUpdatedPostsByBlog(blogSlug: string, page = 1) {
-  const blog: BlogType = await getSingleBlog(blogSlug)
-  const posts = await extractAllPostsByBlog(blogSlug, page)
-
-  return posts.filter((post: any) => {
-    return (post.updated_at || 0) > (blog.updated_at || 1)
-  })
-}
-
-export async function getAllPostsByBlog(blogSlug: string) {
-  const { data, error } = await supabase
-    .from("posts")
-    .select(postsWithBlogSelect)
-    .eq("blog_slug", blogSlug)
-    .order("published_at", { ascending: false })
-
-  if (error) {
-    console.log(error)
-  }
-
-  if (data) {
-    return data
-  }
-}
-
-export async function upsertSingleBlog(blogSlug: string) {
-  const blog: BlogType = await getSingleBlog(blogSlug)
-
-  //  find timestamp from last modified post
-  const { data: posts } = await supabase
-    .from("posts")
-    .select("updated_at, blog_slug")
-    .eq("blog_slug", blog.slug)
-    .order("updated_at", { ascending: false })
-    .limit(1)
-
-  blog.updated_at = (posts && posts[0] && posts[0].updated_at) || 0
-
-  const { data, error } = await supabaseAdmin.from("blogs").upsert(
-    {
-      id: blog.id,
-      slug: blog.slug,
-      title: blog.title,
-      description: blog.description,
-      feed_url: blog.feed_url,
-      current_feed_url: blog.current_feed_url,
-      home_page_url: blog.home_page_url,
-      feed_format: blog.feed_format,
-      updated_at: blog.updated_at,
-      language: blog.language,
-      category: blog.category,
-      favicon: blog.favicon,
-      license: blog.license,
-      generator: blog.generator,
-      status: blog.status,
-      user_id: blog.user_id,
-      use_mastodon: blog.use_mastodon,
-    },
-    { onConflict: "slug", ignoreDuplicates: false }
-  )
-
-  if (error) {
-    throw error
-  }
-
-  return data
-}
-
 export async function getSingleBlog(blogSlug: string) {
   const { data: config } = await supabase
     .from("blogs")
@@ -1056,13 +935,6 @@ export async function getSingleBlog(blogSlug: string) {
   }
 
   return omit(blog, ["published", "link", "entries"])
-}
-
-export async function getMastodonBot(blog: BlogType) {
-  const acct = get(blog, "slug", "")
-  const data = await getMastodonAccount(acct)
-
-  return data
 }
 
 export default async function handler(
