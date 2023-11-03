@@ -173,6 +173,11 @@ export const Blogs: React.FunctionComponent<Props> = ({
                       })}
                     </time>
                   </span>
+                  {blog.issn && (
+                    <span className="-ml-px text-base font-medium text-gray-500 dark:text-gray-200">
+                      {"ISSN " + blog.issn}
+                    </span>
+                  )}
                 </div>
               </>
             ))}

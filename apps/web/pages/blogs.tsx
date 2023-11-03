@@ -36,7 +36,7 @@ export async function getServerSideProps(ctx) {
   const searchParameters: BlogSearchParams = {
     q: query,
     query_by:
-      "slug,title,description,category,language,generator,prefix,funding",
+      "issn,slug,title,description,category,language,generator,prefix,funding",
     filter_by: filterBy,
     sort_by: ctx.query.query ? "_text_match:desc" : "created_at:desc",
     per_page: 10,

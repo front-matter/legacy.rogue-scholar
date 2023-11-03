@@ -117,6 +117,7 @@ export interface BlogType extends FeedData {
   use_api?: boolean
   relative_url?: string
   filter?: string
+  issn?: string
 }
 
 export interface BlogParentType {
