@@ -116,10 +116,9 @@ export default async function handler(
     path = `${slug}/${action}`
   }
 
-  // if (req.method === "GET" && path) {
-  //   res.redirect(`https://api.rogue-scholar.org/posts/${path}`)
-  // } 
-  if (
+  if (req.method === "GET" && path) {
+    res.redirect(`https://api.rogue-scholar.org/posts/${path}`)
+  } else if (
     !req.headers.authorization ||
     req.headers.authorization.split(" ")[1] !==
       process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY

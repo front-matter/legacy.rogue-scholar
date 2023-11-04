@@ -1,7 +1,4 @@
-import {
-  extract,
-  extractFromXml,
-} from "@extractus/feed-extractor"
+import { extract, extractFromXml } from "@extractus/feed-extractor"
 import {
   compact,
   get,
