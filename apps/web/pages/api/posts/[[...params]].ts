@@ -5,7 +5,6 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import { v4 as uuidv4 } from "uuid"
 
 import { toUnixTime } from "@/lib/helpers"
-import { supabaseAdmin } from "@/lib/server/supabase-admin"
 import { typesense } from "@/lib/typesenseClient"
 import { PostType } from "@/types/blog"
 import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
@@ -105,67 +104,6 @@ export async function createDigest() {
   return posts
 }
 
-export async function createGhostMember(user) {
-  const response = await ghostAdmin.members.edit({
-    name: user.name,
-    email: user.email,
-    newsletters: [
-      {
-        id: process.env.NEXT_PUBLIC_GHOST_API_DIGEST_NEWSLETTER_ID,
-      },
-    ],
-  })
-
-  return response
-}
-
-export async function updateSinglePost(post: PostType) {
-  try {
-    const { data, error } = await supabaseAdmin
-      .from("posts")
-      .update({
-        authors: post.authors,
-        blog_id: post.blog_id,
-        blog_name: post.blog_name,
-        blog_slug: post.blog_slug,
-        content_html: post.content_html,
-        images: post.images,
-        updated_at: post.updated_at,
-        published_at: post.published_at,
-        image: post.image,
-        language: post.language,
-        reference: post.reference,
-        relationships: post.relationships,
-        summary: post.summary,
-        tags: post.tags,
-        title: post.title,
-        url: post.url,
-      })
-      .eq("url", post.url)
-      .select("id, indexed_at, updated_at, indexed")
-      .single()
-
-    if (error) {
-      throw error
-    }
-
-    // workaround for comparing two timestamps in supabase
-    const { data: post_to_update } = await supabaseAdmin
-      .from("posts")
-      .update({
-        indexed: (data.indexed_at || 0) < (data.updated_at || 1),
-      })
-      .eq("id", data.id)
-      .select("id")
-      .single()
-
-    return post_to_update
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
@@ -178,9 +116,10 @@ export default async function handler(
     path = `${slug}/${action}`
   }
 
-  if (req.method === "GET") {
-    res.redirect(`https://api.rogue-scholar.org/posts/${path}`)
-  } else if (
+  // if (req.method === "GET" && path) {
+  //   res.redirect(`https://api.rogue-scholar.org/posts/${path}`)
+  // } 
+  if (
     !req.headers.authorization ||
     req.headers.authorization.split(" ")[1] !==
       process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY

@@ -175,13 +175,6 @@ export const initMiddleware = (middleware) => {
     })
 }
 
-// Initialize the cors middleware
-// export const cors = initMiddleware(
-//   Cors({
-//     methods: ["GET", "POST", "OPTIONS"],
-//   })
-// )
-
 // from https://github.com/wooorm/iso-639-3/blob/main/iso6393-to-1.json
 export const iso6393To1 = {
   aar: "aa",
