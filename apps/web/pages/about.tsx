@@ -88,10 +88,10 @@ export default function Home({ blogs }) {
   const { t } = useTranslation(["home", "common"])
 
   blogs = blogs.map((blog) => {
-    if (blog.generator) {
-      blog.generator = blog.generator.split(/([\s\.])/)[0]
-    } else {
-      blog.generator = "Unknown"
+    if (blog.generator === "WordPress.com") {
+      blog.generator = "WordPress"
+    } else if (["Drupal", "Squarespace"].includes(blog.generator)) {
+      blog.generator = "Other"
     }
     if (blog.category) {
       blog.category = oecdCategories[blog.category]

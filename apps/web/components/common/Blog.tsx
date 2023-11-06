@@ -16,6 +16,7 @@ type Props = {
 
 export const generators: { [key: string]: string } = {
   WordPress: "https://wordpress.org/",
+  "WordPress.com": "https://wordpress.com/",
   Ghost: "https://ghost.org/",
   Jekyll: "https://jekyllrb.com/",
   Hugo: "https://gohugo.io/",
@@ -32,7 +33,6 @@ export const feedFormats: { [key: string]: string } = {
 }
 
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
-  const generator = blog.generator ? blog.generator.split(/([\s\.])/)[0] : null
   const feed_url = blog.current_feed_url || blog.feed_url
   const { t } = useTranslation(["common", "app"])
   const router = useRouter()
@@ -54,9 +54,9 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 {t("languages." + blog.language)}
               </span>
             )}
-            {generator && (
+            {blog.generator && (
               <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-800">
-                {generator}
+                {blog.generator}
               </span>
             )}
             {blog.status === "archived" && (
