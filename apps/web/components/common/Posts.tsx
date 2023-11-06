@@ -89,11 +89,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                       <Link
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         target="_blank"
-                        href={
-                          blog.status === "archived"
-                            ? post.archive_url
-                            : post.url
-                        }
+                        href={post.url}
                       >
                         <h3 className="mt-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
                           {parse(String(post.title))}
