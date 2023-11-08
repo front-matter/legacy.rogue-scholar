@@ -27,7 +27,7 @@ jobs:
           bundle install --jobs 4 --retry 3
       - name: Find blog posts that are not indexed recently
         run: |
-          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed_not_indexed)"
+          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed_updated)"
         id: posts_by_blog
       - name: Generate XML
         if: steps.posts_by_blog.outputs.POSTID != ''
