@@ -22,7 +22,7 @@
     "@formatjs/intl-numberformat": "^8.3.5",
     "@headlessui/react": "^1.7.2",
     "@konfirm/iso7064": "^2.1.1",
-    "@sentry/nextjs": "^7.74.1",
+    "@sentry/nextjs": "^7.77.0",
     "@stripe/stripe-js": "^1.52.1",
     "@supabase/auth-helpers-nextjs": "^0.6.1",
     "@supabase/auth-helpers-react": "^0.3.1",
