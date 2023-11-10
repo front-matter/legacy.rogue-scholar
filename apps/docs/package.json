@@ -11,7 +11,7 @@
   "author": "Martin Fenner <martin@front-matter.io>",
   "license": "MIT",
  "dependencies": {
-    "next": "^13.4.8",
+    "next": "^13.5.0",
     "nextra": "2.8.0",
     "nextra-theme-docs": "2.8.0",
     "react": "^18.2.0",
