@@ -1,133 +1,97 @@
+import { isEmpty } from "lodash"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
+import React from "react"
 
-import Faq from "@/components/home/Faq"
-import Hero from "@/components/home/Hero"
-import { Pricing } from "@/components/home/Pricing"
-import { Stats } from "@/components/home/Stats"
+import { Posts } from "@/components/common/Posts"
 import Layout from "@/components/layout/Layout"
-import { blogsSelect, supabase } from "@/lib/supabaseClient"
-
-const oecdCategories = {
-  naturalSciences: "naturalSciences",
-  mathematics: "naturalSciences",
-  computerAndInformationSciences: "naturalSciences",
-  physicalSciences: "naturalSciences",
-  chemicalSciences: "naturalSciences",
-  earthAndRelatedEnvironmentalSciences: "naturalSciences",
-  biologicalSciences: "naturalSciences",
-  otherNaturalSciences: "naturalSciences",
-  engineeringAndTechnology: "engineeringAndTechnology",
-  civilEngineering: "engineeringAndTechnology",
-  eletricalEngineering: "engineeringAndTechnology",
-  mechanicalEngineering: "engineeringAndTechnology",
-  chemicalEngineering: "engineeringAndTechnology",
-  materialsEngineering: "engineeringAndTechnology",
-  medicalEngineering: "engineeringAndTechnology",
-  environmentalEngineering: "engineeringAndTechnology",
-  environmentalBiotechnology: "engineeringAndTechnology",
-  industrialBiotechnology: "engineeringAndTechnology",
-  nanoTechnology: "engineeringAndTechnology",
-  otherEngineeringAndTechnologies: "engineeringAndTechnology",
-  medicalAndHealthSciences: "medicalAndHealthSciences",
-  basicMedicine: "medicalAndHealthSciences",
-  clinicalMedicine: "medicalAndHealthSciences",
-  healthSciences: "medicalAndHealthSciences",
-  medicalBiotechnology: "medicalAndHealthSciences",
-  otherMedicalSciences: "medicalAndHealthSciences",
-  agriculturalSciences: "agriculturalSciences",
-  agricultureForestryAndFisheries: "agriculturalSciences",
-  animalAndDairyScience: "agriculturalSciences",
-  veterinaryScience: "agriculturalSciences",
-  agriculturalBiotechnology: "agriculturalSciences",
-  otherAgriculturalSciences: "agriculturalSciences",
-  socialSciences: "socialSciences",
-  psychology: "socialSciences",
-  economicsAndBusiness: "socialSciences",
-  educationalSciences: "socialSciences",
-  sociology: "socialSciences",
-  law: "socialSciences",
-  politicalScience: "socialSciences",
-  socialAndEconomicGeography: "socialSciences",
-  mediaAndCommunications: "socialSciences",
-  otherSocialSciences: "socialSciences",
-  humanities: "humanities",
-  philosophyEthicsAndReligion: "humanities",
-  historyAndArchaeology: "humanities",
-  languagesAndLiterature: "humanities",
-  arts: "humanities",
-  otherHumanities: "humanities",
-}
-
-const countBy = (arr, prop) =>
-  arr.reduce(function (obj, v) {
-    obj[v[prop]] = (obj[v[prop]] || 0) + 1
-    return obj
-  }, {})
+import Pagination from "@/components/layout/Pagination"
+import Search from "@/components/layout/Search"
+import { typesense } from "@/lib/typesenseClient"
+import { PaginationType, PostType } from "@/types/blog"
+import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
-  const { data: blogs, error } = await supabase
-    .from("blogs")
-    .select(blogsSelect)
-    .in("status", ["approved", "active", "archived"])
-    .order("title", { ascending: true })
+  const page = parseInt(ctx.query.page || 1)
+  const query = ctx.query.query || ""
+  const tags = ctx.query.tags || ""
+  const language = ctx.query.language || ""
 
-  if (error) {
-    console.log(error)
+  // if (language && language !== ctx.locale) {
+  //   language = null
+  // }
+  let filterBy = `blog_slug:!=[xxx]`
+
+  filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
+  filterBy = !isEmpty(language)
+    ? filterBy + ` && language:[${language}]`
+    : filterBy
+
+  const searchParameters: PostSearchParams = {
+    q: query,
+    query_by:
+      "tags,title,doi,authors.name,authors.url,reference.url,summary,content_html",
+    filter_by: filterBy,
+    sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
+    per_page: 10,
+    page: page && page > 0 ? page : 1,
+  }
+  const data: PostSearchResponse = await typesense
+    .collections("posts")
+    .documents()
+    .search(searchParameters)
+  const posts = data.hits?.map((hit) => hit.document)
+  const pages = Math.ceil(data.found / 10)
+  const pagination = {
+    base_url: "/posts",
+    query: query,
+    language: language,
+    tags: tags,
+    page: page,
+    pages: pages,
+    total: data.found,
+    prev: page > 1 ? page - 1 : null,
+    next: page < pages ? page + 1 : null,
   }
 
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale!, ["common", "home"])),
-      blogs,
+      posts,
+      pagination,
+      locale: ctx.locale,
     },
   }
 }
 
-export default function Home({ blogs }) {
-  const { t } = useTranslation(["home", "common"])
+type Props = {
+  posts: PostType[]
+  pagination: PaginationType
+  locale: string
+}
 
-  blogs = blogs.map((blog) => {
-    if (blog.generator) {
-      blog.generator = blog.generator.split(/([\s\.])/)[0]
-    } else {
-      blog.generator = "Unknown"
-    }
-    if (blog.category) {
-      blog.category = oecdCategories[blog.category]
-    }
-    return blog
-  })
-  const count = blogs.length
-  const categoriesObject = countBy(blogs, "category")
-  const categories = Object.keys(categoriesObject).map((key) => ({
-    title: t("categories." + key, { ns: "common" }),
-    count: categoriesObject[key],
-  }))
-
-  const languagesObject = countBy(blogs, "language")
-  const languagesList = Object.keys(languagesObject).map((key) => ({
-    title: t("languages." + key),
-    count: languagesObject[key],
-  }))
-
-  const platformsObject = countBy(blogs, "generator")
-  const platforms = Object.keys(platformsObject).map((key) => ({
-    title: key,
-    count: platformsObject[key],
-  }))
+const PostsPage: React.FunctionComponent<Props> = ({
+  posts,
+  pagination,
+  locale,
+}) => {
+  const { t } = useTranslation("common")
 
   return (
-    <Layout>
-      <Hero blogs={blogs} />
-      <Pricing />
-      <Faq />
-      <Stats
-        count={count}
-        categories={categories}
-        languages={languagesList}
-        platforms={platforms}
-      />
-    </Layout>
+    <>
+      <Layout>
+        <div className="mx-auto max-w-2xl sm:text-center">
+          <h2 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            {t("posts.title")}
+          </h2>
+        </div>
+        <Search pagination={pagination} locale={locale} />
+        <Pagination pagination={pagination} />
+        <Posts posts={posts} pagination={pagination} />
+        {pagination.total > 0 && <Pagination pagination={pagination} />}
+      </Layout>
+    </>
   )
 }
+
+export default PostsPage

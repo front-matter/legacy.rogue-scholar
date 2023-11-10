@@ -14,12 +14,16 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
 
   const menuItems = [
     {
+      label: t("menu.posts"),
+      link: "/",
+    },
+    {
       label: t("menu.blogs"),
       link: "/blogs",
     },
     {
-      label: t("menu.posts"),
-      link: "/posts",
+      label: t("menu.about"),
+      link: "/about",
     },
   ]
     // add dashboard link only if user is logged in

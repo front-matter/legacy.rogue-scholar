@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react"
+import { formatISO, fromUnixTime } from "date-fns"
 import parse from "html-react-parser"
 import { capitalize } from "lodash"
 import Image from "next/image"
@@ -15,6 +16,7 @@ type Props = {
 
 export const generators: { [key: string]: string } = {
   WordPress: "https://wordpress.org/",
+  "WordPress.com": "https://wordpress.com/",
   Ghost: "https://ghost.org/",
   Jekyll: "https://jekyllrb.com/",
   Hugo: "https://gohugo.io/",
@@ -31,7 +33,6 @@ export const feedFormats: { [key: string]: string } = {
 }
 
 export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
-  const generator = blog.generator ? blog.generator.split(/([\s\.])/)[0] : null
   const feed_url = blog.current_feed_url || blog.feed_url
   const { t } = useTranslation(["common", "app"])
   const router = useRouter()
@@ -42,23 +43,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
     <div className="bg-inherit py-4">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
-          <div className="relative mb-2 flex items-center gap-x-12">
-            <div>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-                {parse(String(blog.title))}
-              </h2>
-            </div>
-            {blog.favicon && (
-              <Image
-                className="h-10 w-10 rounded-full bg-transparent"
-                src={blog.favicon || "/favicon.ico"}
-                alt={blog.title || "Favicon"}
-                width={64}
-                height={64}
-              />
-            )}
-          </div>
-          <div className="-mt-px">
+          <div className="mt-2">
             {blog.category && (
               <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
                 {t("categories." + blog.category)}
@@ -69,9 +54,9 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 {t("languages." + blog.language)}
               </span>
             )}
-            {generator && (
+            {blog.generator && (
               <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-800">
-                {generator}
+                {blog.generator}
               </span>
             )}
             {blog.status === "archived" && (
@@ -79,29 +64,45 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 {capitalize(t("status." + blog.status, { ns: "app" }))}
               </span>
             )}
-            {blog.description && (
-              <div className="mt-1 font-serif text-base text-gray-600 dark:text-gray-200">
-                {parse(String(blog.description))}
-
-                {funding_info && (
-                  <span>
-                    {" "}
-                    {parse(String(funding_info.str))}
-                    {funding_info.url && (
-                      <Link
-                        className="hover:font-semibold"
-                        href={funding_info.url}
-                        target="_blank"
-                      >
-                        {"grant agreement No " + funding_info.link_str}
-                      </Link>
-                    )}
-                    .
-                  </span>
-                )}
-              </div>
+          </div>
+          <div className="relative mb-2 mt-1 flex items-center gap-x-8">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
+              {parse(String(blog.title))}
+            </h2>
+            {blog.favicon && (
+              <Image
+                className="h-10 w-10 rounded-full bg-transparent"
+                src={blog.favicon || "/favicon.ico"}
+                alt={blog.title || "Favicon"}
+                width={64}
+                height={64}
+              />
             )}
           </div>
+
+          {blog.description && (
+            <div className="mt-1 font-serif text-base text-gray-600 dark:text-gray-200">
+              {parse(String(blog.description))}
+
+              {funding_info && (
+                <span>
+                  {" "}
+                  {parse(String(funding_info.str))}
+                  {funding_info.url && (
+                    <Link
+                      className="hover:font-semibold"
+                      href={funding_info.url}
+                      target="_blank"
+                    >
+                      {"grant agreement No " + funding_info.link_str}
+                    </Link>
+                  )}
+                  .
+                </span>
+              )}
+            </div>
+          )}
+
           <div className="mt-1">
             <span className="text-gray-500 dark:text-gray-200">
               <Link
@@ -146,20 +147,23 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 </Link>
               </span>
             )}
-            {blog.modified_at && blog.modified_at > "1970-01-02" && (
-              <span className="font-medium text-gray-500 dark:text-gray-200">
-                <Icon icon="fa6-regular:calendar-check" className="inline" />
-                <time
-                  className="ml-2 mr-6"
-                  dateTime={blog.modified_at.toString()}
-                >
-                  {t("posts.date_published", {
-                    val: new Date(blog.modified_at),
-                    formatParams: {
-                      val: { year: "numeric", month: "long", day: "numeric" },
-                    },
-                  })}
-                </time>
+            <span className="font-medium text-gray-500 dark:text-gray-200">
+              <Icon icon="fa6-regular:calendar-check" className="inline" />
+              <time
+                className="ml-2 mr-6"
+                dateTime={formatISO(fromUnixTime(blog.updated_at as number))}
+              >
+                {t("posts.date_published", {
+                  val: new Date((blog.updated_at as number) * 1000),
+                  formatParams: {
+                    val: { year: "numeric", month: "long", day: "numeric" },
+                  },
+                })}
+              </time>
+            </span>
+            {blog.issn && (
+              <span className="-ml-px text-base font-medium text-gray-500 dark:text-gray-200">
+                {"ISSN " + blog.issn}
               </span>
             )}
           </div>

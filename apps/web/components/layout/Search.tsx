@@ -14,13 +14,15 @@ export default function Search({ pagination, locale }: Props) {
   const { t } = useTranslation(["common", "home"])
   const [query, setQuery] = useQueryState("query")
   const [tags, setTags] = useQueryState("tags")
+  const [category, setCategory] = useQueryState("category")
+  const [generator, setGenerator] = useQueryState("generator")
   const [page, setPage] = useQueryState("page", queryTypes.integer)
   const [language, setLanguage] = useQueryState("language")
 
   // if (pagination.language !== locale) {
   //   setLanguage("")
   // }
-  console.log(query, page, language, tags, pagination)
+  console.log(query, page, language, tags, category, generator, pagination)
   const [searchInput, setSearchInput] = useState("")
   const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -39,11 +41,17 @@ export default function Search({ pagination, locale }: Props) {
     setSearchInput(inputRef.current?.value ?? "")
   }
 
+  const onLanguageChange = (id) => {
+    setPage(1)
+    setLanguage(id)
+  }
+
   const onSearchClear = () => {
     setQuery("")
     setSearchInput("")
     setTags("")
-    // setLanguage("")
+    setCategory("")
+    setGenerator("")
     inputRef.current?.focus()
   }
 
@@ -58,7 +66,10 @@ export default function Search({ pagination, locale }: Props) {
         icon="fa6-solid:magnifying-glass"
         className="absolute left-3 top-3 h-5 w-5 text-gray-500"
       />
-      {(searchInput !== "" || tags !== "") && (
+      {(searchInput !== "" ||
+        tags !== "" ||
+        category !== "" ||
+        generator !== "") && (
         <span
           id="search-clear"
           title="Clear"
@@ -90,7 +101,7 @@ export default function Search({ pagination, locale }: Props) {
                 id={la.id}
                 name="language"
                 type="radio"
-                onChange={() => setLanguage(la.id)}
+                onChange={() => onLanguageChange(la.id)}
                 defaultChecked={la.id === ""}
                 className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
               />
