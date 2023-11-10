@@ -30,6 +30,8 @@ export interface PaginationType {
   query?: string
   language?: string
   tags?: string
+  category?: string
+  generator?: string
   page: number
   pages: number
   total: number
@@ -50,8 +52,16 @@ export interface ImageType {
   alt?: string
 }
 
+export interface FundingType {
+  funder_id?: string
+  funder_name?: string
+  award_number?: string
+  award_uri?: string
+}
+
 export interface PostType {
   id: string
+  guid?: string
   doi?: string
   url?: string
   archive_url?: string
@@ -60,7 +70,7 @@ export interface PostType {
   published_at?: number
   updated_at?: number
   indexed_at?: number
-  not_indexed?: boolean
+  indexed?: boolean
   authors?: AuthorType[]
   image?: string
   content_html?: string
@@ -89,8 +99,8 @@ export interface BlogType extends FeedData {
   feed_url?: string
   current_feed_url?: string
   favicon?: string
-  modified_at?: string
-  created_at?: string
+  updated_at?: number
+  created_at?: number
   generator?: string
   license?: string
   archive_prefix?: string
@@ -107,6 +117,7 @@ export interface BlogType extends FeedData {
   use_api?: boolean
   relative_url?: string
   filter?: string
+  issn?: string
 }
 
 export interface BlogParentType {

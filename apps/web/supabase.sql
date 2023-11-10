@@ -14,7 +14,7 @@ create table if not exists blogs (
   home_page_url text,
   base_url text,
   user_id uuid not null references auth.users DEFAULT auth.uid(),
-  created_at date
+  created_at number
 );
 -- Enable row level security for blogs
 alter table blogs enable row level security;

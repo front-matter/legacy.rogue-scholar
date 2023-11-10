@@ -16,16 +16,19 @@ export default function Footer() {
         <div className="py-6">
           <nav className="text-sm" aria-label="quick links">
             <div className="-my-1 flex justify-center gap-x-6">
+              <NavLink href="/">{t("menu.posts")}</NavLink>
               <NavLink href="/blogs">{t("menu.blogs")}</NavLink>
-              <NavLink href="/blogs">{t("menu.posts")}</NavLink>
-              <NavLink href="/#pricing">{t("menu.pricing")}</NavLink>
-              <NavLink href="/#faq">{t("menu.faq")}</NavLink>
-              <NavLink href="/#stats">{t("menu.stats")}</NavLink>
+              <NavLink href="/about#pricing">{t("menu.pricing")}</NavLink>
+              <NavLink href="/about#faq">{t("menu.faq")}</NavLink>
+              <NavLink href="/about#stats">{t("menu.stats")}</NavLink>
               <NavLink href="https://docs.rogue-scholar.org">
                 {t("menu.docs")}
               </NavLink>
               <NavLink href="https://plausible.io/rogue-scholar.org">
                 {t("menu.usage_stats")}
+              </NavLink>
+              <NavLink href="https://status.rogue-scholar.org">
+                {"Status"}
               </NavLink>
             </div>
           </nav>
