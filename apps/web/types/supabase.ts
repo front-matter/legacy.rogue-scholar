@@ -22,8 +22,8 @@ export interface Database {
           home_page_url?: string
           feed_format?: string
           user_id?: string
-          created_at?: string
-          modified_at?: string
+          created_at?: number
+          updated_at?: number
           language?: string
           favicon?: string
           license?: string
@@ -43,8 +43,8 @@ export interface Database {
           home_page_url?: string
           feed_format?: string
           user_id?: string
-          created_at?: string
-          modified_at?: string
+          created_at?: number
+          updated_at?: number
           language?: string
           favicon?: string
           license?: string
@@ -63,8 +63,8 @@ export interface Database {
           home_page_url?: string
           feed_format?: string
           user_id?: string
-          created_at?: string
-          modified_at?: string
+          created_at?: number
+          updated_at?: number
           language?: string
           favicon?: string
           license?: string
@@ -85,7 +85,7 @@ export interface Database {
           updated_at?: number
           published_at?: number
           indexed_at?: number
-          not_indexed?: boolean
+          indexed?: boolean
           doi?: string
           image?: string
           language?: string
@@ -96,6 +96,7 @@ export interface Database {
           title?: string
           url?: string
           id?: string
+          guid?: string
         }
         Insert: {
           authors?: AuthorType[]
@@ -106,7 +107,7 @@ export interface Database {
           updated_at?: number
           published_at?: number
           indexed_at?: number
-          not_indexed?: boolean
+          indexed?: boolean
           doi?: string
           image?: string
           language?: string
@@ -117,6 +118,7 @@ export interface Database {
           title?: string
           url?: string
           id?: string
+          guid?: string
         }
         Update: {
           authors?: AuthorType[]
@@ -127,7 +129,7 @@ export interface Database {
           updated_at?: number
           published_at?: number
           indexed_at?: number
-          not_indexed?: boolean
+          indexed?: boolean
           doi?: string
           image?: string
           language?: string
@@ -138,6 +140,7 @@ export interface Database {
           title?: string
           url?: string
           id?: string
+          guid?: string
         }
       }
       customers: {
