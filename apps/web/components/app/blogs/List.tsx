@@ -69,9 +69,10 @@ export default function BlogsList() {
       }
     }
   )
+  const id = generateBlogId()
   const newBlog = {
-    id: generateBlogId(),
-    slug: generateBlogId(),
+    id: id,
+    slug: id,
     title: "",
     feed_url: "",
     category: "naturalSciences",

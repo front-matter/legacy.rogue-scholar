@@ -280,13 +280,13 @@ export default function BlogFormModal({
                 </Select>
               </FormControl>
 
-              {/* Mastodon enabled field */}
+              {/* Mastodon enabled field
               <FormControl>
                 <FormLabel htmlFor="use_mastodon">
                   {t("blogs.form.controls.mastodon")}
                 </FormLabel>
                 <Switch id="use_mastodon" isDisabled={true} isChecked={false} />
-              </FormControl>
+              </FormControl> */}
 
               <Button
                 type="submit"
