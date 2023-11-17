@@ -121,7 +121,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         )}?format=csl`}
                       >
                         <Icon
-                          icon="fa6-solid:file-code"
+                          icon="bxs:file-json"
                           className="mb-1 mr-1 inline text-sm"
                         />
                         CSL
@@ -134,7 +134,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                       >
                         <Icon
                           icon="fa6-solid:file-code"
-                          className="mb-1 mr-1 inline text-sm"
+                          className="mb-1 ml-5 mr-1 inline text-sm"
                         />
                         BibTex
                       </Link>
