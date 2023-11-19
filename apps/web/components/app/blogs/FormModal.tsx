@@ -214,8 +214,37 @@ export default function BlogFormModal({
                   <option value="engineeringAndTechnology">
                     {t("categories.engineeringAndTechnology", { ns: "common" })}
                   </option>
+                  <option value="civilEngineering">
+                    {t("categories.civilEngineering", { ns: "common" })}
+                  </option>
                   <option value="eletricalEngineering">
                     {t("categories.eletricalEngineering", { ns: "common" })}
+                  </option>
+                  <option value="mechanicalEngineering">
+                    {t("categories.mechanicalEngineering", { ns: "common" })}
+                  </option>
+                  <option value="chemicalEngineering">
+                    {t("categories.chemicalEngineering", { ns: "common" })}
+                  </option>
+                  <option value="materialsEngineering">
+                    {t("categories.materialsEngineering", { ns: "common" })}
+                  </option>
+                  <option value="medicalEngineering">
+                    {t("categories.medicalEngineering", { ns: "common" })}
+                  </option>
+                  <option value="environmentalEngineering">
+                    {t("categories.environmentalEngineering", { ns: "common" })}
+                  </option>
+                  <option value="industrialBiotechnology">
+                    {t("categories.industrialBiotechnology", { ns: "common" })}
+                  </option>
+                  <option value="nanotechnology">
+                    {t("categories.nanotechnology", { ns: "common" })}
+                  </option>
+                  <option value="otherEngineeringAndTechnologies">
+                    {t("categories.otherEngineeringAndTechnologies", {
+                      ns: "common",
+                    })}
                   </option>
                   <option value="medicalAndHealthSciences">
                     {t("categories.medicalAndHealthSciences", { ns: "common" })}
@@ -226,8 +255,38 @@ export default function BlogFormModal({
                   <option value="clinicalMedicine">
                     {t("categories.clinicalMedicine", { ns: "common" })}
                   </option>
+                  <option value="healthSciences">
+                    {t("categories.healthSciences", { ns: "common" })}
+                  </option>
+                  <option value="medicalBiotechnology">
+                    {t("categories.medicalBiotechnology", { ns: "common" })}
+                  </option>
+                  <option value="otherMedicalSciences">
+                    {t("categories.otherMedicalSciences", { ns: "common" })}
+                  </option>
                   <option value="agriculturalSciences">
                     {t("categories.agriculturalSciences", { ns: "common" })}
+                  </option>
+                  <option value="agricultureForestryFisheries">
+                    {t("categories.agricultureForestryFisheries", {
+                      ns: "common",
+                    })}
+                  </option>
+                  <option value="animalDairyScience">
+                    {t("categories.animalDairyScience", { ns: "common" })}
+                  </option>
+                  <option value="veterinaryScience">
+                    {t("categories.veterinaryScience", { ns: "common" })}
+                  </option>
+                  <option value="agriculturalBiotechnology">
+                    {t("categories.agriculturalBiotechnology", {
+                      ns: "common",
+                    })}
+                  </option>
+                  <option value="otherAgriculturalSciences">
+                    {t("categories.otherAgriculturalSciences", {
+                      ns: "common",
+                    })}
                   </option>
                   <option value="socialSciences">
                     {t("categories.socialSciences", { ns: "common" })}
