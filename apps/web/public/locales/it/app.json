@@ -41,8 +41,9 @@
   "status.expired": "scaduto",
   "status.submitted": "presentato",
   "terms.1": "Il blog riguarda la scienza o la borsa di studio.",
-  "terms.2": "Il testo completo dei post del blog è reso disponibile tramite un feed Atom (preferito), RSS o JSON.",
+  "terms.2": "Il testo completo dei post del blog è disponibile tramite un feed JSON (preferibile), RSS o Atom.",
   "terms.3": "Il testo completo dei post del blog è reso disponibile sotto la licenza internazionale Creative Commons Attribution 4.0.",
+  "terms.4": "I post del blog sono scritti in inglese, tedesco, spagnolo, francese, portoghese o italiano.",
   "terms.description": "Sono il (co-)proprietario del blog e acconsento al suo riutilizzo in questo servizio.",
   "terms.title": "Termini di utilizzo"
 }

@@ -18,9 +18,6 @@ const nextConfig = {
   },
   i18n,
   reactStrictMode: true,
-  experimental: {
-    scrollRestoration: true,
-  },
   async headers() {
     return [
       {

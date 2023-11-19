@@ -133,7 +133,7 @@ export default function BlogFormModal({
       closeOnOverlayClick={false}
     >
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent minWidth="800px">
         <ModalHeader bg={headerBg} roundedTop="lg" px={8}>
           {blog && blog.feed_url
             ? t("blogs.form.edit.title")
@@ -160,6 +160,10 @@ export default function BlogFormModal({
               <li className="flex">
                 <CheckIcon className="text-green-600" />
                 <span className="ml-1">{t("terms.3")}</span>
+              </li>
+              <li className="flex">
+                <CheckIcon className="text-green-600" />
+                <span className="ml-1">{t("terms.4")}</span>
               </li>
             </ul>
           </div>
