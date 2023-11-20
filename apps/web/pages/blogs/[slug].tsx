@@ -66,6 +66,8 @@ export async function getServerSideProps(ctx) {
     base_url: "/blogs/" + ctx.params.slug,
     query: query,
     language: language,
+    category: category,
+    generator: "",
     tags: tags,
     page: page,
     pages: pages,
