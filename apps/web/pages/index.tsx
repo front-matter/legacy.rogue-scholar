@@ -50,6 +50,8 @@ export async function getServerSideProps(ctx) {
     base_url: "/posts",
     query: query,
     language: language,
+    category: category,
+    generator: "",
     tags: tags,
     page: page,
     pages: pages,

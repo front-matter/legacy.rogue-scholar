@@ -54,6 +54,7 @@ export async function getServerSideProps(ctx) {
     language: language,
     category: category,
     generator: generator,
+    tags: "",
     page: page,
     pages: pages,
     total: data.found,
