@@ -51,6 +51,16 @@ export const Posts: React.FunctionComponent<Props> = ({
                           </Link>
                         </span>
                       ))}
+                      {post.category && (
+                        <span className="relative z-10 ml-0 rounded-full bg-teal-100 px-2 py-0.5 font-medium text-teal-800 dark:bg-teal-700 dark:text-teal-200">
+                          <Link
+                            href={`${pagination.base_url}?page=${pagination.page}&query=${pagination.query}&category=${post.category}`}
+                            className="whitespace-no-wrap"
+                          >
+                            {t("categories." + post.category)}
+                          </Link>
+                        </span>
+                      )}
                       {post.language !== activeLocale && (
                         <span className="relative z-10 ml-0 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800 dark:bg-green-700 dark:text-green-200">
                           {t("languages." + post.language)}

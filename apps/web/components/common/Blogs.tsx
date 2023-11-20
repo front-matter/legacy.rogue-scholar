@@ -33,7 +33,7 @@ export const Blogs: React.FunctionComponent<Props> = ({
               <>
                 <div key={blog.slug}>
                   {blog.category && (
-                    <span className="inline-block flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200">
+                    <span className="inline-block flex-shrink-0 rounded-full bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-800 dark:bg-teal-700 dark:text-teal-200">
                       <Link
                         href={`${pagination.base_url}?page=1&query=${pagination.query}&category=${blog.category}&generator=${pagination.generator}`}
                         className="whitespace-no-wrap"

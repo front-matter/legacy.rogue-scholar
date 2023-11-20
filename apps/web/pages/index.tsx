@@ -16,6 +16,7 @@ export async function getServerSideProps(ctx) {
   const query = ctx.query.query || ""
   const tags = ctx.query.tags || ""
   const language = ctx.query.language || ""
+  const category = ctx.query.category || ""
 
   // if (language && language !== ctx.locale) {
   //   language = null
@@ -25,6 +26,9 @@ export async function getServerSideProps(ctx) {
   filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
   filterBy = !isEmpty(language)
     ? filterBy + ` && language:[${language}]`
+    : filterBy
+  filterBy = !isEmpty(category)
+    ? filterBy + ` && category:[${category}]`
     : filterBy
 
   const searchParameters: PostSearchParams = {
