@@ -6,13 +6,13 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "eslint": "^8.43.0",
-    "prettier": "^2.7.1",
+    "eslint": "^8.54.0",
+    "prettier": "^2.8.8",
     "prettier-plugin-tailwindcss": "^0.1.13",
     "turbo": "^1.10.16"
   },
   "engines": {
-    "node": ">=20",
+    "node": ">=18",
     "pnpm": ">=8"
   }
 }
