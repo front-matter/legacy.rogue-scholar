@@ -14,6 +14,7 @@
  "dependencies": {
     "next": "^14.0.3",
     "nextra": "^2.13.0",
+    "nextra-theme-docs": "^2.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "ui": "*"
