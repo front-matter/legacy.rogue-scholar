@@ -38,14 +38,14 @@ type Blog = Database["public"]["Tables"]["blogs"]["Row"]
 
 export default function BlogsList() {
   const supabaseClient = useSupabaseClient<Database>()
-  const user = useUser()
+  const user = useUser() || { id: "" }
   const queryClient = useQueryClient()
   const { t } = useTranslation("app")
   const toast = useToast()
   const { loading: loadingPermissions } = useUserPermissions()
   const formModal = useDisclosure()
   const confirmModal = useDisclosure()
-  const [selectedBlog, setSelectedBlog] = useState<null | Blog>(null)
+  const [selectedBlog, setSelectedBlog] = useState<Blog>()
   const { data: blogs, isLoading: loadingBlogs } = useQuery(
     ["blogs"],
     async () => {
@@ -61,7 +61,7 @@ export default function BlogsList() {
         const { data: blogs, error } = await supabaseClient
           .from("blogs")
           .select("*")
-          .eq("user_id", user?.id)
+          .eq("user_id", user.id)
           .order("status", { ascending: false })
 
         if (error) throw new Error("Failed to fetch blogs")
@@ -84,7 +84,7 @@ export default function BlogsList() {
   const tableBorderColor = useColorModeValue("gray.100", "gray.600")
 
   const openBlogForm = useCallback(
-    (blog: Blog | null) => {
+    (blog: Blog) => {
       setSelectedBlog(blog)
       formModal.onOpen()
     },
@@ -92,7 +92,7 @@ export default function BlogsList() {
   )
 
   // const openDeleteConfirm = useCallback(
-  //   (blog: Blog | null) => {
+  //   (blog: Blog |  ) => {
   //     setSelectedBlog(blog)
   //     confirmModal.onOpen()
   //   },
@@ -108,7 +108,7 @@ export default function BlogsList() {
     },
     {
       // reset blog after request
-      onSettled: () => setSelectedBlog(null),
+      onSettled: () => setSelectedBlog(blogs?.[0]),
       // show toast on error
       onError: () =>
         toast({
