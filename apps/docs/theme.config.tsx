@@ -23,7 +23,7 @@ const config = {
   project: {
     link: 'https://github.com/front-matter/rogue-scholar',
   },
-  docsRepositoryBase: 'https://github.com/front-matter/rogue-scholar/apps/docs',
+  docsRepositoryBase: 'https://github.com/front-matter/rogue-scholar/blob/main/apps/docs',
   footer: {
     text: 'Rogue Scholar Documentation',
   },
