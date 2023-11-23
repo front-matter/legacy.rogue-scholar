@@ -12,9 +12,6 @@ const config: DocsThemeConfig = {
     </div>
   ),
   logoLink: 'https://rogue-scholar.org',
-  chat: {
-    link: 'https://discord.gg/wJAxWjWU',
-  },
   docsRepositoryBase: 'https://github.com/front-matter/docs/tree/main',
   footer: {
     text: 'The Rogue Scholar Documentation',
