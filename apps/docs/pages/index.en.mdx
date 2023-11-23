@@ -10,21 +10,21 @@ The Rogue Scholar improves your science blog in important ways, including full-t
 
 ### Full-Text Search
 
-Most blogging platforms don't support full-text search (which requires a backend service such Elasticsearch),
+Most blogging platforms don't support full-text search (which requires a backend service such as Elasticsearch),
 and instead use tags to classify content. In addition, the search typically is local to the blog, and 
-doesn't find related content on other blogs. The Rogue Scholar uses the [InvenioRDM](https://inveniosoftware.org/products/rdm/) software to provide
-full-text search using the [OpenSearch](https://opensearch.org/) (a fork of the Elasticsearch software) backend service.
+doesn't find related content on other blogs. The Rogue Scholar uses the [Typesense](https://typesense.org/) software to provide
+full-text search.
 
 ### Long-Term Archiving
 
 Blog content is typically not available long-term, in particular for blogs maintained by
 individuals or time-limited projects. The InvenioRDM software powering the Rogue Scholar can provide
-long-term archiving when backed by an organization such as a library that focusses on long-term archiving.
+long-term archiving when backed by an organization such as a library that focuses on long-term archiving.
 
 ### DOIs and Metadata
 
 DOIs and consistent metadata facilitate Full-Text Search and Long-Term Archiving. Metadata such
-as language, subject area, title, abstract and author names support discovery. DOI registration helps
+as language, subject area, title, abstract, and author names support discovery. DOI registration helps
 with URL changes as URLs not only change paths with platform changes (which can be resolved with redirection
 on the host), but may also change hosts. A special use case is a blog that stopped publishing, and 
 where the DOI can then transparently redirect to the Long-Term Archive. Using DOIs for scholar blogs
