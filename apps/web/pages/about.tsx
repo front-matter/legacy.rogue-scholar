@@ -131,7 +131,7 @@ export default function Home({ blogs, locale }) {
         platforms={platforms}
       />
       <Container className="pb-5 pt-2 text-center lg:pt-5">
-        <Comments locale={locale} slug="https://rogue-scholar.org/about" />
+        <Comments locale={locale} />
       </Container>
     </Layout>
   )

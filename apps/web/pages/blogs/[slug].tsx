@@ -173,10 +173,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
           )}
         </div>
         <div className="mx-auto max-w-2xl pb-5 lg:max-w-4xl">
-          <Comments
-            locale={locale}
-            slug={"https://rogue-scholar.org/blogs/" + blog.slug}
-          />
+          <Comments locale={locale} />
         </div>
       </Layout>
     </>
