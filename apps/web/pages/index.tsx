@@ -97,7 +97,7 @@ const PostsPage: React.FunctionComponent<Props> = ({
         <Posts posts={posts} pagination={pagination} />
         {pagination.total > 0 && <Pagination pagination={pagination} />}
         <div className="mx-auto max-w-2xl pb-5 lg:max-w-4xl">
-          <Comments locale={locale} />
+          <Comments locale={locale} slug="https://rogue-scholar.org/posts" />
         </div>
       </Layout>
     </>
