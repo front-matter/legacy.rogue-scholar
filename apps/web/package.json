@@ -20,6 +20,7 @@
     "@extractus/feed-extractor": "^7.0.7",
     "@formatjs/intl-localematcher": "^0.4.2",
     "@formatjs/intl-numberformat": "^8.9.0",
+    "@giscus/react": "^2.3.0",
     "@headlessui/react": "^1.7.17",
     "@konfirm/iso7064": "^2.1.2",
     "@sentry/nextjs": "^7.81.1",

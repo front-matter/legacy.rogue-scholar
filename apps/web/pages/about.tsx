@@ -1,10 +1,12 @@
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
+import { Comments } from "@/components/common/Comments"
 import Faq from "@/components/home/Faq"
 import Hero from "@/components/home/Hero"
 import { Pricing } from "@/components/home/Pricing"
 import { Stats } from "@/components/home/Stats"
+import { Container } from "@/components/layout/Container"
 import Layout from "@/components/layout/Layout"
 import { blogsSelect, supabase } from "@/lib/supabaseClient"
 
@@ -84,7 +86,7 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-export default function Home({ blogs }) {
+export default function Home({ blogs, locale }) {
   const { t } = useTranslation(["home", "common"])
 
   blogs = blogs.map((blog) => {
@@ -128,6 +130,9 @@ export default function Home({ blogs }) {
         languages={languagesList}
         platforms={platforms}
       />
+      <Container className="pb-5 pt-2 text-center lg:pt-5">
+        <Comments locale={locale} />
+      </Container>
     </Layout>
   )
 }

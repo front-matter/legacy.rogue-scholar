@@ -8,6 +8,7 @@ import { jsonLdScriptProps } from "react-schemaorg"
 import { Blog as BlogSchema } from "schema-dts"
 
 import { Blog } from "@/components/common/Blog"
+import { Comments } from "@/components/common/Comments"
 import { Posts } from "@/components/common/Posts"
 import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
@@ -170,6 +171,9 @@ const BlogPage: React.FunctionComponent<Props> = ({
               {t("posts.inactive")}
             </div>
           )}
+        </div>
+        <div className="mx-auto max-w-2xl pb-5 lg:max-w-4xl">
+          <Comments locale={locale} />
         </div>
       </Layout>
     </>
