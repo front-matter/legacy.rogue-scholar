@@ -3,10 +3,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "test": "turbo run test",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev": "turbo run dev --parallel"
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "eslint": "^8.43.0",
@@ -15,10 +12,7 @@
     "turbo": "^1.10.16"
   },
   "engines": {
-    "node": ">=18.0.0"
-  },
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ]
+    "node": ">=20",
+    "pnpm": ">=8"
+  }
 }
