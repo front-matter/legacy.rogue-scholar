@@ -25,6 +25,10 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
       label: t("menu.about"),
       link: "/about",
     },
+    {
+      label: t("menu.docs"),
+      link: "https://docs.rogue-scholar.org",
+    },
   ]
     // add dashboard link only if user is logged in
     .concat(user ? [{ label: t("menu.dashboard"), link: "/app" }] : [])
