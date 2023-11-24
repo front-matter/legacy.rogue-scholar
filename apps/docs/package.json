@@ -12,6 +12,7 @@
   "author": "Martin Fenner <martin@front-matter.io>",
   "license": "MIT",
   "dependencies": {
+    "@giscus/react": "^2.3.0",
     "next": "^14.0.3",
     "nextra": "^2.13.2",
     "nextra-theme-docs": "^2.13.2",
