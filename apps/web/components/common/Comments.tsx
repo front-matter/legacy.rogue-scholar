@@ -5,8 +5,8 @@ export function Comments({ locale }) {
     <Giscus
       repo="front-matter/rogue-scholar"
       repoId="R_kgDOItYbpA"
-      category="General"
-      categoryId="DIC_kwDOItYbpM4CTyus"
+      category="Q&A"
+      categoryId="DIC_kwDOItYbpM4CTyut"
       mapping="url"
       strict="0"
       reactionsEnabled="1"
