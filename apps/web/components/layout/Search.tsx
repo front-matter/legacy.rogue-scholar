@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react"
 import { useTranslation } from "next-i18next"
-import { queryTypes, useQueryState } from "next-usequerystate"
+import { parseAsInteger, useQueryState } from "next-usequerystate"
 import { useRef, useState } from "react"
 
 import { PaginationType } from "@/types/blog"
@@ -12,12 +12,19 @@ type Props = {
 
 export default function Search({ pagination, locale }: Props) {
   const { t } = useTranslation(["common", "home"])
-  const [query, setQuery] = useQueryState("query")
-  const [tags, setTags] = useQueryState("tags")
-  const [category, setCategory] = useQueryState("category")
-  const [generator, setGenerator] = useQueryState("generator")
-  const [page, setPage] = useQueryState("page", queryTypes.integer)
-  const [language, setLanguage] = useQueryState("language")
+  const [query, setQuery] = useQueryState("query", { shallow: false })
+  const [tags, setTags] = useQueryState("tags", { shallow: false })
+  const [category, setCategory] = useQueryState("category", { shallow: false })
+  const [generator, setGenerator] = useQueryState("generator", {
+    shallow: false,
+  })
+  const [page, setPage] = useQueryState(
+    "page",
+    parseAsInteger.withDefault(1).withOptions({
+      shallow: false,
+    })
+  )
+  const [language, setLanguage] = useQueryState("language", { shallow: false })
 
   // if (pagination.language !== locale) {
   //   setLanguage("")

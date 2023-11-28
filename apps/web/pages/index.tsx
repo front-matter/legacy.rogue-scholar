@@ -41,6 +41,8 @@ export async function getServerSideProps(ctx) {
     per_page: 10,
     page: page && page > 0 ? page : 1,
   }
+
+  console.log(searchParameters)
   const data: PostSearchResponse = await typesense
     .collections("posts")
     .documents()
