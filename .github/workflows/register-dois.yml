@@ -68,28 +68,28 @@ jobs:
           curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.pending_post.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "doi": "${{ steps.random_doi.outputs.DOI }}", "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
       - name: Find blog id for post
         run: |
-          echo "::set-output name=BLOG_ID::$(bundle exec commonmeta json_feed_blog_id ${{ steps.pending_post.outputs.POSTID }})"
-        id: blog_id
+          echo "::set-output name=SLUG::$(bundle exec commonmeta json_feed_blog_id ${{ steps.pending_post.outputs.POSTID }})"
+        id: blog
       - name: Update Front Matter blog
-        if: steps.random_doi.outputs.BLOG_ID == 'front_matter'
+        if: steps.blog.outputs.SLUG == 'front_matter'
         env:
           API_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
           API_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
         run: bundle exec commonmeta update_ghost_post ${{ steps.pending_post.outputs.POSTID }}
       - name: Update Upstream blog
-        if: steps.random_doi.outputs.BLOG_ID == 'upstream'
+        if: steps.blog.outputs.SLUG == 'upstream'
         env:
           API_KEY: ${{ secrets.UPSTREAM_ADMIN_API_KEY }}
           API_URL: ${{ secrets.UPSTREAM_ADMIN_API_URL }}
         run: bundle exec commonmeta update_ghost_post ${{ steps.pending_post.outputs.POSTID }}
       - name: Update Syldavia Gazette blog
-        if: steps.random_doi.outputs.BLOG_ID == 'syldavia_gazette'
+        if: steps.blog.outputs.SLUG == 'syldavia_gazette'
         env:
           API_KEY: ${{ secrets.SYLDAVIA_GAZETTE_ADMIN_API_KEY }}
           API_URL: ${{ secrets.SYLDAVIA_GAZETTE_ADMIN_API_URL }}
         run: bundle exec commonmeta update_ghost_post ${{ steps.pending_post.outputs.POSTID }}
       - name: Update OA.Works blog
-        if: steps.random_doi.outputs.BLOG_ID == 'oa_works'
+        if: steps.blog.outputs.SLUG == 'oa_works'
         env:
           API_KEY: ${{ secrets.OA_WORKS_ADMIN_API_KEY }}
           API_URL: ${{ secrets.OA_WORKS_ADMIN_API_URL }}
