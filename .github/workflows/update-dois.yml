@@ -36,13 +36,13 @@ jobs:
           bundle exec commonmeta https://api.rogue-scholar.org/posts/"${{ steps.posts_by_blog.outputs.POSTID }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/${{ steps.posts_by_blog.outputs.POSTID }}
       - name: Upload
         if: steps.posts_by_blog.outputs.POSTID != ''
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
             name: uploads
             path: upload/${{ steps.posts_by_blog.outputs.POSTID }}         
       - name: Download
         if: steps.posts_by_blog.outputs.POSTID != ''
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
             name: uploads
       - name: Update content
