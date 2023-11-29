@@ -68,3 +68,10 @@ jobs:
           API_KEY: ${{ secrets.OA_WORKS_ADMIN_API_KEY }}
           API_URL: ${{ secrets.OA_WORKS_ADMIN_API_URL }}
         run: bundle exec commonmeta update_ghost_post ${{ steps.posts_by_blog.outputs.POSTID }}
+      - name: Update Upstream blog
+        if: steps.blog.outputs.SLUG == 'upstream'
+        env:
+          API_KEY: ${{ secrets.UPSTREAM_ADMIN_API_KEY }}
+          API_URL: ${{ secrets.UPSTREAM_ADMIN_API_URL }}
+        run: bundle exec commonmeta update_ghost_post ${{ steps.posts_by_blog.outputs.POSTID }}
+      
