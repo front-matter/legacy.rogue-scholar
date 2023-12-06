@@ -93,5 +93,3 @@ is no need to switch to a particular platform before joining Rogue Scholar. Neve
 
 There is currently no standard export format for blogs, but some platforms have importers to import content and metadata
 from other platforms.
-
-<Comments locale="en" />
