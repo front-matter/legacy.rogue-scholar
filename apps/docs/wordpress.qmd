@@ -29,4 +29,5 @@ Make sure to use the full name in the `Display name publicly as` user settings. 
 
 The following science blogs use Wordpress as a platform:
 
-* 
+* [GigaBlog](http://gigasciencejournal.com/blog) - Data driven blogging from the GigaScience editors.
+* [Henry Rzepa's Blog](https://www.ch.imperial.ac.uk/rzepa/blog) - Chemistry with a twist.
