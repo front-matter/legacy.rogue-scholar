@@ -3,5 +3,6 @@ title: Ghost
 categories:
   - cms
   - open source
+  - api
 ---
 
