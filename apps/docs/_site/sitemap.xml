@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://docs.rogue-scholar.org/index.html</loc>
+    <lastmod>2023-12-06T19:28:51.984Z</lastmod>
+  </url>
+  <url>
     <loc>https://docs.rogue-scholar.org/platforms.html</loc>
     <lastmod>2023-12-06T18:43:38.134Z</lastmod>
   </url>
   <url>
-    <loc>https://docs.rogue-scholar.org/index.html</loc>
-    <lastmod>2023-12-06T19:28:51.984Z</lastmod>
+    <loc>https://docs.rogue-scholar.org/guidelines.html</loc>
+    <lastmod>2023-12-06T18:48:26.416Z</lastmod>
   </url>
   <url>
     <loc>https://docs.rogue-scholar.org/metadata.html</loc>
