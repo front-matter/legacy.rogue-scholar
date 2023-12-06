@@ -1,7 +1,6 @@
-import { Callout } from 'nextra-theme-docs'
-import { Comments } from '../components/comments'
-
-# Blogging Platforms
+---
+title: Blogging Platforms
+---
 
 The following blogging platforms are used by Rogue Scholar blogs:
 

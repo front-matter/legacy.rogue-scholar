@@ -1,0 +1,42 @@
+project:
+  type: website
+  output-dir: _site
+  preview:
+    port: 4500
+execute:
+  freeze: true
+website:
+  title: "Rogue Scholar Docs"
+  favicon: favicon.ico
+  site-url: https://docs.rogue-scholar.org
+  repo-url: https://github.com/front-matter/rogue-scholar
+  repo-actions: [edit, issue]
+  navbar:
+    background: light
+    logo: "/images/icon.png"
+    logo-alt: "Rogue Scholar Docs"
+    right:
+      - icon: github
+        href: https://github.com/front-matter/rogue-scholar
+  sidebar:
+    contents:
+      - index.qmd
+      - guidelines.qmd
+      - platforms.qmd
+      - metadata.qmd
+  page-footer:
+    left: "Copyright &copy;2023 Rogue Scholar."
+    right:
+      - icon: envelope
+        href: mailto:info@front-matter.io
+      - icon: mastodon 
+        href: https://rogue-scholar.social/@admin
+
+format:
+  html:
+    theme:
+      light: [flatly, theme.scss]
+      dark: [darkly, theme.scss]
+    page-layout: article
+    toc: true
+    toc-location: right

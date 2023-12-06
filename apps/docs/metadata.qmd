@@ -1,8 +1,8 @@
-import { Comments } from '../components/comments'
+---
+title: Metadata
+---
 
-# Metadata
-
-The Rogue Scholar supports the following metadata:
+Rogue Scholar supports the following metadata:
 
 | Property | Required | Description |
 | -------- | -------- | ----------- |
@@ -11,5 +11,3 @@ The Rogue Scholar supports the following metadata:
 | License  | yes      | The license for the blog post. The Rogue Scholar only accepts content with a Creative Commons Attribution (CC-BY) license. |
 | Description | recommended | An abstract of the blog post. |
 | Language | recommended | The language the blog post is written in. |
-
-<Comments locale="en" />
