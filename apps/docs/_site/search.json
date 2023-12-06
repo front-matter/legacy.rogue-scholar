@@ -1,5 +1,16 @@
 [
   {
+    "objectID": "hugo.html",
+    "href": "hugo.html",
+    "title": "Hugo",
+    "section": "",
+    "text": "Hugo is one of the most popular open-source static site generators. Hugo is written in Go.\n\nExamples\nThe following science blogs use Hugo as a platform:\n\nrOpenSci - Open Tools and R Packages for Open Science\nResearch Software Alliance",
+    "crumbs": [
+      "Blogging Platforms",
+      "Hugo"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "What is Rogue Scholar?",
@@ -85,11 +96,33 @@
     ]
   },
   {
+    "objectID": "ghost.html",
+    "href": "ghost.html",
+    "title": "Ghost",
+    "section": "",
+    "text": "Ghost is an open source blogging platform written in JavaScript and distributed under the MIT License.\n\nExamples\nThe following science blogs use Ghost as a platform:\n\nUpstream - The community blog for all things Open Research.\nOA.Works Blog",
+    "crumbs": [
+      "Blogging Platforms",
+      "Ghost"
+    ]
+  },
+  {
+    "objectID": "jekyll.html",
+    "href": "jekyll.html",
+    "title": "Jekyll",
+    "section": "",
+    "text": "Jekyll is a static site generator that powers GitHub Pages. Jekyll is written in Ruby.\n\nExamples\nThe following science blogs use Jekyll as a platform:\n\nMartin Paul Eve\nJournal of Open Source Software Blog",
+    "crumbs": [
+      "Blogging Platforms",
+      "Jekyll"
+    ]
+  },
+  {
     "objectID": "wordpress.html",
     "href": "wordpress.html",
     "title": "Wordpress",
     "section": "",
-    "text": "Wordpress is the most popular blogging platform for science blogs, and blogs in general.",
+    "text": "Wordpress is the most popular blogging platform for science blogs, and websites in general, powering about 40% of all websites. Wordpress is written in PHP.\n\nInstallation\nWordpress can be self-installed, or used as a hosted version. Many organizations offer hosted Wordpress installations, including Automattic, which provides the Wordpress.com service. Wordpress installation includes an API, RSS and Atom feeds.\n\n\nRecommended plugins\nThe Co-Authors Plus plugin enables multiple authors per blog post, including guest authors.\nThe Yoast SEO plugin adds a canonical url field to each post and can be used to store the DOI of each post as metadata.\n\n\nConfiguration\nMake sure to use the full name in the Display name publicly as user settings. You can optionally add the ORCID ID in the Website field.\n\n\n\nExamples\nThe following science blogs use Wordpress as a platform:",
     "crumbs": [
       "Blogging Platforms",
       "Wordpress"
