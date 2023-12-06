@@ -1,5 +1,5 @@
 ---
-title: Blogging Platforms
+title: Overview
 ---
 
 The following blogging platforms are used by Rogue Scholar blogs:

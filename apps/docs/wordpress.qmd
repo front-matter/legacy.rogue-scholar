@@ -1,0 +1,8 @@
+---
+title: Wordpress
+categories:
+  - cms
+  - open source
+---
+
+[Wordpress](https://wordpress.org) is the most popular blogging platform for science blogs, and blogs in general.

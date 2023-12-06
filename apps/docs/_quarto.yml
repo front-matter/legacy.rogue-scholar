@@ -23,8 +23,14 @@ website:
     contents:
       - index.qmd
       - guidelines.qmd
-      - platforms.qmd
       - metadata.qmd
+      - section: "Blogging Platforms"
+        contents:
+          - platforms.qmd
+          - wordpress.qmd
+          - ghost.qmd
+          - hugo.qmd
+          - jekyll.qmd
   page-footer:
     left: "Copyright &copy;2023 Rogue Scholar."
     right:

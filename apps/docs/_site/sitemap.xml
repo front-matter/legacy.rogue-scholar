@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://docs.rogue-scholar.org/hugo.html</loc>
+    <lastmod>2023-12-06T20:45:33.424Z</lastmod>
+  </url>
+  <url>
     <loc>https://docs.rogue-scholar.org/index.html</loc>
-    <lastmod>2023-12-06T20:08:11.391Z</lastmod>
-  </url>
-  <url>
-    <loc>https://docs.rogue-scholar.org/platforms.html</loc>
-    <lastmod>2023-12-06T19:59:14.606Z</lastmod>
-  </url>
-  <url>
-    <loc>https://docs.rogue-scholar.org/guidelines.html</loc>
-    <lastmod>2023-12-06T19:58:48.073Z</lastmod>
+    <lastmod>2023-12-06T20:18:48.187Z</lastmod>
   </url>
   <url>
     <loc>https://docs.rogue-scholar.org/metadata.html</loc>
     <lastmod>2023-12-06T18:44:22.255Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.rogue-scholar.org/platforms.html</loc>
+    <lastmod>2023-12-06T20:33:18.876Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.rogue-scholar.org/guidelines.html</loc>
+    <lastmod>2023-12-06T20:19:49.869Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.rogue-scholar.org/ghost.html</loc>
+    <lastmod>2023-12-06T20:45:46.631Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.rogue-scholar.org/jekyll.html</loc>
+    <lastmod>2023-12-06T20:47:00.400Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.rogue-scholar.org/wordpress.html</loc>
+    <lastmod>2023-12-06T20:45:59.478Z</lastmod>
   </url>
 </urlset>

@@ -1,0 +1,7 @@
+---
+title: Hugo
+categories:
+  - static site generator
+  - open source
+---
+
