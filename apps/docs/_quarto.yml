@@ -10,6 +10,7 @@ website:
   favicon: favicon.ico
   site-url: https://docs.rogue-scholar.org
   repo-url: https://github.com/front-matter/rogue-scholar
+  repo-subdir: apps/docs
   repo-actions: [edit, issue]
   navbar:
     background: light
