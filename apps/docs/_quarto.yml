@@ -12,6 +12,7 @@ website:
   repo-url: https://github.com/front-matter/rogue-scholar
   repo-subdir: apps/docs
   repo-actions: [edit, issue]
+  bread-crumbs: false
   navbar:
     background: light
     logo: "/images/icon.png"

@@ -11,7 +11,7 @@ categories:
 
 ### Installation
 
-Wordpress can be self-installed, or used as a hosted version. Many organizations offer hosted Wordpress installations, including [Automattic](https://automattic.com), which provides the [Wordpress.com](https://wordpress.com) service. Wordpress installation includes an API, RSS and Atom feeds.
+Wordpress can be self-installed, or used as a hosted version. Many organizations offer hosted Wordpress installations, including [Automattic](https://automattic.com), which runs the [Wordpress.com](https://wordpress.com) service. Wordpress installation includes an API, RSS and Atom feeds.
 
 ### Recommended plugins
 
