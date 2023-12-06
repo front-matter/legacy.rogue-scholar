@@ -48,3 +48,6 @@ format:
     page-layout: article
     toc: true
     toc-location: right
+    comments:
+      giscus: 
+        repo: front-matter/rogue-scholar
