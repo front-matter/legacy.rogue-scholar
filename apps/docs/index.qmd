@@ -9,8 +9,6 @@ You can help improve the Rogue Scholar documentation by using the links on the r
 The [Rogue Scholar](https://rogue-scholar.org) is an archive for scholarly blog posts, hosted by [Front Matter](https://front-matter.io). 
 Rogue Scholar improves your science blog in important ways, including full-text search, long-term archiving, and DOIs and metadata.
 
-![](images/rogue-scholar.png)
-
 ### Full-Text Search
 
 Most blogging platforms don't support full-text search (which requires a backend service such as Elasticsearch), and instead use tags to classify content. In addition, the search typically is local to the blog, and doesn't find related content on other blogs. Rogue Scholar uses the [Typesense](https://typesense.org/) software to provide
