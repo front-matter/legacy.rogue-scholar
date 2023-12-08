@@ -22,6 +22,10 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
       link: "/blogs",
     },
     {
+      label: t("menu.docs"),
+      link: "https://docs.rogue-scholar.org",
+    },
+    {
       label: t("menu.about"),
       link: "/about",
     },
