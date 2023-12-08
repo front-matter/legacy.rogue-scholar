@@ -45,3 +45,4 @@ dist/**
 /apps/web/public/epub/**/*
 
 .sentryclirc
+/apps/docs/.quarto
