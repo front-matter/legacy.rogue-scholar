@@ -14,7 +14,7 @@ export function KofiButton({ username, label, title }) {
           height={17}
           alt=""
         />
-        {label && <span className="ml-1 mr-10 text-base">{label}</span>}
+        {label && <span className="ml-1 mr-5 text-base">{label}</span>}
       </Link>
     </div>
   )
