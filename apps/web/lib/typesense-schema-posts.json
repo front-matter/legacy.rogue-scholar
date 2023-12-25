@@ -46,16 +46,6 @@
       "index": true,
       "infix": false,
       "locale": "",
-      "name": "content_html",
-      "optional": false,
-      "sort": false,
-      "type": "string"
-    },
-    {
-      "facet": false,
-      "index": true,
-      "infix": false,
-      "locale": "",
       "name": "content_text",
       "optional": false,
       "sort": false,

@@ -73,7 +73,6 @@ export interface PostType {
   indexed?: boolean
   authors?: AuthorType[]
   image?: string
-  content_html?: string
   content_text?: string
   reference?: ReferenceType[]
   relationships?: RelationshipType[]

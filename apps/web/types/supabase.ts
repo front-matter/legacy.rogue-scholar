@@ -80,7 +80,6 @@ export interface Database {
           authors?: AuthorType[]
           blog_id?: string
           blog_name?: string
-          content_html?: string
           content_text?: string
           updated_at?: number
           published_at?: number
@@ -102,7 +101,6 @@ export interface Database {
           authors?: AuthorType[]
           blog_id?: string
           blog_name?: string
-          content_html?: string
           content_text?: string
           updated_at?: number
           published_at?: number
@@ -124,7 +122,6 @@ export interface Database {
           authors?: AuthorType[]
           blog_id?: string
           blog_name?: string
-          content_html?: string
           content_text?: string
           updated_at?: number
           published_at?: number

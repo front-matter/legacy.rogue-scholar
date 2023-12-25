@@ -18,7 +18,7 @@ export interface DocumentType extends DocumentSchema {
   updated_at?: number
   authors?: AuthorType[]
   image?: string
-  content_html?: string
+  content_text?: string
   reference?: ReferenceType[]
   tags?: string[]
   language?: string

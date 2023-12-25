@@ -52,9 +52,9 @@ export const Post: React.FunctionComponent<Props> = ({ post, blog }) => {
                       </Link>
                     </div>
                   )}
-                  {post.content_html && (
+                  {post.content_text && (
                     <p className="text-medium post-serif mt-2 leading-6 text-gray-900">
-                      {parse(String(post.content_html))}
+                      {parse(String(post.content_text))}
                     </p>
                   )}
                 </div>

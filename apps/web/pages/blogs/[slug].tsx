@@ -52,7 +52,7 @@ export async function getServerSideProps(ctx) {
     q: query,
     filter_by: filterBy,
     query_by:
-      "tags,title,authors.name,authors.url,reference.url,summary,content_html",
+      "tags,title,authors.name,authors.url,reference.url,summary,content_text",
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
     per_page: 10,
     page: page && page > 0 ? page : 1,
