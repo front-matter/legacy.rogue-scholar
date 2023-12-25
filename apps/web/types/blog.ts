@@ -80,7 +80,6 @@ export interface PostType {
   tags?: string[]
   language?: string
   category?: string
-  blog_id?: string
   blog_name?: string
   blog_slug?: string
   blog?: BlogParentType

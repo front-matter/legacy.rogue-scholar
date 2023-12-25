@@ -186,16 +186,6 @@
       "index": true,
       "infix": false,
       "locale": "",
-      "name": "blog_id",
-      "optional": true,
-      "sort": false,
-      "type": "string"
-    },
-    {
-      "facet": true,
-      "index": true,
-      "infix": false,
-      "locale": "",
       "name": "blog_slug",
       "optional": true,
       "sort": false,

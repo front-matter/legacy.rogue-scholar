@@ -78,7 +78,7 @@ export interface Database {
       posts: {
         Row: {
           authors?: AuthorType[]
-          blog_id?: string
+          blog_slug?: string
           blog_name?: string
           content_text?: string
           updated_at?: number
@@ -99,7 +99,7 @@ export interface Database {
         }
         Insert: {
           authors?: AuthorType[]
-          blog_id?: string
+          blog_slug?: string
           blog_name?: string
           content_text?: string
           updated_at?: number
@@ -120,7 +120,7 @@ export interface Database {
         }
         Update: {
           authors?: AuthorType[]
-          blog_id?: string
+          blog_slug?: string
           blog_name?: string
           content_text?: string
           updated_at?: number

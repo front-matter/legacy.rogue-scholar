@@ -22,7 +22,6 @@ export interface DocumentType extends DocumentSchema {
   reference?: ReferenceType[]
   tags?: string[]
   language?: string
-  blog_id?: string
   blog_slug?: string
 }
 
