@@ -135,6 +135,18 @@ export const Posts: React.FunctionComponent<Props> = ({
                         ePub
                       </Link>
                       <Link
+                        className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
+                          16
+                        )}?format=pdf`}
+                      >
+                        <Icon
+                          icon="fa6-solid:file-pdf"
+                          className="mb-1 mr-1 inline text-sm"
+                        />
+                        PDF
+                      </Link>
+                      <Link
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
                           16
