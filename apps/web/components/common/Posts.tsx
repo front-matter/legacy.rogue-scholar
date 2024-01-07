@@ -110,20 +110,30 @@ export const Posts: React.FunctionComponent<Props> = ({
                   <Byline post={post} blog={blog} />
                   {post.doi && (
                     <div className="py-1 font-medium">
-                      {process.env.NODE_ENV !== "production" && (
-                        <Link
-                          className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                          href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
-                            16
-                          )}?format=epub`}
-                        >
-                          <Icon
-                            icon="fa6-solid:file-zipper"
-                            className="mb-1 mr-1 inline text-sm"
-                          />
-                          ePub
-                        </Link>
-                      )}
+                      <Link
+                        className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
+                          16
+                        )}?format=markdown`}
+                      >
+                        <Icon
+                          icon="fa6-brands:markdown"
+                          className="mb-1 mr-1 inline text-sm"
+                        />
+                        Markdown
+                      </Link>
+                      <Link
+                        className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
+                          16
+                        )}?format=epub`}
+                      >
+                        <Icon
+                          icon="fa6-solid:file-arrow-down"
+                          className="mb-1 mr-1 inline text-sm"
+                        />
+                        ePub
+                      </Link>
                       <Link
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
@@ -160,18 +170,6 @@ export const Posts: React.FunctionComponent<Props> = ({
                         />
                         Citation (APA)
                       </Link>
-                      {/* <button
-                          className="ml-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                          type="button"
-                          data-modal-target="citationBox"
-                          data-modal-show="citationBox"
-                        >
-                          <Icon
-                            icon="fa6-solid:quote-left"
-                            className="mb-0.5 mr-1 inline"
-                          />
-                          Cite
-                        </button> */}
                     </div>
                   )}
                   <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
