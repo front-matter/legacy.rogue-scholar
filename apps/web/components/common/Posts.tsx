@@ -142,7 +142,6 @@ export const Posts: React.FunctionComponent<Props> = ({
                           process.env.NEXT_PUBLIC_API_URL +
                           `/posts/${post.doi.substring(16)}?format=pdf`
                         }
-                        target="_blank"
                       >
                         <Icon
                           icon="fa6-solid:file-pdf"
