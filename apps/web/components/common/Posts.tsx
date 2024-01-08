@@ -112,9 +112,10 @@ export const Posts: React.FunctionComponent<Props> = ({
                     <div className="py-1 font-medium">
                       <Link
                         className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
-                          16
-                        )}?format=markdown`}
+                        href={
+                          process.env.NEXT_PUBLIC_API_URL +
+                          `/posts/${post.doi.substring(16)}?format=markdown`
+                        }
                       >
                         <Icon
                           icon="fa6-brands:markdown"
@@ -124,9 +125,10 @@ export const Posts: React.FunctionComponent<Props> = ({
                       </Link>
                       <Link
                         className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
-                          16
-                        )}?format=epub`}
+                        href={
+                          process.env.NEXT_PUBLIC_API_URL +
+                          `/posts/${post.doi.substring(16)}?format=epub`
+                        }
                       >
                         <Icon
                           icon="fa6-solid:file-arrow-down"
@@ -136,9 +138,10 @@ export const Posts: React.FunctionComponent<Props> = ({
                       </Link>
                       <Link
                         className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
-                          16
-                        )}?format=pdf`}
+                        href={
+                          process.env.NEXT_PUBLIC_API_URL +
+                          `/posts/${post.doi.substring(16)}?format=pdf`
+                        }
                       >
                         <Icon
                           icon="fa6-solid:file-pdf"
@@ -148,9 +151,10 @@ export const Posts: React.FunctionComponent<Props> = ({
                       </Link>
                       <Link
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
-                          16
-                        )}?format=csl`}
+                        href={
+                          process.env.NEXT_PUBLIC_API_URL +
+                          `/posts/${post.doi.substring(16)}?format=csl`
+                        }
                       >
                         <Icon
                           icon="bxs:file-json"
@@ -160,9 +164,10 @@ export const Posts: React.FunctionComponent<Props> = ({
                       </Link>
                       <Link
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
-                          16
-                        )}?format=bibtex`}
+                        href={
+                          process.env.NEXT_PUBLIC_API_URL +
+                          `/posts/${post.doi.substring(16)}?format=bibtex`
+                        }
                       >
                         <Icon
                           icon="fa6-solid:file-code"
@@ -172,9 +177,12 @@ export const Posts: React.FunctionComponent<Props> = ({
                       </Link>
                       <Link
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={`https://api.rogue-scholar.org/posts/${post.doi.substring(
-                          16
-                        )}?format=citation&style=apa&locale=${activeLocale}`}
+                        href={
+                          process.env.NEXT_PUBLIC_API_URL +
+                          `/${post.doi.substring(
+                            16
+                          )}?format=citation&style=apa&locale=${activeLocale}`
+                        }
                       >
                         <Icon
                           icon="fa6-solid:file-lines"

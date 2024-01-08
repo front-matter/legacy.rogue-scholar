@@ -57,14 +57,6 @@ export default function Footer() {
               <span className="sr-only">GitHub</span>
               <Icon icon="fa6-brands:github" className="inline" />
             </Link>
-            {/* <Link
-              href="https://api.rogue-scholar.org/subscriptions.opml"
-              target="_blank"
-              className="border-b-0 text-lg hover:text-gray-400 dark:hover:text-gray-100"
-            >
-              <span className="sr-only">OPML Feed</span>
-              <Icon icon="fa6-solid:square-rss" className="inline" />
-            </Link> */}
           </div>
           <p className="mt-6 text-sm text-slate-500 dark:text-slate-200 sm:mt-0">
             Copyright &copy; {new Date().getFullYear()} The Rogue Scholar{" "}
