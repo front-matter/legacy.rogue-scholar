@@ -114,7 +114,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={
                           process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}?format=markdown`
+                          `/posts/${post.doi.substring(16)}.md`
                         }
                       >
                         <Icon
@@ -127,7 +127,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={
                           process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}?format=epub`
+                          `/posts/${post.doi.substring(16)}.epub`
                         }
                       >
                         <Icon
@@ -140,7 +140,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={
                           process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}?format=pdf`
+                          `/posts/${post.doi.substring(16)}.pdf`
                         }
                       >
                         <Icon
@@ -153,7 +153,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={
                           process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}?format=csl`
+                          `/posts/${post.doi.substring(16)}.csl`
                         }
                       >
                         <Icon
@@ -166,7 +166,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={
                           process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}?format=bibtex`
+                          `/posts/${post.doi.substring(16)}.bib`
                         }
                       >
                         <Icon
