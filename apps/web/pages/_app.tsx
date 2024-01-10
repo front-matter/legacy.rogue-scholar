@@ -59,7 +59,7 @@ function App({
       `}</style>
       <ProgressBar />
 
-      <PlausibleProvider domain="rogue-scholar.org">
+      <PlausibleProvider domain="rogue-scholar.org" trackFileDownloads={true}>
         <QueryClientProvider client={queryClient}>
           <ChakraBaseProvider
             theme={customTheme}
