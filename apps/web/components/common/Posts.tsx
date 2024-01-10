@@ -150,6 +150,19 @@ export const Posts: React.FunctionComponent<Props> = ({
                         PDF
                       </Link>
                       <Link
+                        className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                        href={
+                          process.env.NEXT_PUBLIC_API_URL +
+                          `/posts/${post.doi.substring(16)}.xml`
+                        }
+                      >
+                        <Icon
+                          icon="tabler:file-type-xml"
+                          className="mb-1 mr-1 inline text-sm"
+                        />
+                        JATS XML
+                      </Link>
+                      <Link
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={
                           process.env.NEXT_PUBLIC_API_URL +
