@@ -166,7 +166,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={
                           process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}.json`
+                          `/posts/${post.doi.substring(16)}?format=csl`
                         }
                       >
                         <Icon
