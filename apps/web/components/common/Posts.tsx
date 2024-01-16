@@ -166,7 +166,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={
                           process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}?format=csl`
+                          `/posts/${post.doi.substring(16)}.json`
                         }
                       >
                         <Icon
@@ -174,6 +174,19 @@ export const Posts: React.FunctionComponent<Props> = ({
                           className="mb-1 mr-1 inline text-sm"
                         />
                         CSL JSON
+                      </Link>
+                      <Link
+                        className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
+                        href={
+                          process.env.NEXT_PUBLIC_API_URL +
+                          `/posts/${post.doi.substring(16)}.jsonld`
+                        }
+                      >
+                        <Icon
+                          icon="file-icons:json-ld1"
+                          className="mb-1 ml-5 mr-1 inline text-sm"
+                        />
+                        Schema.org
                       </Link>
                       <Link
                         className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
