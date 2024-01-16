@@ -45,14 +45,6 @@ const nextConfig = {
       },
     ]
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/:slug.json",
-  //       destination: "/api/blogs/:slug",
-  //     },
-  //   ]
-  // },
   images: {
     unoptimized: true,
     remotePatterns: [

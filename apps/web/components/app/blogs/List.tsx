@@ -27,10 +27,7 @@ import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
 
 import BlogFormModal from "@/components/app/blogs/FormModal"
-// import NoSubscriptionAlert from "@/components/app/blogs/NoSubscriptionAlert"
 import ConfirmModal from "@/components/app/ConfirmModal"
-import Loader from "@/components/common/Loader"
-import { useUserPermissions } from "@/lib/blog/permissions"
 import { generateBlogId } from "@/lib/helpers"
 import { Database } from "@/types/supabase"
 
@@ -42,7 +39,6 @@ export default function BlogsList() {
   const queryClient = useQueryClient()
   const { t } = useTranslation("app")
   const toast = useToast()
-  const { loading: loadingPermissions } = useUserPermissions()
   const formModal = useDisclosure()
   const confirmModal = useDisclosure()
   const [selectedBlog, setSelectedBlog] = useState<Blog>()
@@ -77,7 +73,6 @@ export default function BlogsList() {
     feed_url: "",
     category: "naturalSciences",
     status: "submitted",
-    use_mastodon: false,
     user_id: user?.id,
   }
   const tableBg = useColorModeValue("white", "gray.700")
@@ -126,9 +121,7 @@ export default function BlogsList() {
     }
   )
 
-  return loadingPermissions ? (
-    <Loader />
-  ) : (
+  return (
     <>
       <HStack mb={4} justify="space-between">
         <Heading fontSize="2xl">{t("blogs.title")}</Heading>

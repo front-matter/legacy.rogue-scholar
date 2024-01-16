@@ -78,18 +78,10 @@ export default function BlogFormModal({
     async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
       const { error } = await supabaseClient
         .from("blogs")
-        .upsert(blog, { onConflict: "id", ignoreDuplicates: false })
+        .upsert(blog, { onConflict: "slug", ignoreDuplicates: false })
 
       console.log(error)
       if (error) throw new Error("Could not upsert blog")
-
-      // update blog entry based on feed metadata
-      await fetch(`/api/blogs/${blog.id}`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY}`,
-        },
-      })
     },
     {
       onError: () => {
