@@ -147,7 +147,6 @@ export default function BlogsList() {
         {loadingBlogs && !blogs ? (
           <Stack w="full" p={4}>
             <Skeleton rounded="lg" height="24px" />
-            <Skeleton rounded="lg" height="24px" />
             <Skeleton rounded="lg" height="32px" />
             <Skeleton rounded="lg" height="32px" />
           </Stack>
@@ -156,7 +155,6 @@ export default function BlogsList() {
             <Thead borderBottom="1px solid" borderColor={tableBorderColor}>
               <Tr>
                 <Th className="w-6/12">{t("blogs.list.columns.title")}</Th>
-                <Th className="w-3/12">{t("blogs.list.columns.mastodon")}</Th>
                 <Th className="w-2/12">{t("blogs.list.columns.status")}</Th>
                 <Th className="w-1/12"></Th>
               </Tr>
@@ -182,21 +180,6 @@ export default function BlogsList() {
                         <span className="text-orange-600 dark:text-gray-200">
                           {t("blogs.untitled")}
                         </span>
-                      )}
-                    </Td>
-                    <Td>
-                      {blog.use_mastodon && (
-                        <Link
-                          className="hover:font-semibold"
-                          href={`https://rogue-scholar.social/@${blog.slug}`}
-                          target="_blank"
-                        >
-                          <Icon
-                            icon="fa6-brands:mastodon"
-                            className="mr-1 inline"
-                          />
-                          {blog.slug}
-                        </Link>
                       )}
                     </Td>
                     <Td>{t("status." + blog.status)}</Td>

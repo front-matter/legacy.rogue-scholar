@@ -76,9 +76,10 @@ export default function BlogFormModal({
 
   const upsertMutation = useMutation(
     async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
-      const { error } = await supabaseClient
-        .from("blogs")
-        .upsert(blog, { onConflict: "slug", ignoreDuplicates: false })
+      const { error } = await supabaseClient.from("blogs").upsert(blog, {
+        onConflict: "slug",
+        ignoreDuplicates: false,
+      })
 
       console.log(error)
       if (error) throw new Error("Could not upsert blog")
@@ -111,7 +112,7 @@ export default function BlogFormModal({
   const onSubmit = handleSubmit(async (values) => {
     await upsertMutation.mutateAsync({
       ...values,
-      id: (blog as any)?.id || undefined,
+      slug: (blog as any)?.slug || undefined,
     })
   })
 
@@ -334,15 +335,6 @@ export default function BlogFormModal({
                   </option>
                 </Select>
               </FormControl>
-
-              {/* Mastodon enabled field
-              <FormControl>
-                <FormLabel htmlFor="use_mastodon">
-                  {t("blogs.form.controls.mastodon")}
-                </FormLabel>
-                <Switch id="use_mastodon" isDisabled={true} isChecked={false} />
-              </FormControl> */}
-
               <Button
                 type="submit"
                 colorScheme="primary"
