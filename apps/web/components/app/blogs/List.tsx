@@ -204,7 +204,18 @@ export default function BlogsList() {
                         </span>
                       )}
                     </Td>
-                    <Td>{t("status." + blog.status)}</Td>
+                    <Td>
+                      {blog.status == "submitted" && (
+                        <span className="text-orange-600 dark:text-gray-200">
+                          {t("status." + blog.status)}
+                        </span>
+                      )}
+                      {blog.status != "submitted" && (
+                        <span className="text-gray-700 dark:text-gray-200">
+                          {t("status." + blog.status)}
+                        </span>
+                      )}
+                    </Td>
                     <Td>
                       <HStack justify="end" spacing={1}>
                         <IconButton
