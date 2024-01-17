@@ -48,7 +48,7 @@ export default function BlogFormModal({
     id: string
     slug: string
     title: string
-    feed_url: string
+    home_page_url: string
     category: string
     status: string
     user_id: string
@@ -64,7 +64,7 @@ export default function BlogFormModal({
     setValue("id", blog.id)
     setValue("slug", blog.slug)
     setValue("title", blog.title)
-    setValue("feed_url", blog.feed_url)
+    setValue("home_page_url", blog.home_page_url)
     setValue("category", blog.category)
     setValue("status", blog.status)
     setValue("user_id", blog.user_id)
@@ -128,7 +128,7 @@ export default function BlogFormModal({
       <ModalOverlay />
       <ModalContent minWidth="800px">
         <ModalHeader bg={headerBg} roundedTop="lg" px={8}>
-          {blog && blog.feed_url
+          {blog && blog.home_page_url
             ? t("blogs.form.edit.title")
             : t("blogs.form.add.title")}
         </ModalHeader>
@@ -163,12 +163,12 @@ export default function BlogFormModal({
           {/*eslint-disable-next-line no-empty-function */}
           <form onSubmit={(e) => onSubmit(e).catch(() => {})}>
             <VStack align="stretch" spacing={6} mt={2}>
-              {/* Feed URL field */}
+              {/* Home Page URL field */}
               <FormControl isRequired>
-                <FormLabel>{t("blogs.form.controls.feed_url")}</FormLabel>
+                <FormLabel>{t("blogs.form.controls.home_page_url")}</FormLabel>
                 <Input
                   type="text"
-                  {...register("feed_url", { required: true })}
+                  {...register("home_page_url", { required: true })}
                 />
               </FormControl>
 

@@ -70,6 +70,7 @@ export default function BlogsList() {
     id: id,
     slug: id,
     title: "",
+    home_page_url: "",
     feed_url: "",
     category: "naturalSciences",
     status: "submitted",
@@ -149,12 +150,16 @@ export default function BlogsList() {
             <Skeleton rounded="lg" height="24px" />
             <Skeleton rounded="lg" height="32px" />
             <Skeleton rounded="lg" height="32px" />
+            <Skeleton rounded="lg" height="32px" />
           </Stack>
         ) : (
           <Table className="table-fixed">
             <Thead borderBottom="1px solid" borderColor={tableBorderColor}>
               <Tr>
                 <Th className="w-6/12">{t("blogs.list.columns.title")}</Th>
+                <Th className="w-6/12">
+                  {t("blogs.list.columns.home_page_url")}
+                </Th>
                 <Th className="w-2/12">{t("blogs.list.columns.status")}</Th>
                 <Th className="w-1/12"></Th>
               </Tr>
@@ -164,7 +169,7 @@ export default function BlogsList() {
                 blogs?.map((blog) => (
                   <Tr key={`blog-${blog.id}`}>
                     <Td>
-                      {blog.slug && (
+                      {blog.title && (
                         <Link
                           className="hover:font-semibold"
                           href={`/blogs/${blog.slug}`}
@@ -175,6 +180,30 @@ export default function BlogsList() {
                           />
                           {blog.title}
                         </Link>
+                      )}
+                      {!blog.title && (
+                        <span className="text-orange-600 dark:text-gray-200">
+                          {t("blogs.missing")}
+                        </span>
+                      )}
+                    </Td>
+                    <Td>
+                      {blog.home_page_url && (
+                        <Link
+                          className="hover:font-semibold"
+                          href={blog.home_page_url}
+                        >
+                          <Icon
+                            icon="fa6-solid:house"
+                            className="mr-1 inline"
+                          />
+                          {blog.title}
+                        </Link>
+                      )}
+                      {!blog.home_page_url && (
+                        <span className="text-orange-600 dark:text-gray-200">
+                          {t("blogs.missing")}
+                        </span>
                       )}
                       {!blog.slug && (
                         <span className="text-orange-600 dark:text-gray-200">
