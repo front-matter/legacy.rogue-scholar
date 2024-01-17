@@ -156,8 +156,8 @@ export default function BlogsList() {
           <Table className="table-fixed">
             <Thead borderBottom="1px solid" borderColor={tableBorderColor}>
               <Tr>
-                <Th className="w-6/12">{t("blogs.list.columns.title")}</Th>
-                <Th className="w-6/12">
+                <Th className="w-4/12">{t("blogs.list.columns.title")}</Th>
+                <Th className="w-8/12">
                   {t("blogs.list.columns.home_page_url")}
                 </Th>
                 <Th className="w-2/12">{t("blogs.list.columns.status")}</Th>
@@ -174,10 +174,6 @@ export default function BlogsList() {
                           className="hover:font-semibold"
                           href={`/blogs/${blog.slug}`}
                         >
-                          <Icon
-                            icon="fa6-regular:eye"
-                            className="mr-1 inline"
-                          />
                           {blog.title}
                         </Link>
                       )}
@@ -192,12 +188,9 @@ export default function BlogsList() {
                         <Link
                           className="hover:font-semibold"
                           href={blog.home_page_url}
+                          target="_blank"
                         >
-                          <Icon
-                            icon="fa6-solid:house"
-                            className="mr-1 inline"
-                          />
-                          {blog.title}
+                          {blog.home_page_url}
                         </Link>
                       )}
                       {!blog.home_page_url && (
