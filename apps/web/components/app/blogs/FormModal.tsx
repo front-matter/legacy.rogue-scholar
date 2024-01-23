@@ -15,8 +15,10 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react"
+import { Icon } from "@iconify/react"
 import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
@@ -333,6 +335,17 @@ export default function BlogFormModal({
                   </option>
                 </Select>
               </FormControl>
+              <div className="mb-2 text-base">
+                Please contact{" "}
+                <Link
+                  href="mailto:info@front-matter.io"
+                  className="border-b-0 text-gray-500 dark:text-gray-200 hover:text-gray-400 dark:hover:text-gray-100"
+                >
+                  <Icon icon="fa6-solid:envelope" className="inline" /> Rogue
+                  Scholar Support
+                </Link>{" "}
+                if you have problems or questions.
+              </div>
               <Button
                 type="submit"
                 colorScheme="primary"
