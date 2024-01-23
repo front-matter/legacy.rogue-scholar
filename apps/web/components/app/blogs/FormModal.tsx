@@ -45,7 +45,6 @@ export default function BlogFormModal({
     setValue,
     formState: { isSubmitting },
   } = useForm<{
-    id: string
     slug: string
     title: string
     home_page_url: string
@@ -61,7 +60,6 @@ export default function BlogFormModal({
       return
     }
 
-    setValue("id", blog.id)
     setValue("slug", blog.slug)
     setValue("title", blog.title)
     setValue("home_page_url", blog.home_page_url)
@@ -77,7 +75,7 @@ export default function BlogFormModal({
   const upsertMutation = useMutation(
     async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
       const { error } = await supabaseClient.from("blogs").upsert(blog, {
-        onConflict: "id",
+        onConflict: "slug",
         ignoreDuplicates: false,
       })
 

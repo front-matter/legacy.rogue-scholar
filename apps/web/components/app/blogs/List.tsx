@@ -28,7 +28,7 @@ import { useCallback, useState } from "react"
 
 import BlogFormModal from "@/components/app/blogs/FormModal"
 import ConfirmModal from "@/components/app/ConfirmModal"
-import { generateBlogId } from "@/lib/helpers"
+import { generateBlogSlug } from "@/lib/helpers"
 import { Database } from "@/types/supabase"
 
 type Blog = Database["public"]["Tables"]["blogs"]["Row"]
@@ -65,14 +65,12 @@ export default function BlogsList() {
       }
     }
   )
-  const id = generateBlogId()
+  const slug = generateBlogSlug()
   const newBlog = {
-    slug: id,
+    slug: slug,
     title: "",
     home_page_url: "",
     feed_url: "",
-    category: "naturalSciences",
-    status: "submitted",
     user_id: user?.id,
   }
   const tableBg = useColorModeValue("white", "gray.700")
