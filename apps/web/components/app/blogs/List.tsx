@@ -67,7 +67,6 @@ export default function BlogsList() {
   )
   const id = generateBlogId()
   const newBlog = {
-    id: id,
     slug: id,
     title: "",
     home_page_url: "",
