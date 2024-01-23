@@ -341,8 +341,11 @@ export default function BlogFormModal({
                   href="mailto:info@front-matter.io"
                   className="border-b-0 text-gray-500 dark:text-gray-200 hover:text-gray-400 dark:hover:text-gray-100"
                 >
-                  <Icon icon="fa6-solid:envelope" className="inline" /> Rogue
-                  Scholar Support
+                  <Icon
+                    icon="fa6-solid:envelope"
+                    className="inline text-xs mb-0.5"
+                  />{" "}
+                  Rogue Scholar Support
                 </Link>{" "}
                 if you have problems or questions.
               </div>
