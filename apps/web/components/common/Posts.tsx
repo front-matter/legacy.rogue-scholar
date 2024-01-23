@@ -76,7 +76,10 @@ export const Posts: React.FunctionComponent<Props> = ({
                           target="_blank"
                           href={post.doi}
                         >
-                          <h3 className="mt-1 text-xl font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100">
+                          <h3
+                            className="mt-1 text-xl font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100"
+                            data-cy="title"
+                          >
                             {parse(String(post.title))}
                           </h3>
                         </Link>

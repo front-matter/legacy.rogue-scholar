@@ -20,9 +20,11 @@ export default function Pagination({ pagination }: Props) {
           {pagination.total > 0 && (
             <p className="text-sm text-gray-700 dark:text-gray-200">
               {t("pagination.page")}{" "}
-              <span className="font-semibold">{pagination.page}</span>{" "}
+              <span className="font-semibold" data-cy="pagination-page">
+                {pagination.page}
+              </span>{" "}
               {t("pagination.of")}{" "}
-              <span className="font-semibold">
+              <span className="font-semibold" data-cy="pagination-total">
                 {t("number", { val: pagination.total })}
               </span>{" "}
               {t("pagination.results")}

@@ -68,7 +68,10 @@ export const Blogs: React.FunctionComponent<Props> = ({
                     href={"/blogs/" + blog.slug}
                     className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
                   >
-                    <h2 className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-2xl">
+                    <h2
+                      className="text-xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-2xl"
+                      data-cy="title"
+                    >
                       {parse(String(blog.title))}
                     </h2>
                   </Link>
