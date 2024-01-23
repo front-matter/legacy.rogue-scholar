@@ -50,6 +50,7 @@ export default function BlogsList() {
           .from("blogs")
           .select("*")
           .order("status", { ascending: true })
+          .order("title", { ascending: true })
 
         if (error) throw new Error("Failed to fetch blogs")
         return blogs
@@ -58,7 +59,8 @@ export default function BlogsList() {
           .from("blogs")
           .select("*")
           .eq("user_id", user.id)
-          .order("status", { ascending: false })
+          .order("status", { ascending: true })
+          .order("title", { ascending: true })
 
         if (error) throw new Error("Failed to fetch blogs")
         return blogs
