@@ -50,6 +50,6 @@ jobs:
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 300
           quiet: false
-      - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+      # - name: Deploy Project Artifacts to Vercel
+      #   run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
   
