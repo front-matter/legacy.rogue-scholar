@@ -19,6 +19,8 @@ on:
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
     steps:
       - uses: actions/checkout@v2
       - uses: pnpm/action-setup@v2
@@ -37,8 +39,13 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          build: pnpm build
-          start: pnpm cy:run
+          config-file: cypress.config.ts
+          install: false
+          config: defaultCommandTimeout=5000
+          start: ypnpm run dev
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 300
+          quiet: false
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
   
