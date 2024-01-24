@@ -71,10 +71,7 @@ export default function Faqs() {
     >
       <Container className="relative">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2
-            id="faq-title"
-            className="py-6 font-sans text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl"
-          >
+          <h2 className="py-6 font-sans text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl">
             {t("faq.title")}
           </h2>
           <p className="mt-2 text-lg tracking-tight text-slate-700 dark:text-slate-200">

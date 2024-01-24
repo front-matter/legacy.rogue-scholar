@@ -63,6 +63,7 @@ function Plan({
         "mb-5 flex flex-col rounded-3xl px-6 py-8 sm:px-8",
         featured ? "order-first bg-blue-600 lg:order-none" : ""
       )}
+      id={name}
     >
       <h3
         className={clsx(

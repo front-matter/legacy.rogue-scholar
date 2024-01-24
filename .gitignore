@@ -43,6 +43,8 @@ dist/**
 
 /apps/web/simplelocalize.yml
 /apps/web/public/epub/**/*
+/apps/web/cypress/screenshots/**/*
+/apps/web/cypress/downloads/**/*
 
 .sentryclirc
 /apps/docs/.quarto
