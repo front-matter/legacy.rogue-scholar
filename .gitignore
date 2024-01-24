@@ -43,10 +43,10 @@ build/**
 dist/**
 .next
 
-/apps/web/simplelocalize.yml
-/apps/web/public/epub/**/*
-/apps/web/cypress/screenshots/**/*
-/apps/web/cypress/downloads/**/*
+simplelocalize.yml
+/cypress/screenshots/**/*
+/cypress/downloads/**/*
 
 .sentryclirc
-/apps/docs/.quarto
+/docs/.quarto
+/docs/_site
