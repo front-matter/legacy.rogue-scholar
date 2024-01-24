@@ -1,13 +1,17 @@
-import { createMiddlewareSupabaseClient } from "@supabase/auth-helpers-nextjs"
-import { NextRequest, NextResponse } from "next/server"
+import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs"
+import { NextResponse } from "next/server"
+import type { NextRequest } from 'next/server';
+import type { Database } from '@/types/supabase'
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
-  const supabase = createMiddlewareSupabaseClient({ req, res })
+  const supabase = createMiddlewareClient<Database>({ req, res })
+  // workaround as Typescript doesn't know about the getSession property yet
+  const auth: any = supabase.auth
 
   const {
     data: { session },
-  } = await supabase.auth.getSession()
+  } = await auth.getSession()
 
   if (!session) {
     const redirectUrl = req.nextUrl.clone()

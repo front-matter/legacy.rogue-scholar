@@ -36,11 +36,11 @@ dependencies:
     specifier: ^7.95.0
     version: 7.95.0(next@14.1.0)(react@18.2.0)
   '@supabase/auth-helpers-nextjs':
-    specifier: ^0.6.1
-    version: 0.6.1(@supabase/supabase-js@2.39.3)
+    specifier: ^0.8.7
+    version: 0.8.7(@supabase/supabase-js@2.39.3)
   '@supabase/auth-helpers-react':
-    specifier: ^0.3.1
-    version: 0.3.1(@supabase/supabase-js@2.39.3)
+    specifier: ^0.4.2
+    version: 0.4.2(@supabase/supabase-js@2.39.3)
   '@supabase/supabase-js':
     specifier: ^2.39.3
     version: 2.39.3
@@ -2182,27 +2182,28 @@ packages:
       - supports-color
     dev: false
 
-  /@supabase/auth-helpers-nextjs@0.6.1(@supabase/supabase-js@2.39.3):
-    resolution: {integrity: sha512-ffDAR4pW2Cosj/CuuGRAhzOFfHtqzdgax7zqRGGyq334gxxPplsmJFGaLPRJ3Z/4mTSIJHyFd6LYdHMN0a+5Bw==}
+  /@supabase/auth-helpers-nextjs@0.8.7(@supabase/supabase-js@2.39.3):
+    resolution: {integrity: sha512-iYdOjFo0GkRvha340l8JdCiBiyXQuG9v8jnq7qMJ/2fakrskRgHTCOt7ryWbip1T6BExcWKC8SoJrhCzPOxhhg==}
     peerDependencies:
-      '@supabase/supabase-js': ^2.0.4
+      '@supabase/supabase-js': ^2.19.0
     dependencies:
-      '@supabase/auth-helpers-shared': 0.3.4(@supabase/supabase-js@2.39.3)
+      '@supabase/auth-helpers-shared': 0.6.3(@supabase/supabase-js@2.39.3)
+      '@supabase/supabase-js': 2.39.3
+      set-cookie-parser: 2.6.0
+    dev: false
+
+  /@supabase/auth-helpers-react@0.4.2(@supabase/supabase-js@2.39.3):
+    resolution: {integrity: sha512-zRj1leYMKJVYQeHFvZiUzlmHM+ATWFR/V7Q9F0yXSWEnMcNHL0CKnIBqhkjtSQ2trE+YaoCvFEHjxISppxIZXQ==}
+    peerDependencies:
+      '@supabase/supabase-js': ^2.19.0
+    dependencies:
       '@supabase/supabase-js': 2.39.3
     dev: false
 
-  /@supabase/auth-helpers-react@0.3.1(@supabase/supabase-js@2.39.3):
-    resolution: {integrity: sha512-g3SFv08Dz9FapNif/ZY1b7qKGlMJDyTLSayHBz3kb3FuYxg7aLWgQtydDhm5AGbc0XtvpIBuhGTIOVevwpdosA==}
+  /@supabase/auth-helpers-shared@0.6.3(@supabase/supabase-js@2.39.3):
+    resolution: {integrity: sha512-xYQRLFeFkL4ZfwC7p9VKcarshj3FB2QJMgJPydvOY7J5czJe6xSG5/wM1z63RmAzGbCkKg+dzpq61oeSyWiGBQ==}
     peerDependencies:
-      '@supabase/supabase-js': ^2.0.4
-    dependencies:
-      '@supabase/supabase-js': 2.39.3
-    dev: false
-
-  /@supabase/auth-helpers-shared@0.3.4(@supabase/supabase-js@2.39.3):
-    resolution: {integrity: sha512-8I3D0SPHHexkFTSfPg0nZgJSVazWoB3tZDpT6IjRv6w89vDMUzO99Lit4H9anVLF4teW8c/nJJxawDNbDlgbgg==}
-    peerDependencies:
-      '@supabase/supabase-js': ^2.0.4
+      '@supabase/supabase-js': ^2.19.0
     dependencies:
       '@supabase/supabase-js': 2.39.3
       jose: 4.15.4
@@ -7403,6 +7404,10 @@ packages:
       no-case: 3.0.4
       tslib: 2.6.2
       upper-case-first: 2.0.2
+    dev: false
+
+  /set-cookie-parser@2.6.0:
+    resolution: {integrity: sha512-RVnVQxTXuerk653XfuliOxBP81Sf0+qfQE73LIYKcyMYHG94AuH0kgrQpRDuTZnSmjpysHmzxJXKNfa6PjFhyQ==}
     dev: false
 
   /set-function-length@1.2.0:
