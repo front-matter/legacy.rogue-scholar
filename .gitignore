@@ -46,7 +46,7 @@ dist/**
 simplelocalize.yml
 /cypress/screenshots/**/*
 /cypress/downloads/**/*
-
+/public/epub
 .sentryclirc
 /docs/.quarto
 /docs/_site
