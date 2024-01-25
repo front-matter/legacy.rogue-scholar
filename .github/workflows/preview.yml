@@ -31,7 +31,6 @@ jobs:
         with:
           config-file: cypress.config.ts
           build: pnpm run build
-          install: false
           config: defaultCommandTimeout=5000
           start: pnpm run dev
           wait-on: 'http://localhost:3000'
