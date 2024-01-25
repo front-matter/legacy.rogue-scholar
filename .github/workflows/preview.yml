@@ -40,6 +40,7 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           config-file: cypress.config.ts
+          build: pnpm run build
           install: false
           config: defaultCommandTimeout=5000
           start: pnpm run dev
