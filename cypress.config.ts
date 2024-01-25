@@ -1,7 +1,7 @@
 import { defineConfig } from "cypress"
 
 export default defineConfig({
-  projectId: "hp59u9",
+  projectId: "66vv8z",
   video: false,
   retries: 3,
   e2e: {
