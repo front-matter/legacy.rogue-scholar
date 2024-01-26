@@ -58,6 +58,14 @@ export const isOrcid = (orcid: any) => {
   }
 }
 
+export const isROR = (ror: any) => {
+  try {
+    return new URL(ror).hostname === "ror.org"
+  } catch (error) {
+    return false
+  }
+}
+
 // from @extractus/feed-extractor
 export const toISODateString = (dstr) => {
   try {

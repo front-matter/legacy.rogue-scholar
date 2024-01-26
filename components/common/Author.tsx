@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react"
 import Link from "next/link"
 import React from "react"
 
-import { isOrcid } from "@/lib/helpers"
+import { isOrcid, isROR } from "@/lib/helpers"
 
 type Props = {
   name: string
@@ -17,7 +17,7 @@ export const Author: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <>
-      {url && isOrcid(url) ? (
+      {url && isOrcid(url) && (
         <span>
           <Link
             href={url}
@@ -32,7 +32,24 @@ export const Author: React.FunctionComponent<Props> = ({
           </Link>
           {isLast ? "" : ", "}
         </span>
-      ) : (
+      )}
+      {url && isROR(url) && (
+        <span>
+          <Link
+            href={url}
+            target="_blank"
+            className="text-gray-500 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100"
+          >
+            {name}
+            <Icon
+              icon="academicons:ror"
+              className="ml-0.5 inline text-[#2c2c2c]"
+            />
+          </Link>
+          {isLast ? "" : ", "}
+        </span>
+      )}
+      {!url && (
         <span className="text-gray-500 dark:text-gray-200">
           {name}
           {isLast ? "" : ", "}
