@@ -112,7 +112,7 @@ export interface BlogType extends FeedData {
   authors?: AuthorType[]
   funding?: FundingType
   plan?: string
-  use_mastodon?: boolean
+  mastodon?: string
   use_api?: boolean
   relative_url?: string
   filter?: string

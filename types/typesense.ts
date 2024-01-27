@@ -37,7 +37,7 @@ export interface BlogType extends DocumentSchema {
   archive_prefix?: string
   feed_format?: string
   home_page_url?: string
-  use_mastodon?: boolean
+  mastodon?: string
   created_at?: number
   updated_at?: number
   license?: string

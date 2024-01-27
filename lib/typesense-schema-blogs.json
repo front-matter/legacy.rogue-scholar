@@ -116,10 +116,10 @@
       "index": true,
       "infix": false,
       "locale": "",
-      "name": "use_mastodon",
+      "name": "mastodon",
       "optional": true,
       "sort": false,
-      "type": "bool"
+      "type": "string"
     },
     {
       "facet": false,

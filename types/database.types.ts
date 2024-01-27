@@ -42,7 +42,7 @@ export interface Database {
           title: string | null
           updated_at: number
           use_api: boolean | null
-          use_mastodon: boolean | null
+          mastodon: string | null
           user_id: string | null
           version: Database["public"]["Enums"]["version_enum"]
         }
@@ -78,7 +78,7 @@ export interface Database {
           title?: string | null
           updated_at?: number
           use_api?: boolean | null
-          use_mastodon?: boolean | null
+          mastodon?: string | null
           user_id?: string | null
           version?: Database["public"]["Enums"]["version_enum"]
         }
@@ -114,7 +114,7 @@ export interface Database {
           title?: string | null
           updated_at?: number
           use_api?: boolean | null
-          use_mastodon?: boolean | null
+          mastodon?: string | null
           user_id?: string | null
           version?: Database["public"]["Enums"]["version_enum"]
         }

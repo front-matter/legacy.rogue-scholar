@@ -141,10 +141,10 @@ export const Blogs: React.FunctionComponent<Props> = ({
                         </Link>
                       </span>
                     )}
-                  {blog.use_mastodon && (
+                  {blog.mastodon && (
                     <span className="-ml-px text-gray-500 dark:text-gray-200">
                       <Link
-                        href={"https://rogue-scholar.social/@" + blog.slug}
+                        href={blog.mastodon}
                         target="_blank"
                         className="relative mr-6 w-0 py-2 text-base font-medium"
                       >
