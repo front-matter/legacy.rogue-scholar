@@ -129,7 +129,7 @@ export default function BlogFormModal({
       closeOnOverlayClick={false}
     >
       <ModalOverlay />
-      <ModalContent minWidth="900px" maxHeight="720px">
+      <ModalContent minWidth="940px" maxHeight="720px">
         <ModalHeader bg={headerBg} roundedTop="lg" px={8}>
           {blog && blog.home_page_url
             ? t("blogs.form.edit.title")
