@@ -6,7 +6,7 @@
   "blogs.form.controls.feed_url": "URL del feed",
   "blogs.form.controls.home_page_url": "URL della homepage",
   "blogs.form.controls.id": "ID",
-  "blogs.form.controls.mastodon": "Annunciare nuovi post su Mastodon?",
+  "blogs.form.controls.mastodon": "Account Mastodon (opzionale)",
   "blogs.form.controls.title": "Titolo",
   "blogs.form.edit.title": "Modifica blog",
   "blogs.form.errorMessage": "Si è verificato un errore durante il tentativo di salvare il blog. Per favore riprova.",

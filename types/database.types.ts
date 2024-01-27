@@ -308,7 +308,7 @@ export interface Database {
         | "Quarto"
         | "PubPub"
         | "Drupal"
-      language_enum: "en" | "de" | "es" | "it" | "pt" | "fr"
+      language_enum: "en" | "de" | "es" | "it" | "pt" | "fr" | "tr"
       license: "https://creativecommons.org/licenses/by/4.0/legalcode"
       newsletter_enum: "digest"
       plan_enum: "Starter" | "Team" | "Enterprise"

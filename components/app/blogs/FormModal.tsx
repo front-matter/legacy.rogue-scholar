@@ -51,6 +51,7 @@ export default function BlogFormModal({
     title: string
     home_page_url: string
     category: string
+    mastodon: string
     status: string
     user_id: string
   }>()
@@ -66,6 +67,7 @@ export default function BlogFormModal({
     setValue("title", blog.title)
     setValue("home_page_url", blog.home_page_url)
     setValue("category", blog.category)
+    setValue("mastodon", blog.mastodon)
     setValue("status", blog.status)
     setValue("user_id", blog.user_id)
   }, [blog]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -334,6 +336,15 @@ export default function BlogFormModal({
                     {t("categories.otherHumanities", { ns: "common" })}
                   </option>
                 </Select>
+              </FormControl>
+
+              {/* Mastodon field */}
+              <FormControl>
+                <FormLabel>{t("blogs.form.controls.mastodon")}</FormLabel>
+                <Input
+                  type="text"
+                  {...register("mastodon")}
+                />
               </FormControl>
               <div className="mb-2 text-base">
                 Please contact{" "}
