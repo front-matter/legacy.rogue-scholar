@@ -2,6 +2,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  FormHelperText,
   Input,
   Modal,
   ModalBody,
@@ -128,7 +129,7 @@ export default function BlogFormModal({
       closeOnOverlayClick={false}
     >
       <ModalOverlay />
-      <ModalContent minWidth="900px">
+      <ModalContent minWidth="900px" maxHeight="720px">
         <ModalHeader bg={headerBg} roundedTop="lg" px={8}>
           {blog && blog.home_page_url
             ? t("blogs.form.edit.title")
@@ -336,6 +337,7 @@ export default function BlogFormModal({
                     {t("categories.otherHumanities", { ns: "common" })}
                   </option>
                 </Select>
+                <FormHelperText>{t("helper.category")}</FormHelperText>
               </FormControl>
 
               {/* Mastodon field */}
@@ -345,6 +347,7 @@ export default function BlogFormModal({
                   type="text"
                   {...register("mastodon")}
                 />
+                <FormHelperText>{t("helper.mastodon")}</FormHelperText>
               </FormControl>
               <div className="mb-2 text-base">
                 Please contact{" "}
