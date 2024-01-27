@@ -150,15 +150,17 @@ export default function BlogsList() {
             <Skeleton rounded="lg" height="32px" />
             <Skeleton rounded="lg" height="32px" />
             <Skeleton rounded="lg" height="32px" />
+            <Skeleton rounded="lg" height="32px" />
           </Stack>
         ) : (
           <Table className="table-fixed">
             <Thead borderBottom="1px solid" borderColor={tableBorderColor}>
               <Tr>
                 <Th className="w-4/12">{t("blogs.list.columns.title")}</Th>
-                <Th className="w-8/12">
+                <Th className="w-6/12">
                   {t("blogs.list.columns.home_page_url")}
                 </Th>
+                <Th className="w-3/12">{t("blogs.list.columns.mastodon")}</Th>
                 <Th className="w-2/12">{t("blogs.list.columns.status")}</Th>
                 <Th className="w-1/12"></Th>
               </Tr>
@@ -200,6 +202,22 @@ export default function BlogsList() {
                       {!blog.slug && (
                         <span className="text-orange-600 dark:text-gray-200">
                           {t("blogs.untitled")}
+                        </span>
+                      )}
+                    </Td>
+                    <Td>
+                      {blog.mastodon && (
+                        <Link
+                          className="hover:font-semibold"
+                          href={blog.mastodon}
+                          target="_blank"
+                        >
+                          {blog.mastodon}
+                        </Link>
+                      )}
+                      {!blog.home_page_url && (
+                        <span className="text-orange-600 dark:text-gray-200">
+                          {t("blogs.missing")}
                         </span>
                       )}
                     </Td>

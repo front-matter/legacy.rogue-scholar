@@ -1,4 +1,5 @@
 import { i18n } from "@/next-i18next.config"
+import { tr } from "date-fns/locale"
 
 export const localeNames = {
   de: "Deutsch",
@@ -7,6 +8,7 @@ export const localeNames = {
   fr: "Français",
   it: "Italiano",
   pt: "Português",
+  tr: "Türkçe",
 }
 
 export type LocaleCode = keyof typeof localeNames
@@ -20,6 +22,7 @@ export const localeCurrencies = {
   fr: "EUR",
   it: "EUR",
   pt: "EUR",
+  tr: "TRY",
 }
 
 export const defaultCurrency = localeCurrencies[defaultLocale]

@@ -1,0 +1,14 @@
+{
+  "account": "Hesap",
+  "changeMyPassword": "Şifremi değiştir",
+  "manageSubscription": "Aboneliği yönet",
+  "newsletter.description": "Rogue Scholar blog yazılarının haftalık özeti (Çarşamba).",
+  "newsletter.title": "Haber Bülteni",
+  "password": "Şifre",
+  "subscription.currentlySubscribed": "Şu anda aşağıdaki plana abonesiniz:",
+  "subscription.notSubscribed": "Şu anda bir plana abone değilsiniz.",
+  "subscription.title": "Abonelik",
+  "updateUserName.errorMessage": "Adınız güncellenemedi. Lütfen tekrar deneyin.",
+  "updateUserName.successMessage": "İsminiz güncellendi.",
+  "upgradeAccount": "Hesap yükseltme"
+}
