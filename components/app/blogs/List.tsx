@@ -67,6 +67,8 @@ export default function BlogsList() {
       }
     }
   )
+  console.log(user.id)
+  console.log(process.env.NEXT_PUBLIC_SUPABASE_ADMIN_USER_ID)
   const slug = generateBlogSlug()
   const newBlog = {
     slug: slug,
@@ -160,7 +162,7 @@ export default function BlogsList() {
                 <Th className="w-6/12">
                   {t("blogs.list.columns.home_page_url")}
                 </Th>
-                <Th className="w-3/12">{t("blogs.list.columns.mastodon")}</Th>
+                <Th className="w-2/12">{t("blogs.list.columns.mastodon")}</Th>
                 <Th className="w-2/12">{t("blogs.list.columns.status")}</Th>
                 <Th className="w-1/12"></Th>
               </Tr>
@@ -212,7 +214,7 @@ export default function BlogsList() {
                           href={blog.mastodon}
                           target="_blank"
                         >
-                          {blog.mastodon}
+                          <Icon icon="fa6-brands:mastodon" className="inline" />
                         </Link>
                       )}
                       {!blog.home_page_url && (
