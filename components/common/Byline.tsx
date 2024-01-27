@@ -22,7 +22,7 @@ export const Byline: React.FunctionComponent<Props> = ({ post, blog }) => {
   return (
     <div className="text-base font-medium text-gray-500 dark:text-gray-200">
       {post.published_at && (
-        <div>
+        <div data-cy="published">
           {t("posts.published")}{" "}
           <time dateTime={toISODate(post.published_at).toString()}>
             {t("posts.date_published", {
@@ -33,7 +33,7 @@ export const Byline: React.FunctionComponent<Props> = ({ post, blog }) => {
             })}
           </time>
           {!blog && (
-            <span>
+            <span data-cy="blog_name">
               {" "}
               in{" "}
               <Link

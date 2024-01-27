@@ -172,13 +172,18 @@ export default function BlogsList() {
                 blogs?.map((blog) => (
                   <Tr key={`blog-${blog.id}`}>
                     <Td>
-                      {blog.title && (
+                      {blog.title && blog.status !== "submitted" && (
                         <Link
                           className="hover:font-semibold"
                           href={`/blogs/${blog.slug}`}
                         >
                           {blog.title}
                         </Link>
+                      )}
+                      {blog.status == "submitted" && (
+                        <span className="text-orange-600 dark:text-gray-200">
+                          {blog.title}
+                        </span>
                       )}
                       {!blog.title && (
                         <span className="text-orange-600 dark:text-gray-200">

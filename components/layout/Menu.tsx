@@ -35,6 +35,7 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
       direction={mobileMode ? "column" : "row"}
       spacing={4}
       align={mobileMode ? "start" : "center"}
+      data-cy="nav-menu"
     >
       {menuItems.map((item, i) => (
         <Button

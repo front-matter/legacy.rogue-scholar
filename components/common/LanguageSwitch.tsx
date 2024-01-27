@@ -34,6 +34,7 @@ export default function LanguageSwitch() {
         size="sm"
         icon={<Icon icon="fa6-solid:earth-americas" />}
         aria-label={t("language")}
+        data-cy="language-switch"
       ></MenuButton>
       <MenuList>
         <MenuOptionGroup
@@ -43,7 +44,7 @@ export default function LanguageSwitch() {
           type="radio"
         >
           {locales?.map((locale: string) => (
-            <MenuItemOption key={`locale-${locale}`} as="a" value={locale}>
+            <MenuItemOption key={`locale-${locale}`} as="a" value={locale} data-cy={locale}>
               {localeNames[locale as LocaleCode]}
             </MenuItemOption>
           ))}

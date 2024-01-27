@@ -77,6 +77,7 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
                     size="sm"
                     colorScheme="primary"
                     variant="outline"
+                    data-cy="signin"
                   >
                     {t("signIn")}
                   </Button>

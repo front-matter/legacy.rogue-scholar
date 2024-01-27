@@ -58,6 +58,7 @@ export default function SigninModeSwitch({
             textDecoration: "none",
             color: mode.key === activeMode ? "primary.500" : "primary.600",
           }}
+          data-cy={mode.key}
         >
           {mode.title}
         </Box>
