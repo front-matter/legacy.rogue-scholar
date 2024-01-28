@@ -4,30 +4,25 @@ import {
   Heading,
   HStack,
   IconButton,
-  Skeleton,
-  Stack,
   Table,
   Tbody,
   Td,
   Text,
   Th,
   Thead,
-  // Tooltip,
   Tr,
   useColorModeValue,
   useDisclosure,
-  useToast,
   VStack,
 } from "@chakra-ui/react"
 import { Icon } from "@iconify/react"
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
 
 import BlogFormModal from "@/components/app/blogs/FormModal"
-import ConfirmModal from "@/components/app/ConfirmModal"
 import { generateBlogSlug } from "@/lib/helpers"
 import { Database } from "@/types/supabase"
 
@@ -36,13 +31,10 @@ type Blog = Database["public"]["Tables"]["blogs"]["Row"]
 export default function BlogsList() {
   const supabaseClient = useSupabaseClient<Database>()
   const user = useUser() || { id: "" }
-  const queryClient = useQueryClient()
   const { t } = useTranslation("app")
-  const toast = useToast()
   const formModal = useDisclosure()
-  const confirmModal = useDisclosure()
   const [selectedBlog, setSelectedBlog] = useState<Blog>()
-  const { data: blogs, isLoading: loadingBlogs } = useQuery(
+  const { data: blogs } = useQuery(
     ["blogs"],
     async () => {
       if (user?.id === process.env.NEXT_PUBLIC_SUPABASE_ADMIN_USER_ID) {
@@ -67,8 +59,6 @@ export default function BlogsList() {
       }
     }
   )
-  console.log(user.id)
-  console.log(process.env.NEXT_PUBLIC_SUPABASE_ADMIN_USER_ID)
   const slug = generateBlogSlug()
   const newBlog = {
     slug: slug,
@@ -86,41 +76,6 @@ export default function BlogsList() {
       formModal.onOpen()
     },
     [formModal, setSelectedBlog]
-  )
-
-  // const openDeleteConfirm = useCallback(
-  //   (blog: Blog |  ) => {
-  //     setSelectedBlog(blog)
-  //     confirmModal.onOpen()
-  //   },
-  //   [confirmModal, setSelectedBlog]
-  // )
-
-  const deleteBlogMutation = useMutation(
-    async (id: string) => {
-      if (!id) return
-      const { error } = await supabaseClient.from("blogs").delete().eq("id", id)
-
-      if (error) throw new Error("Could not delete blog")
-    },
-    {
-      // reset blog after request
-      onSettled: () => setSelectedBlog(blogs?.[0]),
-      // show toast on error
-      onError: () =>
-        toast({
-          status: "error",
-          title: t("deleteBlog.errorMessage"),
-        }),
-      // show toast on success and refetch blogs
-      onSuccess: () => {
-        toast({
-          status: "success",
-          title: t("deleteBlog.successMessage"),
-        })
-        queryClient.invalidateQueries(["blogs"])
-      },
-    }
   )
 
   return (
@@ -146,145 +101,124 @@ export default function BlogsList() {
         maxW="full"
         overflow="auto"
       >
-        {loadingBlogs && !blogs ? (
-          <Stack w="full" p={4}>
-            <Skeleton rounded="lg" height="24px" />
-            <Skeleton rounded="lg" height="32px" />
-            <Skeleton rounded="lg" height="32px" />
-            <Skeleton rounded="lg" height="32px" />
-            <Skeleton rounded="lg" height="32px" />
-          </Stack>
-        ) : (
-          <Table className="table-fixed">
-            <Thead borderBottom="1px solid" borderColor={tableBorderColor}>
-              <Tr>
-                <Th className="w-4/12">{t("blogs.list.columns.title")}</Th>
-                <Th className="w-6/12">
-                  {t("blogs.list.columns.home_page_url")}
-                </Th>
-                <Th className="w-2/12">{t("blogs.list.columns.mastodon")}</Th>
-                <Th className="w-2/12">{t("blogs.list.columns.status")}</Th>
-                <Th className="w-1/12"></Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {blogs && blogs.length > 0 ? (
-                blogs?.map((blog) => (
-                  <Tr key={`blog-${blog.id}`}>
-                    <Td>
-                      {blog.title && blog.status !== "submitted" && (
-                        <Link
-                          className="hover:font-semibold"
-                          href={`/blogs/${blog.slug}`}
-                        >
-                          {blog.title}
-                        </Link>
-                      )}
-                      {blog.status == "submitted" && (
-                        <span className="text-orange-600 dark:text-gray-200">
-                          {blog.title}
-                        </span>
-                      )}
-                      {!blog.title && (
-                        <span className="text-orange-600 dark:text-gray-200">
-                          {t("blogs.missing")}
-                        </span>
-                      )}
-                    </Td>
-                    <Td>
-                      {blog.home_page_url && (
-                        <Link
-                          className="hover:font-semibold"
-                          href={blog.home_page_url}
-                          target="_blank"
-                        >
-                          {blog.home_page_url}
-                        </Link>
-                      )}
-                      {!blog.home_page_url && (
-                        <span className="text-orange-600 dark:text-gray-200">
-                          {t("blogs.missing")}
-                        </span>
-                      )}
-                      {!blog.slug && (
-                        <span className="text-orange-600 dark:text-gray-200">
-                          {t("blogs.untitled")}
-                        </span>
-                      )}
-                    </Td>
-                    <Td>
-                      {blog.mastodon && (
-                        <Link
-                          className="hover:font-semibold"
-                          href={blog.mastodon}
-                          target="_blank"
-                        >
-                          <Icon icon="fa6-brands:mastodon" className="inline" />
-                        </Link>
-                      )}
-                      {!blog.home_page_url && (
-                        <span className="text-orange-600 dark:text-gray-200">
-                          {t("blogs.missing")}
-                        </span>
-                      )}
-                    </Td>
-                    <Td>
-                      {blog.status == "submitted" && (
-                        <span className="text-orange-600 dark:text-gray-200">
-                          {t("status." + blog.status)}
-                        </span>
-                      )}
-                      {blog.status != "submitted" && (
-                        <span className="text-gray-700 dark:text-gray-200">
-                          {t("status." + blog.status)}
-                        </span>
-                      )}
-                    </Td>
-                    <Td>
-                      <HStack justify="end" spacing={1}>
-                        <IconButton
-                          size="sm"
-                          colorScheme="primary"
-                          variant="ghost"
-                          icon={<Icon icon="fa6-solid:pen-to-square" />}
-                          aria-label={t("blogs.list.edit")}
-                          onClick={() => openBlogForm(blog)}
-                        />
-                      </HStack>
-                    </Td>
-                  </Tr>
-                ))
-              ) : (
-                <Tr>
-                  <Td colSpan={99}>
-                    <VStack textAlign="center" p={6}>
-                      <Heading fontSize="lg">
-                        {t("blogs.list.noResults")}
-                      </Heading>
-                      <Text opacity={0.5}>{t("blogs.list.empty")}</Text>
-                    </VStack>
+        <Table className="table-fixed">
+          <Thead borderBottom="1px solid" borderColor={tableBorderColor}>
+            <Tr>
+              <Th className="w-4/12">{t("blogs.list.columns.title")}</Th>
+              <Th className="w-6/12">
+                {t("blogs.list.columns.home_page_url")}
+              </Th>
+              <Th className="w-2/12">{t("blogs.list.columns.mastodon")}</Th>
+              <Th className="w-2/12">{t("blogs.list.columns.status")}</Th>
+              <Th className="w-1/12"></Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {blogs && blogs.length > 0 ? (
+              blogs?.map((blog) => (
+                <Tr key={`blog-${blog.id}`}>
+                  <Td>
+                    {blog.title && blog.status !== "submitted" && (
+                      <Link
+                        className="hover:font-semibold"
+                        href={`/blogs/${blog.slug}`}
+                      >
+                        {blog.title}
+                      </Link>
+                    )}
+                    {blog.status == "submitted" && (
+                      <span className="text-orange-600 dark:text-gray-200">
+                        {blog.title}
+                      </span>
+                    )}
+                    {!blog.title && (
+                      <span className="text-orange-600 dark:text-gray-200">
+                        {t("blogs.missing")}
+                      </span>
+                    )}
+                  </Td>
+                  <Td>
+                    {blog.home_page_url && (
+                      <Link
+                        className="hover:font-semibold"
+                        href={blog.home_page_url}
+                        target="_blank"
+                      >
+                        {blog.home_page_url}
+                      </Link>
+                    )}
+                    {!blog.home_page_url && (
+                      <span className="text-orange-600 dark:text-gray-200">
+                        {t("blogs.missing")}
+                      </span>
+                    )}
+                    {!blog.slug && (
+                      <span className="text-orange-600 dark:text-gray-200">
+                        {t("blogs.untitled")}
+                      </span>
+                    )}
+                  </Td>
+                  <Td>
+                    {blog.mastodon && (
+                      <Link
+                        className="hover:font-semibold"
+                        href={blog.mastodon}
+                        target="_blank"
+                      >
+                        <Icon icon="fa6-brands:mastodon" className="inline" />
+                      </Link>
+                    )}
+                    {!blog.home_page_url && (
+                      <span className="text-orange-600 dark:text-gray-200">
+                        {t("blogs.missing")}
+                      </span>
+                    )}
+                  </Td>
+                  <Td>
+                    {blog.status == "submitted" && (
+                      <span className="text-orange-600 dark:text-gray-200">
+                        {t("status." + blog.status)}
+                      </span>
+                    )}
+                    {blog.status != "submitted" && (
+                      <span className="text-gray-700 dark:text-gray-200">
+                        {t("status." + blog.status)}
+                      </span>
+                    )}
+                  </Td>
+                  <Td>
+                    <HStack justify="end" spacing={1}>
+                      <IconButton
+                        size="sm"
+                        colorScheme="primary"
+                        variant="ghost"
+                        icon={<Icon icon="fa6-solid:pen-to-square" />}
+                        aria-label={t("blogs.list.edit")}
+                        onClick={() => openBlogForm(blog)}
+                      />
+                    </HStack>
                   </Td>
                 </Tr>
-              )}
-            </Tbody>
-          </Table>
-        )}
+              ))
+            ) : (
+              <Tr>
+                <Td colSpan={99}>
+                  <VStack textAlign="center" p={6}>
+                    <Heading fontSize="lg">
+                      {t("blogs.list.noResults")}
+                    </Heading>
+                    <Text opacity={0.5}>{t("blogs.list.empty")}</Text>
+                  </VStack>
+                </Td>
+              </Tr>
+            )}
+          </Tbody>
+        </Table>
       </Box>
       <BlogFormModal
         blog={selectedBlog}
         isOpen={formModal.isOpen}
         onClose={formModal.onClose}
-      />
-      <ConfirmModal
-        title={t("deleteBlogModal.title")}
-        description={t("deleteBlogModal.description")}
-        isDelete
-        isOpen={confirmModal.isOpen}
-        onClose={(confirmed) => {
-          if (confirmed && selectedBlog?.id)
-            deleteBlogMutation.mutate(selectedBlog.id)
-          confirmModal.onClose()
-        }}
       />
     </>
   )

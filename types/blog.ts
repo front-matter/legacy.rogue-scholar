@@ -59,6 +59,16 @@ export interface FundingType {
   award_uri?: string
 }
 
+export interface FormType {
+  slug: string
+  title?: string
+  home_page_url: string
+  category: string
+  mastodon?: string
+  status: string
+  user_id: string
+}
+
 export interface PostType {
   id: string
   guid?: string

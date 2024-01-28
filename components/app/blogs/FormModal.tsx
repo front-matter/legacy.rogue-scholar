@@ -11,8 +11,6 @@ import {
   ModalHeader,
   ModalOverlay,
   Select,
-  // Switch,
-  useColorModeValue,
   useToast,
   VStack,
 } from "@chakra-ui/react"
@@ -23,9 +21,11 @@ import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
+import validator from 'validator'
 
 import { CheckIcon } from "@/components/home/Pricing"
 import { Database } from "@/types/supabase"
+import { is } from "cypress/types/bluebird"
 
 export default function BlogFormModal({
   blog,
@@ -38,7 +38,6 @@ export default function BlogFormModal({
 }) {
   const supabaseClient = useSupabaseClient<Database>()
   const queryClient = useQueryClient()
-  const headerBg = useColorModeValue("gray.50", "gray.600")
   const { t } = useTranslation(["app", "common"])
   const toast = useToast()
   const {
@@ -77,6 +76,30 @@ export default function BlogFormModal({
     if (!isOpen) reset()
   }, [isOpen, reset])
 
+  const validateForm = (home_page_url: string, mastodon: string) => {
+      let isValid = true
+      const protocols = ['http', 'https']
+      if (!validator.isURL(home_page_url, { require_protocol: true, require_valid_protocol: true, protocols: protocols })) {
+        toast({
+          status: "error",
+          position: "top",
+          description: t("blogs.form.invalid.home_page_url"),
+        })
+        console.log("Invalid URL: " + home_page_url)
+        isValid = false
+      }
+      if (mastodon && !validator.isURL(mastodon, { require_protocol: true, require_valid_protocol: true, protocols: protocols })) {
+        toast({
+          status: "error",
+          position: "top",
+          description: t("blogs.form.invalid.mastodon"),
+        })
+        console.log("Invalid URL: " + mastodon)
+        isValid = false
+      }
+      return isValid
+  }
+    
   const upsertMutation = useMutation(
     async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
       const { error } = await supabaseClient.from("blogs").upsert(blog, {
@@ -105,7 +128,7 @@ export default function BlogFormModal({
         })
 
         // refetch blogs
-        queryClient.invalidateQueries(["blogs"])
+        queryClient.invalidateQueries()
 
         onClose()
       },
@@ -113,11 +136,18 @@ export default function BlogFormModal({
   )
 
   const onSubmit = handleSubmit(async (values) => {
+    if (!validateForm(values.home_page_url, values.mastodon)) {
+      return false
+    }
     await upsertMutation.mutateAsync({
       ...values,
       slug: (blog as any)?.slug || undefined,
     })
   })
+
+  const onCancel = () => {    
+    onClose()
+  }
 
   return (
     <Modal
@@ -129,13 +159,13 @@ export default function BlogFormModal({
       closeOnOverlayClick={false}
     >
       <ModalOverlay />
-      <ModalContent minWidth="940px" maxHeight="720px">
-        <ModalHeader bg={headerBg} roundedTop="lg" px={8}>
+      <ModalContent minWidth="900px" maxHeight="700px">
+        <ModalHeader>
           {blog && blog.home_page_url
             ? t("blogs.form.edit.title")
             : t("blogs.form.add.title")}
         </ModalHeader>
-        <ModalCloseButton top={4} right={6} />
+        <ModalCloseButton top={4} right={4} />
         <ModalBody>
           <div>
             <p className="mb-2 text-base font-semibold">
@@ -177,7 +207,7 @@ export default function BlogFormModal({
 
               {/* Category field */}
               <FormControl isRequired>
-                <FormLabel>{t("blogs.form.controls.category")}</FormLabel>
+                <FormLabel>{t("blogs.form.controls.category") + " (" + t("helper.category") + ")"}</FormLabel>
                 <Select {...register("category", { required: true })}>
                   <option value="naturalSciences">
                     {t("categories.naturalSciences", { ns: "common" })}
@@ -337,7 +367,6 @@ export default function BlogFormModal({
                     {t("categories.otherHumanities", { ns: "common" })}
                   </option>
                 </Select>
-                <FormHelperText>{t("helper.category")}</FormHelperText>
               </FormControl>
 
               {/* Mastodon field */}
@@ -349,7 +378,7 @@ export default function BlogFormModal({
                 />
                 <FormHelperText>{t("helper.mastodon")}</FormHelperText>
               </FormControl>
-              <div className="mb-2 text-base">
+              <div className="-mb-3">
                 Please contact{" "}
                 <Link
                   href="mailto:info@front-matter.io"
@@ -363,13 +392,17 @@ export default function BlogFormModal({
                 </Link>{" "}
                 if you have problems or questions.
               </div>
-              <Button
-                type="submit"
-                colorScheme="primary"
-                isLoading={isSubmitting}
-              >
-                {t("blogs.form.submitButton")}
-              </Button>
+              <div className="ml-auto mb-3">
+                <Button
+                  type="submit"
+                  colorScheme="primary"
+                  isLoading={isSubmitting}
+                  mr={3}
+                >
+                  {t("confirmModal.submit")}
+                </Button>
+                <Button colorScheme="gray" onClick={onCancel}>{t("confirmModal.cancel", { ns: "app" })}</Button>
+              </div>
             </VStack>
           </form>
         </ModalBody>
