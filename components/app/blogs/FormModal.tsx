@@ -15,7 +15,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { Icon } from "@iconify/react"
-import { useSupabaseClient } from "@supabase/auth-helpers-react"
+import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
@@ -25,19 +25,17 @@ import validator from 'validator'
 
 import { CheckIcon } from "@/components/home/Pricing"
 import { Database } from "@/types/supabase"
-import { is } from "cypress/types/bluebird"
+import { FormType } from "@/types/blog"
+import { generateBlogSlug } from "@/lib/helpers"
 
 export default function BlogFormModal({
   blog,
   isOpen,
   onClose,
-}: {
-  blog: null | any
-  isOpen: boolean
-  onClose: () => void
 }) {
   const supabaseClient = useSupabaseClient<Database>()
   const queryClient = useQueryClient()
+  const user = useUser() || { id: "" }
   const { t } = useTranslation(["app", "common"])
   const toast = useToast()
   const {
@@ -46,15 +44,14 @@ export default function BlogFormModal({
     reset,
     setValue,
     formState: { isSubmitting },
-  } = useForm<{
-    slug: string
-    title: string
-    home_page_url: string
-    category: string
-    mastodon: string
-    status: string
-    user_id: string
-  }>()
+  } = useForm<FormType>({defaultValues: {
+    slug: generateBlogSlug(), 
+    title: "", 
+    home_page_url: "",
+    category: "naturalSciences",
+    mastodon: "", 
+    status: "submitted", 
+    user_id: user?.id}})
 
   // when the modal is closed, reset the form
   useEffect(() => {
@@ -72,9 +69,9 @@ export default function BlogFormModal({
     setValue("user_id", blog.user_id)
   }, [blog]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    if (!isOpen) reset()
-  }, [isOpen, reset])
+  // useEffect(() => {
+  //   if (!isOpen) reset()
+  // }, [isOpen, reset])
 
   const validateForm = (home_page_url: string, mastodon: string) => {
       let isValid = true
@@ -107,8 +104,10 @@ export default function BlogFormModal({
         ignoreDuplicates: false,
       })
 
-      console.log(error)
-      if (error) throw new Error("Could not upsert blog")
+      if (error) {
+        console.log(error)
+        if (error) throw new Error("Could not upsert blog")
+      }
     },
     {
       onError: () => {
@@ -136,7 +135,7 @@ export default function BlogFormModal({
   )
 
   const onSubmit = handleSubmit(async (values) => {
-    if (!validateForm(values.home_page_url, values.mastodon)) {
+    if (!validateForm(values.home_page_url, values.mastodon || "")) {
       return false
     }
     await upsertMutation.mutateAsync({

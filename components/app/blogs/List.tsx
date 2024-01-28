@@ -23,7 +23,6 @@ import { useTranslation } from "next-i18next"
 import { useCallback, useState } from "react"
 
 import BlogFormModal from "@/components/app/blogs/FormModal"
-import { generateBlogSlug } from "@/lib/helpers"
 import { Database } from "@/types/supabase"
 
 type Blog = Database["public"]["Tables"]["blogs"]["Row"]
@@ -59,14 +58,6 @@ export default function BlogsList() {
       }
     }
   )
-  const slug = generateBlogSlug()
-  const newBlog = {
-    slug: slug,
-    title: "",
-    home_page_url: "",
-    feed_url: "",
-    user_id: user?.id,
-  }
   const tableBg = useColorModeValue("white", "gray.700")
   const tableBorderColor = useColorModeValue("gray.100", "gray.600")
 
@@ -87,7 +78,7 @@ export default function BlogsList() {
           size="sm"
           colorScheme="primary"
           leftIcon={<Icon icon="fa6-regular:square-plus" />}
-          onClick={() => openBlogForm(newBlog)}
+          onClick={() => openBlogForm({})}
         >
           {t("blogs.createButton")}
         </Button>
