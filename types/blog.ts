@@ -77,6 +77,7 @@ export interface PostType {
   archive_url?: string
   title?: string
   summary?: string
+  abstract?: string
   published_at?: number
   updated_at?: number
   indexed_at?: number

@@ -171,6 +171,7 @@ export interface Database {
           reference: Json | null
           relationships: Json
           summary: string
+          abstract: string | null
           tags: string[]
           title: string
           updated: boolean | null
@@ -196,6 +197,7 @@ export interface Database {
           reference?: Json | null
           relationships?: Json
           summary: string
+          abstract?: string | null
           tags: string[]
           title: string
           updated?: boolean | null
@@ -221,6 +223,7 @@ export interface Database {
           reference?: Json | null
           relationships?: Json
           summary?: string
+          abstract?: string | null
           tags?: string[]
           title?: string
           updated?: boolean | null

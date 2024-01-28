@@ -35,7 +35,7 @@ export async function getServerSideProps(ctx) {
   const searchParameters: PostSearchParams = {
     q: query,
     query_by:
-      "tags,title,doi,authors.name,authors.url,reference.url,summary,content_text",
+      "tags,title,doi,authors.name,authors.url,reference.url,abstract,summary,content_text",
     filter_by: filterBy,
     sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
     per_page: 10,

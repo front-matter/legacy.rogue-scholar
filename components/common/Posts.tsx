@@ -233,7 +233,12 @@ export const Posts: React.FunctionComponent<Props> = ({
                         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
                       </div>
                     )}
-                    {post.summary && (
+                    {post.abstract && (
+                      <p className="text-medium max-w-screen-sm font-serif leading-6 text-gray-900 dark:text-white">
+                        {parse(String(post.abstract))}
+                      </p>
+                    )}
+                    {!post.abstract && (
                       <p className="text-medium max-w-screen-sm font-serif leading-6 text-gray-900 dark:text-white">
                         {parse(String(post.summary))}
                       </p>

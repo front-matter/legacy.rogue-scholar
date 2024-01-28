@@ -14,6 +14,7 @@ export interface DocumentType extends DocumentSchema {
   guid?: string
   title?: string
   summary?: string
+  abstract?: string
   published_at?: number
   updated_at?: number
   authors?: AuthorType[]

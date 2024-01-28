@@ -91,6 +91,7 @@ export interface Database {
           reference?: ReferenceType[]
           relationships?: RelationshipType[]
           summary?: string
+          abstract?: string
           tags?: string[]
           title?: string
           url?: string
@@ -112,6 +113,7 @@ export interface Database {
           reference?: ReferenceType[]
           relationships?: RelationshipType[]
           summary?: string
+          abstract?: string
           tags?: string[]
           title?: string
           url?: string
@@ -133,6 +135,7 @@ export interface Database {
           reference?: ReferenceType[]
           relationships?: RelationshipType[]
           summary?: string
+          abstract?: string
           tags?: string[]
           title?: string
           url?: string

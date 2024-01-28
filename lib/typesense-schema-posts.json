@@ -46,6 +46,16 @@
       "index": true,
       "infix": false,
       "locale": "",
+      "name": "abstract",
+      "optional": true,
+      "sort": true,
+      "type": "string"
+    },
+    {
+      "facet": false,
+      "index": true,
+      "infix": false,
+      "locale": "",
       "name": "content_text",
       "optional": false,
       "sort": false,
