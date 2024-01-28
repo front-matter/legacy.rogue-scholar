@@ -2,7 +2,7 @@
 
 describe("rogue-scholar", () => {
   const languages = ["de","es", "fr", "it", "pt", "tr", "en", ]
-  const posts = {de: "Beiträge", es: "Publicaciones", fr: "Des postes", it: "Messaggi", pt: "Postagens", tr: "Mesajlar", en: "Posts"}
+  const posts = {de: "Beiträge", es: "Publicaciones", fr: "Des postes", it: "Messaggi", pt: "Postagens", tr: "Yazılar", en: "Posts"}
   
   beforeEach(() => {
     cy.viewport("ipad-2", "landscape")
