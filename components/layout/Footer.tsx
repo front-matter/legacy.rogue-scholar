@@ -44,7 +44,8 @@ export default function Footer() {
               <Icon icon="fa6-solid:envelope" className="inline" />
             </Link>
             <Link
-              href="https://rogue-scholar.social/@admin"
+              href="https://wisskomm.social/@rogue_scholar"
+              rel="me"
               className="border-b-0 text-lg hover:text-gray-400 dark:hover:text-gray-100"
             >
               <span className="sr-only">Mastodon</span>
