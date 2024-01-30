@@ -15,7 +15,7 @@ import {
   VStack,
 } from "@chakra-ui/react"
 import { Icon } from "@iconify/react"
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react"
+import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
@@ -90,6 +90,10 @@ export default function BlogFormModal({
     
   const upsertMutation = useMutation(
     async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
+      if (!blog.created_at) {
+        // current timestamp for new blogs
+        blog.created_at = Math.floor(Date.now() / 1000)
+      }
       const { error } = await supabaseClient.from("blogs").upsert(blog, {
         onConflict: "slug",
         ignoreDuplicates: false,
