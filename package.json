@@ -1,6 +1,6 @@
 {
-  "name": "rogue-scholar-web",
-  "version": "0.3.0",
+  "name": "rogue-scholar",
+  "version": "0.8.0",
   "private": true,
   "browserslist": "defaults, not ie <= 11",
   "scripts": {
