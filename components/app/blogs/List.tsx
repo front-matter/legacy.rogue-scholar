@@ -42,7 +42,7 @@ export default function BlogsList() {
           .from("blogs")
           .select("*")
           .order("status", { ascending: true })
-          .order("title", { ascending: true })
+          .order("created_at", { ascending: false })
 
         if (error) throw new Error("Failed to fetch blogs")
         return blogs
@@ -66,6 +66,7 @@ export default function BlogsList() {
     home_page_url: "",
     feed_url: "",
     user_id: user?.id,
+    created_at: Date.now(),
   }
   const tableBg = useColorModeValue("white", "gray.700")
   const tableBorderColor = useColorModeValue("gray.100", "gray.600")

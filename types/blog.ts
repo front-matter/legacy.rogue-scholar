@@ -67,6 +67,7 @@ export interface FormType {
   mastodon?: string
   status: string
   user_id: string
+  created_at: number
 }
 
 export interface PostType {

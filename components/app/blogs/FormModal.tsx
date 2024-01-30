@@ -12,6 +12,7 @@ import {
   ModalOverlay,
   Select,
   useToast,
+  VisuallyHiddenInput,
   VStack,
 } from "@chakra-ui/react"
 import { Icon } from "@iconify/react"
@@ -58,6 +59,7 @@ export default function BlogFormModal({
     setValue("mastodon", blog.mastodon)
     setValue("status", blog.status)
     setValue("user_id", blog.user_id)
+    setValue("created_at", blog.created_at)
   }, [blog]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // useEffect(() => {
@@ -90,10 +92,6 @@ export default function BlogFormModal({
     
   const upsertMutation = useMutation(
     async (blog: Database["public"]["Tables"]["blogs"]["Insert"]) => {
-      if (!blog.created_at) {
-        // current timestamp for new blogs
-        blog.created_at = Math.floor(Date.now() / 1000)
-      }
       const { error } = await supabaseClient.from("blogs").upsert(blog, {
         onConflict: "slug",
         ignoreDuplicates: false,
@@ -190,6 +188,7 @@ export default function BlogFormModal({
           {/*eslint-disable-next-line no-empty-function */}
           <form onSubmit={(e) => onSubmit(e).catch(() => {})}>
             <VStack align="stretch" spacing={6} mt={2}>
+              <VisuallyHiddenInput type="hidden" {...register("created_at", { required: true })} />
               {/* Home Page URL field */}
               <FormControl isRequired>
                 <FormLabel>{t("blogs.form.controls.home_page_url")}</FormLabel>
