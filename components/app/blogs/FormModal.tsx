@@ -26,7 +26,6 @@ import validator from 'validator'
 import { CheckIcon } from "@/components/home/Pricing"
 import { Database } from "@/types/supabase"
 import { FormType } from "@/types/blog"
-import { generateBlogSlug } from "@/lib/helpers"
 
 export default function BlogFormModal({
   blog,
@@ -35,7 +34,6 @@ export default function BlogFormModal({
 }) {
   const supabaseClient = useSupabaseClient<Database>()
   const queryClient = useQueryClient()
-  const user = useUser() || { id: "" }
   const { t } = useTranslation(["app", "common"])
   const toast = useToast()
   const {
@@ -44,14 +42,7 @@ export default function BlogFormModal({
     reset,
     setValue,
     formState: { isSubmitting },
-  } = useForm<FormType>({defaultValues: {
-    slug: generateBlogSlug(), 
-    title: "", 
-    home_page_url: "",
-    category: "naturalSciences",
-    mastodon: "", 
-    status: "submitted", 
-    user_id: user?.id}})
+  } = useForm<FormType>()
 
   // when the modal is closed, reset the form
   useEffect(() => {
