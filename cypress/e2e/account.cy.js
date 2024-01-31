@@ -15,4 +15,15 @@ describe("rogue-scholar", () => {
     cy.get('[data-cy="password"]').click()
     cy.get('button[type="submit"]').contains("Sign in")
   })
+
+  it("login", function () {
+    cy.login(Cypress.env("supabase_email"), Cypress.env("supabase_password"))
+    cy.get("p.chakra-text").contains("This is a private page that shows the blogs managed by you.")
+  })
+
+  // it("login wrong password", function () {
+  //   cy.login(Cypress.env("supabase_email"), "wrongpassword")
+
+  //   cy.get("p.chakra-text").contains("This is a private page that shows the blogs managed by you.")
+  // })
 })

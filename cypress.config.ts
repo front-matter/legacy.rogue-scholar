@@ -1,3 +1,4 @@
+require('dotenv').config()
 import { defineConfig } from "cypress"
 
 export default defineConfig({
@@ -9,4 +10,10 @@ export default defineConfig({
     baseUrl: "http://localhost:3000",
     specPattern: 'cypress/e2e/**/*.cy.js',
   },
+  env: {
+    supabase_email: process.env.SUPABASE_EMAIL,
+    supabase_password: process.env.SUPABASE_PASSWORD,
+    supabase_hostname: process.env.SUPABASE_HOSTNAME,
+  },
+    
 })

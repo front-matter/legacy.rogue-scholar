@@ -148,7 +148,30 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
               </span>
             )}
             <span className="font-medium text-gray-500 dark:text-gray-200">
-              <Icon icon="fa6-regular:calendar-check" className="inline" />
+              <Icon
+                icon="mdi:calendar-plus"
+                className="inline"
+              />
+              <time
+                className="ml-2 mr-6"
+                dateTime={formatISO(
+                  fromUnixTime(blog.created_at as number)
+                )}
+              >
+                {t("posts.date_published", {
+                  val: new Date((blog.created_at as number) * 1000),
+                  formatParams: {
+                    val: {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    },
+                  },
+                })}
+              </time>
+            </span>
+            <span className="font-medium text-gray-500 dark:text-gray-200">
+              <Icon icon="mdi:calendar-sync" className="inline" />
               <time
                 className="ml-2 mr-6"
                 dateTime={formatISO(fromUnixTime(blog.updated_at as number))}

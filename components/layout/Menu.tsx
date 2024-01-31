@@ -47,6 +47,7 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
           variant="link"
           fontWeight="normal"
           color={menuItemColor}
+          data-cy="user-button"
         >
           {item.label}
         </Button>

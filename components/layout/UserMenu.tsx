@@ -35,6 +35,7 @@ export default function UserMenu() {
         icon={<Icon icon="fa6-solid:user" />}
         rounded="full"
         colorScheme="primary"
+        data-cy="user-menu-button"
       />
       <MenuList>
         <MenuGroup title={t("userMenu.message", { user: userName })}>
