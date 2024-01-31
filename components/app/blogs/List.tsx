@@ -66,7 +66,7 @@ export default function BlogsList() {
     home_page_url: "",
     feed_url: "",
     user_id: user?.id,
-    created_at: Date.now(),
+    created_at: Math.floor(Date.now() / 1000),
   }
   const tableBg = useColorModeValue("white", "gray.700")
   const tableBorderColor = useColorModeValue("gray.100", "gray.600")
@@ -134,7 +134,7 @@ export default function BlogsList() {
                     )}
                     {!blog.title && (
                       <span className="text-orange-600 dark:text-gray-200">
-                        {t("blogs.missing")}
+                        {t("status.submitted")}
                       </span>
                     )}
                   </Td>
