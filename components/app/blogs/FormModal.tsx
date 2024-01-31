@@ -1,3 +1,4 @@
+import React from "react"
 import {
   Button,
   FormControl,
@@ -141,14 +142,17 @@ export default function BlogFormModal({
     onClose()
   }
 
+  const initialRef = React.useRef(null)
+
   return (
     <Modal
       isOpen={isOpen}
       onClose={onClose}
       isCentered
       scrollBehavior="inside"
-      closeOnEsc={false}
+      closeOnEsc={true}
       closeOnOverlayClick={false}
+      initialFocusRef={initialRef}
     >
       <ModalOverlay />
       <ModalContent minWidth="900px" maxHeight="700px">

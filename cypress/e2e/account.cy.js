@@ -21,6 +21,18 @@ describe("rogue-scholar", () => {
     cy.get("p.chakra-text").contains("This is a private page that shows the blogs managed by you.")
   })
 
+  it("register blog", function () {
+    cy.login(Cypress.env("supabase_email"), Cypress.env("supabase_password"))
+    cy.get("p.chakra-text").contains("This is a private page that shows the blogs managed by you.")
+    cy.get('[data-cy="create-blog-button"]').click()
+    cy.get('input[name=home_page_url]').type(`https://roguescholar.xyz{enter}`)
+    cy.url().should("eq", "http://localhost:3000/app")
+    cy.get('table tbody tr:nth-child(1)').contains("roguescholar.xyz")
+
+    cy.get('[data-cy="edit-blog-button"]').first().click()
+    cy.get('input[name=home_page_url]').type(`{enter}`)
+  })
+
   // it("login wrong password", function () {
   //   cy.login(Cypress.env("supabase_email"), "wrongpassword")
 

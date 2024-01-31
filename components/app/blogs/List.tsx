@@ -89,6 +89,7 @@ export default function BlogsList() {
           colorScheme="primary"
           leftIcon={<Icon icon="fa6-regular:square-plus" />}
           onClick={() => openBlogForm(newBlog)}
+          data-cy="create-blog-button"
         >
           {t("blogs.createButton")}
         </Button>
@@ -196,6 +197,7 @@ export default function BlogsList() {
                         icon={<Icon icon="fa6-solid:pen-to-square" />}
                         aria-label={t("blogs.list.edit")}
                         onClick={() => openBlogForm(blog)}
+                        data-cy="edit-blog-button"
                       />
                     </HStack>
                   </Td>
