@@ -37,6 +37,9 @@ jobs:
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SUPABASE_EMAIL: ${{ secrets.SUPABASE_EMAIL }}
+          SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
+          SUPABASE_HOSTNAME: ${{ secrets.SUPABASE_HOSTNAME }}
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
