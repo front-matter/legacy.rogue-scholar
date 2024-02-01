@@ -13,7 +13,7 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev",
     "generate:types": "npx ts-node --project ./scripts/tsconfig.json ./scripts/generate-supabase-types.ts",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "BROWSERSLIST_IGNORE_OLD_DATA=true cypress run"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",

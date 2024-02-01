@@ -21,8 +21,6 @@ function Newsletter() {
     return subscribers
   })
 
-  console.log(subscribers)
-
   return (
     <AccountSection title={t("newsletter.title")}>
       <Checkbox defaultChecked>

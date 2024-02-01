@@ -76,7 +76,6 @@ export default function BlogFormModal({
           position: "top",
           description: t("blogs.form.invalid.home_page_url"),
         })
-        console.log("Invalid URL: " + home_page_url)
         isValid = false
       }
       if (mastodon && !validator.isURL(mastodon, { require_protocol: true, require_valid_protocol: true, protocols: protocols })) {
@@ -85,7 +84,6 @@ export default function BlogFormModal({
           position: "top",
           description: t("blogs.form.invalid.mastodon"),
         })
-        console.log("Invalid URL: " + mastodon)
         isValid = false
       }
       return isValid

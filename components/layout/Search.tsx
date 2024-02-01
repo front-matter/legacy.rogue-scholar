@@ -29,7 +29,7 @@ export default function Search({ pagination, locale }: Props) {
   // if (pagination.language !== locale) {
   //   setLanguage("")
   // }
-  console.log(query, page, language, tags, category, generator, pagination)
+ 
   const [searchInput, setSearchInput] = useState("")
   const inputRef = useRef<HTMLInputElement | null>(null)
 

@@ -3,7 +3,7 @@ import "@/styles/globals.css"
 import "prismjs/themes/prism-tomorrow.min.css"
 
 import { ChakraBaseProvider, createLocalStorageManager } from "@chakra-ui/react"
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs"
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs"
 import { Session, SessionContextProvider } from "@supabase/auth-helpers-react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { AppProps } from "next/app"
@@ -31,7 +31,7 @@ function App({
   pageProps,
 }: AppProps<{ initialSession?: Session | null } & SSRConfig>) {
   const router = useRouter()
-  const [supabaseClient] = useState(() => createBrowserSupabaseClient())
+  const [supabaseClient] = useState(() => createPagesBrowserClient())
   const colorModeManager = createLocalStorageManager("color-mode")
 
   // redirect to signin page if user is signed out while being on a protected page
