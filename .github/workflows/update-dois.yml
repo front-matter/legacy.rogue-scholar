@@ -19,7 +19,7 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
       - name: Install commonmeta-py
-        run: poetry add commonmeta-py
+        run: poetry install --no-root
       - name: Find blog posts that are not indexed recently
         run: |
           echo "::set-output name=POSTID::$(poetry run commonmeta json-feed updated)"
