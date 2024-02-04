@@ -8,6 +8,7 @@ import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
+import { ExportButton } from "@/components/common/ExportButton"
 import { BlogType, PaginationType, PostType } from "@/types/blog"
 
 type Props = {
@@ -113,6 +114,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                   <Byline post={post} blog={blog} />
                   {post.doi && (
                     <div className="py-1 font-medium">
+                      <ExportButton post={post} />
                       <Link
                         className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                         href={
