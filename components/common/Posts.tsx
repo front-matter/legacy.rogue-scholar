@@ -9,6 +9,7 @@ import { useTranslation } from "next-i18next"
 
 import { Byline } from "@/components/common/Byline"
 import { ExportButton } from "@/components/common/ExportButton"
+import { CitationButton } from "@/components/common/CitationButton"
 import { BlogType, PaginationType, PostType } from "@/types/blog"
 
 type Props = {
@@ -96,6 +97,8 @@ export const Posts: React.FunctionComponent<Props> = ({
                             />
                             {post.doi}
                           </Link>
+                          <ExportButton post={post} />
+                          <CitationButton post={post} activeLocale={activeLocale} />
                         </div>
                       </>
                     )}
@@ -112,117 +115,6 @@ export const Posts: React.FunctionComponent<Props> = ({
                     )}
                   </div>
                   <Byline post={post} blog={blog} />
-                  {post.doi && (
-                    <div className="py-1 font-medium">
-                      <ExportButton post={post} />
-                      <Link
-                        className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={
-                          process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}.md`
-                        }
-                      >
-                        <Icon
-                          icon="fa6-brands:markdown"
-                          className="mb-1 mr-1 inline text-sm"
-                        />
-                        Markdown
-                      </Link>
-                      <Link
-                        className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={
-                          process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}.epub`
-                        }
-                      >
-                        <Icon
-                          icon="fa6-solid:file-arrow-down"
-                          className="mb-1 mr-1 inline text-sm"
-                        />
-                        ePub
-                      </Link>
-                      <Link
-                        className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={
-                          process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}.pdf`
-                        }
-                      >
-                        <Icon
-                          icon="fa6-solid:file-pdf"
-                          className="mb-1 mr-1 inline text-sm"
-                        />
-                        PDF
-                      </Link>
-                      <Link
-                        className="mr-5 text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={
-                          process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}.xml`
-                        }
-                      >
-                        <Icon
-                          icon="tabler:file-type-xml"
-                          className="mb-1 mr-1 inline text-sm"
-                        />
-                        JATS XML
-                      </Link>
-                      <Link
-                        className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={
-                          process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}?format=csl`
-                        }
-                      >
-                        <Icon
-                          icon="bxs:file-json"
-                          className="mb-1 mr-1 inline text-sm"
-                        />
-                        CSL JSON
-                      </Link>
-                      <Link
-                        className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={
-                          process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}.jsonld`
-                        }
-                      >
-                        <Icon
-                          icon="file-icons:json-ld1"
-                          className="mb-1 ml-5 mr-1 inline text-sm"
-                        />
-                        Schema.org
-                      </Link>
-                      <Link
-                        className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={
-                          process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(16)}.bib`
-                        }
-                      >
-                        <Icon
-                          icon="fa6-solid:file-code"
-                          className="mb-1 ml-5 mr-1 inline text-sm"
-                        />
-                        BibTex
-                      </Link>
-                      <Link
-                        className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        href={
-                          process.env.NEXT_PUBLIC_API_URL +
-                          `/posts/${post.doi.substring(
-                            16
-                          )}?format=citation&style=apa&locale=${activeLocale}`
-                        }
-                      >
-                        <Icon
-                          icon="fa6-solid:file-lines"
-                          className="mb-1 ml-5 mr-1 inline text-sm"
-                        />
-                        Citation (APA)
-                      </Link>
-                    </div>
-                  )}
                   <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
                     {post.image && (
                       <div className="relative mr-4 h-48 w-64 shrink-0">

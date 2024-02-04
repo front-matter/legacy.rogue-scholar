@@ -7,12 +7,12 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
-export function ExportButton({ post }) {
+export function CitationButton({ post, activeLocale }) {
   return (
-    <Menu as="div" className="relative ml-3 inline-block text-left">
+    <Menu as="div" className="relative ml-1 inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-1.5 py-1 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-          Export
+          Citation
           <Icon
             icon="heroicons:chevron-down-20-solid"
             className="-mr-1 h-5 w-5 text-gray-400"
@@ -37,14 +37,16 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.md`
+                    `/posts/${post.doi.substring(
+                      16,
+                    )}?format=citation&style=apa&locale=${activeLocale}`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm",
                   )}
                 >
-                  Markdown
+                  APA
                 </Link>
               )}
             </Menu.Item>
@@ -53,14 +55,16 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.pdf`
+                    `/posts/${post.doi.substring(
+                      16,
+                    )}?format=citation&style=harvard1&locale=${activeLocale}`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm",
                   )}
                 >
-                  PDF
+                  Harvard
                 </Link>
               )}
             </Menu.Item>
@@ -69,32 +73,16 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.bib`
+                    `/posts/${post.doi.substring(
+                      16,
+                    )}?format=citation&style=ieee&locale=${activeLocale}`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm",
                   )}
                 >
-                  BibTex
-                </Link>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}?format=csl`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  CSL JSON
+                  IEEE
                 </Link>
               )}
             </Menu.Item>
@@ -103,14 +91,16 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.ris`
+                    `/posts/${post.doi.substring(
+                      16,
+                    )}?format=citation&style=modern-language-association&locale=${activeLocale}`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm",
                   )}
                 >
-                  RIS
+                  MLA
                 </Link>
               )}
             </Menu.Item>
@@ -119,14 +109,16 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.jsonld`
+                    `/posts/${post.doi.substring(
+                      16,
+                    )}?format=citation&style=vancouver&locale=${activeLocale}`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm",
                   )}
                 >
-                  Schema.org
+                  Vancouver
                 </Link>
               )}
             </Menu.Item>
@@ -135,64 +127,16 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.epub`
+                    `/posts/${post.doi.substring(
+                      16,
+                    )}?format=citation&style=chicago-author-date&locale=${activeLocale}`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm",
                   )}
                 >
-                  ePub
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.xml`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  JATS XML
-                </Link>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}?format=crossref_xml`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  Crossref XML
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}?format=datacite`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  DataCite JSON
+                  Chicago
                 </Link>
               )}
             </Menu.Item>
