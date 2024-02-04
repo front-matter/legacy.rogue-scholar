@@ -119,7 +119,7 @@ export const Blogs: React.FunctionComponent<Props> = ({
                       target="_blank"
                       className="relative mr-6 w-0 py-2 text-base font-medium"
                     >
-                      <Icon icon="fa6-solid:house" className="inline" />
+                      <Icon icon="heroicons-outline:home" className="inline" />
                       <span className="ml-2">{t("posts.homepage")}</span>
                     </Link>
                   </span>
@@ -132,7 +132,7 @@ export const Blogs: React.FunctionComponent<Props> = ({
                           target="_blank"
                           className="relative mr-6 w-0 py-2 text-base font-medium"
                         >
-                          <Icon icon="fa6-solid:rss" className="inline" />
+                          <Icon icon="heroicons-outline:rss" className="inline" />
                           <span className="ml-2">
                             {t("posts.feed", {
                               format: feedFormats[blog.feed_format],
