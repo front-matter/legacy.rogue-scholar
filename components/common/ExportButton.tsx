@@ -2,17 +2,20 @@ import { Fragment } from "react"
 import { Menu, Transition } from "@headlessui/react"
 import { Icon } from "@iconify/react"
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
 export function ExportButton({ post }) {
+  const { t } = useTranslation("common")
+
   return (
     <Menu as="div" className="relative ml-3 inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-1.5 py-1 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-          Export
+        {t("posts.export")}
           <Icon
             icon="heroicons:chevron-down-20-solid"
             className="-mr-1 h-5 w-5 text-gray-400"
@@ -94,7 +97,7 @@ export function ExportButton({ post }) {
                     "block px-4 py-2 text-sm",
                   )}
                 >
-                  CSL JSON
+                  CSL
                 </Link>
               )}
             </Menu.Item>
@@ -119,22 +122,6 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.jsonld`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  Schema.org
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
                     `/posts/${post.doi.substring(16)}.epub`
                   }
                   className={classNames(
@@ -143,6 +130,22 @@ export function ExportButton({ post }) {
                   )}
                 >
                   ePub
+                </Link>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <Link
+                  href={
+                    process.env.NEXT_PUBLIC_API_URL +
+                    `/posts/${post.doi.substring(16)}.jsonld`
+                  }
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm",
+                  )}
+                >
+                  Schema.org
                 </Link>
               )}
             </Menu.Item>

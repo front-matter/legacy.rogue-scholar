@@ -101,6 +101,7 @@
   "posts.draft": "Bozza",
   "posts.errors.description": "Non siamo riusciti a recuperare i tuoi post. Per favore riprova più tardi.",
   "posts.errors.title": "Qualcosa è andato storto",
+  "posts.export": "Esportazione",
   "posts.feed": "{{format}} Foraggio",
   "posts.homepage": "Pagina iniziale",
   "posts.inactive": "Non è stato possibile registrare DOI e metadati per i post di questo blog.",

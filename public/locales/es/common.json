@@ -101,6 +101,7 @@
   "posts.draft": "Borrador",
   "posts.errors.description": "No pudimos obtener sus publicaciones. Por favor, inténtelo de nuevo más tarde.",
   "posts.errors.title": "Algo salió mal",
+  "posts.export": "Exportar",
   "posts.feed": "Feed {{format}}",
   "posts.homepage": "Página de inicio",
   "posts.inactive": "No se pudieron registrar los DOI y los metadatos de las publicaciones de este blog.",

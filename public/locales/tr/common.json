@@ -101,6 +101,7 @@
   "posts.draft": "Taslak",
   "posts.errors.description": "Gönderilerinizi alamadık. Lütfen daha sonra tekrar deneyin.",
   "posts.errors.title": "Bir şeyler ters gitti",
+  "posts.export": "İhracat",
   "posts.feed": "{{format}} Besleme",
   "posts.homepage": "Ana Sayfa",
   "posts.inactive": "Bu blogdaki gönderiler için DOI'ler ve meta veriler kaydedilemedi.",

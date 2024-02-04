@@ -2,17 +2,20 @@ import { Fragment } from "react"
 import { Menu, Transition } from "@headlessui/react"
 import { Icon } from "@iconify/react"
 import Link from "next/link"
+import { useTranslation } from "next-i18next"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
 }
 
 export function CitationButton({ post, activeLocale }) {
+  const { t } = useTranslation("common")
+
   return (
     <Menu as="div" className="relative ml-1 inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-1.5 py-1 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-          Citation
+          {t("posts.citation")}
           <Icon
             icon="heroicons:chevron-down-20-solid"
             className="-mr-1 h-5 w-5 text-gray-400"

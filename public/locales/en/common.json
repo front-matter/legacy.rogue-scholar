@@ -101,6 +101,7 @@
   "posts.draft": "Draft",
   "posts.errors.description": "We were unable to fetch your posts. Please try again later.",
   "posts.errors.title": "Something went wrong",
+  "posts.export": "Export",
   "posts.feed": "{{format}} Feed",
   "posts.homepage": "Home Page",
   "posts.inactive": "DOIs and metadata for posts from this blog could not be registered.",

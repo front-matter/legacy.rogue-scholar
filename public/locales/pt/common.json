@@ -101,6 +101,7 @@
   "posts.draft": "Rascunho",
   "posts.errors.description": "Não foi possível buscar suas postagens. Por favor, tente novamente mais tarde.",
   "posts.errors.title": "algo deu errado",
+  "posts.export": "Exportação",
   "posts.feed": "Feed {{format}}",
   "posts.homepage": "Pagina inicial",
   "posts.inactive": "Não foi possível registrar DOIs e metadados para postagens deste blog.",
