@@ -12,36 +12,32 @@ jobs:
       doi: ${{ steps.random_doi.outputs.DOI }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - uses: actions/cache@v3
+        uses: actions/checkout@v4       
+      - name: setup python
+        uses: actions/setup-python@v5
         with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - name: Set up Ruby 3.2
-        uses: ruby/setup-ruby@v1
+          python-version: '3.11'
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
         with:
-          ruby-version: '3.2'
-      - name: Install commonmeta-ruby
-        run: |
-          gem install bundler
-          bundle config path vendor/bundle
-          bundle install --jobs 4 --retry 3
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+      - name: Install commonmeta-py
+        run: poetry install --no-root
       - name: Find blog post without DOI
         run: |
-          echo "::set-output name=POSTID::$(bundle exec commonmeta json_feed_unregistered)"
+          echo "::set-output name=POSTID::$(poetry run commonmeta json-feed unregistered)"
         id: pending_post
       - name: Generate random DOI
         if: steps.pending_post.outputs.POSTID != ''
         run: |
-          echo "::set-output name=DOI::$(bundle exec commonmeta encode_by_id ${{ steps.pending_post.outputs.POSTID }})"
+          echo "::set-output name=DOI::$(poetry run commonmeta encode-by-id ${{ steps.pending_post.outputs.POSTID }})"
         id: random_doi
       - name: Generate XML
         if: steps.random_doi.outputs.DOI != ''
         run: |
           mkdir -p upload
-          bundle exec commonmeta https://api.rogue-scholar.org/posts/"${{ steps.pending_post.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/${{ steps.pending_post.outputs.POSTID }}
+          poetry run commonmeta convert https://api.rogue-scholar.org/posts/"${{ steps.pending_post.outputs.POSTID }}" --doi "${{ steps.random_doi.outputs.DOI }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/${{ steps.pending_post.outputs.POSTID }}
       - name: Upload
         if: steps.random_doi.outputs.DOI != ''
         uses: actions/upload-artifact@v3
@@ -68,29 +64,29 @@ jobs:
           curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.pending_post.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "doi": "${{ steps.random_doi.outputs.DOI }}", "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
       - name: Find blog id for post
         run: |
-          echo "::set-output name=SLUG::$(bundle exec commonmeta json_feed_blog_slug ${{ steps.pending_post.outputs.POSTID }})"
+          echo "::set-output name=SLUG::$(poetry run commonmeta json-feed blog_slug --id ${{ steps.pending_post.outputs.POSTID }})"
         id: blog
       - name: Update Front Matter blog
         if: steps.blog.outputs.SLUG == 'front_matter'
         env:
           API_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
           API_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
-        run: bundle exec commonmeta update_ghost_post ${{ steps.pending_post.outputs.POSTID }}
+        run: poetry run commonmeta update-ghost-post ${{ steps.pending_post.outputs.POSTID }}
       - name: Update Upstream blog
         if: steps.blog.outputs.SLUG == 'upstream'
         env:
           API_KEY: ${{ secrets.UPSTREAM_ADMIN_API_KEY }}
           API_URL: ${{ secrets.UPSTREAM_ADMIN_API_URL }}
-        run: bundle exec commonmeta update_ghost_post ${{ steps.pending_post.outputs.POSTID }}
+        run: poetry run commonmeta update-ghost-post ${{ steps.pending_post.outputs.POSTID }}
       - name: Update Syldavia Gazette blog
         if: steps.blog.outputs.SLUG == 'syldavia_gazette'
         env:
           API_KEY: ${{ secrets.SYLDAVIA_GAZETTE_ADMIN_API_KEY }}
           API_URL: ${{ secrets.SYLDAVIA_GAZETTE_ADMIN_API_URL }}
-        run: bundle exec commonmeta update_ghost_post ${{ steps.pending_post.outputs.POSTID }}
+        run: poetry run commonmeta update-ghost-post ${{ steps.pending_post.outputs.POSTID }}
       - name: Update OA.Works blog
         if: steps.blog.outputs.SLUG == 'oa_works'
         env:
           API_KEY: ${{ secrets.OA_WORKS_ADMIN_API_KEY }}
           API_URL: ${{ secrets.OA_WORKS_ADMIN_API_URL }}
-        run: bundle exec commonmeta update_ghost_post ${{ steps.pending_post.outputs.POSTID }}
+        run: poetry run commonmeta update-ghost-post ${{ steps.pending_post.outputs.POSTID }}
