@@ -531,13 +531,13 @@ test = ["pytest"]
 
 [[package]]
 name = "commonmeta-py"
-version = "0.13.1"
+version = "0.13.2"
 description = "Library for conversions to/from the Commonmeta scholarly metadata format"
 optional = false
 python-versions = ">=3.9,<4.0.0"
 files = [
-    {file = "commonmeta_py-0.13.1-py3-none-any.whl", hash = "sha256:b255e32c60533fb9c51c8f0be11dadbf56c6e9dc90577e8440ba683d6047a97d"},
-    {file = "commonmeta_py-0.13.1.tar.gz", hash = "sha256:aea90dce95c629fb661924f73eb0c42ff713365230d358d9fdb00f2cb9a16ef9"},
+    {file = "commonmeta_py-0.13.2-py3-none-any.whl", hash = "sha256:50d52c85789bc576e81a4bd602752cc9c8dcad22522cffd4abaa363e90cb8596"},
+    {file = "commonmeta_py-0.13.2.tar.gz", hash = "sha256:94a18286144306617dc0243ff71a99da9ba41b3f168ec9aa7b1c3352a8e94bab"},
 ]
 
 [package.dependencies]
@@ -3611,4 +3611,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b576e3fae256caf2806d3ab71eef4214420d188aedc953e3dd957fadd0ee44a1"
+content-hash = "5892386adf7889c9aee73bdc9ed14d0af5338a5d00bacc67dd1ea2d459fa9418"
