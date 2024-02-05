@@ -37,7 +37,7 @@ export function CitationButton({ post, activeLocale }) {
         toast({
           title: styles[style],
           description: data,
-          status: data.startsWith("Error fetching") ? "error" : "info",
+          status: data.startsWith("Error") ? "error" : "info",
           duration: 9000,
           isClosable: true,
           position: "top-right",
