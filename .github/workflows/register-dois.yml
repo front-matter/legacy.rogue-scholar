@@ -67,25 +67,10 @@ jobs:
         id: blog
       - name: Update Front Matter blog
         if: steps.blog.outputs.SLUG == 'front_matter'
-        env:
-          API_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
-          API_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
-        run: poetry run commonmeta update-ghost-post ${{ steps.pending_post.outputs.POSTID }}
+        run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.GHOST_ADMIN_API_KEY }} --api-url ${{ secrets.GHOST_ADMIN_API_URL }} ${{ steps.pending_post.outputs.POSTID }}
       - name: Update Upstream blog
         if: steps.blog.outputs.SLUG == 'upstream'
-        env:
-          API_KEY: ${{ secrets.UPSTREAM_ADMIN_API_KEY }}
-          API_URL: ${{ secrets.UPSTREAM_ADMIN_API_URL }}
-        run: poetry run commonmeta update-ghost-post ${{ steps.pending_post.outputs.POSTID }}
-      - name: Update Syldavia Gazette blog
-        if: steps.blog.outputs.SLUG == 'syldavia_gazette'
-        env:
-          API_KEY: ${{ secrets.SYLDAVIA_GAZETTE_ADMIN_API_KEY }}
-          API_URL: ${{ secrets.SYLDAVIA_GAZETTE_ADMIN_API_URL }}
-        run: poetry run commonmeta update-ghost-post ${{ steps.pending_post.outputs.POSTID }}
+        run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.UPSTREAM_ADMIN_API_KEY }} --api-url ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ steps.pending_post.outputs.POSTID }}
       - name: Update OA.Works blog
         if: steps.blog.outputs.SLUG == 'oa_works'
-        env:
-          API_KEY: ${{ secrets.OA_WORKS_ADMIN_API_KEY }}
-          API_URL: ${{ secrets.OA_WORKS_ADMIN_API_URL }}
-        run: poetry run commonmeta update-ghost-post ${{ steps.pending_post.outputs.POSTID }}
+        run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.OA_WORKS_ADMIN_API_KEY }} --api-url ${{ secrets.OA_WORKS_ADMIN_API_URL }} ${{ steps.pending_post.outputs.POSTID }}
