@@ -1,8 +1,9 @@
 import { Fragment } from "react"
 import { Menu, Transition } from "@headlessui/react"
+import { useToast } from "@chakra-ui/react"
 import { Icon } from "@iconify/react"
-import Link from "next/link"
 import { useTranslation } from "next-i18next"
+import { resolve } from "url"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -10,6 +11,40 @@ function classNames(...classes) {
 
 export function CitationButton({ post, activeLocale }) {
   const { t } = useTranslation("common")
+  const toast = useToast()
+
+  const onFetchCitation = (doi: string, style: string, locale: string) => {
+    const styles = {
+      apa: "APA",
+      harvard1: "Harvard",
+      ieee: "IEEE",
+      "modern-language-association": "MLA",
+      vancouver: "Vancouver",
+      "chicago-author-date": "Chicago",
+    }
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/${doi.substring(
+      16,
+    )}?format=citation&style=${style}&locale=${locale}`
+    fetch(url)
+      .then((res) => {
+        if (res.status >= 400) {
+          return "Error fetching citation. Please try again later."
+        }
+        return res.text()
+      })
+      .then((data) => {
+
+        toast({
+          title: styles[style],
+          description: data,
+          status: data.startsWith("Error fetching") ? "error" : "info",
+          duration: 9000,
+          isClosable: true,
+          position: "top-right",
+          variant: "subtle",
+        })
+      })
+  }
 
   return (
     <Menu as="div" className="relative ml-1 inline-block text-left">
@@ -37,30 +72,22 @@ export function CitationButton({ post, activeLocale }) {
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(
-                      16,
-                    )}?format=citation&style=apa&locale=${activeLocale}`
-                  }
+                <a
+                  onClick={() => onFetchCitation(post.doi, "apa", activeLocale)}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm",
                   )}
                 >
                   APA
-                </Link>
+                </a>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(
-                      16,
-                    )}?format=citation&style=harvard1&locale=${activeLocale}`
+                <a
+                  onClick={() =>
+                    onFetchCitation(post.doi, "harvard1", activeLocale)
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -68,17 +95,14 @@ export function CitationButton({ post, activeLocale }) {
                   )}
                 >
                   Harvard
-                </Link>
+                </a>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(
-                      16,
-                    )}?format=citation&style=ieee&locale=${activeLocale}`
+                <a
+                  onClick={() =>
+                    onFetchCitation(post.doi, "ieee", activeLocale)
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -86,17 +110,18 @@ export function CitationButton({ post, activeLocale }) {
                   )}
                 >
                   IEEE
-                </Link>
+                </a>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(
-                      16,
-                    )}?format=citation&style=modern-language-association&locale=${activeLocale}`
+                <a
+                  onClick={() =>
+                    onFetchCitation(
+                      post.doi,
+                      "modern-language-association",
+                      activeLocale,
+                    )
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -104,17 +129,14 @@ export function CitationButton({ post, activeLocale }) {
                   )}
                 >
                   MLA
-                </Link>
+                </a>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(
-                      16,
-                    )}?format=citation&style=vancouver&locale=${activeLocale}`
+                <a
+                  onClick={() =>
+                    onFetchCitation(post.doi, "vancouver", activeLocale)
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -122,17 +144,18 @@ export function CitationButton({ post, activeLocale }) {
                   )}
                 >
                   Vancouver
-                </Link>
+                </a>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(
-                      16,
-                    )}?format=citation&style=chicago-author-date&locale=${activeLocale}`
+                <a
+                  onClick={() =>
+                    onFetchCitation(
+                      post.doi,
+                      "chicago-author-date",
+                      activeLocale,
+                    )
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -140,7 +163,7 @@ export function CitationButton({ post, activeLocale }) {
                   )}
                 >
                   Chicago
-                </Link>
+                </a>
               )}
             </Menu.Item>
           </div>
