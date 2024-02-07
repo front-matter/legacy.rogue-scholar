@@ -3,7 +3,7 @@ import { Menu, Transition } from "@headlessui/react"
 import { useToast } from "@chakra-ui/react"
 import { Icon } from "@iconify/react"
 import { useTranslation } from "next-i18next"
-import { resolve } from "url"
+import parse from "html-react-parser"
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ")
@@ -21,6 +21,7 @@ export function CitationButton({ post, activeLocale }) {
       "modern-language-association": "MLA",
       vancouver: "Vancouver",
       "chicago-author-date": "Chicago",
+      "american-chemical-society": "ACS",
     }
     const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/${doi.substring(
       16,
@@ -36,7 +37,7 @@ export function CitationButton({ post, activeLocale }) {
 
         toast({
           title: styles[style],
-          description: data,
+          description: parse(data),
           status: data.startsWith("Error") ? "error" : "info",
           duration: 9000,
           isClosable: true,
@@ -163,6 +164,25 @@ export function CitationButton({ post, activeLocale }) {
                   )}
                 >
                   Chicago
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  onClick={() =>
+                    onFetchCitation(
+                      post.doi,
+                      "american-chemical-society",
+                      activeLocale,
+                    )
+                  }
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm",
+                  )}
+                >
+                  ACS
                 </a>
               )}
             </Menu.Item>
