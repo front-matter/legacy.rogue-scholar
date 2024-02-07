@@ -34,7 +34,6 @@ export function CitationButton({ post, activeLocale }) {
         return res.text()
       })
       .then((data) => {
-
         toast({
           title: styles[style],
           description: parse(data),
@@ -88,6 +87,25 @@ export function CitationButton({ post, activeLocale }) {
               {({ active }) => (
                 <a
                   onClick={() =>
+                    onFetchCitation(
+                      post.doi,
+                      "chicago-author-date",
+                      activeLocale,
+                    )
+                  }
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm",
+                  )}
+                >
+                  Chicago
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  onClick={() =>
                     onFetchCitation(post.doi, "harvard1", activeLocale)
                   }
                   className={classNames(
@@ -96,21 +114,6 @@ export function CitationButton({ post, activeLocale }) {
                   )}
                 >
                   Harvard
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  onClick={() =>
-                    onFetchCitation(post.doi, "ieee", activeLocale)
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  IEEE
                 </a>
               )}
             </Menu.Item>
@@ -133,40 +136,8 @@ export function CitationButton({ post, activeLocale }) {
                 </a>
               )}
             </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  onClick={() =>
-                    onFetchCitation(post.doi, "vancouver", activeLocale)
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  Vancouver
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  onClick={() =>
-                    onFetchCitation(
-                      post.doi,
-                      "chicago-author-date",
-                      activeLocale,
-                    )
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  Chicago
-                </a>
-              )}
-            </Menu.Item>
+          </div>
+          <div className="py-1">
             <Menu.Item>
               {({ active }) => (
                 <a
@@ -183,6 +154,36 @@ export function CitationButton({ post, activeLocale }) {
                   )}
                 >
                   ACS
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  onClick={() =>
+                    onFetchCitation(post.doi, "ieee", activeLocale)
+                  }
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm",
+                  )}
+                >
+                  IEEE
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  onClick={() =>
+                    onFetchCitation(post.doi, "vancouver", activeLocale)
+                  }
+                  className={classNames(
+                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                    "block px-4 py-2 text-sm",
+                  )}
+                >
+                  Vancouver
                 </a>
               )}
             </Menu.Item>
