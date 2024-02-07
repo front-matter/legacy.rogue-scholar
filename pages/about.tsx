@@ -122,8 +122,8 @@ export default function Home({ blogs, locale }) {
   return (
     <Layout>
       <Hero blogs={blogs} />
-      <Pricing />
       <Faq />
+      <Pricing />
       <Stats
         count={count}
         categories={categories}

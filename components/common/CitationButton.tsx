@@ -138,7 +138,7 @@ export function CitationButton({ post, activeLocale }) {
             </Menu.Item>
           </div>
           <div className="py-1">
-            <Menu.Item>
+            {/* <Menu.Item>
               {({ active }) => (
                 <a
                   onClick={() =>
@@ -156,7 +156,7 @@ export function CitationButton({ post, activeLocale }) {
                   ACS
                 </a>
               )}
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item>
               {({ active }) => (
                 <a

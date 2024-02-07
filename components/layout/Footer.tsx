@@ -18,10 +18,7 @@ export default function Footer() {
             <div className="-my-1 flex justify-center gap-x-6">
               <NavLink href="/">{t("menu.posts")}</NavLink>
               <NavLink href="/blogs">{t("menu.blogs")}</NavLink>
-              <NavLink href="/about">{t("menu.about")}</NavLink>
-              <NavLink href="/about#pricing">{t("menu.pricing")}</NavLink>
-              <NavLink href="/about#faq">{t("menu.faq")}</NavLink>
-              <NavLink href="/about#stats">{t("menu.stats")}</NavLink>
+              <NavLink href="/about">{t("menu.service")}</NavLink>
               <NavLink href="https://docs.rogue-scholar.org">
                 {t("menu.docs")}
               </NavLink>

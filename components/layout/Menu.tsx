@@ -1,13 +1,13 @@
 import { Button, Stack, useColorModeValue } from "@chakra-ui/react"
-import { useUser } from "@supabase/auth-helpers-react"
 import Link from "next/link"
 import { useTranslation } from "next-i18next"
 
 import { useMobileBreakpoint } from "@/lib/blog/layout"
+import ServiceMenu from "@/components/layout/ServiceMenu"
+import CommunityMenu from "@/components/layout/CommunityMenu"
 
 export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
   const { t } = useTranslation("common")
-  const user = useUser()
   const menuItemColor = useColorModeValue("gray.600", "gray.200")
   const isMobile = useMobileBreakpoint()
   const isHidden = isMobile !== !!mobileMode
@@ -21,13 +21,7 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
       label: t("menu.blogs"),
       link: "/blogs",
     },
-    {
-      label: t("menu.docs"),
-      link: "https://docs.rogue-scholar.org",
-    },
   ]
-    // add dashboard link only if user is logged in
-    .concat(user ? [{ label: t("menu.dashboard"), link: "/app" }] : [])
 
   return (
     <Stack
@@ -52,6 +46,8 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
           {item.label}
         </Button>
       ))}
+      <ServiceMenu />
+      <CommunityMenu />
     </Stack>
   )
 }
