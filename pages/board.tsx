@@ -49,7 +49,7 @@ export default function Board({ locale }) {
       url: "https://www.ch.imperial.ac.uk/rzepa/blog",
     },
     {
-      name: "Maelle Salmon",
+      name: "Maëlle Salmon",
       location: "France",
       blog: "rOpenSci Blog",
       url: "https://ropensci.org/blog",
