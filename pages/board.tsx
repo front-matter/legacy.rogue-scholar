@@ -52,7 +52,7 @@ export default function Board({ locale }) {
       name: "Maëlle Salmon",
       location: "France",
       blog: "rOpenSci Blog",
-      url: "https://ropensci.org/blog",
+      url: "https://masalmon.eu/post/",
     },
   ]
   return (
