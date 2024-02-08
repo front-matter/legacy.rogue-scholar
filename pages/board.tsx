@@ -58,7 +58,7 @@ export default function Board({ locale }) {
   return (
     <Layout>
       <div className="bg-white py-4">
-        <div className="mx-auto grid max-w-7xl gap-x-8 lg:gap-y-8 px-8 lg:px-8 xl:grid-cols-3">
+        <div className="mx-auto grid max-w-7xl gap-x-8 xl:gap-y-8 px-8 xl:px-8 xl:grid-cols-3">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
               {t("menu.board")}
@@ -72,7 +72,7 @@ export default function Board({ locale }) {
           </div>
           <ul
             role="list"
-            className="grid lg:mt-12 gap-x-8 gap-y-4 sm:grid-cols-2 sm:gap-y-6 xl:col-span-2"
+            className="grid mt-4 xl:mt-12 gap-x-8 gap-y-4 sm:grid-cols-2 sm:gap-y-6 xl:col-span-2"
           >
             {members.map((member) => (
               <li key={member.name}>
@@ -95,7 +95,7 @@ export default function Board({ locale }) {
           </ul>
         </div>
       </div>
-      <Container className="pb-5 pt-2 text-center lg:pt-5">
+      <Container className="pb-5 pt-2 text-center xl:pt-5">
         <Comments locale={locale} />
       </Container>
     </Layout>
