@@ -323,7 +323,7 @@ export interface Database {
         | "10.59348"
         | "10.59349"
       status: "submitted" | "approved" | "active" | "expired"
-      status_enum: "submitted" | "approved" | "active" | "expired" | "archived"
+      status_enum: "submitted" | "approved" | "active" | "expired" | "archived" | "pending"
       version_enum: "https://jsonfeed.org/version/1.1"
     }
     CompositeTypes: {

@@ -22,7 +22,10 @@ export async function getServerSideProps(ctx) {
   // if (language && language !== ctx.locale) {
   //   language = null
   // }
-  let filterBy = `blog_slug:!=[xxx]`
+  let filterBy = `status:!=[pending]`
+  if (process.env.NODE_ENV !== "production") {
+    filterBy = `status:!=[obsolete]`
+  }
 
   filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
   filterBy = !isEmpty(language)

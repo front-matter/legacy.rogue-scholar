@@ -24,6 +24,7 @@ export interface DocumentType extends DocumentSchema {
   tags?: string[]
   language?: string
   blog_slug?: string
+  status?: string
 }
 
 export interface BlogType extends DocumentSchema {

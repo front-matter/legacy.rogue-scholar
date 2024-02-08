@@ -19,10 +19,10 @@ export async function getServerSideProps(ctx) {
   const generator = ctx.query.generator || ""
   const language = ctx.query.language || ""
 
-  // if (language && language !== ctx.locale) {
-  //   language = null
-  // }
-  let filterBy = `status:!=[submitted]`
+  let filterBy = `status:=[approved,active,archived]`
+  if (process.env.NODE_ENV !== "production") {
+    filterBy = `status:=[pending,approved,active,archived]`
+  }
 
   filterBy = !isEmpty(category)
     ? filterBy + ` && category:=[${category}]`

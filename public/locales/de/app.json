@@ -49,6 +49,7 @@
   "status.approved": "genehmigt",
   "status.archived": "archiviert",
   "status.expired": "abgelaufen",
+  "status.pending": "ausstehend",
   "status.submitted": "eingereicht",
   "terms.1": "Das Blog handelt von (Natur- oder Geistes-)Wissenschaft.",
   "terms.2": "Der gesamte Text der Blogbeiträge ist mittels JSON Feed (bevorzugt), RSS oder Atom verfügbar.",

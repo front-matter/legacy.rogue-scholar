@@ -97,6 +97,7 @@ export interface Database {
           url?: string
           id?: string
           guid?: string
+          status?: string
         }
         Insert: {
           authors?: AuthorType[]
@@ -119,6 +120,7 @@ export interface Database {
           url?: string
           id?: string
           guid?: string
+          status?: string
         }
         Update: {
           authors?: AuthorType[]
@@ -141,6 +143,7 @@ export interface Database {
           url?: string
           id?: string
           guid?: string
+          status?: string
         }
       }
     }

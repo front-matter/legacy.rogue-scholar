@@ -232,6 +232,16 @@
       "type": "string"
     },
     {
+      "facet": true,
+      "index": true,
+      "infix": false,
+      "locale": "",
+      "name": "status",
+      "optional": true,
+      "sort": false,
+      "type": "string"
+    },
+    {
       "facet": false,
       "index": true,
       "infix": false,

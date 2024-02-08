@@ -49,6 +49,7 @@
   "status.approved": "approvato",
   "status.archived": "archiviato",
   "status.expired": "scaduto",
+  "status.pending": "in attesa",
   "status.submitted": "presentato",
   "terms.1": "Il blog riguarda la scienza o la borsa di studio.",
   "terms.2": "Il testo completo dei post del blog è disponibile tramite un feed JSON (preferibile), RSS o Atom.",

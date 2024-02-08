@@ -49,6 +49,7 @@
   "status.approved": "approuvé",
   "status.archived": "archivé",
   "status.expired": "expiré",
+  "status.pending": "en attente",
   "status.submitted": "soumis",
   "terms.1": "Le blog est sur la science (naturelle ou humaine).",
   "terms.2": "Le texte intégral des articles de blog est disponible via un flux JSON (de préférence), RSS ou Atom.",

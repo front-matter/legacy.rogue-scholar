@@ -49,6 +49,7 @@
   "status.approved": "aprovado",
   "status.archived": "arquivado",
   "status.expired": "expirado",
+  "status.pending": "pendente",
   "status.submitted": "submetido",
   "terms.1": "O blog é sobre ciência (natural ou humana).",
   "terms.2": "O texto completo das mensagens do blogue é disponibilizado através de um feed JSON (preferencialmente), RSS ou Atom.",

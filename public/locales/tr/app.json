@@ -49,6 +49,7 @@
   "status.approved": "ONAYLANDI",
   "status.archived": "Arşivlendi",
   "status.expired": "süresi doldu",
+  "status.pending": "beklemede",
   "status.submitted": "gönderildi",
   "terms.1": "Blog bilim ya da bursla ilgilidir.",
   "terms.2": "Blog yazılarının tam metni bir JSON Beslemesi (tercih edilen), RSS veya Atom aracılığıyla kullanıma sunulur.",
