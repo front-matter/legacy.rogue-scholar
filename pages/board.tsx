@@ -51,7 +51,7 @@ export default function Board({ locale }) {
     {
       name: "Maëlle Salmon",
       location: "France",
-      blog: "rOpenSci Blog",
+      blog: "Maëlle's R blog",
       url: "https://masalmon.eu/post/",
     },
   ]
