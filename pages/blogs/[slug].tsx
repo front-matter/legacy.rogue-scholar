@@ -25,6 +25,10 @@ export async function getServerSideProps(ctx) {
   const language = ctx.query.language || ""
   const category = ctx.query.category || ""
 
+  let status = ["approved", "active", "archived"]
+  if (process.env.NODE_ENV !== "production") {
+    status = ["pending", "approved", "active", "archived"]
+  }
   let filterBy = `blog_slug:=${ctx.params.slug}`
 
   filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
@@ -38,7 +42,7 @@ export async function getServerSideProps(ctx) {
   const { data: blog } = await supabase
     .from("blogs")
     .select(blogWithPostsSelect)
-    .in("status", ["approved", "active", "archived"])
+    .in("status", status)
     .eq("slug", ctx.params.slug)
     .maybeSingle()
 
@@ -140,37 +144,26 @@ const BlogPage: React.FunctionComponent<Props> = ({
       <Layout>
         <div className="bg-white dark:bg-slate-800">
           <Blog blog={blog} />
-          {["active", "archived"].includes(blog.status as string) && (
-            <>
-              <Search pagination={pagination} locale={locale} />
-              <Pagination pagination={pagination} />
-              {posts && (
-                <Posts posts={posts} pagination={pagination} blog={blog} />
-              )}
-              {pagination.total > 0 && <Pagination pagination={pagination} />}
-              {blog.status === "active" &&
-                blog.home_page_url &&
-                blog.backlog &&
-                blog.backlog > 0 && (
-                  <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
-                    <div className="mb-2 lg:mb-5">
-                      <Link
-                        href={blog.home_page_url}
-                        target="_blank"
-                        className="text-base font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200 sm:text-xl"
-                      >
-                        {t("posts.viaHomepage", { homepage: blog.title })}
-                      </Link>
-                    </div>
-                  </div>
-                )}
-            </>
-          )}
-          {!["active", "archived"].includes(blog.status as string) && (
-            <div className="mx-auto max-w-2xl bg-inherit pb-2 text-lg font-medium text-orange-600 lg:max-w-4xl">
-              {t("posts.inactive")}
-            </div>
-          )}
+          <Search pagination={pagination} locale={locale} />
+          <Pagination pagination={pagination} />
+          {posts && <Posts posts={posts} pagination={pagination} blog={blog} />}
+          {pagination.total > 0 && <Pagination pagination={pagination} />}
+          {blog.status === "active" &&
+            blog.home_page_url &&
+            blog.backlog &&
+            blog.backlog > 0 && (
+              <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
+                <div className="mb-2 lg:mb-5">
+                  <Link
+                    href={blog.home_page_url}
+                    target="_blank"
+                    className="text-base font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200 sm:text-xl"
+                  >
+                    {t("posts.viaHomepage", { homepage: blog.title })}
+                  </Link>
+                </div>
+              </div>
+            )}
         </div>
         <div className="mx-auto max-w-2xl pb-5 lg:max-w-4xl">
           <Comments locale={locale} />
