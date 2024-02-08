@@ -23,7 +23,7 @@ export async function getServerSideProps(ctx) {
   //   language = null
   // }
   let filterBy = `status:!=[pending]`
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.VERCEL_ENV !== "production") {
     filterBy = `status:!=[obsolete]`
   }
 

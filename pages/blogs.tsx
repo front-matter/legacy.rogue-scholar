@@ -20,7 +20,7 @@ export async function getServerSideProps(ctx) {
   const language = ctx.query.language || ""
 
   let filterBy = `status:=[approved,active,archived]`
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.VERCEL_ENV !== "production") {
     filterBy = `status:=[pending,approved,active,archived]`
   }
 
