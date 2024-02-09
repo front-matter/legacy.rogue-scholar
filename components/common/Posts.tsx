@@ -43,7 +43,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                       {post.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="relative z-10 ml-0 mb-1 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
+                          className="relative z-10 mb-1 ml-0 rounded-full bg-blue-100 px-2 py-0.5 font-medium text-blue-800 dark:bg-blue-700 dark:text-blue-200"
                         >
                           <Link
                             href={`${pagination.base_url}?page=${pagination.page}&query=${pagination.query}&tags=${tag}`}
@@ -54,7 +54,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         </span>
                       ))}
                       {post.category && (
-                        <span className="relative z-10 ml-0 mb-1 rounded-full bg-teal-100 px-2 py-0.5 font-medium text-teal-800 dark:bg-teal-700 dark:text-teal-200">
+                        <span className="relative z-10 mb-1 ml-0 rounded-full bg-teal-100 px-2 py-0.5 font-medium text-teal-800 dark:bg-teal-700 dark:text-teal-200">
                           <Link
                             href={`${pagination.base_url}?page=${pagination.page}&query=${pagination.query}&category=${post.category}`}
                             className="whitespace-no-wrap"
@@ -64,7 +64,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         </span>
                       )}
                       {post.language !== activeLocale && (
-                        <span className="relative z-10 ml-0 mb-1 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800 dark:bg-green-700 dark:text-green-200">
+                        <span className="relative z-10 mb-1 ml-0 rounded-full bg-green-100 px-2 py-0.5 font-medium text-green-800 dark:bg-green-700 dark:text-green-200">
                           {t("languages." + post.language)}
                         </span>
                       )}
@@ -97,8 +97,6 @@ export const Posts: React.FunctionComponent<Props> = ({
                             />
                             {post.doi}
                           </Link>
-                          <ExportButton post={post} />
-                          <CitationButton post={post} activeLocale={activeLocale} />
                         </div>
                       </>
                     )}
@@ -115,6 +113,8 @@ export const Posts: React.FunctionComponent<Props> = ({
                     )}
                   </div>
                   <Byline post={post} blog={blog} />
+                  <ExportButton post={post} />
+                  <CitationButton post={post} activeLocale={activeLocale} />
                   <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
                     {post.image && (
                       <div className="relative mr-4 h-48 w-64 shrink-0">

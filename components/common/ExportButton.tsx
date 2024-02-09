@@ -10,9 +10,10 @@ function classNames(...classes) {
 
 export function ExportButton({ post }) {
   const { t } = useTranslation("common")
+  const post_id = post.doi ? post.doi.substring(16) : post.id
 
   return (
-    <Menu as="div" className="relative ml-3 inline-block text-left">
+    <Menu as="div" className="relative mt-1 inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-1.5 py-1 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
         {t("posts.export")}
@@ -40,7 +41,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.md`
+                    `/posts/${post_id}?format=md`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -56,7 +57,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.pdf`
+                    `/posts/${post_id}?format=pdf`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -72,7 +73,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.bib`
+                    `/posts/${post_id}?format=bib`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -90,7 +91,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}?format=csl`
+                    `/posts/${post_id}?format=csl`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -106,7 +107,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.ris`
+                    `/posts/${post_id}?format=ris`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -122,7 +123,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.epub`
+                    `/posts/${post_id}?format=epub`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -138,7 +139,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.jsonld`
+                    `/posts/${post_id}?format=jsonld`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -154,7 +155,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}.xml`
+                    `/posts/${post_id}?format=xml`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -172,7 +173,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}?format=crossref_xml`
+                    `/posts/${post_id}?format=crossref_xml`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -188,7 +189,7 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post.doi.substring(16)}?format=datacite`
+                    `/posts/${post_id}?format=datacite`
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",

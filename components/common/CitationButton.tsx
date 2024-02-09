@@ -13,7 +13,7 @@ export function CitationButton({ post, activeLocale }) {
   const { t } = useTranslation("common")
   const toast = useToast()
 
-  const onFetchCitation = (doi: string, style: string, locale: string) => {
+  const onFetchCitation = (uuid: string, style: string, locale: string) => {
     const styles = {
       apa: "APA",
       harvard1: "Harvard",
@@ -23,9 +23,7 @@ export function CitationButton({ post, activeLocale }) {
       "chicago-author-date": "Chicago",
       "american-chemical-society": "ACS",
     }
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/${doi.substring(
-      16,
-    )}?format=citation&style=${style}&locale=${locale}`
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/posts/${uuid}?format=citation&style=${style}&locale=${locale}`
     fetch(url)
       .then((res) => {
         if (res.status >= 400) {
@@ -47,7 +45,7 @@ export function CitationButton({ post, activeLocale }) {
   }
 
   return (
-    <Menu as="div" className="relative ml-1 inline-block text-left">
+    <Menu as="div" className="relative mt-1 ml-1 inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-1.5 py-1 text-sm font-medium text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
           {t("posts.citation")}
@@ -73,7 +71,7 @@ export function CitationButton({ post, activeLocale }) {
             <Menu.Item>
               {({ active }) => (
                 <a
-                  onClick={() => onFetchCitation(post.doi, "apa", activeLocale)}
+                  onClick={() => onFetchCitation(post.id, "apa", activeLocale)}
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
                     "block px-4 py-2 text-sm",
@@ -88,7 +86,7 @@ export function CitationButton({ post, activeLocale }) {
                 <a
                   onClick={() =>
                     onFetchCitation(
-                      post.doi,
+                      post.id,
                       "chicago-author-date",
                       activeLocale,
                     )
@@ -106,7 +104,7 @@ export function CitationButton({ post, activeLocale }) {
               {({ active }) => (
                 <a
                   onClick={() =>
-                    onFetchCitation(post.doi, "harvard1", activeLocale)
+                    onFetchCitation(post.id, "harvard1", activeLocale)
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -122,7 +120,7 @@ export function CitationButton({ post, activeLocale }) {
                 <a
                   onClick={() =>
                     onFetchCitation(
-                      post.doi,
+                      post.id,
                       "modern-language-association",
                       activeLocale,
                     )
@@ -143,7 +141,7 @@ export function CitationButton({ post, activeLocale }) {
                 <a
                   onClick={() =>
                     onFetchCitation(
-                      post.doi,
+                      post.id,
                       "american-chemical-society",
                       activeLocale,
                     )
@@ -161,7 +159,7 @@ export function CitationButton({ post, activeLocale }) {
               {({ active }) => (
                 <a
                   onClick={() =>
-                    onFetchCitation(post.doi, "ieee", activeLocale)
+                    onFetchCitation(post.id, "ieee", activeLocale)
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
@@ -176,7 +174,7 @@ export function CitationButton({ post, activeLocale }) {
               {({ active }) => (
                 <a
                   onClick={() =>
-                    onFetchCitation(post.doi, "vancouver", activeLocale)
+                    onFetchCitation(post.id, "vancouver", activeLocale)
                   }
                   className={classNames(
                     active ? "bg-gray-100 text-gray-900" : "text-gray-700",
