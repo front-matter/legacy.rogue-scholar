@@ -131,6 +131,7 @@
   "search.placeholder": "Digita per cercare...",
   "signIn": "Registrazione",
   "signUp": "Iscrizione",
+  "status.pending": "in attesa",
   "subscriptionAlert.manage": "Gestisci abbonamento",
   "subscriptionAlert.text": "EHI {{ userName }}! Sei attualmente abbonato al piano {{ planName }}. Per gestire il tuo abbonamento o aggiornare il tuo piano, fai clic sul pulsante in basso.",
   "subscriptionAlert.title": "Il tuo abbonamento",

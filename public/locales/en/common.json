@@ -131,6 +131,7 @@
   "search.placeholder": "Type to search...",
   "signIn": "Sign in",
   "signUp": "Sign up",
+  "status.pending": "pending",
   "subscriptionAlert.manage": "Manage subscription",
   "subscriptionAlert.text": "Hey {{ userName }}! You are currently subscribed to the {{ planName }} plan. To manage your subscription or upgrade your plan, click the button below.",
   "subscriptionAlert.title": "Your subscription",

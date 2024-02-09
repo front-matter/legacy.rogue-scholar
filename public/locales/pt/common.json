@@ -131,6 +131,7 @@
   "search.placeholder": "Procurar...",
   "signIn": "Registro",
   "signUp": "Registrar",
+  "status.pending": "pendente",
   "subscriptionAlert.manage": "Gerenciar assinatura",
   "subscriptionAlert.text": "Ei {{ userName }}! No momento, você está inscrito no plano {{ planName }}. Para gerenciar sua assinatura ou atualizar seu plano, clique no botão abaixo.",
   "subscriptionAlert.title": "Sua assinatura",

@@ -95,6 +95,7 @@ export interface PostType {
   blog_name?: string
   blog_slug?: string
   blog?: BlogParentType
+  status?: string
 }
 
 export interface BlogType extends FeedData {

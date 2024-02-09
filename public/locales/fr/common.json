@@ -131,6 +131,7 @@
   "search.placeholder": "Chercher...",
   "signIn": "Enregistrer",
   "signUp": "Enregistrer",
+  "status.pending": "en attente",
   "subscriptionAlert.manage": "Gérer l'abonnement",
   "subscriptionAlert.text": "Hé {{ userName }}! Vous êtes actuellement abonné au forfait {{ planName }}. Pour gérer votre abonnement ou mettre à niveau votre plan, cliquez sur le bouton ci-dessous.",
   "subscriptionAlert.title": "Votre abonnement",

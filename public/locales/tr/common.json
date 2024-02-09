@@ -131,6 +131,7 @@
   "search.placeholder": "Aramak için yazın...",
   "signIn": "Oturum aç",
   "signUp": "Kaydolun",
+  "status.pending": "beklemede",
   "subscriptionAlert.manage": "Aboneliği yönet",
   "subscriptionAlert.text": "Hey {{ userName }}! Şu anda {{ planName }} planına abonesiniz. Aboneliğinizi yönetmek veya planınızı yükseltmek için aşağıdaki düğmeyi tıklayın.",
   "subscriptionAlert.title": "Aboneliğiniz",

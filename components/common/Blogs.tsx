@@ -57,7 +57,7 @@ export const Blogs: React.FunctionComponent<Props> = ({
                       </Link>
                     </span>
                   )}
-                  {blog.status === "archived" && (
+                  {["pending", "archived"].includes(blog.status || "") && (
                     <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800 dark:bg-red-700 dark:text-red-200">
                       {capitalize(t("status." + blog.status, { ns: "app" }))}
                     </span>
