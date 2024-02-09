@@ -29,7 +29,6 @@ export function CitationButton({ post, activeLocale }) {
         if (res.status >= 400) {
           return "Error fetching citation. Please try again later."
         }
-        console.log(res)
         return res.text()
       })
       .then((data) => {
