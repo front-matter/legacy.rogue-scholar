@@ -123,7 +123,7 @@ export const Blogs: React.FunctionComponent<Props> = ({
                       <span className="ml-2">{t("posts.homepage")}</span>
                     </Link>
                   </span>
-                  {blog.status === "active" &&
+                  {["pending", "active"].includes(blog.status || "") &&
                     (blog.current_feed_url || blog.feed_url) &&
                     blog.feed_format && (
                       <span className="-ml-px text-gray-500 dark:text-gray-200">

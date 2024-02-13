@@ -119,7 +119,7 @@ export const Blog: React.FunctionComponent<Props> = ({ blog }) => {
                 <span className="ml-2">{t("posts.homepage")}</span>
               </Link>
             </span>
-            {blog.status === "active" && feed_url && blog.feed_format && (
+            {["pending", "active"].includes(blog.status || "") && feed_url && blog.feed_format && (
               <span className="-ml-px text-gray-500 dark:text-gray-200">
                 <Link
                   href={feed_url}
