@@ -21,25 +21,13 @@ jobs:
       - name: Install commonmeta-py
         run: poetry install --no-root
       - name: Find blog posts that are not indexed recently
-        run: |
-          echo "::set-output name=UPDATED_POSTS::$(curl https://api.rogue-scholar.org/posts/updated)"
         id: posts_updated
-      - name: Generate XML
-        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
         run: |
-          mkdir -p upload
-          poetry run commonmeta list ${{ steps.posts_updated.outputs.UPDATED_POSTS }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
-      - name: Upload
-        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
-        uses: actions/upload-artifact@v3
-        with:
-            name: uploads
-            path: upload/temp        
-      - name: Download
-        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
-        uses: actions/download-artifact@v3
-        with:
-            name: uploads
+          echo "posts='curl https://api.rogue-scholar.org/posts/updated'" >> "$GITHUB_OUTPUT"   
+      - name: Generate XML
+        if: steps.posts_updated.outputs.posts != ''
+        run: |
+          echo "crossref_xml='poetry run commonmeta list ${{ steps.posts_updated.outputs.posts }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml' >> "$GITHUB_OUTPUT"
       - name: Update content
         if: steps.posts_updated.outputs.UPDATED_POSTS != ''
         run: |
