@@ -1,8 +1,8 @@
 name: Update DOIs for changed Posts
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "*/10 * * * *"
+  # schedule:
+  #  - cron: "*/10 * * * *"
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -22,45 +22,45 @@ jobs:
         run: poetry install --no-root
       - name: Find blog posts that are not indexed recently
         run: |
-          echo "::set-output name=POSTID::$(poetry run commonmeta json-feed updated)"
-        id: posts_by_blog
+          echo "::set-output name=UPDATED_POSTS::$(curl https://api.rogue-scholar.org/posts/updated)"
+        id: posts_updated
       - name: Generate XML
-        if: steps.posts_by_blog.outputs.POSTID != ''
+        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
         run: |
           mkdir -p upload
-          poetry run commonmeta convert https://api.rogue-scholar.org/posts/"${{ steps.posts_by_blog.outputs.POSTID }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml --show-errors > upload/${{ steps.posts_by_blog.outputs.POSTID }}
+          poetry run commonmeta list ${{ steps.posts_updated.outputs.UPDATED_POSTS }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
       - name: Upload
-        if: steps.posts_by_blog.outputs.POSTID != ''
+        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
         uses: actions/upload-artifact@v3
         with:
             name: uploads
-            path: upload/${{ steps.posts_by_blog.outputs.POSTID }}         
+            path: upload/temp        
       - name: Download
-        if: steps.posts_by_blog.outputs.POSTID != ''
+        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
         uses: actions/download-artifact@v3
         with:
             name: uploads
       - name: Update content
-        if: steps.posts_by_blog.outputs.POSTID != ''
+        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
         run: |
-          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/${{ steps.posts_by_blog.outputs.POSTID }}"
+          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
       - name: Set current date as variable
-        if: steps.posts_by_blog.outputs.POSTID != ''
+        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
         run: |
           echo "::set-output name=NOW::$(date +'%s')"
         id: current_date
-      - name: Update Rogue Scholar post
-        if: steps.posts_by_blog.outputs.POSTID != ''
-        run: |
-          curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.posts_by_blog.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
-      - name: Find blog id for post
-        run: |
-          echo "::set-output name=SLUG::$(poetry run commonmeta json-feed blog_slug --id ${{ steps.posts_by_blog.outputs.POSTID }})"
-        id: blog
-      - name: Update OA.Works blog
-        if: steps.blog.outputs.SLUG == 'oa_works'
-        run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.OA_WORKS_ADMIN_API_KEY }} --api-url ${{ secrets.OA_WORKS_ADMIN_API_URL }} ${{ steps.posts_by_blog.outputs.POSTID }}
-      - name: Update Upstream blog
-        if: steps.blog.outputs.SLUG == 'upstream'
-        run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.UPSTREAM_ADMIN_API_KEY }} --api-url ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ steps.posts_by_blog.outputs.POSTID }}
+      # - name: Update Rogue Scholar post
+      #   if: steps.posts_updated.outputs.UPDATED_POSTS != ''
+      #   run: |
+      #     curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.posts_by_blog.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
+      # # - name: Find blog id for post
+      #   run: |
+      #     echo "::set-output name=SLUG::$(poetry run commonmeta json-feed blog_slug --id ${{ steps.posts_by_blog.outputs.POSTID }})"
+      #   id: blog
+      # - name: Update OA.Works blog
+      #   if: steps.blog.outputs.SLUG == 'oa_works'
+      #   run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.OA_WORKS_ADMIN_API_KEY }} --api-url ${{ secrets.OA_WORKS_ADMIN_API_URL }} ${{ steps.posts_by_blog.outputs.POSTID }}
+      # - name: Update Upstream blog
+      #   if: steps.blog.outputs.SLUG == 'upstream'
+      #   run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.UPSTREAM_ADMIN_API_KEY }} --api-url ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ steps.posts_by_blog.outputs.POSTID }}
       
