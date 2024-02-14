@@ -21,19 +21,31 @@ jobs:
       - name: Install commonmeta-py
         run: poetry install --no-root
       - name: Find blog posts that are not indexed recently
-        id: posts_updated
         run: |
-          echo "posts='curl https://api.rogue-scholar.org/posts/updated'" >> "$GITHUB_OUTPUT"   
+          {
+            echo 'UPDATED_POSTS<<EOF'
+            curl https://api.rogue-scholar.org/posts/updated
+            echo EOF
+          } >> "$GITHUB_ENV"
       - name: Generate XML
-        if: steps.posts_updated.outputs.posts != ''
+        if: ${{ env.UPDATED_POSTS != '' }}
         run: |
-          echo "crossref_xml='poetry run commonmeta list ${{ steps.posts_updated.outputs.posts }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml' >> "$GITHUB_OUTPUT"
+          {
+            echo 'CROSSREF_XML<<EOF'
+            poetry run commonmeta list $UPDATED_POSTS --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml
+            echo EOF
+          } >> "$GITHUB_ENV"
       - name: Update content
-        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
+        if: ${{ env.CROSSREF_XML != '' }}
         run: |
-          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
+          {
+            echo 'CROSSREF_STATUS<<EOF'
+            curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "$CROSSREF_XML"
+            echo EOF
+          } >> "$GITHUB_ENV"
+          
       - name: Set current date as variable
-        if: steps.posts_updated.outputs.UPDATED_POSTS != ''
+        if: ${{ env.CROSSREF_STATUS != '' }}
         run: |
           echo "::set-output name=NOW::$(date +'%s')"
         id: current_date
