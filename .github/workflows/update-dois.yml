@@ -22,38 +22,38 @@ jobs:
         run: poetry install --no-root
       - name: Find blog posts that are not indexed recently
         run: |
-          {
-            echo 'UPDATED_POSTS<<EOF'
-            curl https://api.rogue-scholar.org/posts/updated
-            echo EOF
-          } >> "$GITHUB_ENV"
+          echo "::set-output name=POSTS::$(curl https://api.rogue-scholar.org/posts/updated)"
+        id: posts_updated
       - name: Generate XML
-        if: ${{ env.UPDATED_POSTS != '' }}
+        if: steps.posts_updated.outputs.POSTS != '[]'
         run: |
-          {
-            echo 'CROSSREF_XML<<EOF'
-            poetry run commonmeta list $UPDATED_POSTS --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml
-            echo EOF
-          } >> "$GITHUB_ENV"
+          mkdir -p upload
+          poetry run commonmeta list ${{ steps.posts_updated.outputs.POSTS }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
+      - name: Upload
+        if: steps.posts_updated.outputs.POSTS != '[]'
+        uses: actions/upload-artifact@v3
+        with:
+            name: uploads
+            path: upload/temp         
+      - name: Download
+        if: steps.posts_updated.outputs.POSTS != '[]'
+        uses: actions/download-artifact@v3
+        with:
+            name: uploads
       - name: Update content
-        if: ${{ env.CROSSREF_XML != '' }}
+        if: steps.posts_updated.outputs.POSTS != '[]'
         run: |
-          {
-            echo 'CROSSREF_STATUS<<EOF'
-            curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "$CROSSREF_XML"
-            echo EOF
-          } >> "$GITHUB_ENV"
-          
+          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
       - name: Set current date as variable
-        if: ${{ env.CROSSREF_STATUS != '' }}
+        if: steps.posts_updated.outputs.POSTS != '[]'
         run: |
           echo "::set-output name=NOW::$(date +'%s')"
         id: current_date
       # - name: Update Rogue Scholar post
-      #   if: steps.posts_updated.outputs.UPDATED_POSTS != ''
+      #   if: steps.posts_updated.outputs.POSTS != '[]'
       #   run: |
       #     curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.posts_by_blog.outputs.POSTID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
-      # # - name: Find blog id for post
+      # - name: Find blog id for post
       #   run: |
       #     echo "::set-output name=SLUG::$(poetry run commonmeta json-feed blog_slug --id ${{ steps.posts_by_blog.outputs.POSTID }})"
       #   id: blog
