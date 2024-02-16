@@ -20,32 +20,24 @@ jobs:
           virtualenvs-in-project: true
       - name: Install commonmeta-py
         run: poetry install --no-root
-      - name: Find blog posts that are not indexed recently
-        run: |
-          echo "::set-output name=POSTS::$(curl https://api.rogue-scholar.org/posts/updated)"
-        id: posts_updated
-      - name: Generate XML
-        if: steps.posts_updated.outputs.POSTS != '[]'
+      - name: Generate XML for posts not indexed recently
         run: |
           mkdir -p upload
-          poetry run commonmeta list '${{ steps.posts_updated.outputs.POSTS }}' --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
+          curl https://api.rogue-scholar.org/posts/updated > upload/posts
+          poetry run commonmeta list upload/posts --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/xml
       - name: Upload
-        if: steps.posts_updated.outputs.POSTS != '[]'
         uses: actions/upload-artifact@v3
         with:
             name: uploads
-            path: upload/temp         
+            path: upload/xml         
       - name: Download
-        if: steps.posts_updated.outputs.POSTS != '[]'
         uses: actions/download-artifact@v3
         with:
             name: uploads
       - name: Update content
-        if: steps.posts_updated.outputs.POSTS != '[]'
         run: |
-          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/temp"
+          curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/xml"
       - name: Set current date as variable
-        if: steps.posts_updated.outputs.POSTS != '[]'
         run: |
           echo "::set-output name=NOW::$(date +'%s')"
         id: current_date
