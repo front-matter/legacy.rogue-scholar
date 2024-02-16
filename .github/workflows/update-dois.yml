@@ -36,7 +36,7 @@ jobs:
         id: current_date
       - name: List uuids of updated posts
         run: |
-          echo "::set-output name=UUIDS::$(jq -r '[.[] | .id] |join(" ")' posts.json)"
+          echo "::set-output name=UUIDS::$(jq -r '[.[] | .id] |join(" ")' upload/posts.json)"
         id: uuids
       - name: Update Rogue Scholar posts
         run: |
