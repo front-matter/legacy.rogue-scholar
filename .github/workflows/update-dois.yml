@@ -28,7 +28,7 @@ jobs:
         if: steps.posts_updated.outputs.POSTS != '[]'
         run: |
           mkdir -p upload
-          poetry run commonmeta list "${{ steps.posts_updated.outputs.POSTS }}" --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
+          poetry run commonmeta list '${{ steps.posts_updated.outputs.POSTS }}' --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/temp
       - name: Upload
         if: steps.posts_updated.outputs.POSTS != '[]'
         uses: actions/upload-artifact@v3
