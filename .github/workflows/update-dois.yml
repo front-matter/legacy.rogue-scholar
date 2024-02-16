@@ -23,8 +23,8 @@ jobs:
       - name: Generate XML for posts not indexed recently
         run: |
           mkdir -p upload
-          curl https://api.rogue-scholar.org/posts/updated > upload/posts
-          poetry run commonmeta list upload/posts --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/xml
+          curl https://api.rogue-scholar.org/posts/updated > upload/posts.json
+          poetry run commonmeta list upload/posts.json --via json_feed_item --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/xml
       - name: Upload
         uses: actions/upload-artifact@v3
         with:
