@@ -20,27 +20,23 @@ jobs:
           virtualenvs-in-project: true
       - name: Install commonmeta-py
         run: poetry install --no-root
-      - name: Generate XML for posts not indexed recently
+      - name: Download posts not indexed recently
         run: |
           mkdir -p upload
           curl https://api.rogue-scholar.org/posts/updated > upload/posts.json
+      - name: Convert posts to crossref xml
+        run: |
           poetry run commonmeta list upload/posts.json --via json_feed_item --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml > upload/xml
-      - name: Upload
-        uses: actions/upload-artifact@v3
-        with:
-            name: uploads
-            path: upload/xml         
-      - name: Download
-        uses: actions/download-artifact@v3
-        with:
-            name: uploads
-      - name: Update content
+      - name: Update content via Crossref API
         run: |
           curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/xml"
       - name: Set current date as variable
         run: |
           echo "::set-output name=NOW::$(date +'%s')"
         id: current_date
+      - name: List uuids of updated posts
+        run: |
+          jq '.[] | .id' upload/posts.json
       # - name: Update Rogue Scholar post
       #   if: steps.posts_updated.outputs.POSTS != '[]'
       #   run: |
