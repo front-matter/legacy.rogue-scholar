@@ -20,10 +20,6 @@ jobs:
           virtualenvs-in-project: true
       - name: Install commonmeta-py
         run: poetry install --no-root
-      - name: Set current date as variable
-        run: |
-          echo "::set-output name=NOW::$(date +'%s')"
-        id: current_date
       - name: Download posts not indexed recently
         run: |
           mkdir -p upload
@@ -32,9 +28,11 @@ jobs:
         id: current_number
         run: |
           echo "NUMBER=$(jq '."total-results"' upload/posts.json)" >> $GITHUB_OUTPUT
-      - name: Show the number of posts to be updated
+      - name: Set current date as variable
+        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }} 
         run: |
-          echo "the number of posts is ${{ steps.current_number.outputs.NUMBER }}"
+          echo "NOW=$(date +'%s')" >> $GITHUB_OUTPUT
+        id: current_date
       - name: Convert posts to crossref xml
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
