@@ -32,6 +32,9 @@ jobs:
         id: current_number
         run: |
           echo "NUMBER=$(jq '."total-results"' upload/posts.json)" >> $GITHUB_OUTPUT
+      - name: Show the number of posts to be updated
+        run: |
+          echo "the number of posts is ${{ steps.current_number.outputs.NUMBER }}"
       - name: Convert posts to crossref xml
         if: ${{ steps.current_number.outputs.NUMBER }} > 0
         run: |
