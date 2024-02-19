@@ -29,9 +29,9 @@ jobs:
           mkdir -p upload
           curl https://api.rogue-scholar.org/posts/updated > upload/posts.json
       - name: Set number of posts to be updated as variable
-        run: |
-          echo "::set-output name=NUMBER::$(jq '."total-results"' upload/posts.json)"
         id: current_number
+        run: |
+          echo "NUMBER=$(jq '."total-results"' upload/posts.json)" >> $GITHUB_OUTPUT
       - name: Convert posts to crossref xml
         if: ${{ steps.current_number.outputs.NUMBER }} > 0
         run: |
