@@ -25,12 +25,17 @@ export const languageRange = Object.values(blue).filter(function (_v, i) {
 export const languageDomain = ["en", "de", "es", "pt", "fr", "it", "tr"]
 
 export const categoryDomain = [
-  "naturalSciences",
-  "engineeringAndTechnology",
-  "medicalAndHealthSciences",
-  "agriculturalSciences",
+  "law",
+  "computerAndInformationSciences",
+  "earthAndRelatedEnvironmentalSciences",
   "socialSciences",
+  "languagesAndLiterature",
+  "otherSocialSciences",
+  "chemicalSciences",
   "humanities",
+  "biologicalSciences",
+  "naturalSciences",
+  "healthSciences",
 ]
 
 export const platformDomain = [
@@ -51,14 +56,16 @@ type Data = {
 }
 
 type Props = {
-  count: number
+  blogsCount: number
+  postsCount: number
   categories: Data[]
   languages: Data[]
   platforms: Data[]
 }
 
 export const Stats: React.FunctionComponent<Props> = ({
-  count,
+  blogsCount,
+  postsCount,
   categories,
   languages,
   platforms,
@@ -87,15 +94,14 @@ export const Stats: React.FunctionComponent<Props> = ({
           </p>
         </div>
         <ul
-          role="list"
           className="mx-auto mt-5 grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3"
         >
           <li key="category">
-            <ul role="list" className="flex flex-col gap-y-8">
+            <ul className="flex flex-col gap-y-8">
               <DonutChart
                 data={categories}
                 legend={false}
-                count={count}
+                count={postsCount}
                 title={t("statistics.category")}
                 range={range}
                 domain={translatedCategoryDomain}
@@ -103,11 +109,11 @@ export const Stats: React.FunctionComponent<Props> = ({
             </ul>
           </li>
           <li key="language">
-            <ul role="list" className="flex flex-col gap-y-8">
+            <ul className="flex flex-col gap-y-8">
               <DonutChart
                 data={languages}
                 legend={false}
-                count={count}
+                count={postsCount}
                 title={t("statistics.language")}
                 range={languageRange}
                 domain={translatedLanguageDomain}
@@ -115,11 +121,11 @@ export const Stats: React.FunctionComponent<Props> = ({
             </ul>
           </li>
           <li key="platform">
-            <ul role="list" className="flex flex-col gap-y-8">
+            <ul className="flex flex-col gap-y-8">
               <DonutChart
                 data={platforms}
                 legend={false}
-                count={count}
+                count={blogsCount}
                 title={t("statistics.platform")}
                 range={range}
                 domain={platformDomain}
