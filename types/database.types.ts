@@ -314,7 +314,7 @@ export interface Database {
       language_enum: "en" | "de" | "es" | "it" | "pt" | "fr" | "tr"
       license: "https://creativecommons.org/licenses/by/4.0/legalcode"
       newsletter_enum: "digest"
-      plan_enum: "Starter" | "Team" | "Enterprise"
+      plan_enum: "Personal" | "Starter" | "Team" | "Enterprise"
       prefix_enum:
         | "10.53731"
         | "10.54900"
