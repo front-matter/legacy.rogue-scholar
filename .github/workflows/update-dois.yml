@@ -44,7 +44,7 @@ jobs:
       - name: List uuids of updated posts
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          echo "::set-output name=UUIDS::$(jq -r '[.items | .[] | .id] | join(", ")' upload/posts.json)"
+          echo "::set-output name=UUIDS::$(jq -rc '[.items | .[] | .id]' upload/posts.json | tr -d '"')"
         id: uuids
       - name: Update Rogue Scholar posts
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
