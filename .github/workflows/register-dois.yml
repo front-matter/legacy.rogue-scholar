@@ -18,8 +18,6 @@ jobs:
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
-      - name: Install commonmeta-py
-        run: poetry install --no-root
       - name: Download unregistered posts
         run: |
           mkdir -p upload
@@ -28,6 +26,10 @@ jobs:
         id: current_number
         run: |
           echo "NUMBER=$(jq '."total-results"' upload/posts.json)" >> $GITHUB_OUTPUT
+      - name: Install commonmeta-py
+        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }} 
+        run: |
+          poetry install --no-root
       - name: Set current date as variable
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }} 
         run: |
