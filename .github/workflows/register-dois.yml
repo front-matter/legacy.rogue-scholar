@@ -21,7 +21,7 @@ jobs:
       - name: Download unregistered posts
         run: |
           mkdir -p upload
-          curl https://api.rogue-scholar.org/posts/unregistered > upload/posts.json
+          curl https://api.rogue-scholar.org/posts/unregistered?per_page=10 > upload/posts.json
       - name: Set number of unregistered posts as variable
         id: current_number
         run: |
