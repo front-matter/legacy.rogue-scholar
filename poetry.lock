@@ -559,13 +559,13 @@ test = ["pytest"]
 
 [[package]]
 name = "commonmeta-py"
-version = "0.14.18"
+version = "0.14.19"
 description = "Library for conversions to/from the Commonmeta scholarly metadata format"
 optional = false
 python-versions = ">=3.9,<4.0.0"
 files = [
-    {file = "commonmeta_py-0.14.18-py3-none-any.whl", hash = "sha256:508085005a63f8380878493d332ec41d081c2809ac6d63b06c209181cd200271"},
-    {file = "commonmeta_py-0.14.18.tar.gz", hash = "sha256:4e9d17a07c6546516013a1040a070603bec7ae5056c8e2652a49d5330a3b18ef"},
+    {file = "commonmeta_py-0.14.19-py3-none-any.whl", hash = "sha256:cae59530c08ba3039bf63de9fb182fb69782ce7451a91d6ac199cad3fbb902c4"},
+    {file = "commonmeta_py-0.14.19.tar.gz", hash = "sha256:5a96818b659aa4d08bb041ef7e120bbcce06833548427b23c76cdceadee4414d"},
 ]
 
 [package.dependencies]
@@ -950,13 +950,13 @@ test = ["flaky", "ipyparallel", "pre-commit", "pytest (>=7.0)", "pytest-asyncio 
 
 [[package]]
 name = "ipython"
-version = "8.22.0"
+version = "8.22.1"
 description = "IPython: Productive Interactive Computing"
 optional = false
 python-versions = ">=3.10"
 files = [
-    {file = "ipython-8.22.0-py3-none-any.whl", hash = "sha256:a3e962e1d42927f5825dab048f4de617f5856cf3272fff1cb9245bea0c785a46"},
-    {file = "ipython-8.22.0.tar.gz", hash = "sha256:bc649987e35a75ecccab7a245d7403710e3a289384c268d6d846ab8933ca0811"},
+    {file = "ipython-8.22.1-py3-none-any.whl", hash = "sha256:869335e8cded62ffb6fac8928e5287a05433d6462e3ebaac25f4216474dd6bc4"},
+    {file = "ipython-8.22.1.tar.gz", hash = "sha256:39c6f9efc079fb19bfb0f17eee903978fe9a290b1b82d68196c641cecb76ea22"},
 ]
 
 [package.dependencies]
@@ -968,7 +968,7 @@ pexpect = {version = ">4.3", markers = "sys_platform != \"win32\" and sys_platfo
 prompt-toolkit = ">=3.0.41,<3.1.0"
 pygments = ">=2.4.0"
 stack-data = "*"
-traitlets = ">=5"
+traitlets = ">=5.13.0"
 
 [package.extras]
 all = ["ipython[black,doc,kernel,nbconvert,nbformat,notebook,parallel,qtconsole,terminal]", "ipython[test,test-extra]"]
