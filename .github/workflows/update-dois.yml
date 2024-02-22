@@ -45,7 +45,7 @@ jobs:
         with:
           path: "upload/${{ steps.current_date.outputs.NOW }}"
       - name: File contents
-        run: echo "${ steps.read_file.outputs.contents }"
+        run: echo "${{ steps.read_file.outputs.contents }}"
       # - name: Update content via Crossref API
       #   if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
       #   run: |
