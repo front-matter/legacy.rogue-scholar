@@ -39,11 +39,13 @@ jobs:
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           poetry run commonmeta list upload/posts.json --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml --show-errors > upload/${{ steps.current_date.outputs.NOW }}
-      - uses: actions/download-artifact@v4
+      - name: Read file contents
+        id: read_file
+        uses: andstor/file-reader-action@v1
         with:
-           name: upload/${{ steps.current_date.outputs.NOW }}
-      - name: Display structure of downloaded files
-        run: ls -R
+          path: "upload/${{ steps.current_date.outputs.NOW }}"
+      - name: File contents
+        run: echo "${ steps.read_file.outputs.contents }"
       # - name: Update content via Crossref API
       #   if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
       #   run: |
