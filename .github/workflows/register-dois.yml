@@ -8,38 +8,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4       
+        uses: actions/checkout@v4
       - name: setup python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
           virtualenvs-create: true
           virtualenvs-in-project: true
-      - name: Download unregistered posts
+      - name: Download most recent unregistered post
         run: |
           mkdir -p upload
-          curl https://api.rogue-scholar.org/posts/unregistered?per_page=10 > upload/posts.json
+          curl https://api.rogue-scholar.org/posts/unregistered?per_page=1 > upload/posts.json
       - name: Set number of unregistered posts as variable
         id: current_number
         run: |
           echo "NUMBER=$(jq '."total-results"' upload/posts.json)" >> $GITHUB_OUTPUT
       - name: Install commonmeta-py
-        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }} 
+        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           poetry install --no-root
       - name: Set current date as variable
-        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }} 
+        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           echo "NOW=$(date +'%s')" >> $GITHUB_OUTPUT
         id: current_date
       - name: Convert posts to commonmeta and autogenerate dois based on prefix
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          echo "POSTS=$(poetry run commonmeta list upload/posts.json --show-errors > upload/commonmeta.json)" >> $GITHUB_OUTPUT 
-      - name: Convert commonmeta to crossref xml
+          poetry run commonmeta list upload/posts.json --show-errors > upload/commonmeta.json
+      - name: Convert posts to crossref xml
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           poetry run commonmeta list upload/commonmeta.json --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml --show-errors > upload/${{ steps.current_date.outputs.NOW }}
@@ -47,29 +47,23 @@ jobs:
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/${{ steps.current_date.outputs.NOW }}"
-      - name: List uuids and dois of updated posts
+      - name: Set post uuid, doi and blog slug as variables
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          echo "POSTS=$(jq -rc '[.items | .[] | { id: .id, doi: .doi}]' upload/posts.json)" >> $GITHUB_OUTPUT
-        id: uuids
-      - name: Update Rogue Scholar posts
+          echo "UUID=$(jq -rc '[.items | .[] | .id] | first' upload/posts.json)" >> $GITHUB_OUTPUT
+          echo "DOI=$(jq -rc '[.items | .[] | .id] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
+          echo "SLUG=$(jq -rc '[.items | .[] | .blog.slug] | first' upload/posts.json)" >> $GITHUB_OUTPUT
+        id: current_post
+      - name: update Rogue Scholar post
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          for post in ${{ steps.uuids.outputs.POSTS }}; do
-            curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.$post.*.id -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "doi": "$post.*.doi", "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
-          done
-    
-      # - name: Find blog id for post
-      #   if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
-      #   run: |
-      #     echo "SLUG=$(poetry run commonmeta json-feed blog_slug --id ${{ steps.uuids.outputs.UUID }})" >> $GITHUB_OUTPUT
-      #   id: blog
-      # - name: Update Front Matter blog
-      #   if: steps.blog.outputs.SLUG == 'front_matter'
-      #   run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.GHOST_ADMIN_API_KEY }} --api-url ${{ secrets.GHOST_ADMIN_API_URL }} ${{ steps.uuids.outputs.UUID }}
-      # - name: Update Upstream blog
-      #   if: steps.blog.outputs.SLUG == 'upstream'
-      #   run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.UPSTREAM_ADMIN_API_KEY }} --api-url ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ steps.uuids.outputs.UUID }}
-      # - name: Update OA.Works blog
-      #   if: steps.blog.outputs.SLUG == 'oa_works'
-      #   run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.OA_WORKS_ADMIN_API_KEY }} --api-url ${{ secrets.OA_WORKS_ADMIN_API_URL }} ${{ steps.uuids.outputs.UUID }}
+          curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.current_post.outputs.UUID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "doi": "${{ steps.current_post.outputs.DOI }}", "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
+      - name: Update Front Matter blog
+        if: steps.current_post.outputs.SLUG == 'front_matter'
+        run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.GHOST_ADMIN_API_KEY }} --api-url ${{ secrets.GHOST_ADMIN_API_URL }} ${{ steps.current_post.outputs.UUID }}
+      - name: Update Upstream blog
+        if: steps.current_post.outputs.SLUG == 'upstream'
+        run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.UPSTREAM_ADMIN_API_KEY }} --api-url ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ steps.current_post.outputs.UUID }}
+      - name: Update OA.Works blog
+        if: steps.current_post.outputs.SLUG == 'oa_works'
+        run: poetry run commonmeta update-ghost-post --api-key ${{ secrets.OA_WORKS_ADMIN_API_KEY }} --api-url ${{ secrets.OA_WORKS_ADMIN_API_URL }} ${{ steps.current_post.outputs.UUID }}
