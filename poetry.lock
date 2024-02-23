@@ -559,13 +559,13 @@ test = ["pytest"]
 
 [[package]]
 name = "commonmeta-py"
-version = "0.14.21"
+version = "0.14.22"
 description = "Library for conversions to/from the Commonmeta scholarly metadata format"
 optional = false
 python-versions = ">=3.9,<4.0.0"
 files = [
-    {file = "commonmeta_py-0.14.21-py3-none-any.whl", hash = "sha256:8c3df03bf53bfbfcc4c05ca8228434bbac18f8afdbebacb2b4ae35fe9dd67e5e"},
-    {file = "commonmeta_py-0.14.21.tar.gz", hash = "sha256:ae85be9a59968c68f4003fd5dd084588288cb54d6ed55b40aa728de31aeebcdb"},
+    {file = "commonmeta_py-0.14.22-py3-none-any.whl", hash = "sha256:7e88b5c55a638f2951c79c25fe2925a97f9d091b91eb479e654f0b5a1c17e623"},
+    {file = "commonmeta_py-0.14.22.tar.gz", hash = "sha256:f8ff690d036072c7b3c83cd1773759274e9367cc3652c7c804e7502db4a88e5a"},
 ]
 
 [package.dependencies]
