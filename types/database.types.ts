@@ -44,7 +44,6 @@ export interface Database {
           use_api: boolean | null
           mastodon: string | null
           user_id: string | null
-          version: Database["public"]["Enums"]["version_enum"]
         }
         Insert: {
           api?: boolean | null
@@ -80,7 +79,6 @@ export interface Database {
           use_api?: boolean | null
           mastodon?: string | null
           user_id?: string | null
-          version?: Database["public"]["Enums"]["version_enum"]
         }
         Update: {
           api?: boolean | null
@@ -116,7 +114,6 @@ export interface Database {
           use_api?: boolean | null
           mastodon?: string | null
           user_id?: string | null
-          version?: Database["public"]["Enums"]["version_enum"]
         }
         Relationships: [
           {

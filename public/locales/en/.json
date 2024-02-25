@@ -1,20 +1,3 @@
 {
-  "colorMode.dark": "Dark",
-  "colorMode.light": "Light",
-  "common.subscriptionPlans.enterprise.features.0": "Everything in team",
-  "common.subscriptionPlans.enterprise.features.1": "Archive a blog without active RSS feed",
-  "footer.allRightsReserved": "All rights reserved.",
-  "language": "Language",
-  "menu.docs": "Docs",
-  "menu.faq": "FAQ",
-  "menu.pricing": "Pricing",
-  "menu.stats": "Stats",
-  "menu.usage_stats": "Usage Stats",
-  "pagination.no_results": "No results",
-  "pricingPage": "Pricing",
-  "signIn": "Sign in",
-  "userMenu.account": "Account",
-  "userMenu.homepage": "Homepage",
-  "userMenu.message": "Hello {{user}}!",
-  "userMenu.signOut": "Sign out"
+  "pricing.plans.personal.features.1": "Archive all posts"
 }

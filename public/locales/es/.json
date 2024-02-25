@@ -1,20 +1,3 @@
 {
-  "colorMode.dark": "Oscuro",
-  "colorMode.light": "Claro",
-  "common.subscriptionPlans.enterprise.features.0": "Todo en equipo",
-  "common.subscriptionPlans.enterprise.features.1": "Archivar un blog sin fuente RSS activa",
-  "footer.allRightsReserved": "Reservados todos los derechos.",
-  "language": "Idioma",
-  "menu.docs": "Documentos",
-  "menu.faq": "Preguntas más frecuentes",
-  "menu.pricing": "Precios",
-  "menu.stats": "Estadísticas",
-  "menu.usage_stats": "Estadísticas de uso",
-  "pagination.no_results": "No hay resultados",
-  "pricingPage": "Precios",
-  "signIn": "Iniciar sesión",
-  "userMenu.account": "Cuenta",
-  "userMenu.homepage": "Página principal",
-  "userMenu.message": "Hola {{user}}!",
-  "userMenu.signOut": "Cerrar sesión"
+  "pricing.plans.personal.features.1": "Archivar todos los mensajes"
 }

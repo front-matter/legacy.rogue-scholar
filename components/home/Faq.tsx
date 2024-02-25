@@ -74,27 +74,10 @@ export default function Faqs() {
           <h2 className="py-6 font-sans text-3xl font-semibold tracking-tight text-blue-600 sm:text-4xl">
             {t("faq.title")}
           </h2>
-          <p className="mt-2 text-lg tracking-tight text-slate-700 dark:text-slate-200">
-            {t("faq.more")}{" "}
-            <Link
-              href="https://docs.rogue-scholar.org"
-              className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
-            >
-              Documentation
-            </Link>{" "}
-            {t("faq.support")}{" "}
-            <Link
-              href="https://discord.gg/HvbD4dNPFh"
-              className="whitespace-nowrap border-b-0 font-semibold text-gray-700 hover:text-gray-400 dark:text-gray-200"
-            >
-              Rogue Scholar Discord Forum
-            </Link>
-            .
-          </p>
         </div>
         <ul
           role="list"
-          className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3"
+          className="mx-auto mt-6 grid max-w-2xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-3"
         >
           {faqs.map((column, columnIndex) => (
             <li key={columnIndex}>

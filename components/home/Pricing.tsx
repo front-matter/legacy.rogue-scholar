@@ -147,7 +147,18 @@ export function Pricing() {
             {t("pricing.description")}
           </p>
         </div>
-        <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
+        <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-4 xl:mx-0 xl:gap-x-8">
+          <Plan
+            key="personal"
+            name={t("pricing.plans.personal.name")}
+            price={t("pricing.plans.personal.price")}
+            description={t("pricing.plans.personal.description")}
+            features={[
+              t("pricing.plans.personal.features.1"),
+              t("pricing.plans.personal.features.2"),
+              t("pricing.plans.personal.features.3"),
+            ]}
+          />
           <Plan
             key="starter"
             name={t("pricing.plans.starter.name")}
