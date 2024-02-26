@@ -168,6 +168,7 @@ export function Pricing() {
               t("pricing.plans.starter.features.1"),
               t("pricing.plans.starter.features.2"),
               t("pricing.plans.starter.features.3"),
+              t("pricing.plans.starter.features.4"),
             ]}
           />
           <Plan
