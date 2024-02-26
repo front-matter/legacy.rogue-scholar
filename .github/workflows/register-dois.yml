@@ -38,7 +38,7 @@ jobs:
       - name: Convert posts to commonmeta and autogenerate dois based on prefix
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          poetry run commonmeta list upload/posts.json --show-errors > upload/commonmeta.json
+          poetry run commonmeta list upload/posts.json --via json_feed_item --show-errors > upload/commonmeta.json
       - name: Convert posts to crossref xml
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
