@@ -45,7 +45,6 @@ export interface BlogType extends DocumentSchema {
   license?: string
   generator?: string
   category?: string
-  backlog?: number
   prefix?: string
   status?: string
   plan?: string

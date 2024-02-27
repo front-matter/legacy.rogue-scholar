@@ -14,7 +14,6 @@ export interface Database {
           api: boolean | null
           archive_prefix: string | null
           authors: Json | null
-          backlog: number
           canonical_url: boolean | null
           category: string
           created_at: number
@@ -49,7 +48,6 @@ export interface Database {
           api?: boolean | null
           archive_prefix?: string | null
           authors?: Json | null
-          backlog?: number
           canonical_url?: boolean | null
           category?: string
           created_at?: number
@@ -84,7 +82,6 @@ export interface Database {
           api?: boolean | null
           archive_prefix?: string | null
           authors?: Json | null
-          backlog?: number
           canonical_url?: boolean | null
           category?: string
           created_at?: number

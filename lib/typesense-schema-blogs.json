@@ -172,16 +172,6 @@
       "type": "string"
     },
     {
-      "facet": false,
-      "index": true,
-      "infix": false,
-      "locale": "",
-      "name": "backlog",
-      "optional": false,
-      "sort": false,
-      "type": "int64"
-    },
-    {
       "facet": true,
       "index": true,
       "infix": false,

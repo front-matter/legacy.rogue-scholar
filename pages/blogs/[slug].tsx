@@ -149,9 +149,7 @@ const BlogPage: React.FunctionComponent<Props> = ({
           {posts && <Posts posts={posts} pagination={pagination} blog={blog} />}
           {pagination.total > 0 && <Pagination pagination={pagination} />}
           {blog.status === "active" &&
-            blog.home_page_url &&
-            blog.backlog &&
-            blog.backlog > 0 && (
+            blog.home_page_url && (
               <div className="mx-auto max-w-2xl bg-inherit pb-2 lg:max-w-4xl">
                 <div className="mb-2 lg:mb-5">
                   <Link
