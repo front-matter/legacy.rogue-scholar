@@ -27,7 +27,7 @@ export function CheckIcon({ className }) {
       aria-hidden="true"
       className={clsx(
         "h-6 w-6 flex-none fill-current stroke-current",
-        className
+        className,
       )}
     >
       <path
@@ -61,14 +61,14 @@ function Plan({
     <section
       className={clsx(
         "mb-5 flex flex-col rounded-3xl px-6 py-8 sm:px-8",
-        featured ? "order-first bg-blue-600 lg:order-none" : ""
+        featured ? "order-first bg-blue-600 lg:order-none" : "",
       )}
       id={name}
     >
       <h3
         className={clsx(
           "mt-5 font-sans text-lg",
-          featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+          featured ? "text-white" : "text-slate-700 dark:text-slate-200",
         )}
       >
         {name}
@@ -76,7 +76,7 @@ function Plan({
       <p
         className={clsx(
           "mb-5 mt-2 text-base",
-          featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+          featured ? "text-white" : "text-slate-700 dark:text-slate-200",
         )}
       >
         {description}
@@ -84,7 +84,7 @@ function Plan({
       <p
         className={clsx(
           "order-first font-sans text-5xl font-light tracking-tight",
-          featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+          featured ? "text-white" : "text-slate-700 dark:text-slate-200",
         )}
       >
         {price}
@@ -93,7 +93,7 @@ function Plan({
         role="list"
         className={clsx(
           "order-last mt-5 flex flex-col gap-y-3 text-sm",
-          featured ? "text-white" : "text-slate-200"
+          featured ? "text-white" : "text-slate-200",
         )}
       >
         {features.map((feature) => (
@@ -102,7 +102,7 @@ function Plan({
             <span
               className={clsx(
                 "ml-4",
-                featured ? "text-white" : "text-slate-700 dark:text-slate-200"
+                featured ? "text-white" : "text-slate-700 dark:text-slate-200",
               )}
             >
               {feature}
@@ -114,13 +114,26 @@ function Plan({
         <Button
           href={href}
           target="_blank"
-          variant={featured ? "solid" : "outline"}
+          variant="solid"
           aria-label={`Register with the ${name} plan for ${price}`}
         >
           {t("pricing.plans.team.button")}
         </Button>
       )}
-      {name !== t("pricing.plans.team.name") && <div className="md:my-5"></div>}
+      {name === t("pricing.plans.project.name") && (
+        <Button
+          href={href}
+          target="_blank"
+          variant="solid"
+          aria-label={`Register with the ${name} plan for ${price}`}
+        >
+          {t("pricing.plans.project.button")}
+        </Button>
+      )}
+      {name !== t("pricing.plans.team.name") &&
+        name !== t("pricing.plans.project.name") && (
+          <div className="md:my-5"></div>
+        )}
     </section>
   )
 }
@@ -147,18 +160,7 @@ export function Pricing() {
             {t("pricing.description")}
           </p>
         </div>
-        <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-4 xl:mx-0 xl:gap-x-8">
-          <Plan
-            key="personal"
-            name={t("pricing.plans.personal.name")}
-            price={t("pricing.plans.personal.price")}
-            description={t("pricing.plans.personal.description")}
-            features={[
-              t("pricing.plans.personal.features.1"),
-              t("pricing.plans.personal.features.2"),
-              t("pricing.plans.personal.features.3"),
-            ]}
-          />
+        <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
           <Plan
             key="starter"
             name={t("pricing.plans.starter.name")}
@@ -194,6 +196,31 @@ export function Pricing() {
               t("pricing.plans.enterprise.features.3"),
               t("pricing.plans.enterprise.features.4"),
               t("pricing.plans.enterprise.features.5"),
+            ]}
+          />
+        </div>
+        <div className="-mx-4 mt-16 grid max-w-2xl grid-cols-1 gap-y-10 sm:mx-auto lg:-mx-8 lg:max-w-none lg:grid-cols-3 xl:mx-0 xl:gap-x-8">
+          <Plan
+            key="personal"
+            name={t("pricing.plans.personal.name")}
+            price={t("pricing.plans.personal.price")}
+            description={t("pricing.plans.personal.description")}
+            features={[
+              t("pricing.plans.personal.features.1"),
+              t("pricing.plans.personal.features.2"),
+              t("pricing.plans.personal.features.3"),
+            ]}
+          />
+          <Plan
+            key="project"
+            name={t("pricing.plans.project.name")}
+            price={t("pricing.plans.project.price")}
+            href="https://ko-fi.com/s/a299717a07"
+            description={t("pricing.plans.project.description")}
+            features={[
+              t("pricing.plans.project.features.1"),
+              t("pricing.plans.project.features.2"),
+              t("pricing.plans.project.features.3"),
             ]}
           />
         </div>

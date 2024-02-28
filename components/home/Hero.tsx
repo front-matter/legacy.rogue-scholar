@@ -13,7 +13,7 @@ type Props = {
 export default function Hero({ blogs }: Props) {
   const { t } = useTranslation("common")
   const blogNumber = toWords(blogs.length)
-  const blogsWithIimages = blogs.filter((blog: BlogType) => blog.favicon)
+  const blogsWithIimages = blogs.filter((blog: BlogType) => blog.favicon !== null)
 
   return (
     <Container className="pb-16 pt-10 text-center lg:pt-16">

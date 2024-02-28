@@ -4,12 +4,12 @@ import useWindowDimensions from "@/utils/useWindowDimensions"
 
 type ChartRecord = {
   title: string
-  count: number
+  count: string
 }
 
 type Props = {
   data: ChartRecord[]
-  count: number
+  count: string
   legend?: any
   title: string
   range: string[]

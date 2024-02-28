@@ -74,6 +74,11 @@ export async function getServerSideProps(ctx) {
     .in("status", ["approved", "active", "archived"])
     .order("title", { ascending: true })
 
+  const { data: posts_by_generator } = await supabase
+    .from("posts_by_generator")
+    .select("generator,gen_count")
+    .order("gen_count", { ascending: false })
+
   const { data: posts_by_language } = await supabase
     .from("posts_by_language")
     .select("language,lang_count")
@@ -92,12 +97,20 @@ export async function getServerSideProps(ctx) {
     props: {
       ...(await serverSideTranslations(ctx.locale!, ["common"])),
       blogs,
-      posts_by_language, posts_by_category
+      posts_by_generator,
+      posts_by_language,
+      posts_by_category,
     },
   }
 }
 
-export default function Home({ blogs, posts_by_language, posts_by_category, locale }) {
+export default function Home({
+  blogs,
+  posts_by_generator,
+  posts_by_language,
+  posts_by_category,
+  locale,
+}) {
   const { t } = useTranslation(["common"])
 
   blogs = blogs.map((blog) => {
@@ -111,22 +124,20 @@ export default function Home({ blogs, posts_by_language, posts_by_category, loca
     }
     return blog
   })
-  const blogsCount = blogs.length
 
   const categories = posts_by_category.slice(0, 9).map((key) => ({
-    title: t("categories." + key.category, { ns: "common" }),
+    title: t("categories." + key.category),
     count: key.cat_count,
   }))
 
   const languagesList = posts_by_language.slice(0, 6).map((key) => ({
-    title: t("languages." + key.language, { ns: "common" }),
+    title: t("languages." + key.language),
     count: key.lang_count,
   }))
 
-  const platformsObject = countBy(blogs, "generator")
-  const platforms = Object.keys(platformsObject).map((key) => ({
-    title: key,
-    count: platformsObject[key],
+  const platforms = posts_by_generator.slice(0, 10).map((key) => ({
+    title: key.generator,
+    count: key.gen_count,
   }))
 
   return (
@@ -135,7 +146,6 @@ export default function Home({ blogs, posts_by_language, posts_by_category, loca
       <Faq />
       <Pricing />
       <Stats
-        blogsCount={blogsCount}
         postsCount={posts_by_language.reduce((a, b) => a + b.lang_count, 0)}
         categories={categories}
         languages={languagesList}

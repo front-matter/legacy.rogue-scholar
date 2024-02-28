@@ -2,6 +2,7 @@ import { useTranslation } from "next-i18next"
 
 import DonutChart from "@/components/common/DonutChart"
 import { Container } from "@/components/layout/Container"
+import { formatNumbers } from "@/utils/helpers"
 
 // tailwindcss colors
 export const blue = {
@@ -39,6 +40,7 @@ export const categoryDomain = [
 ]
 
 export const platformDomain = [
+  "WordPress.com",
   "WordPress",
   "Ghost",
   "Blogger",
@@ -52,11 +54,10 @@ export const platformDomain = [
 
 type Data = {
   title: string
-  count: number
+  count: string
 }
 
 type Props = {
-  blogsCount: number
   postsCount: number
   categories: Data[]
   languages: Data[]
@@ -64,7 +65,6 @@ type Props = {
 }
 
 export const Stats: React.FunctionComponent<Props> = ({
-  blogsCount,
   postsCount,
   categories,
   languages,
@@ -101,7 +101,7 @@ export const Stats: React.FunctionComponent<Props> = ({
               <DonutChart
                 data={categories}
                 legend={false}
-                count={postsCount}
+                count={formatNumbers(postsCount)}
                 title={t("statistics.category")}
                 range={range}
                 domain={translatedCategoryDomain}
@@ -113,7 +113,7 @@ export const Stats: React.FunctionComponent<Props> = ({
               <DonutChart
                 data={languages}
                 legend={false}
-                count={postsCount}
+                count={formatNumbers(postsCount)}
                 title={t("statistics.language")}
                 range={languageRange}
                 domain={translatedLanguageDomain}
@@ -125,7 +125,7 @@ export const Stats: React.FunctionComponent<Props> = ({
               <DonutChart
                 data={platforms}
                 legend={false}
-                count={blogsCount}
+                count={formatNumbers(postsCount)}
                 title={t("statistics.platform")}
                 range={range}
                 domain={platformDomain}
