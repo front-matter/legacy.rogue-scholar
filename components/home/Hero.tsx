@@ -11,7 +11,7 @@ type Props = {
 }
 
 export default function Hero({ blogs }: Props) {
-  const { t } = useTranslation("home")
+  const { t } = useTranslation("common")
   const blogNumber = toWords(blogs.length)
   const blogsWithIimages = blogs.filter((blog: BlogType) => blog.favicon)
 

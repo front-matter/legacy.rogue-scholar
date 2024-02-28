@@ -4,7 +4,7 @@ import { useTranslation } from "next-i18next"
 import { Container } from "@/components/layout/Container"
 
 export default function Faqs() {
-  const { t } = useTranslation("home")
+  const { t } = useTranslation("common")
 
   const faqs = [
     [

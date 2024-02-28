@@ -70,9 +70,9 @@ export const Stats: React.FunctionComponent<Props> = ({
   languages,
   platforms,
 }) => {
-  const { t } = useTranslation(["home", "common"])
+  const { t } = useTranslation(["common"])
   const translatedCategoryDomain = categoryDomain.map((category) => {
-    return t("categories." + category, { ns: "common" })
+    return t("categories." + category)
   })
   const translatedLanguageDomain = languageDomain.map((category) => {
     return t("languages." + category)
