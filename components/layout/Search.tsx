@@ -11,7 +11,7 @@ type Props = {
 }
 
 export default function Search({ pagination, locale }: Props) {
-  const { t } = useTranslation(["common", "home"])
+  const { t } = useTranslation(["common"])
   const [query, setQuery] = useQueryState("query", { shallow: false })
   const [tags, setTags] = useQueryState("tags", { shallow: false })
   const [category, setCategory] = useQueryState("category", { shallow: false })
@@ -116,7 +116,7 @@ export default function Search({ pagination, locale }: Props) {
                 htmlFor={la.id}
                 className="ml-3 block text-sm font-medium leading-6 text-gray-900"
               >
-                {t(la.title, { ns: "home" })}
+                {t(la.title)}
               </label>
             </div>
           ))}

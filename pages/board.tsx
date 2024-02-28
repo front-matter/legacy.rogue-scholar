@@ -10,7 +10,7 @@ import { Comments } from "@/components/common/Comments"
 export const getStaticProps: GetStaticProps = async (ctx) => {
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale!, ["common", "home"])),
+      ...(await serverSideTranslations(ctx.locale!, ["common"])),
     },
   }
 }

@@ -15,7 +15,7 @@ import { useTranslation } from "next-i18next"
 import SectionHeadline from "@/components/home/SectionHeadline"
 
 export default function Features() {
-  const { t } = useTranslation("home")
+  const { t } = useTranslation("common")
   const itemBorder = useColorModeValue("primary.100", "gray.700")
 
   const featureItems = [

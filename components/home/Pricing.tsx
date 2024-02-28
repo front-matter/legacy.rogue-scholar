@@ -55,7 +55,7 @@ function Plan({
   features,
   featured = false,
 }) {
-  const { t } = useTranslation("home")
+  const { t } = useTranslation("common")
 
   return (
     <section
@@ -126,7 +126,7 @@ function Plan({
 }
 
 export function Pricing() {
-  const { t } = useTranslation("home")
+  const { t } = useTranslation("common")
 
   return (
     <section

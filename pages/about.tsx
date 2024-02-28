@@ -90,7 +90,7 @@ export async function getServerSideProps(ctx) {
 
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale!, ["common", "home"])),
+      ...(await serverSideTranslations(ctx.locale!, ["common"])),
       blogs,
       posts_by_language, posts_by_category
     },
@@ -98,7 +98,7 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Home({ blogs, posts_by_language, posts_by_category, locale }) {
-  const { t } = useTranslation(["home", "common"])
+  const { t } = useTranslation(["common"])
 
   blogs = blogs.map((blog) => {
     if (blog.generator === "WordPress.com") {

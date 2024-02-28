@@ -8,7 +8,7 @@ import Layout from "@/components/layout/Layout"
 export const getStaticProps: GetStaticProps = async (ctx) => {
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale!, ["common", "home"])),
+      ...(await serverSideTranslations(ctx.locale!, ["common"])),
     },
   }
 }
