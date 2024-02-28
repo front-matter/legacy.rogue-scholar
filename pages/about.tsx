@@ -71,22 +71,24 @@ export async function getServerSideProps(ctx) {
   const { data: blogs, error } = await supabase
     .from("blogs")
     .select(blogsSelect)
-    .in("status", ["approved", "active", "archived"])
     .order("title", { ascending: true })
 
   const { data: posts_by_generator } = await supabase
     .from("posts_by_generator")
     .select("generator,gen_count")
+    // .in("status", ["active", "pending"])
     .order("gen_count", { ascending: false })
 
   const { data: posts_by_language } = await supabase
     .from("posts_by_language")
     .select("language,lang_count")
+    // .in("status", ["active", "pending"])
     .order("lang_count", { ascending: false })
 
   const { data: posts_by_category } = await supabase
     .from("posts_by_category")
     .select("category,cat_count")
+    // .in("status", ["active", "pending"])
     .order("cat_count", { ascending: false })
 
   if (error) {
