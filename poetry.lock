@@ -559,13 +559,13 @@ test = ["pytest"]
 
 [[package]]
 name = "commonmeta-py"
-version = "0.14.26"
+version = "0.14.27"
 description = "Library for conversions to/from the Commonmeta scholarly metadata format"
 optional = false
 python-versions = ">=3.9,<4.0.0"
 files = [
-    {file = "commonmeta_py-0.14.26-py3-none-any.whl", hash = "sha256:8e8a3733ef701821b78b8e754966ee838ae71423527db545cd79f210ee39e830"},
-    {file = "commonmeta_py-0.14.26.tar.gz", hash = "sha256:ddf6e611bd8779aa1b2a19556f3dae11b3a939910ee6898fc3f8deb97c12c077"},
+    {file = "commonmeta_py-0.14.27-py3-none-any.whl", hash = "sha256:76fe8f29fe184ab73a5944e6767a6bb6c679923df88513db66642b02844f0482"},
+    {file = "commonmeta_py-0.14.27.tar.gz", hash = "sha256:e9ca332dc5745a6715e704f244a15129097a9fe96a37e38cce3c5ac149545230"},
 ]
 
 [package.dependencies]
@@ -1098,13 +1098,13 @@ i18n = ["Babel (>=2.7)"]
 
 [[package]]
 name = "json5"
-version = "0.9.17"
+version = "0.9.18"
 description = "A Python implementation of the JSON5 data format."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "json5-0.9.17-py2.py3-none-any.whl", hash = "sha256:f8ec1ecf985951d70f780f6f877c4baca6a47b6e61e02c4cd190138d10a7805a"},
-    {file = "json5-0.9.17.tar.gz", hash = "sha256:717d99d657fa71b7094877b1d921b1cce40ab444389f6d770302563bb7dfd9ae"},
+    {file = "json5-0.9.18-py2.py3-none-any.whl", hash = "sha256:3f20193ff8dfdec6ab114b344e7ac5d76fac453c8bab9bdfe1460d1d528ec393"},
+    {file = "json5-0.9.18.tar.gz", hash = "sha256:ecb8ac357004e3522fb989da1bf08b146011edbd14fdffae6caad3bd68493467"},
 ]
 
 [package.extras]
@@ -2318,13 +2318,13 @@ diagrams = ["jinja2", "railroad-diagrams"]
 
 [[package]]
 name = "python-dateutil"
-version = "2.9.0"
+version = "2.9.0.post0"
 description = "Extensions to the standard Python datetime module"
 optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,>=2.7"
 files = [
-    {file = "python-dateutil-2.9.0.tar.gz", hash = "sha256:78e73e19c63f5b20ffa567001531680d939dc042bf7850431877645523c66709"},
-    {file = "python_dateutil-2.9.0-py2.py3-none-any.whl", hash = "sha256:cbf2f1da5e6083ac2fbfd4da39a25f34312230110440f424a14c7558bb85d82e"},
+    {file = "python-dateutil-2.9.0.post0.tar.gz", hash = "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"},
+    {file = "python_dateutil-2.9.0.post0-py2.py3-none-any.whl", hash = "sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"},
 ]
 
 [package.dependencies]
