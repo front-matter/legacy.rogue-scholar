@@ -8,7 +8,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-commonmeta-py = "^0.15"
+commonmeta-py = "^0.16"
 
 
 [build-system]
