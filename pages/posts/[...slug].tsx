@@ -7,6 +7,7 @@ import { validate as uuidValidate } from "uuid"
 import { doi } from "doi-utils"
 
 import { Post } from "@/components/common/Post"
+import { References } from "@/components/common/References"
 import Layout from "@/components/layout/Layout"
 import {
   postsSelect,
@@ -81,6 +82,7 @@ const PostPage: React.FunctionComponent<Props> = ({ post, blog }) => {
       <Layout>
         <div className="bg-white dark:bg-slate-800">
           {post && <Post post={post} blog={blog} />}
+          {post && post.reference && post.reference.length > 0 && <References references={post.reference} />}
         </div>
       </Layout>
     </>

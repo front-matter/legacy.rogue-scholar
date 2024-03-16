@@ -1,5 +1,3 @@
-// import { Fragment, useState } from "react"
-// import { Dialog, Transition } from "@headlessui/react"
 import { Icon } from "@iconify/react"
 import parse from "html-react-parser"
 import Image from "next/image"
