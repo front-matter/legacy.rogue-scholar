@@ -13,7 +13,7 @@ import {
   blogWithPostsSelect,
   supabase,
 } from "@/lib/supabaseClient"
-import { PostType } from "@/types/blog"
+import { PostType, BlogType } from "@/types/blog"
 
 export async function getServerSideProps(ctx) {
   const slug = ctx.params.slug
@@ -53,10 +53,10 @@ export async function getServerSideProps(ctx) {
 
 type Props = {
   post: PostType
+  blog: BlogType
 }
 
-const PostPage: React.FunctionComponent<Props> = ({ post }) => {
-  console.log(post)
+const PostPage: React.FunctionComponent<Props> = ({ post, blog }) => {
   return (
     <>
       <Head>
@@ -80,7 +80,7 @@ const PostPage: React.FunctionComponent<Props> = ({ post }) => {
       </Head>
       <Layout>
         <div className="bg-white dark:bg-slate-800">
-          {post && <Post post={post} />}
+          {post && <Post post={post} blog={blog} />}
         </div>
       </Layout>
     </>

@@ -21,7 +21,6 @@ export const Post: React.FunctionComponent<Props> = ({ post, blog }) => {
   const { t } = useTranslation("common")
   const router = useRouter()
   const { locale: activeLocale } = router
-
   return (
     <>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -47,13 +46,13 @@ export const Post: React.FunctionComponent<Props> = ({ post, blog }) => {
                         </Link>
                       </span>
                     ))}
-                    {post.category && (
+                    {blog?.category && (
                       <span className="relative z-10 mb-1 ml-0 rounded-full bg-teal-100 px-2 py-0.5 font-medium text-teal-800 dark:bg-teal-700 dark:text-teal-200">
                         <Link
-                          href={`/posts?category=${post.category}`}
+                          href={`/posts?category=${blog?.category}`}
                           className="whitespace-no-wrap"
                         >
-                          {t("categories." + post.category)}
+                          {t("categories." + blog?.category)}
                         </Link>
                       </span>
                     )}
