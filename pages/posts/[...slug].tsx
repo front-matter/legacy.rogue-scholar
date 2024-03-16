@@ -17,7 +17,7 @@ import { PostType } from "@/types/blog"
 
 export async function getServerSideProps(ctx) {
   const slug = ctx.params.slug
-  let post = { data: null }
+  let post: any = { data: null }
   if (uuidValidate(slug) && uuidVersion(slug) === 4) {
     post = await supabase
       .from("posts")
@@ -36,7 +36,7 @@ export async function getServerSideProps(ctx) {
       notFound: true,
     }
   }
-  const blog_slug = post?.data?.blog_slug
+  const blog_slug = post?.data.blog_slug
   const { data: blog } = await supabase
     .from("blogs")
     .select(blogWithPostsSelect)
