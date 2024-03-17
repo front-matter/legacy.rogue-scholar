@@ -27,7 +27,7 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
               {references.map((reference) => (
                 <li
                   key={reference.doi || reference.url}
-                  className="mb-1 gap-x-1 text-base font-medium text-gray-500 dark:text-gray-200"
+                  className="mb-1 gap-x-1 text-base font-medium text-gray-900 dark:text-white"
                 >
                   {reference.title && parse(String(reference.title + " "))}
                   {reference.publicationYear &&
