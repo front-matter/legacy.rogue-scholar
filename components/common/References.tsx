@@ -18,12 +18,12 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <div className="space-t-10 lg:space-t-10 mt-4">
-            <h4 className="text-lg  font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100">
+            <h4 className="text-lg font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100">
               {t("References")}
             </h4>
           </div>
           <div className="space-t-10 lg:space-t-10 mb-4 lg:mb-6">
-            <ol className="relative mb-1 ml-6 list-outside list-decimal gap-6">
+            <ol className="relative mb-1 ml-6 list-outside list-decimal gap-6 font-serif">
               {references.map((reference) => (
                 <li
                   key={reference.doi || reference.url}
