@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react"
 import Link from "next/link"
+import parse from "html-react-parser"
 import { useRouter } from "next/router"
 import { useTranslation } from "next-i18next"
 
@@ -22,20 +23,34 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
             </h4>
           </div>
           <div className="space-t-10 lg:space-t-10 mb-4 lg:mb-6">
-            <ol className="relative ml-6 mb-1 list-outside list-decimal gap-6">
+            <ol className="relative mb-1 ml-6 list-outside list-decimal gap-6">
               {references.map((reference) => (
                 <li
                   key={reference.doi || reference.url}
                   className="mb-1 gap-x-1 text-base font-medium text-gray-500 dark:text-gray-200"
                 >
-                  {reference.title}{" "}({reference.publicationYear}){". "}
-                  <Link
-                    href={reference.doi || reference.url}
-                    target="_blank"
-                    className="text-gray-500 hover:text-gray-900 hover:dark:text-gray-200"
-                  >
-                    {reference.doi || reference.url}
-                  </Link>
+                  {reference.title && parse(String(reference.title + " "))}
+                  {reference.publicationYear &&
+                    "(" + reference.publicationYear + ")"}
+                  {". "}
+                  {reference.doi && (
+                    <Link
+                      href={reference.doi}
+                      target="_blank"
+                      className="text-gray-500 hover:text-gray-900 hover:dark:text-gray-200"
+                    >
+                      {reference.doi}
+                    </Link>
+                  )}
+                  {reference.url && (
+                    <Link
+                      href={reference.url}
+                      target="_blank"
+                      className="text-gray-500 hover:text-gray-900 hover:dark:text-gray-200"
+                    >
+                      {reference.url}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ol>
