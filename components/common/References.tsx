@@ -31,8 +31,7 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
                 >
                   {reference.title && parse(String(reference.title + " "))}
                   {reference.publicationYear &&
-                    "(" + reference.publicationYear + ")"}
-                  {". "}
+                    "(" + reference.publicationYear + "). "}
                   {reference.doi && (
                     <Link
                       href={reference.doi}
