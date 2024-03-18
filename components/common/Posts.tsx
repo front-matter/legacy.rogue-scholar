@@ -82,7 +82,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                           className="text-base hover:dark:text-gray-200"
                           target="_blank"
                           href={
-                            process.env.VERCEL_ENV === "production"
+                            process.env.VERCEL_ENV === "Production"
                               ? post.doi
                               : `/posts/${doi.normalize(post.doi)}`
                           }
