@@ -78,33 +78,22 @@ export const Posts: React.FunctionComponent<Props> = ({
                   <div className="group relative max-w-4xl">
                     {post.doi && (
                       <>
-                        {process.env.VERCEL_ENV !== "production" && (
-                          <Link
-                            className="text-base hover:dark:text-gray-200"
-                            href={`/posts/${doi.normalize(post.doi)}`}
+                        <Link
+                          className="text-base hover:dark:text-gray-200"
+                          target="_blank"
+                          href={
+                            process.env.VERCEL_ENV === "production"
+                              ? post.doi
+                              : `/posts/${doi.normalize(post.doi)}`
+                          }
+                        >
+                          <h3
+                            className="mt-1 text-xl font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100"
+                            data-cy="title"
                           >
-                            <h3
-                              className="mt-1 text-xl font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100"
-                              data-cy="title"
-                            >
-                              {parse(String(post.title))}
-                            </h3>
-                          </Link>
-                        )}
-                        {process.env.VERCEL_ENV === "production" && (
-                          <Link
-                            className="text-base hover:dark:text-gray-200"
-                            target="_blank"
-                            href={post.doi}
-                          >
-                            <h3
-                              className="mt-1 text-xl font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100"
-                              data-cy="title"
-                            >
-                              {parse(String(post.title))}
-                            </h3>
-                          </Link>
-                        )}
+                            {parse(String(post.title))}
+                          </h3>
+                        </Link>
                         <div className="font-medium">
                           <Link
                             className="text-base text-gray-500 hover:text-gray-900 hover:dark:text-gray-200"
