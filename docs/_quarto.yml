@@ -34,7 +34,7 @@ website:
           - jekyll.qmd
           - quarto.qmd
   page-footer:
-    left: "Copyright &copy;2023 Rogue Scholar."
+    left: "Copyright &copy;2023-2024 Rogue Scholar."
     right:
       - icon: envelope
         href: mailto:info@front-matter.io
