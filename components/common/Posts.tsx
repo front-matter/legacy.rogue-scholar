@@ -80,7 +80,6 @@ export const Posts: React.FunctionComponent<Props> = ({
                       <>
                         <Link
                           className="text-base hover:dark:text-gray-200"
-                          target="_blank"
                           href={`/posts/${doi.normalize(post.doi)}`}
                         >
                           <h3

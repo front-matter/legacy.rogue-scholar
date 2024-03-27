@@ -110,7 +110,7 @@ export const Post: React.FunctionComponent<Props> = ({ post, blog }) => {
                     </Link>
                   )}
                 </div>
-                <Byline post={post} blog={blog} />
+                <Byline post={post} />
                 <ExportButton post={post} />
                 <CitationButton post={post} activeLocale={activeLocale} />
                 <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
