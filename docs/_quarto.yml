@@ -10,7 +10,7 @@ website:
   favicon: favicon.ico
   site-url: https://docs.rogue-scholar.org
   repo-url: https://github.com/front-matter/rogue-scholar
-  repo-subdir: apps/docs
+  repo-subdir: docs
   repo-actions: [edit, issue]
   bread-crumbs: false
   navbar:
@@ -32,13 +32,14 @@ website:
           - ghost.qmd
           - hugo.qmd
           - jekyll.qmd
+          - quarto.qmd
   page-footer:
     left: "Copyright &copy;2023 Rogue Scholar."
     right:
       - icon: envelope
         href: mailto:info@front-matter.io
       - icon: mastodon 
-        href: https://rogue-scholar.social/@admin
+        href: https://wisskomm.social/@rogue_scholar
 
 format:
   html:
