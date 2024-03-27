@@ -81,11 +81,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                         <Link
                           className="text-base hover:dark:text-gray-200"
                           target="_blank"
-                          href={
-                            process.env.VERCEL_ENV !== "production"
-                              ? `/posts/${doi.normalize(post.doi)}`
-                              : post.doi
-                          }
+                          href={`/posts/${doi.normalize(post.doi)}`}
                         >
                           <h3
                             className="mt-1 text-xl font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100"
