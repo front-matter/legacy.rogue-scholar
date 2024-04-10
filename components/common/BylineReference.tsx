@@ -36,12 +36,17 @@ export const Byline: React.FunctionComponent<Props> = ({ reference }) => {
         <span data-cy="blog_name">
           {" "}
           in{" "}
-          <Link
+          {reference.container?.identifierType === "URL" && (
+            <Link
             className="font-semibold text-blue-600 hover:text-blue-800"
             href={reference.container?.identifier || "/"}
-          >
-            {reference.container?.title}
-          </Link>
+            >
+              {reference.container?.title}
+            </Link>
+          )}
+          {reference.container?.identifierType !== "URL" && (
+            <span className="font-semibold">{reference.container?.title}</span>
+          )}
         </span>
       )}
         </div>
