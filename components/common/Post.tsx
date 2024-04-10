@@ -104,7 +104,7 @@ export const Post: React.FunctionComponent<Props> = ({ post, blog }) => {
                       target="_blank"
                       href={post.url}
                     >
-                      <h3 className="mt-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
                         {parse(String(post.title))}
                       </h3>
                     </Link>

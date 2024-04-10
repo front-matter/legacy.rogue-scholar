@@ -14,6 +14,7 @@ import {
   blogWithPostsSelect,
   supabase,
 } from "@/lib/supabaseClient"
+import { pocketbaseURL } from "@/lib/pocketbaseClient"
 import { PostType, BlogType } from "@/types/blog"
 
 export async function getServerSideProps(ctx) {
@@ -43,11 +44,23 @@ export async function getServerSideProps(ctx) {
     .select(blogWithPostsSelect)
     .eq("slug", blog_slug)
     .single()
+  let references: any = []
+  if (doi.validate(slug.join("/"))) {
+    const url = pocketbaseURL(slug.join("/"))
+    try {
+      const response = await fetch(url)
+      const record = await response.json()
+      references = record?.references || []
+    } catch (error) {
+      console.error(error)
+    }
+  }
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale!, ["common", "app"])),
       post: post.data,
       blog,
+      references,
     },
   }
 }
@@ -55,9 +68,10 @@ export async function getServerSideProps(ctx) {
 type Props = {
   post: PostType
   blog: BlogType
+  references: any
 }
 
-const PostPage: React.FunctionComponent<Props> = ({ post, blog }) => {
+const PostPage: React.FunctionComponent<Props> = ({ post, blog, references }) => {
   return (
     <>
       <Head>
@@ -82,7 +96,7 @@ const PostPage: React.FunctionComponent<Props> = ({ post, blog }) => {
       <Layout>
         <div className="bg-white dark:bg-slate-800">
           {post && <Post post={post} blog={blog} />}
-          {post && post.reference && post.reference.length > 0 && <References references={post.reference} />}
+          {post && references && references.length > 0 && <References references={references} />}
         </div>
       </Layout>
     </>
