@@ -2,6 +2,7 @@ const { CrockfordBase32 } = require("crockford-base32")
 
 import { Mod97_10 } from "@konfirm/iso7064"
 import { fromUnixTime, getUnixTime } from "date-fns"
+import doi from "doi-utils"
 
 import { FundingType } from "@/types/blog"
 
@@ -61,6 +62,28 @@ export const isOrcid = (orcid: any) => {
 export const isROR = (ror: any) => {
   try {
     return new URL(ror).hostname === "ror.org"
+  } catch (error) {
+    return false
+  }
+}
+
+export function isRogueScholarDoi(doi: string): boolean {
+  const prefixes = [
+    "10.59350",
+    "10.53731",
+    "10.54900",
+    "10.57689",
+    "10.59348",
+    "10.59349",
+    "10.59704",
+  ]
+  try {
+    const prefix = new URL(doi || "").pathname.split("/")?.[1]
+    if (prefixes.some((x) => x == prefix)) {
+      return true
+    } else {
+      return false
+    }
   } catch (error) {
     return false
   }

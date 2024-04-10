@@ -17,7 +17,6 @@ type Props = {
 
 export const Byline: React.FunctionComponent<Props> = ({ reference }) => {
   const { t } = useTranslation("common")
-  console.log(reference)
 
   return (
     <div className="text-base font-medium text-gray-500 dark:text-gray-200">

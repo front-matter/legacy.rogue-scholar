@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next"
 import { doi } from "doi-utils"
 
 import { Byline } from "@/components/common/BylineReference"
+import { isRogueScholarDoi } from "@/lib/helpers"
 
 type Props = {
   references: any[]
@@ -27,8 +28,6 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
     reference.subjects = reference.subjects?.slice(0, 5)
     return reference
   })
-
-  console.log(formattedReferences)
 
   return (
     <>
@@ -64,11 +63,11 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
                   </div>
                 )}
                   <div className="group relative max-w-4xl">
-                    {reference.pid && doi.validate(reference.pid) && (
+                    {reference.pid && (
                       <>
                         <Link
                           className="text-base hover:dark:text-gray-200"
-                          href={reference.pid}
+                          href={isRogueScholarDoi(reference.pid) ? `/posts/${doi.normalize(reference.pid)}` : reference.pid}
                         >
                           <h3
                             className="text-xl font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100"
@@ -91,17 +90,6 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
                           </Link>
                         </div>
                       </>
-                    )}
-                    {(reference.pid && !doi.validate(reference.pid)) && (
-                      <Link
-                        className="text-base text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
-                        target="_blank"
-                        href={reference.pid}
-                      >
-                        <h3 className="mt-1 text-xl font-semibold text-gray-900 dark:text-gray-100">
-                          {parse(String(reference.title || reference.url))}
-                        </h3>
-                      </Link>
                     )}
                   </div>
                   <Byline reference={reference} />
