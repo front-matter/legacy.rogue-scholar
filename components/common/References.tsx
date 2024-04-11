@@ -41,7 +41,7 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
           <div className="space-t-10 lg:space-t-10 mb-4 lg:mb-6">
             {formattedReferences.map((reference) => (
               <article
-                key={reference.pid}
+                key={reference.id}
                 className="relative mb-5 gap-6"
               >
                 <div>
@@ -63,11 +63,11 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
                   </div>
                 )}
                   <div className="group relative max-w-4xl">
-                    {reference.pid && (
+                    {reference.id && (
                       <>
                         <Link
                           className="text-base hover:dark:text-gray-200"
-                          href={isRogueScholarDoi(reference.pid) ? `/posts/${doi.normalize(reference.pid)}` : reference.pid}
+                          href={isRogueScholarDoi(reference.id) ? `/posts/${doi.normalize(reference.id)}` : reference.id}
                         >
                           <h3
                             className="text-xl font-semibold text-gray-900 hover:text-gray-500 dark:text-gray-100"
@@ -80,13 +80,13 @@ export const References: React.FunctionComponent<Props> = ({ references }) => {
                           <Link
                             className="text-base text-gray-500 hover:text-gray-900 hover:dark:text-gray-200"
                             target="_blank"
-                            href={reference.pid}
+                            href={reference.id}
                           >
                             <Icon
                               icon="academicons:doi"
                               className="mb-1 mr-1 inline text-gray-300 hover:text-gray-900 hover:dark:text-gray-200"
                             />
-                            {reference.pid}
+                            {reference.id}
                           </Link>
                         </div>
                       </>
