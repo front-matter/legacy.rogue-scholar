@@ -9,15 +9,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: setup python
-        uses: actions/setup-python@v5
+      - name: setup Go
+        uses: actions/setup-go@v5
         with:
-          python-version: "3.11"
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+          go-version: '>=1.22'
       - name: Download most recent unregistered post
         run: |
           mkdir -p upload
@@ -26,10 +21,11 @@ jobs:
         id: current_number
         run: |
           echo "NUMBER=$(jq '."total-results"' upload/posts.json)" >> $GITHUB_OUTPUT
-      - name: Install commonmeta-py
-        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
+      - name: Install commonmeta
+        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }} 
         run: |
-          poetry install --no-root
+          go install github.com/front-matter/commonmeta@latest
+          commonmeta version
       - name: Set current date as variable
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
