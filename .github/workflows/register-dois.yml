@@ -34,11 +34,11 @@ jobs:
       - name: Convert posts to commonmeta and autogenerate dois based on prefix
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          poetry run commonmeta list upload/posts.json --via json_feed_item --show-errors > upload/commonmeta.json
+          poetry run commonmeta list upload/posts.json --f jsonfeed > upload/commonmeta.json
       - name: Convert posts to crossref xml
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          poetry run commonmeta list upload/commonmeta.json --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml --show-errors > upload/${{ steps.current_date.outputs.NOW }}
+          poetry run commonmeta list upload/commonmeta.json --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossrefxml > upload/${{ steps.current_date.outputs.NOW }}
       - name: Update content via Crossref API
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
