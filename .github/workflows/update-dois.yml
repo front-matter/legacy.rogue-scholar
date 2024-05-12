@@ -35,7 +35,9 @@ jobs:
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           commonmeta list upload/posts.json -f jsonfeed --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossrefxml > upload/${{ steps.current_date.outputs.NOW }}
-          echo upload/${{ steps.current_date.outputs.NOW }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: upload/${{ steps.current_date.outputs.NOW }}
       - name: Update content via Crossref API
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
