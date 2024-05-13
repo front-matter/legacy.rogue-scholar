@@ -1,35 +1,31 @@
 name: Update DOIs for changed Posts
 on:
   workflow_dispatch:
-  schedule:
-   - cron: "*/10 * * * *"
+  # schedule:
+  #  - cron: "*/10 * * * *"
 jobs:
   update:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4       
-      - name: setup python
-        uses: actions/setup-python@v5
+      - name: setup Go
+        uses: actions/setup-go@v5
         with:
-          python-version: '3.11'
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+          go-version: '>=1.22'
       - name: Download posts not indexed recently
         run: |
           mkdir -p upload
-          curl https://api.rogue-scholar.org/posts/updated?per_page=100 > upload/posts.json
+          curl https://api.rogue-scholar.org/posts/updated?per_page=1 > upload/posts.json
       - name: Set number of posts to be updated as variable
         id: current_number
         run: |
           echo "NUMBER=$(jq '."total-results"' upload/posts.json)" >> $GITHUB_OUTPUT
-      - name: Install commonmeta-py
+      - name: Install commonmeta
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }} 
         run: |
-          poetry install --no-root
+          go install github.com/front-matter/commonmeta@latest
+          commonmeta version
       - name: Set current date as variable
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }} 
         run: |
@@ -38,7 +34,7 @@ jobs:
       - name: Convert posts to crossref xml
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          poetry run commonmeta list upload/posts.json --via json_feed_item --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossref_xml --show-errors > upload/${{ steps.current_date.outputs.NOW }}
+          commonmeta list upload/posts.json -f jsonfeed --depositor "${{ secrets.CROSSREF_DEPOSITOR_NAME }}" --email "${{ secrets.CROSSREF_DEPOSITOR_EMAIL }}" --registrant "${{ secrets.CROSSREF_REGISTRANT }}" -t crossrefxml > upload/${{ steps.current_date.outputs.NOW }}
       - name: Update content via Crossref API
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
