@@ -1,4 +1,3 @@
-import { isEmpty } from "lodash"
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
@@ -8,9 +7,8 @@ import { Comments } from "@/components/common/Comments"
 import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
 import Search from "@/components/layout/Search"
-import { typesense } from "@/lib/typesenseClient"
 import { BlogType, PaginationType } from "@/types/blog"
-import { BlogSearchParams, BlogSearchResponse } from "@/types/typesense"
+import { blogsSelect, supabase } from "@/lib/supabaseClient"
 
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
@@ -19,36 +17,51 @@ export async function getServerSideProps(ctx) {
   const generator = ctx.query.generator || ""
   const language = ctx.query.language || ""
 
-  let filterBy = `status:=[approved,active,archived]`
+  let status = ["approved", "active", "archived"]
   if (process.env.VERCEL_ENV !== "production") {
-    filterBy = `status:=[pending,approved,active,archived]`
+    status = ["pending", "approved", "active", "archived"]
   }
 
-  filterBy = !isEmpty(category)
-    ? filterBy + ` && category:=[${category}]`
-    : filterBy
-  filterBy = !isEmpty(generator)
-    ? filterBy + ` && generator:=[${generator}]`
-    : filterBy
-  filterBy = !isEmpty(language)
-    ? filterBy + ` && language:[${language}]`
-    : filterBy
-
-  const searchParameters: BlogSearchParams = {
-    q: query,
-    query_by:
-      "issn,slug,title,description,category,language,generator,prefix,funding",
-    filter_by: filterBy,
-    sort_by: ctx.query.query ? "_text_match:desc" : "created_at:desc",
-    per_page: 10,
-    page: page && page > 0 ? page : 1,
+  const filters: any = []
+  if (query) {
+    filters.push(['ilike', 'title', `%${query}%`])
   }
-  const data: BlogSearchResponse = await typesense
-    .collections("blogs")
-    .documents()
-    .search(searchParameters)
-  const blogs = data.hits?.map((hit) => hit.document)
-  const pages = Math.ceil(data.found / 10)
+  if (category) {
+    filters.push(['eq', 'category', category])
+  }
+  if (generator) {
+    filters.push(['eq', 'generator', generator])
+  }
+  if (language) {
+    filters.push((['eq', 'language', language]))
+  }
+
+  let begin = page && page > 0 ? page : 1
+  begin = (begin -1) * 10
+  const end = begin + 10
+  const { data: blogs, error, count } = await filters
+        .reduce(
+            (acc, [filter, ...args]) => {
+                return acc[filter](...args)
+            },
+            supabase
+                .from('blogs')
+                .select(blogsSelect, { count: "exact" })
+                .in("status", status)
+                .range(begin, end)
+                .order('created_at', { ascending: false })
+        )
+
+  if (error) {
+    console.error(error)
+  }
+
+  if (!blogs) {
+    return {
+      notFound: true,
+    }
+  }
+  const pages = Math.ceil(count || 0 / 10)
   const pagination = {
     base_url: "/blogs",
     query: query,
@@ -58,7 +71,7 @@ export async function getServerSideProps(ctx) {
     tags: "",
     page: page,
     pages: pages,
-    total: data.found,
+    total: count || 0,
     prev: page > 1 ? page - 1 : null,
     next: page < pages ? page + 1 : null,
   }
