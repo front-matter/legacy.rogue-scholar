@@ -22,6 +22,7 @@ export async function getServerSideProps(ctx) {
     status = ["pending", "approved", "active", "archived"]
   }
 
+  // from https://github.com/orgs/supabase/discussions/787
   const filters: any = []
   if (query) {
     filters.push(['ilike', 'title', `%${query}%`])
