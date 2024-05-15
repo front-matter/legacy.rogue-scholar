@@ -46,7 +46,7 @@ jobs:
       - name: Set post uuid, doi and blog slug as variables
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          echo "UUID=$(jq -r '[.items | .[] | .alternate_identifiers | .[0].alternateIdentifier] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
+          echo "UUID=$(jq -r '[.items | .[] | .identifiers | .[1].Identifier] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
           echo "DOI=$(jq -rc '[.items | .[] | .id] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
           echo "SLUG=$(jq -r '[.items | .[] | .container.identifier] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
         id: current_post
@@ -58,8 +58,8 @@ jobs:
         if: steps.current_post.outputs.SLUG == '2749-9952'
         run: commonmeta update-ghost-post --api-key ${{ secrets.GHOST_ADMIN_API_KEY }} --api-url ${{ secrets.GHOST_ADMIN_API_URL }} ${{ steps.current_post.outputs.UUID }}
       - name: Update Upstream blog
-        if: steps.current_post.outputs.SLUG == 'https://rogue-scholar.org/blogs/upstream'
+        if: steps.current_post.outputs.SLUG == 'https://rogue-scholar.org/blogs/upstream/'
         run: commonmeta update-ghost-post --api-key ${{ secrets.UPSTREAM_ADMIN_API_KEY }} --api-url ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ secrets.UPSTREAM_ADMIN_API_URL }} ${{ steps.current_post.outputs.UUID }}
       - name: Update OA.Works blog
-        if: steps.current_post.outputs.SLUG == 'https://rogue-scholar.org/blogs/oa_works'
+        if: steps.current_post.outputs.SLUG == 'https://rogue-scholar.org/blogs/oa_works/'
         run: commonmeta update-ghost-post --api-key ${{ secrets.OA_WORKS_ADMIN_API_KEY }} --api-url ${{ secrets.OA_WORKS_ADMIN_API_URL }} ${{ steps.current_post.outputs.UUID }}
