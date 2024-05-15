@@ -46,9 +46,9 @@ jobs:
       - name: Set post uuid, doi and blog slug as variables
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          echo "UUID=$(jq -r '[.items | .[] | .identifiers | .[1].Identifier] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
-          echo "DOI=$(jq -rc '[.items | .[] | .id] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
-          echo "SLUG=$(jq -r '[.items | .[] | .container.identifier] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
+          echo "UUID=$(jq -r '[.[] | .identifiers | .[1].identifier] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
+          echo "DOI=$(jq -rc '[.[] | .id] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
+          echo "SLUG=$(jq -r '[.[] | .container.identifier] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
         id: current_post
       - name: update Rogue Scholar post
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
