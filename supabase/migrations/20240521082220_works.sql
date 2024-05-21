@@ -1,3 +1,32 @@
+CREATE TYPE "public"."type_enum" AS ENUM (
+    'Article',
+    'JournalArticle',
+    'ProceedingsArticle',
+    'Software',
+    'Dataset',
+    'Database',
+    'Document',
+    'ComputationalNotebook',
+    'Book',
+    'BookChapter',
+    'BookSection',
+    'Report',
+    'Collection',
+    'Presentation',
+    'Other',
+    'Image',
+    'Component',
+    'Standard',
+    'WebPage',
+    'Audiovisual'
+);
+
+CREATE TYPE "public"."provider_enum" AS ENUM (
+    'Crossref',
+    'DataCite',
+    'GitHub'
+);
+
 CREATE TABLE IF NOT EXISTS "public"."works" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
     "pid" "text" NOT NULL,
@@ -23,7 +52,7 @@ CREATE TABLE IF NOT EXISTS "public"."works" (
     "version" "text",
     "url" "text",
     "createdAt" timestamp with time zone DEFAULT "now"() NOT NULL,
-    "updatedAt" timestamp with time zone DEFAULT "now"() NOT NULL,
+    "updatedAt" timestamp with time zone DEFAULT "now"() NOT NULL
 );
 
 ALTER TABLE "public"."works" OWNER TO "postgres";
