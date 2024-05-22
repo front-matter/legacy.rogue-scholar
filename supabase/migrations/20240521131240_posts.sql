@@ -51,6 +51,9 @@ ALTER TABLE ONLY "public"."posts"
 ALTER TABLE ONLY "public"."posts"
     ADD CONSTRAINT "posts_uuid_key" UNIQUE ("id");
 
+ALTER TABLE ONLY "public"."posts" 
+ADD PRIMARY KEY ("guid");
+
 CREATE POLICY "Public posts are viewable by everyone." ON "public"."posts" FOR SELECT USING (true);
 
 ALTER TABLE "public"."posts" ENABLE ROW LEVEL SECURITY;
