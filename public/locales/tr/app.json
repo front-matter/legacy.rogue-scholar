@@ -55,6 +55,7 @@
   "terms.2": "Blog yazılarının tam metni bir JSON Beslemesi (tercih edilen), RSS veya Atom aracılığıyla kullanıma sunulur.",
   "terms.3": "Blog yazılarının tam metni Creative Commons Attribution 4.0 Uluslararası Lisansı altında kullanıma sunulmaktadır.",
   "terms.4": "Blog yazıları İngilizce, Almanca, İspanyolca, Fransızca, Portekizce veya İtalyanca dillerinde yazılmaktadır.",
+  "terms.5": "Blog bir dergi ya da kitap değildir.",
   "terms.description": "Blogun (ortak) sahibiyim ve bu hizmette yeniden kullanılmasını kabul ediyorum.",
   "terms.title": "Kullanım Koşulları"
 }
