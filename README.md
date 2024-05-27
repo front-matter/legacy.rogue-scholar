@@ -2,3 +2,5 @@
 [![codecov](https://codecov.io/gh/front-matter/rogue-scholar/graph/badge.svg?token=7XDSPFU1UZ)](https://codecov.io/gh/front-matter/rogue-scholar)
 
 # rogue-scholar
+
+Next.js frontend for the [Rogue Scholar](https://rogue-scholar.org) website.
