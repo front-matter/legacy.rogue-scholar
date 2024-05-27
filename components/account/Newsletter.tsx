@@ -10,16 +10,16 @@ function Newsletter() {
   const { t } = useTranslation("account")
   const supabaseClient = useSupabaseClient<Database>()
   const user = useUser()
-  const { data: subscribers } = useQuery(["subscribers"], async () => {
-    const { data: subscribers, error } = await supabaseClient
-      .from("subscribers")
-      .select("*")
-      .eq("user_id", user?.id)
-      .order("status", { ascending: false })
+  // const { data: subscribers } = useQuery(["subscribers"], async () => {
+  //   const { data: subscribers, error } = await supabaseClient
+  //     .from("subscribers")
+  //     .select("*")
+  //     .eq("user_id", user?.id)
+  //     .order("status", { ascending: false })
 
-    if (error) throw new Error("Failed to fetch subscribers")
-    return subscribers
-  })
+  //   if (error) throw new Error("Failed to fetch subscribers")
+  //   return subscribers
+  // })
 
   return (
     <AccountSection title={t("newsletter.title")}>
