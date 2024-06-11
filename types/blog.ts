@@ -1,4 +1,5 @@
 import { FeedData } from "@extractus/feed-extractor"
+import { Title } from "vega"
 
 export interface AuthorType {
   name: string
@@ -9,8 +10,34 @@ export interface AuthorType {
 
 export interface ReferenceType {
   key?: string
-  doi?: string
-  url?: string
+  id?: string
+  type?: string
+  titles?: TitleType[]
+  container?: ContainerType
+  contributors?: ContributorType[]
+  date?: DateType
+  subjects?: SubjectType[]
+}
+
+export interface ContainerType {
+  identifier?: string
+  identifierType?: string
+  title?: string
+  type?: string
+}
+
+export interface ContributorType {
+  id?: string
+  name?: string
+  givenName?: string
+  familyName?: string
+}
+
+export interface DateType {
+  published?: string
+  updated?: string
+  accessed?: string
+  indexed?: string
 }
 
 export interface FundingType {
@@ -37,6 +64,14 @@ export interface PaginationType {
   total: number
   prev?: number
   next?: number
+}
+
+export interface SubjectType {
+  subject: string
+}
+
+export interface TitleType {
+  title: string
 }
 
 export interface TagType {

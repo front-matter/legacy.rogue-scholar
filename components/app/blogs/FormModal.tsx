@@ -185,6 +185,10 @@ export default function BlogFormModal({
                 <CheckIcon className="text-green-600" />
                 <span className="ml-1">{t("terms.4")}</span>
               </li>
+              <li className="flex">
+                <CheckIcon className="text-green-600" />
+                <span className="ml-1">{t("terms.5")}</span>
+              </li>
             </ul>
           </div>
           {/*eslint-disable-next-line no-empty-function */}

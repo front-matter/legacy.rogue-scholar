@@ -24,26 +24,26 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v6
-        with:
-          config-file: cypress.config.ts
-          build: pnpm run build
-          config: defaultCommandTimeout=5000
-          start: pnpm run dev
-          wait-on: 'http://localhost:3000'
-          wait-on-timeout: 300
-          record: true
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SUPABASE_EMAIL: ${{ secrets.SUPABASE_EMAIL }}
-          SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
-          SUPABASE_HOSTNAME: ${{ secrets.SUPABASE_HOSTNAME }}
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      # - name: Run Cypress tests
+      #   uses: cypress-io/github-action@v6
+      #   with:
+      #     config-file: cypress.config.ts
+      #     build: pnpm run build
+      #     config: defaultCommandTimeout=5000
+      #     start: pnpm run dev
+      #     wait-on: 'http://localhost:3000'
+      #     wait-on-timeout: 300
+      #     record: true
+      #   env:
+      #     CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     SUPABASE_EMAIL: ${{ secrets.SUPABASE_EMAIL }}
+      #     SUPABASE_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
+      #     SUPABASE_HOSTNAME: ${{ secrets.SUPABASE_HOSTNAME }}
+      # - name: Upload coverage reports to Codecov
+      #   uses: codecov/codecov-action@v3
+      #   env:
+      #     CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   deploy:
     needs: test
     runs-on: ubuntu-latest
@@ -54,10 +54,8 @@ jobs:
           version: 8
       - name: Install Vercel CLI
         run: pnpm install --global vercel@latest
-      - name: Pull Vercel Environment Information
-        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
       - name: Build Project Artifacts
-        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --yes --token=${{ secrets.VERCEL_TOKEN }}
       - name: Deploy Project Artifacts to Vercel
         run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
   

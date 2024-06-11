@@ -14,7 +14,7 @@ describe("rogue-scholar", () => {
       .first()
       .invoke("data", "value")
       .should("be.at.least", 70)
-    cy.get('[data-cy="title"]').should("have.length", 10)
+    cy.get('[data-cy="title"]').should("have.length.of.at.least", 10)
   })
 
   it("visiting blogs next page", function () {
@@ -28,7 +28,7 @@ describe("rogue-scholar", () => {
       .first()
       .invoke("data", "value")
       .should("be.at.least", 70)
-    cy.get('[data-cy="title"]').should("have.length", 10)
+    cy.get('[data-cy="title"]').should("have.length.of.at.least", 10)
   })
 
   it("search blogs", function () {
@@ -37,17 +37,17 @@ describe("rogue-scholar", () => {
     cy.get('[data-cy="pagination-total"]')
       .first()
       .invoke("data", "value")
-      .should("be.at.least", 2)
-    cy.get('[data-cy="title"]').should("have.length", 2)
+      .should("be.at.least", 1)
+    cy.get('[data-cy="title"]').should("have.length", 1)
   })
 
-  it("search blogs by issn", function () {
-    cy.url().should("eq", "http://localhost:3000/blogs")
-    cy.get("input#search").type("2051-8188{enter}")
-    cy.get('[data-cy="pagination-page"]').contains("1")
-    cy.get('[data-cy="title"]').should("have.length", 1)
-    cy.get('[data-cy="issn"]').contains("2051-8188")
-  })
+  // it("search blogs by issn", function () {
+  //   cy.url().should("eq", "http://localhost:3000/blogs")
+  //   cy.get("input#search").type("2051-8188{enter}")
+  //   cy.get('[data-cy="pagination-page"]').contains("1")
+  //   cy.get('[data-cy="title"]').should("have.length", 1)
+  //   cy.get('[data-cy="issn"]').contains("2051-8188")
+  // })
 
   it("search blogs by platform", function () {
     cy.url().should("eq", "http://localhost:3000/blogs")

@@ -55,6 +55,7 @@
   "terms.2": "Le texte intégral des articles de blog est disponible via un flux JSON (de préférence), RSS ou Atom.",
   "terms.3": "Tous les textes des articles de blog sont sous licence internationale Creative Commons Attribution 4.0.",
   "terms.4": "Les articles de blog sont rédigés en anglais, français, allemand, italien, portugais, espagnol ou turc.",
+  "terms.5": "Le blog n'est ni un magazine ni un livre.",
   "terms.description": "Je suis (conjointement) responsable du contenu du blog et j'accepte l'utilisation ultérieure dans ce service.",
   "terms.title": "Conditions d'utilisation"
 }
