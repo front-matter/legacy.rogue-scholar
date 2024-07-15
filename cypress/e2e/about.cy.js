@@ -11,17 +11,6 @@ describe("rogue-scholar", () => {
     cy.get("h1").contains("Science blogging")
   })
 
-  it("pricing section", function () {
-    const pricing = cy.get("section#pricing")
-
-    pricing.get("h2").contains("Simple pricing")
-    pricing.get("section#Team").within(() => {
-      cy.get("h3").contains("Team")
-      cy.get("ul li").its("length").should("eq", 2)
-      cy.get("ul li").eq(1).contains("Archive an unlimited number of posts")
-    })
-  })
-
   it("faq section", function () {
     const faq = cy.get("section#faq")
 

@@ -4,7 +4,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import { Comments } from "@/components/common/Comments"
 import Faq from "@/components/home/Faq"
 import Hero from "@/components/home/Hero"
-import { Pricing } from "@/components/home/Pricing"
 import { Stats } from "@/components/home/Stats"
 import { Container } from "@/components/layout/Container"
 import Layout from "@/components/layout/Layout"
@@ -146,7 +145,6 @@ export default function Home({
     <Layout>
       <Hero blogs={blogs} />
       <Faq />
-      <Pricing />
       <Stats
         postsCount={posts_by_language.reduce((a, b) => a + b.lang_count, 0)}
         categories={categories}

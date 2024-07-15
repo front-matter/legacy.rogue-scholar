@@ -30,12 +30,6 @@ export default function ServiceMenu() {
         </MenuItem>
         <MenuItem
           as={Link}
-          href="/about#pricing"
-        >
-          {t("menu.pricing")}
-        </MenuItem>
-        <MenuItem
-          as={Link}
           href="/about#stats"
         >
           {t("menu.stats")}

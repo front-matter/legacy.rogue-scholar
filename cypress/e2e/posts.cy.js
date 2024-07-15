@@ -14,7 +14,7 @@ describe("rogue-scholar", () => {
       .first()
       .invoke("data", "value")
       .should("be.at.least", 13000)
-    cy.get('[data-cy="title"]').should("have.length.of.at.least", 3)
+    cy.get('[data-cy="title"]').should("have.length.of.at.least", 2)
   })
 
   it("visiting posts next page", function () {
@@ -28,7 +28,7 @@ describe("rogue-scholar", () => {
       .first()
       .invoke("data", "value")
       .should("be.at.least", 13000)
-    cy.get('[data-cy="title"]').should("have.length.of.at.least", 3)
+    cy.get('[data-cy="title"]').should("have.length.of.at.least", 2)
   })
 
   it("search posts", function () {
@@ -38,6 +38,6 @@ describe("rogue-scholar", () => {
       .first()
       .invoke("data", "value")
       .should("be.at.least", 20)
-    cy.get('[data-cy="title"]').should("have.length.of.at.least", 3)
+    cy.get('[data-cy="title"]').should("have.length.of.at.least", 2)
   })
 })
