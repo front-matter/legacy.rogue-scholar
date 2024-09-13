@@ -33,6 +33,7 @@ website:
           - hugo.qmd
           - jekyll.qmd
           - quarto.qmd
+      - api.qmd
   page-footer:
     left: "Copyright &copy;2023-2024 Rogue Scholar."
     right:

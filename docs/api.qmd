@@ -1,0 +1,9 @@
+---
+title: API
+categories:
+  - api
+---
+
+The backend server for the [Rogue Scholar](https://rogue-scholar.org) science blog archive. The Rogue Scholar API is a Python [Quart](https://pgjones.gitlab.io/quart/) application that provides a RESTful API for the Rogue Scholar service.
+
+The Rogue Scholar API documentation is served by default at [/openapi.json](https://api.rogue-scholar.org/openapi.json) according to the OpenAPI standard, or at [/docs](https://api.rogue-scholar.org/docs) for a SwaggerUI interface, or at [/redocs](https://api.rogue-scholar.org/redocs) for a redoc interface.
