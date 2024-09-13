@@ -25,6 +25,7 @@ website:
       - index.qmd
       - guidelines.qmd
       - metadata.qmd
+      - api.qmd
       - section: "Blogging Platforms"
         contents:
           - platforms.qmd
@@ -33,7 +34,6 @@ website:
           - hugo.qmd
           - jekyll.qmd
           - quarto.qmd
-      - api.qmd
   page-footer:
     left: "Copyright &copy;2023-2024 Rogue Scholar."
     right:
