@@ -6,4 +6,4 @@ categories:
 
 The Rogue Scholar API is a Python [Quart](https://pgjones.gitlab.io/quart/) application that provides a RESTful API for the Rogue Scholar service.
 
-The Rogue Scholar API documentation is served by default at [https://api.rogue-scholar.org/openapi.json](https://api.rogue-scholar.org/openapi.json) according to the OpenAPI standard, or at [https://api.rogue-scholar.org/docs](https://api.rogue-scholar.org/docs) for a SwaggerUI interface, or at [https://api.rogue-scholar.org/redocs](https://api.rogue-scholar.org/redocs) for a redoc interface.
+The Rogue Scholar API documentation is served by default at [https://api.rogue-scholar.org/openapi.json](https://api.rogue-scholar.org/openapi.json) according to the OpenAPI standard, at [https://api.rogue-scholar.org/docs](https://api.rogue-scholar.org/docs) for a SwaggerUI interface, or at [https://api.rogue-scholar.org/redocs](https://api.rogue-scholar.org/redocs) for a redoc interface.

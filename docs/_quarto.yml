@@ -38,7 +38,7 @@ website:
     left: "Copyright &copy;2023-2024 Rogue Scholar."
     right:
       - icon: envelope
-        href: mailto:info@front-matter.io
+        href: mailto:info@rogue-scholar.org
       - icon: mastodon 
         href: https://wisskomm.social/@rogue_scholar
 
