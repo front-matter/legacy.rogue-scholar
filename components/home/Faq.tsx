@@ -56,10 +56,6 @@ export default function Faqs() {
         question: t("faq.questions.11"),
         answer: t("faq.answers.11"),
       },
-      {
-        question: t("faq.questions.12"),
-        answer: t("faq.answers.12"),
-      },
     ],
   ]
 
