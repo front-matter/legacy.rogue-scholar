@@ -2,7 +2,6 @@ const { CrockfordBase32 } = require("crockford-base32")
 
 import { Mod97_10 } from "@konfirm/iso7064"
 import { fromUnixTime, getUnixTime } from "date-fns"
-import doi from "doi-utils"
 
 import { FundingType } from "@/types/blog"
 
