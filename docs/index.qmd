@@ -16,7 +16,7 @@ full-text search.
 
 ### Long-Term Archiving
 
-Blog content is typically not available long-term, in particular for blogs maintained by individuals or time-limited projects. Rogue Scholar has a suscription to the Internet Archive [Archive-It](https://archive-it.org/home/rogue-scholar) service that provides long-term archiving for all participating blogs.
+Blog content is typically not available long-term, in particular for blogs maintained by individuals or time-limited projects. Rogue Scholar has a subscription to the Internet Archive [Archive-It](https://archive-it.org/home/rogue-scholar) service that provides long-term archiving for all participating blogs.
 
 ### DOIs and Metadata
 
