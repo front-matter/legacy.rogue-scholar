@@ -7,12 +7,11 @@ You can help improve the Rogue Scholar documentation by using the links on the r
 :::
 
 The [Rogue Scholar](https://rogue-scholar.org) is an archive for scholarly blog posts, hosted by [Front Matter](https://front-matter.io). 
-Rogue Scholar improves your science blog in important ways, including full-text search, long-term archiving, and DOIs and metadata.
+Rogue Scholar improves your science blog in important ways, including full-text search, long-term archiving, and DOIs and metadata. Rogue Scholar is powered by a customized version of the [InvenioRDM repository software](https://inveniordm.docs.cern.ch/).
 
 ### Full-Text Search
 
-Most blogging platforms don't support full-text search (which requires a backend service such as Elasticsearch), and instead use tags to classify content. In addition, the search typically is local to the blog, and doesn't find related content on other blogs. Rogue Scholar uses the [Typesense](https://typesense.org/) software to provide
-full-text search.
+Most blogging platforms don't support full-text search (which requires a backend service such as Elasticsearch), and instead use tags to classify content. In addition, the search typically is local to the blog, and doesn't find related content on other blogs. InvenioRDM and therefore Rogue Scholar use the [OpenSearch](https://opensearch.org/) software (an Elasticsearch fork) to provide full-text search.
 
 ### Long-Term Archiving
 
