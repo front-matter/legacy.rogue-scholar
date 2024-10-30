@@ -24,7 +24,7 @@ jobs:
       - name: Install commonmeta
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }} 
         run: |
-          go install github.com/front-matter/commonmeta@v0.4.3
+          go install github.com/front-matter/commonmeta@v0.5.2
           commonmeta version
       - name: Set current date as variable
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
@@ -54,10 +54,15 @@ jobs:
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.current_post.outputs.UUID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "doi": "${{ steps.current_post.outputs.DOI }}", "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
-      # - name: create InvenioRDM record with newly registered DOI
-      #   if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
-      #   run: |
-      #       curl -X POST https://api.rogue-scholar.org/posts/${{ steps.current_post.outputs.UUID }} -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json"
+      - name: Convert posts to inveniordm
+        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
+        run: |
+          commonmeta list upload/commonmeta.json -f commonmeta -t inveniordm > upload/inveniordm_list.json
+          cat upload/inveniordm_list.json | jq -r '.[0]' > upload/inveniordm.json
+      - name: create InvenioRDM draft record
+        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
+        run: |
+          curl -X POST https://beta.rogue-scholar.org/api/records -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json" -d @upload/inveniordm.json
       - name: Update Front Matter blog
         if: steps.current_post.outputs.SLUG == '2749-9952'
         run: commonmeta update-ghost-post --api-key ${{ secrets.GHOST_ADMIN_API_KEY }} --api-url ${{ secrets.GHOST_ADMIN_API_URL }} ${{ steps.current_post.outputs.UUID }}
