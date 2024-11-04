@@ -90,7 +90,7 @@ const PostPage: React.FunctionComponent<Props> = ({ post, blog, references }) =>
         />
         <meta
           property="og:url"
-          content={"https://rogue-scholar.org/posts/" + post.id}
+          content={"https://legacy.rogue-scholar.org/posts/" + post.id}
         />
       </Head>
       <Layout>

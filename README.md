@@ -3,4 +3,4 @@
 
 # rogue-scholar
 
-Next.js frontend for the [Rogue Scholar](https://rogue-scholar.org) website.
+Next.js frontend for the [Rogue Scholar](https://legacy.rogue-scholar.org) website.
