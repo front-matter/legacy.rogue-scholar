@@ -405,7 +405,7 @@ export default function BlogFormModal({
               <div className="-mb-3">
                 Please contact{" "}
                 <Link
-                  href="mailto:info@front-matter.io"
+                  href="mailto:info@rogue-scholar.org"
                   className="border-b-0 text-gray-500 dark:text-gray-200 hover:text-gray-400 dark:hover:text-gray-100"
                 >
                   <Icon

@@ -34,7 +34,7 @@ export default function Footer() {
         <div className="flex flex-col items-center border-t border-slate-400/10 py-6 sm:flex-row-reverse sm:justify-between">
           <div className="flex gap-x-6 text-gray-500 dark:text-gray-200">
             <Link
-              href="mailto:info@front-matter.io"
+              href="mailto:info@rogue-scholar.org"
               className="border-b-0 text-lg hover:text-gray-400 dark:hover:text-gray-100"
             >
               <span className="sr-only">Mail</span>
