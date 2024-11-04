@@ -15,7 +15,7 @@ describe("rogue-scholar", () => {
     const faq = cy.get("section#faq")
 
     faq.get("h2").contains("Frequently asked questions")
-    faq.get("ul li ul li").its("length").should("eq", 12)
+    faq.get("ul li ul li").its("length").should("eq", 11)
     faq
       .get("ul li ul li")
       .eq(0)
