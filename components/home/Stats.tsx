@@ -29,7 +29,7 @@ export const categoryDomain = [
   "law",
   "computerAndInformationSciences",
   "earthAndRelatedEnvironmentalSciences",
-  "socialSciences",
+  "socialScience",
   "languagesAndLiterature",
   "otherSocialSciences",
   "chemicalSciences",

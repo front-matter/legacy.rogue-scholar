@@ -338,8 +338,8 @@ export default function BlogFormModal({
                       ns: "common",
                     })}
                   </option>
-                  <option value="socialSciences">
-                    {t("categories.socialSciences", { ns: "common" })}
+                  <option value="socialScience">
+                    {t("categories.socialScience", { ns: "common" })}
                   </option>
                   <option value="psychology">
                     {t("categories.psychology", { ns: "common" })}
