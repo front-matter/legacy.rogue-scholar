@@ -22,9 +22,6 @@ export default function Footer() {
               <NavLink href="https://docs.rogue-scholar.org">
                 {t("menu.docs")}
               </NavLink>
-              <NavLink href="https://plausible.io/rogue-scholar.org">
-                {t("menu.usage_stats")}
-              </NavLink>
               <NavLink href="https://status.rogue-scholar.org">
                 {"Status"}
               </NavLink>
