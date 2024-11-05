@@ -43,25 +43,32 @@ jobs:
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           curl -X POST https://doi.crossref.org/servlet/deposit -F "operation=doMDUpload" -F "login_id=${{ secrets.CROSSREF_USERNAME_WITH_ROLE }}" -F "login_passwd=${{ secrets.CROSSREF_PASSWORD }}" -F "fname=@upload/${{ steps.current_date.outputs.NOW }}"
+      - name: Set post uuid, doi and blog slug as variables
+        if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
+        run: |
+          echo "UUID=$(jq -r '[.[] | .identifiers | .[1].identifier] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
+          echo "DOI=$(jq -rc '[.[] | .id] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
+          echo "SLUG=$(jq -r '[.[] | .container.identifier] | first' upload/commonmeta.json)" >> $GITHUB_OUTPUT
+          echo "RID=$(jq -r '.[0].identifiers[] | select(.identifierType | contains("RID")) | .identifier' upload/commonmeta.json)" >> $GITHUB_OUTPUT
+        id: current_post
       - name: Convert commonmeta to inveniordm
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           commonmeta list upload/commonmeta.json -f commonmeta -t inveniordm > upload/inveniordm_list.json
           cat upload/inveniordm_list.json | jq -r '.[0]' > upload/inveniordm.json
-          echo "RID=$(jq -r '.id' upload/inveniordm.json)" >> $GITHUB_OUTPUT
         id: inveniordm
       - name: create InvenioRDM draft record from published record
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.inveniordm.outputs.RID }}/draft -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
+          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.current_post.outputs.RID }}/draft -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
       - name: update InvenioRDM draft record
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          curl -X PUT https://beta.rogue-scholar.org/api/records/${{ steps.inveniordm.outputs.RID }}/draft -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json" -d @upload/inveniordm.json
+          curl -X PUT https://beta.rogue-scholar.org/api/records/${{ steps.current_post.outputs.RID }}/draft -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json" -d @upload/inveniordm.json
       - name: publish updated InvenioRDM draft record
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.inveniordm.outputs.RID }}/draft/actions/publish -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
+          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.current_post.outputs.RID }}/draft/actions/publish -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
       - name: List uuids of updated posts
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
