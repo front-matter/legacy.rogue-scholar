@@ -64,20 +64,20 @@ jobs:
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
           curl -X POST https://beta.rogue-scholar.org/api/records -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json" -d @upload/inveniordm.json > upload/response.json
-          echo "INVENIO_ID=$(jq -r '.id' upload/response.json)" >> $GITHUB_OUTPUT
+          echo "RID=$(jq -r '.id' upload/response.json)" >> $GITHUB_OUTPUT
         id: inveniordm
       - name: publish InvenioRDM draft record
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.inveniordm.outputs.INVENIO_ID }}/draft/actions/publish -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
+          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.inveniordm.outputs.RID }}/draft/actions/publish -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
       - name: Add post to blog community
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.inveniordm.outputs.INVENIO_ID }}/communities -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json" -d '{ "communities": [{"id": "${{ steps.community.outputs.ID }}"}] }'
+          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.inveniordm.outputs.RID }}/communities -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json" -d '{ "communities": [{"id": "${{ steps.community.outputs.ID }}"}] }'
       - name: update Rogue Scholar post
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.current_post.outputs.UUID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "doi": "${{ steps.current_post.outputs.DOI }}", "invenio_id": "${{ steps.inveniordm.outputs.INVENIO_ID }}", "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
+          curl -X PATCH https://db.rogue-scholar.org/rest/v1/posts?id=eq.${{ steps.current_post.outputs.UUID }} -H "apikey: ${{ secrets.SUPABASE_KEY }}" -H "Authorization: Bearer ${{ secrets.SUPABASE_KEY }}" -H "Content-Type: application/json" -H "Prefer: return=minimal" -d '{ "doi": "${{ steps.current_post.outputs.DOI }}", "rid": "${{ steps.inveniordm.outputs.RID }}", "indexed_at": "${{ steps.current_date.outputs.NOW }}", "indexed": true }'
       - name: Update Front Matter blog
         if: steps.current_post.outputs.SLUG == '2749-9952'
         run: commonmeta update-ghost-post --api-key ${{ secrets.GHOST_ADMIN_API_KEY }} --api-url ${{ secrets.GHOST_ADMIN_API_URL }} ${{ steps.current_post.outputs.UUID }}
