@@ -60,15 +60,15 @@ jobs:
       - name: create InvenioRDM draft record from published record
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.current_post.outputs.RID }}/draft -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
+          curl -X POST https://rogue-scholar.org/api/records/${{ steps.current_post.outputs.RID }}/draft -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
       - name: update InvenioRDM draft record
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          curl -X PUT https://beta.rogue-scholar.org/api/records/${{ steps.current_post.outputs.RID }}/draft -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json" -d @upload/inveniordm.json
+          curl -X PUT https://rogue-scholar.org/api/records/${{ steps.current_post.outputs.RID }}/draft -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json" -d @upload/inveniordm.json
       - name: publish updated InvenioRDM draft record
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
-          curl -X POST https://beta.rogue-scholar.org/api/records/${{ steps.current_post.outputs.RID }}/draft/actions/publish -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
+          curl -X POST https://rogue-scholar.org/api/records/${{ steps.current_post.outputs.RID }}/draft/actions/publish -H "Authorization: Bearer ${{ secrets.INVENIORDM_TOKEN }}" -H "Content-Type: application/json"
       - name: List uuids of updated posts
         if: ${{ fromJSON(steps.current_number.outputs.NUMBER) > 0 }}
         run: |
