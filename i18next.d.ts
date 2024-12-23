@@ -1,6 +1,5 @@
 import "i18next"
 
-import type account from "public/locales/en/account.json"
 import type app from "public/locales/en/app.json"
 import type auth from "public/locales/en/auth.json"
 import type blog from "public/locales/en/blog.json"
