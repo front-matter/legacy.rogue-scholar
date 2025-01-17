@@ -67,22 +67,6 @@ export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
                 <LanguageSwitch />
                 <ColorModeSwitch />
               </HStack>
-              {user ? (
-                <UserMenu />
-              ) : (
-                <>
-                  <Button
-                    as={Link}
-                    href="/auth/signin"
-                    size="sm"
-                    colorScheme="primary"
-                    variant="outline"
-                    data-cy="signin"
-                  >
-                    {t("signIn")}
-                  </Button>
-                </>
-              )}
               {!hideMenu && isMobile && (
                 <IconButton
                   aria-label={t("menu.title")}
