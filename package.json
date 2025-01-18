@@ -11,7 +11,9 @@
     "lint": "next lint",
     "install:pandoc": "cd /home && yum install wget tar gzip pandoc -y && wget https://github.com/jgm/pandoc/releases/download/3.1.6.1/pandoc-3.1.6.1-linux-amd64.tar.gz && tar -xvf pandoc-3.1.6.1-linux-amd64.tar.gz --strip-components 1 -C /usr/local/ && rm -rf pandoc-3.1.6.1* && pandoc -v",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev",
-    "generate:types": "npx ts-node --project ./scripts/tsconfig.json ./scripts/generate-supabase-types.ts"
+    "generate:types": "npx ts-node --project ./scripts/tsconfig.json ./scripts/generate-supabase-types.ts",
+    "cy:open": "cypress open",
+    "cy:run": "BROWSERSLIST_IGNORE_OLD_DATA=true cypress run"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.10.4",
@@ -107,6 +109,7 @@
     "@types/sanitize-html": "^2.13.0",
     "@typescript-eslint/typescript-estree": "^6.21.0",
     "autoprefixer": "^10.4.20",
+    "cypress": "^13.10.0",
     "dotenv": "^16.4.7",
     "eslint": "8.43.0",
     "eslint-config-next": "^13.5.8",
