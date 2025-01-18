@@ -46,7 +46,7 @@ export default function Footer() {
               <Icon icon="fa6-brands:mastodon" className="inline" />
             </Link>
             <Link
-              href="https://github.com/front-matter/rogue-scholar"
+              href="https://github.com/front-matter/legacy.rogue-scholar"
               className="border-b-0 text-lg hover:text-gray-400 dark:hover:text-gray-100"
             >
               <span className="sr-only">GitHub</span>

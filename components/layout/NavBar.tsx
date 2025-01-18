@@ -8,8 +8,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react"
 import { Icon } from "@iconify/react"
-import { useUser } from "@supabase/auth-helpers-react"
-import Link from "next/link"
 import { useTranslation } from "next-i18next"
 import { useEffect } from "react"
 
@@ -19,13 +17,11 @@ import LanguageSwitch from "@/components/common/LanguageSwitch"
 import Logo from "@/components/layout/Logo"
 import Menu from "@/components/layout/Menu"
 import MobileDrawerMenu from "@/components/layout/MobileDrawerMenu"
-import UserMenu from "@/components/layout/UserMenu"
 
 import { useMobileBreakpoint, useScrollTop } from "../../lib/blog/layout"
 
 export default function NavBar({ hideMenu }: { hideMenu?: boolean }) {
   const { t } = useTranslation("common")
-  const user = useUser()
   const mobileDrawerDisclosure = useDisclosure()
   const isMobile = useMobileBreakpoint()
   const isTop = useScrollTop()

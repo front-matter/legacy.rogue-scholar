@@ -196,7 +196,6 @@
       "index": true,
       "infix": false,
       "locale": "",
-      "name": "plan",
       "optional": false,
       "sort": false,
       "type": "string"
