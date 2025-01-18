@@ -26,7 +26,7 @@ const queryClient = new QueryClient()
 function App({
   Component,
   pageProps,
-}: AppProps<{ initialSession?: Session | null } & SSRConfig>) {
+}: AppProps<SSRConfig>) {
   const router = useRouter()
   const colorModeManager = createLocalStorageManager("color-mode")
 

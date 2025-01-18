@@ -93,7 +93,7 @@
     "swr": "^2.3.0",
     "to-words": "^3.7.0",
     "turbo-ignore": "0.5.0",
-    "typesense": "1.8.2",
+    "typesense": "2.0.0-14",
     "ui": "^0.2.4",
     "uuid": "^9.0.1",
     "validator": "^13.12.0",

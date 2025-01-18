@@ -240,8 +240,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0
       typesense:
-        specifier: 1.8.2
-        version: 1.8.2(@babel/runtime@7.26.0)
+        specifier: 2.0.0-14
+        version: 2.0.0-14(@babel/runtime@7.26.0)
       ui:
         specifier: ^0.2.4
         version: 0.2.4
@@ -4108,8 +4108,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typesense@1.8.2:
-    resolution: {integrity: sha512-aBpePjA99Qvo+OP2pJwMpvga4Jrm1Y2oV5NsrWXBxlqUDNEUCPZBIksPv2Hq0jxQxHhLLyJVbjXjByXsvpCDVA==}
+  typesense@2.0.0-14:
+    resolution: {integrity: sha512-riT9va9dNkTYjzCCCPYz7I3UUziL3xtzA/ZAG0/AM39OYBysnzJuyOckfMnJXGKKTkjfdpT4BzEg2t4zf3cc1Q==}
     engines: {node: '>=18'}
     peerDependencies:
       '@babel/runtime': ^7.23.2
@@ -9000,11 +9000,12 @@ snapshots:
 
   typescript@5.7.3: {}
 
-  typesense@1.8.2(@babel/runtime@7.26.0):
+  typesense@2.0.0-14(@babel/runtime@7.26.0):
     dependencies:
       '@babel/runtime': 7.26.0
       axios: 1.7.9
       loglevel: 1.9.2
+      tslib: 2.8.1
     transitivePeerDependencies:
       - debug
 
