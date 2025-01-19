@@ -70,11 +70,6 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "db.rogue-scholar.org",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
         hostname: "www.ideasurg.pub",
         pathname: "/**",
       },
