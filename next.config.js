@@ -18,31 +18,33 @@ const nextConfig = {
   },
   i18n,
   reactStrictMode: true,
-  async headers() {
-    return [
-      {
-        source: "/:slug.json",
-        headers: [
-          {
-            key: "Content-Type",
-            value: "application/feed+json",
-          },
-        ],
-      },
-    ]
-  },
   async redirects() {
     return [
-      {
-        source: "/signup",
-        destination: "/auth/signup",
-        permanent: true,
-      },
       {
         source: "/posts",
         destination: "/",
         permanent: true,
       },
+      {
+        source: '/en/posts/:path*',
+        destination: 'https://doi.org/:path*',
+        permanent: true,
+      },
+      {
+        source: '/de/posts/:path*',
+        destination: 'https://doi.org/:path*',
+        permanent: true,
+      },
+      {
+        source: '/es/posts/:path*',
+        destination: 'https://doi.org/:path*',
+        permanent: true,
+      },
+      {
+        source: '/posts/:path*',
+        destination: 'https://doi.org/:path*',
+        permanent: true,
+      }
     ]
   },
   images: {
