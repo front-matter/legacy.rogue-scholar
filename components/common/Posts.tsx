@@ -9,7 +9,6 @@ import { doi } from "doi-utils"
 
 import { Byline } from "@/components/common/Byline"
 import { ExportButton } from "@/components/common/ExportButton"
-import { CitationButton } from "@/components/common/CitationButton"
 import { BlogType, PaginationType, PostType } from "@/types/blog"
 
 type Props = {
@@ -119,7 +118,6 @@ export const Posts: React.FunctionComponent<Props> = ({
                   </div>
                   <Byline post={post} blog={blog} />
                   <ExportButton post={post} />
-                  <CitationButton post={post} activeLocale={activeLocale} />
                   <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
                     {post.image && (
                       <div className="relative mr-4 h-48 w-64 shrink-0">

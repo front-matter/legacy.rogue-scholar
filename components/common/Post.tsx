@@ -8,7 +8,6 @@ import { capitalize } from "lodash"
 
 import { Byline } from "@/components/common/Byline"
 import { ExportButton } from "@/components/common/ExportButton"
-import { CitationButton } from "@/components/common/CitationButton"
 import { BlogType, PostType } from "@/types/blog"
 
 
@@ -112,7 +111,6 @@ export const Post: React.FunctionComponent<Props> = ({ post, blog }) => {
                 </div>
                 <Byline post={post} />
                 <ExportButton post={post} />
-                <CitationButton post={post} activeLocale={activeLocale} />
                 <div className="max-w-2xl py-2 md:flex lg:max-w-4xl">
                   {post.image && (
                     <div className="relative mr-4 h-48 w-64 shrink-0">

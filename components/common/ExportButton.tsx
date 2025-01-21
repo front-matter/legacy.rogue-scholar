@@ -73,56 +73,6 @@ export function ExportButton({ post }) {
                 <Link
                   href={
                     process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post_id}?format=bib`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  BibTex
-                </Link>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post_id}?format=csl`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  CSL
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post_id}?format=ris`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  RIS
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
                     `/posts/${post_id}?format=epub`
                   }
                   className={classNames(
@@ -131,72 +81,6 @@ export function ExportButton({ post }) {
                   )}
                 >
                   ePub
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post_id}?format=jsonld`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  Schema.org
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post_id}?format=xml`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  JATS XML
-                </Link>
-              )}
-            </Menu.Item>
-          </div>
-          <div className="py-1">
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post_id}?format=crossref_xml`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  Crossref XML
-                </Link>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <Link
-                  href={
-                    process.env.NEXT_PUBLIC_API_URL +
-                    `/posts/${post_id}?format=datacite`
-                  }
-                  className={classNames(
-                    active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                    "block px-4 py-2 text-sm",
-                  )}
-                >
-                  DataCite JSON
                 </Link>
               )}
             </Menu.Item>
