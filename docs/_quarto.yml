@@ -9,17 +9,17 @@ website:
   title: "Rogue Scholar Docs"
   favicon: favicon.ico
   site-url: https://docs.rogue-scholar.org
-  repo-url: https://github.com/front-matter/rogue-scholar
+  repo-url: https://github.com/front-matter/legacy.rogue-scholar
   repo-subdir: docs
   repo-actions: [edit, issue]
   bread-crumbs: false
   navbar:
     background: light
     logo: "/images/icon.png"
-    logo-alt: "Rogue Scholar Docs"
+    logo-alt: "Rogue Scholar Documentation"
     right:
       - icon: github
-        href: https://github.com/front-matter/rogue-scholar
+        href: https://github.com/front-matter/legacy.rogue-scholar
   sidebar:
     contents:
       - index.qmd
