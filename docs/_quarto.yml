@@ -6,7 +6,7 @@ project:
 execute:
   freeze: true
 website:
-  title: "Rogue Scholar Docs"
+  title: "Rogue Scholar Documentation"
   favicon: favicon.ico
   site-url: https://docs.rogue-scholar.org
   repo-url: https://github.com/front-matter/legacy.rogue-scholar
@@ -25,6 +25,7 @@ website:
       - index.qmd
       - guidelines.qmd
       - metadata.qmd
+      - references.qmd
       - section: "Blogging Platforms"
         contents:
           - platforms.qmd
