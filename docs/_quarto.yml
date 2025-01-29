@@ -52,6 +52,6 @@ format:
     toc-location: right
     comments:
       giscus: 
-        repo: front-matter/rogue-scholar
+        repo: front-matter/legacy.rogue-scholar
         category-id: DIC_kwDOItYbpM4CTyur
         mapping: url
