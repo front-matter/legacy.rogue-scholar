@@ -7,7 +7,7 @@ References are an important functionality of scholarly documents. Formal referen
 
 Rogue Scholar uses the full-text content to extract references. As there is no standard way to format references, Rogue Scholar uses two preferred strategies and one fallback strategy:
 
-1. The blog uses `citeproc` to generated reference lists, for example via the [Quarto](/quarto) publishing platform.
+1. The blog uses `citeproc` (the most popular library to format references and used by reference managers Zotero, Mendeley and many others) to generated reference lists, for example via the [Quarto](/quarto) publishing platform.
 1. Reference sections start with a (h1, h2, h3 or h4) heading named `References`, followed by an ordered or unordered list.
 1. As a fallback strategy, Rogue Scholar looks for a heading named `References` and extracts all links it finds.
 
