@@ -49,4 +49,5 @@ simplelocalize.yml
 /public/epub
 .sentryclirc
 /docs/.quarto
-/docs/_site
+/docs/_site/*
+!docs/_site/.gitkeep
