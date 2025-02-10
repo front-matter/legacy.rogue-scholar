@@ -56,9 +56,6 @@ export interface PaginationType {
   base_url?: string
   query?: string
   language?: string
-  tags?: string
-  category?: string
-  generator?: string
   page: number
   pages: number
   total: number

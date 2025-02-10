@@ -44,7 +44,7 @@ export default function Pagination({ pagination }: Props) {
           {pagination.prev && (
             <Link
               className="relative inline-flex items-center px-1 py-1 text-sm focus-visible:outline-offset-0"
-              href={`${pagination.base_url}?page=${pagination.prev}&query=${pagination.query}&tags=${pagination.tags}&category=${pagination.category}&generator=${pagination.generator}&language=${pagination.language}`}
+              href={`${pagination.base_url}?page=${pagination.prev}&query=${pagination.query}&language=${pagination.language}`}
               data-cy="pagination-prev"
             >
               {t("pagination.previous")}
@@ -56,7 +56,7 @@ export default function Pagination({ pagination }: Props) {
           {pagination.next && (
             <Link
               className="relative ml-1 inline-flex items-center px-1 py-1 text-sm focus-visible:outline-offset-0"
-              href={`${pagination.base_url}?page=${pagination.next}&query=${pagination.query}&category=${pagination.category}&generator=${pagination.generator}&tags=${pagination.tags}&language=${pagination.language}`}
+              href={`${pagination.base_url}?page=${pagination.next}&query=${pagination.query}&language=${pagination.language}`}
               data-cy="pagination-next"
             >
               {t("pagination.next")}

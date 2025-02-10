@@ -13,19 +13,18 @@ import { Posts } from "@/components/common/Posts"
 import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
 import Search from "@/components/layout/Search"
-import { blogWithPostsSelect, supabase } from "@/lib/supabaseClient"
-import { typesense } from "@/lib/typesenseClient"
+import { blogWithPostsSelect, postsWithBlogSelect, supabase } from "@/lib/supabaseClient"
 import { BlogType, PaginationType, PostType } from "@/types/blog"
-import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
 
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
   const tags = ctx.query.tags || ""
+  const slug = ctx.params.slug
   const language = ctx.query.language || ""
   const category = ctx.query.category || ""
 
-  let status = ["approved", "active", "archived"]
+  let status = ["approved", "active", "archived", "expired"]
   if (process.env.VERCEL_ENV !== "production") {
     status = ["pending", "approved", "active", "archived"]
   }
@@ -52,31 +51,52 @@ export async function getServerSideProps(ctx) {
     }
   }
 
-  const searchParameters: PostSearchParams = {
-    q: query,
-    filter_by: filterBy,
-    query_by:
-      "tags,title,authors.name,authors.url,reference.url,summary,content_text",
-    sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
-    per_page: 10,
-    page: page && page > 0 ? page : 1,
+  // from https://github.com/orgs/supabase/discussions/787
+  const filters: any = []
+  if (query) {
+    filters.push(['ilike', 'title', `%${query}%`])
   }
-  const data: PostSearchResponse = await typesense
-    .collections("posts")
-    .documents()
-    .search(searchParameters)
-  const posts = data.hits?.map((hit) => hit.document)
-  const pages = Math.ceil(data.found / 10)
+  if (category) {
+    filters.push(['eq', 'category', category])
+  }
+  if (language) {
+    filters.push((['eq', 'language', language]))
+  }
+
+  let begin = page && page > 0 ? page : 1
+  begin = (begin -1) * 10
+  const end = begin + 10
+  const { data: posts, error, count } = await filters
+        .reduce(
+            (acc, [filter, ...args]) => {
+                return acc[filter](...args)
+            },
+            supabase
+                .from('posts')
+                .select(postsWithBlogSelect, { count: "exact" })
+                .in("status", status)
+                .eq("blog_slug", slug)
+                .range(begin, end)
+                .order('published_at', { ascending: false })
+        )
+
+  if (error) {
+    console.error(error)
+  }
+
+  if (!posts) {
+    return {
+      notFound: true,
+    }
+  }
+  const pages = Math.ceil(count || 0 / 10)
   const pagination = {
-    base_url: "/blogs/" + ctx.params.slug,
+    base_url: "/blogs/" + slug,
     query: query,
     language: language,
-    category: category,
-    generator: "",
-    tags: tags,
     page: page,
     pages: pages,
-    total: data.found,
+    total: count || 0,
     prev: page > 1 ? page - 1 : null,
     next: page < pages ? page + 1 : null,
   }

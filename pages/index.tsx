@@ -8,66 +8,74 @@ import { Posts } from "@/components/common/Posts"
 import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
 import Search from "@/components/layout/Search"
-import { typesense } from "@/lib/typesenseClient"
 import { PaginationType, PostType } from "@/types/blog"
-import { PostSearchParams, PostSearchResponse } from "@/types/typesense"
+import { postsWithBlogSelect, supabase } from "@/lib/supabaseClient"
 
 export async function getServerSideProps(ctx) {
   const page = parseInt(ctx.query.page || 1)
   const query = ctx.query.query || ""
-  const tags = ctx.query.tags || ""
-  const language = ctx.query.language || ""
   const category = ctx.query.category || ""
+  const language = ctx.query.language || ""
 
-  // if (language && language !== ctx.locale) {
-  //   language = null
-  // }
-  let filterBy = `status:!=[pending]`
+  let status = ["approved", "active", "archived", "expired"]
   if (process.env.VERCEL_ENV !== "production") {
-    filterBy = `status:!=[obsolete]`
+    status = ["pending", "approved", "active", "archived", "expired"]
   }
 
-  filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy
-  filterBy = !isEmpty(language)
-    ? filterBy + ` && language:[${language}]`
-    : filterBy
-  filterBy = !isEmpty(category)
-    ? filterBy + ` && category:[${category}]`
-    : filterBy
-
-  const searchParameters: PostSearchParams = {
-    q: query,
-    query_by:
-      "tags,title,doi,authors.name,authors.url,reference.url,abstract,summary,content_text",
-    filter_by: filterBy,
-    sort_by: ctx.query.query ? "_text_match:desc" : "published_at:desc",
-    per_page: 10,
-    page: page && page > 0 ? page : 1,
+  // from https://github.com/orgs/supabase/discussions/787
+  const filters: any = []
+  if (query) {
+    filters.push(['ilike', 'title', `%${query}%`])
+  }
+  if (category) {
+    filters.push(['eq', 'category', category])
+  }
+  if (language) {
+    filters.push((['eq', 'language', language]))
   }
 
-  const data: PostSearchResponse = await typesense
-    .collections("posts")
-    .documents()
-    .search(searchParameters)
-  const posts = data.hits?.map((hit) => hit.document)
-  const pages = Math.ceil(data.found / 10)
+  let begin = page && page > 0 ? page : 1
+  begin = (begin -1) * 10
+  const end = begin + 10
+  const { data: posts, error, count } = await filters
+        .reduce(
+            (acc, [filter, ...args]) => {
+                return acc[filter](...args)
+            },
+            supabase
+                .from('posts')
+                .select(postsWithBlogSelect, { count: "exact" })
+                .in("status", status)
+                .range(begin, end)
+                .order('published_at', { ascending: false })
+        )
+
+  if (error) {
+    console.error(error)
+  }
+
+  if (!posts) {
+    return {
+      notFound: true,
+    }
+  }
+  const pages = Math.ceil(count || 0 / 10)
   const pagination = {
     base_url: "/posts",
     query: query,
     language: language,
     category: category,
-    generator: "",
-    tags: tags,
+    tags: "",
     page: page,
     pages: pages,
-    total: data.found,
+    total: count || 0,
     prev: page > 1 ? page - 1 : null,
     next: page < pages ? page + 1 : null,
   }
 
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale!, ["common"])),
+      ...(await serverSideTranslations(ctx.locale!, ["common", "app"])),
       posts,
       pagination,
       locale: ctx.locale,

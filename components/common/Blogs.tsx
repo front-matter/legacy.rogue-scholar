@@ -35,7 +35,7 @@ export const Blogs: React.FunctionComponent<Props> = ({
                   {blog.category && (
                     <span className="inline-block flex-shrink-0 rounded-full bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-800 dark:bg-teal-700 dark:text-teal-200">
                       <Link
-                        href={`${pagination.base_url}?page=1&query=${pagination.query}&category=${blog.category}&generator=${pagination.generator}`}
+                        href={`${pagination.base_url}?page=1&query=${pagination.query}`}
                         className="whitespace-no-wrap"
                       >
                         {t("categories." + blog.category)}
@@ -50,7 +50,7 @@ export const Blogs: React.FunctionComponent<Props> = ({
                   {blog.generator && (
                     <span className="ml-1 inline-block flex-shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-800">
                       <Link
-                        href={`${pagination.base_url}?page=1&query=${pagination.query}&category=${pagination.category}&generator=${blog.generator}`}
+                        href={`${pagination.base_url}?page=1&query=${pagination.query}`}
                         className="whitespace-no-wrap"
                       >
                         {blog.generator}
