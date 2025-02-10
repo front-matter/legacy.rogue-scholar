@@ -49,12 +49,7 @@ export const Posts: React.FunctionComponent<Props> = ({
                       ))}
                       {post.category && (
                         <span className="relative z-10 mb-1 ml-0 rounded-full bg-teal-100 px-2 py-0.5 font-medium text-teal-800 dark:bg-teal-700 dark:text-teal-200">
-                          <Link
-                            href={`${pagination.base_url}?page=${pagination.page}&query=${pagination.query}`}
-                            className="whitespace-no-wrap"
-                          >
-                            {t("categories." + post.category)}
-                          </Link>
+                          {t("categories." + post.category)}
                         </span>
                       )}
                       {post.language !== activeLocale && (

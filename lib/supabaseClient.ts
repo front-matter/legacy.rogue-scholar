@@ -24,6 +24,6 @@ export const blogWithPostsSelect =
 export const postsSelect =
   "id, guid, doi, url, archive_url, title, summary, abstract, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_name, blog_slug"
 export const postsWithBlogSelect =
-  "id, guid, doi, url, archive_url, title, summary, abstract, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_name, blog_slug, blog: blogs!inner(*)"
+  "id, guid, doi, url, archive_url, title, summary, abstract, published_at, updated_at, indexed_at, authors, image, tags, category, language, reference, relationships, blog_name, blog_slug, blog: blogs!inner(*)"
 export const postsWithContentSelect =
   "id, guid, doi, url, archive_url, title, summary, abstract, content_text, published_at, updated_at, indexed_at, authors, image, tags, language, reference, relationships, blog_name, blog_slug, blog: blogs!inner(*)"
