@@ -25,6 +25,10 @@ const nextConfig = {
         destination: "/",
         permanent: true,
       },
+      { source: '/about#stats',
+        destination: 'https://docs.rogue-scholar.org/statistics',
+        permanent: true,
+      },
       {
         source: '/en/posts/:path*',
         destination: 'https://doi.org/:path*',
@@ -43,10 +47,6 @@ const nextConfig = {
       {
         source: '/posts/:path*',
         destination: 'https://doi.org/:path*',
-        permanent: true,
-      },
-      { source: '/about#stats',
-        destination: 'https://docs.rogue-scholar.org/statistics',
         permanent: true,
       }
     ]
