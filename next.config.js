@@ -44,6 +44,10 @@ const nextConfig = {
         source: '/posts/:path*',
         destination: 'https://doi.org/:path*',
         permanent: true,
+      },
+      { source: '/about#stats',
+        destination: 'https://docs.rogue-scholar.org/statistics',
+        permanent: true,
       }
     ]
   },

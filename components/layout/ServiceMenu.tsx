@@ -30,7 +30,7 @@ export default function ServiceMenu() {
         </MenuItem>
         <MenuItem
           as={Link}
-          href="/about#stats"
+          href="https://docs.rogue-scholar.org/statistics"
         >
           {t("menu.stats")}
         </MenuItem>

@@ -35,7 +35,7 @@ export default function CommunityMenu() {
         </MenuItem>
         <MenuItem
           as={Link}
-          href="https://github.com/front-matter/rogue-scholar/discussions"
+          href="https://join.slack.com/t/rogue-scholar/shared_invite/zt-2ylpq1yoy-o~TkxDarfz5LSMhGSCYtiA"
         >
           {t("menu.discussions")}
         </MenuItem>
