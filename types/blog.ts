@@ -2,7 +2,9 @@ import { FeedData } from "@extractus/feed-extractor"
 import { Title } from "vega"
 
 export interface AuthorType {
-  name: string
+  name?: string
+  given?: string
+  family?: string
   url?: string
   email?: string
   avatar?: string

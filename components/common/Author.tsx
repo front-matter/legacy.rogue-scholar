@@ -5,13 +5,17 @@ import React from "react"
 import { isOrcid, isROR } from "@/lib/helpers"
 
 type Props = {
-  name: string
+  name?: string
+  given?: string
+  family?: string
   url?: string
   isLast?: boolean
 }
 
 export const Author: React.FunctionComponent<Props> = ({
   name,
+  given,
+  family,
   url,
   isLast,
 }) => {
@@ -24,7 +28,7 @@ export const Author: React.FunctionComponent<Props> = ({
             target="_blank"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100"
           >
-            {name}
+            {given && family ? `${given} ${family}` : name}
             <Icon
               icon="fa-brands:orcid"
               className="ml-0.5 inline text-[#a6ce39]"
@@ -40,7 +44,7 @@ export const Author: React.FunctionComponent<Props> = ({
             target="_blank"
             className="text-gray-500 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100"
           >
-            {name}
+            {given && family ? `${given} ${family}` : name}
             <Icon
               icon="academicons:ror"
               className="ml-0.5 inline text-[#2c2c2c]"
@@ -51,7 +55,7 @@ export const Author: React.FunctionComponent<Props> = ({
       )}
       {!url && (
         <span className="text-gray-500 dark:text-gray-200">
-          {name}
+          {given && family ? `${given} ${family}` : name}
           {isLast ? "" : ", "}
         </span>
       )}

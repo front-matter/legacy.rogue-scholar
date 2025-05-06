@@ -7,7 +7,9 @@ import { toISODate } from "@/lib/helpers"
 import { BlogType, PostType } from "@/types/blog"
 
 type Author = {
-  name: string
+  name?: string
+  given?: string
+  family?: string
   url?: string
 }
 
@@ -53,6 +55,8 @@ export const Byline: React.FunctionComponent<Props> = ({ post, blog }) => {
             <Author
               key={author.name}
               name={author.name}
+              given={author.given}
+              family={author.family}
               url={author.url}
               isLast={index === (post.authors && post.authors.length - 1)}
             />
