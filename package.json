@@ -64,7 +64,7 @@
     "lodash": "^4.17.21",
     "masto": "^6.10.3",
     "negotiator": "^0.6.4",
-    "next": "^14.2.23",
+    "next": "^14.2.30",
     "next-absolute-url": "^1.2.2",
     "next-i18next": "^15.4.2",
     "next-mdx-remote": "^4.4.1",
