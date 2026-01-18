@@ -19,6 +19,10 @@ RUN pnpm run build
 FROM base AS runner
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_PUBLIC_SITE_URL=""
+ENV NEXT_PUBLIC_API_URL=""
+ENV NEXT_PUBLIC_SUPABASE_URL=""
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=""
 
 # If using output: "standalone"
 COPY --from=builder /app/.next/standalone ./
