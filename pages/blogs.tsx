@@ -17,10 +17,7 @@ export async function getServerSideProps(ctx) {
   const generator = ctx.query.generator || ""
   const language = ctx.query.language || ""
 
-  let status = ["approved", "active", "archived", "expired"]
-  if (process.env.VERCEL_ENV !== "production") {
-    status = ["pending", "approved", "active", "archived", "expired"]
-  }
+  let status = ["pending", "approved", "active", "archived", "expired"]
 
   // from https://github.com/orgs/supabase/discussions/787
   const filters: any = []

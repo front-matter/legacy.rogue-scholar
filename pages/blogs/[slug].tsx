@@ -24,10 +24,7 @@ export async function getServerSideProps(ctx) {
   const language = ctx.query.language || ""
   const category = ctx.query.category || ""
 
-  let status = ["approved", "active", "archived", "expired"]
-  if (process.env.VERCEL_ENV !== "production") {
-    status = ["pending", "approved", "active", "archived"]
-  }
+  let status = ["pending", "approved", "active", "archived"]
   let filterBy = `blog_slug:=${ctx.params.slug}`
 
   filterBy = !isEmpty(tags) ? filterBy + ` && tags:=[${tags}]` : filterBy

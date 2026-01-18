@@ -6,12 +6,7 @@ import { fromUnixTime, getUnixTime } from "date-fns"
 import { FundingType } from "@/types/blog"
 
 export function getBaseURL() {
-  const url =
-    process?.env?.NEXT_PUBLIC_SITE_URL ||
-    process?.env?.VERCEL_URL ||
-    "http://localhost:3000"
-
-  return url.includes("http") ? url : `https://${url}`
+  return "http://localhost:3000"
 }
 
 export function formatPrice({
