@@ -39,5 +39,3 @@ jobs:
           tags: |
             ghcr.io/front-matter/homepageable:latest
             ghcr.io/front-matter/homepageable:${{ github.sha }}
-          labels: |
-            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}

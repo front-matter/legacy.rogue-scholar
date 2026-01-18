@@ -28,6 +28,8 @@ ENV NEXT_PUBLIC_API_URL=""
 ENV NEXT_PUBLIC_SUPABASE_URL=""
 ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=""
 
+LABEL org.opencontainers.image.source="https://github.com/front-matter/legacy.rogue-scholar"
+
 # If using output: "standalone"
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
