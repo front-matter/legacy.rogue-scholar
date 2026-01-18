@@ -53,7 +53,7 @@ export const Byline: React.FunctionComponent<Props> = ({ post, blog }) => {
           {t("posts.author", { count: post.authors.length })}{" "}
           {post.authors.map((author, index) => (
             <Author
-              key={author.name}
+              key={`${author.url || author.name || 'author'}-${index}`}
               name={author.name}
               given={author.given}
               family={author.family}
