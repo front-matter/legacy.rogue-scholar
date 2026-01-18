@@ -34,6 +34,8 @@ LABEL org.opencontainers.image.source="https://github.com/front-matter/legacy.ro
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
+COPY docker-entrypoint.sh /app/
+RUN chmod +x /app/docker-entrypoint.sh
 
 EXPOSE 3000
-CMD ["node", "server.js"]
+CMD ["/app/docker-entrypoint.sh"]
