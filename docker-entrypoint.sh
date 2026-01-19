@@ -1,16 +1,18 @@
 #!/bin/sh
 
-# Replace placeholder values in built JavaScript files with runtime environment variables
-echo "Replacing environment variables at runtime..."
+# Generate runtime configuration file
+echo "Generating runtime configuration..."
 
-# Find and replace in all JS files
-find /app/.next -type f \( -name '*.js' -o -name '*.html' \) -exec sed -i \
-  -e "s|https://placeholder.example.com|${NEXT_PUBLIC_SITE_URL}|g" \
-  -e "s|https://api.placeholder.example.com|${NEXT_PUBLIC_API_URL}|g" \
-  -e "s|https://placeholder.supabase.co|${NEXT_PUBLIC_SUPABASE_URL}|g" \
-  -e "s|eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDk5OTk5OTksImV4cCI6MTk2NTU3NTk5OX0.placeholder|${NEXT_PUBLIC_SUPABASE_ANON_KEY}|g" {} \;
+cat > /app/public/env-config.js << EOF
+window.__RUNTIME_CONFIG__ = {
+  NEXT_PUBLIC_SITE_URL: "${NEXT_PUBLIC_SITE_URL}",
+  NEXT_PUBLIC_API_URL: "${NEXT_PUBLIC_API_URL}",
+  NEXT_PUBLIC_SUPABASE_URL: "${NEXT_PUBLIC_SUPABASE_URL}",
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: "${NEXT_PUBLIC_SUPABASE_ANON_KEY}"
+};
+EOF
 
-echo "Environment variables replaced successfully"
+echo "Runtime configuration generated successfully"
 echo "NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}"
 echo "NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}"
 echo "NEXT_PUBLIC_SUPABASE_URL: ${NEXT_PUBLIC_SUPABASE_URL}"

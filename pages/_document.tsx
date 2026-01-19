@@ -18,7 +18,9 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <script src="/env-config.js" />
+        </Head>
         <body>
           <ColorModeScript
             initialColorMode={customTheme.config.initialColorMode}

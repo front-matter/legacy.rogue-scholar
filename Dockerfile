@@ -14,15 +14,17 @@ FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NEXT_PUBLIC_SITE_URL="https://placeholder.example.com"
-ENV NEXT_PUBLIC_API_URL="https://api.placeholder.example.com"
-ENV NEXT_PUBLIC_SUPABASE_URL="https://placeholder.supabase.co"
-ENV NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBsYWNlaG9sZGVyIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NDk5OTk5OTksImV4cCI6MTk2NTU3NTk5OX0.placeholder"
 RUN pnpm run build
 
 FROM base AS runner
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+# Runtime environment variables - will be overridden by docker run -e flags
+ENV NEXT_PUBLIC_SITE_URL=""
+ENV NEXT_PUBLIC_API_URL=""
+ENV NEXT_PUBLIC_SUPABASE_URL=""
+ENV NEXT_PUBLIC_SUPABASE_ANON_KEY=""
+ENV NEXT_PUBLIC_POCKETBASE_URL=""
 
 LABEL org.opencontainers.image.source="https://github.com/front-matter/legacy.rogue-scholar"
 
