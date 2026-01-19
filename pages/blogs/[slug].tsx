@@ -8,7 +8,6 @@ import { jsonLdScriptProps } from "react-schemaorg"
 import { Blog as BlogSchema } from "schema-dts"
 
 import { Blog } from "@/components/common/Blog"
-import { Comments } from "@/components/common/Comments"
 import { Posts } from "@/components/common/Posts"
 import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
