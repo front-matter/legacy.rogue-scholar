@@ -14,7 +14,6 @@ import {
   blogWithPostsSelect,
   supabase,
 } from "@/lib/supabaseClient"
-import { pocketbaseURL } from "@/lib/pocketbaseClient"
 import { PostType, BlogType } from "@/types/blog"
 
 export async function getServerSideProps(ctx) {
@@ -44,17 +43,7 @@ export async function getServerSideProps(ctx) {
     .select(blogWithPostsSelect)
     .eq("slug", blog_slug)
     .single()
-  let references: any = []
-  if (doi.validate(slug.join("/"))) {
-    const url = pocketbaseURL(slug.join("/"))
-    try {
-      const response = await fetch(url)
-      const record = await response.json()
-      references = record?.references || []
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  const references: any = []
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale!, ["common", "app"])),

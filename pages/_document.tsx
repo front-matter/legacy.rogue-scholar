@@ -18,10 +18,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head>
-          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-          <script src="/env-config.js" />
-        </Head>
+        <Head />
         <body>
           <ColorModeScript
             initialColorMode={customTheme.config.initialColorMode}

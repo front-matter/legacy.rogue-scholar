@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://legacy.rogue-scholar.org</loc><lastmod>2025-01-18T09:05:02.347Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/about</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/blogs</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/board</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/404</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/de/404</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/es/404</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/pt/404</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/fr/404</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/it/404</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/tr/404</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/de/board</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/es/board</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/pt/board</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/fr/board</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/it/board</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://legacy.rogue-scholar.org/tr/board</loc><lastmod>2025-01-18T09:05:02.349Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org</loc><lastmod>2026-01-19T11:41:05.549Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/about</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/blogs</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/board</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/404</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/de/404</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/es/404</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/pt/404</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/fr/404</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/it/404</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/tr/404</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/de/board</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/es/board</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/pt/board</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/fr/board</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/it/board</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://legacy.rogue-scholar.org/tr/board</loc><lastmod>2026-01-19T11:41:05.550Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>
