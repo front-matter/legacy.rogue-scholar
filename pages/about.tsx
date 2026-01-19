@@ -1,7 +1,6 @@
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import { Comments } from "@/components/common/Comments"
 import Faq from "@/components/home/Faq"
 import Hero from "@/components/home/Hero"
 import { Container } from "@/components/layout/Container"
@@ -99,9 +98,6 @@ export default function Home({
     <Layout>
       <Hero blogs={blogs} />
       <Faq />
-      <Container className="pb-5 pt-2 text-center lg:pt-5">
-        <Comments locale={locale} />
-      </Container>
     </Layout>
   )
 }

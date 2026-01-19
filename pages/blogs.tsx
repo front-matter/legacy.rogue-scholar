@@ -3,7 +3,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 import React from "react"
 
 import { Blogs } from "@/components/common/Blogs"
-import { Comments } from "@/components/common/Comments"
 import Layout from "@/components/layout/Layout"
 import Pagination from "@/components/layout/Pagination"
 import Search from "@/components/layout/Search"
@@ -109,9 +108,6 @@ const BlogsPage: React.FunctionComponent<Props> = ({
         <Pagination pagination={pagination} />
         <Blogs blogs={blogs} pagination={pagination} />
         {pagination.total > 0 && <Pagination pagination={pagination} />}
-        <div className="mx-auto max-w-2xl pb-5 lg:max-w-4xl">
-          <Comments locale={locale} />
-        </div>
       </Layout>
     </>
   )

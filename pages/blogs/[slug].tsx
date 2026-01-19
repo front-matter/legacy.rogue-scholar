@@ -166,9 +166,6 @@ const BlogPage: React.FunctionComponent<Props> = ({
           {posts && <Posts posts={posts} pagination={pagination} blog={blog} />}
           {pagination.total > 0 && <Pagination pagination={pagination} />}
         </div>
-        <div className="mx-auto max-w-2xl pb-5 lg:max-w-4xl">
-          <Comments locale={locale} />
-        </div>
       </Layout>
     </>
   )

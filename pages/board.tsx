@@ -5,7 +5,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
 import { Container } from "@/components/layout/Container"
 import Layout from "@/components/layout/Layout"
-import { Comments } from "@/components/common/Comments"
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
   return {
@@ -95,9 +94,6 @@ export default function Board({ locale }) {
           </ul>
         </div>
       </div>
-      <Container className="pb-5 pt-2 text-center xl:pt-5">
-        <Comments locale={locale} />
-      </Container>
     </Layout>
   )
 }
