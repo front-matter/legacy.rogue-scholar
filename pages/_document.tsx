@@ -19,6 +19,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
+          {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script src="/env-config.js" />
         </Head>
         <body>
