@@ -1,6 +1,4 @@
 {
-  "board.goal": "Das Rogue Scholar Advisory Board steuert die allgemeine Richtung von Rogue Scholar und gibt Feedback zu Verwaltung, Funktionsentwicklung und Öffentlichkeitsarbeit.",
-  "board.schedule": "Der Beirat trat erstmals im Januar 2024 zusammen und wird zweimal im Jahr virtuell tagen. Ein zusammenfassender Bericht über jede Sitzung wird auf dem Blog veröffentlicht.",
   "categories.agriculturalBiotechnology": "Agrarbiotechnologie und Lebensmittelbiotechnologie",
   "categories.agriculturalSciences": "Agrarwissenschaften",
   "categories.agricultureForestryFisheries": "Land- und Forstwirtschaft, Fischerei",
@@ -98,7 +96,6 @@
   "menu.about": "Über",
   "menu.blog": "Blog",
   "menu.blogs": "Blogs",
-  "menu.board": "Beirat",
   "menu.community": "Community",
   "menu.dashboard": "Dashboard",
   "menu.discussions": "Diskussionen",

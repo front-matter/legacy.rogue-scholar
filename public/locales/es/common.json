@@ -1,6 +1,4 @@
 {
-  "board.goal": "La Junta Consultiva de Rogue Scholar orienta la dirección general de Rogue Scholar, proporcionando información sobre la gobernanza, el desarrollo de funciones y las actividades de divulgación.",
-  "board.schedule": "El Consejo Asesor se reunió por primera vez en enero de 2024, y se reunirá virtualmente dos veces al año. En el blog se publica un informe resumido de cada reunión.",
   "categories.agriculturalBiotechnology": "Biotecnología agrícola y biotecnología alimentaria.",
   "categories.agriculturalSciences": "Ciencias Agrícolas",
   "categories.agricultureForestryFisheries": "Agricultura, Silvicultura, Pesca",
@@ -97,7 +95,6 @@
   "menu.about": "Acerca de",
   "menu.blog": "Blog",
   "menu.blogs": "Blogs",
-  "menu.board": "Junta consultiva",
   "menu.community": "Comunidad",
   "menu.dashboard": "Panel",
   "menu.discussions": "Debates",

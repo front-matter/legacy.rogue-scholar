@@ -1,6 +1,4 @@
 {
-  "board.goal": "Rogue Scholar Danışma Kurulu, yönetişim, özellik geliştirme ve sosyal yardım faaliyetleri hakkında geri bildirim sağlayarak Rogue Scholar'ın genel yönüne rehberlik eder.",
-  "board.schedule": "Danışma Kurulu ilk olarak Ocak 2024'te toplanmıştır ve yılda iki kez sanal olarak toplanacaktır. Her toplantının özet raporu blogda yayınlanmaktadır.",
   "categories.agriculturalBiotechnology": "Tarımsal Biyoteknoloji",
   "categories.agriculturalSciences": "Tarım Bilimleri",
   "categories.agricultureForestryFisheries": "Tarım, Ormancılık ve Balıkçılık",
@@ -97,7 +95,6 @@
   "menu.about": "Hakkında",
   "menu.blog": "Blog",
   "menu.blogs": "Bloglar",
-  "menu.board": "Danışma Kurulu",
   "menu.community": "Topluluk",
   "menu.dashboard": "Gösterge Tablosu",
   "menu.discussions": "Tartışmalar",

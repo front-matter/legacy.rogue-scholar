@@ -1,6 +1,4 @@
 {
-  "board.goal": "O Conselho Consultivo do Rogue Scholar orienta a direção geral do Rogue Scholar, fornecendo feedback sobre a governação, o desenvolvimento de funcionalidades e as actividades de divulgação.",
-  "board.schedule": "O Conselho Consultivo reuniu-se pela primeira vez em janeiro de 2024 e reunir-se-á virtualmente duas vezes por ano. Um relatório de síntese de cada reunião é publicado no blogue.",
   "categories.agriculturalBiotechnology": "Biotecnologia agrícola e biotecnologia alimentar",
   "categories.agriculturalSciences": "Ciências agrícolas",
   "categories.agricultureForestryFisheries": "Agricultura, silvicultura e pesca",
@@ -97,7 +95,6 @@
   "menu.about": "Sobre",
   "menu.blog": "Blogue",
   "menu.blogs": "Blogues",
-  "menu.board": "Conselho Consultivo",
   "menu.community": "Comunidade",
   "menu.dashboard": "Painel",
   "menu.discussions": "Discussões",

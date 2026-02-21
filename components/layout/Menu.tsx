@@ -3,7 +3,6 @@ import Link from "next/link"
 import { useTranslation } from "next-i18next"
 
 import { useMobileBreakpoint } from "@/lib/blog/layout"
-import ServiceMenu from "@/components/layout/ServiceMenu"
 import CommunityMenu from "@/components/layout/CommunityMenu"
 
 export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
@@ -46,7 +45,6 @@ export default function Menu({ mobileMode }: { mobileMode?: boolean }) {
           {item.label}
         </Button>
       ))}
-      <ServiceMenu />
       <CommunityMenu />
     </Stack>
   )

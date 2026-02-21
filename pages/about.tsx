@@ -1,8 +1,7 @@
 import { useTranslation } from "next-i18next"
 import { serverSideTranslations } from "next-i18next/serverSideTranslations"
 
-import Faq from "@/components/home/Faq"
-import Hero from "@/components/home/Hero"
+// Hero and Faq removed
 import { Container } from "@/components/layout/Container"
 import Layout from "@/components/layout/Layout"
 import { blogsSelect, supabase } from "@/lib/supabaseClient"
@@ -76,10 +75,7 @@ export async function getServerSideProps(ctx) {
   }
 }
 
-export default function Home({
-  blogs,
-  locale,
-}) {
+export default function Home({ blogs, locale }) {
   const { t } = useTranslation(["common"])
 
   blogs = blogs.map((blog) => {
@@ -94,10 +90,5 @@ export default function Home({
     return blog
   })
 
-  return (
-    <Layout>
-      <Hero blogs={blogs} />
-      <Faq />
-    </Layout>
-  )
+  return <Layout>{/* Hero and FAQ removed */}</Layout>
 }
