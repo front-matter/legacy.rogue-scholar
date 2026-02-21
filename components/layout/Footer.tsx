@@ -59,7 +59,7 @@ export default function Footer() {
             {parse(
               t("footer.creativeCommons", {
                 url: "https://creativecommons.org/licenses/by/4.0/legalcode",
-              })
+              }),
             )}
           </p>
         </div>
