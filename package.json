@@ -58,7 +58,7 @@
     "is-relative-url": "^4.1.0",
     "jsdom": "^22.1.0",
     "jsonify-that-feed": "^1.2.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "masto": "^6.10.4",
     "negotiator": "^0.6.4",
     "next": "^14.2.35",
