@@ -33,7 +33,7 @@
     "@tryghost/content-api": "^1.12.3",
     "ajv": "^8.17.1",
     "archiver": "^5.3.2",
-    "axios": "^1.13.2",
+    "axios": "^1.13.5",
     "base32": "^0.0.7",
     "clsx": "^1.2.1",
     "color2k": "^2.0.3",
