@@ -31,7 +31,7 @@
     "@tanstack/react-query": "^4.42.1",
     "@tryghost/admin-api": "^1.14.4",
     "@tryghost/content-api": "^1.12.3",
-    "ajv": "^8.17.1",
+    "ajv": "^8.18.0",
     "archiver": "^5.3.2",
     "axios": "^1.13.2",
     "base32": "^0.0.7",
